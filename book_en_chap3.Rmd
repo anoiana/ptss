@@ -1,0 +1,47 @@
+---
+date: "&#x1F4C5; `r source('generalR.R'); newdate_func(TRUE)`"
+title: "`r totitle('Nonparametric Analysis of Time-to-event')`"
+output:
+  bookdown::html_document2:
+    toc: true
+    toc_float: 
+     collapsed: false
+    toc_depth: 3
+    code_folding: hide
+    number_sections: false
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+---
+
+# INTRODUCTION
+
+Each $n$ patients has a counting process that registers the number of occurrences of an event of interest. We shall denote it as $N_i(t)$ for $i$th patient in the time interval $[0,t]$. The intensity process of $N_i(t)$ has the following form 
+$$
+\lambda_i(t) = \alpha(t)Y_i(t), 
+(\#eq:eq1)
+$$
+where $\alpha(t)$ is a non-negative function, and
+$$
+Y_i(t) = \cases{1, \quad \text{patient i is at risk "just before" time t}\\
+0, \quad \text{otherwise}}
+$$
+
+
+
+
+
+

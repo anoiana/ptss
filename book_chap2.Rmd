@@ -1,5 +1,5 @@
 ---
-title: "Quá trình ngẫu nhiên và phân tích thời gian xảy ra sự kiện tiền sự"
+title: "Kiến Thức Toán Cần Thiết"
 date: "&#x1F4C5; `r source('generalR.R'); newdate_func(TRUE) `"
 output:
   bookdown::html_document2:
@@ -24,11 +24,6 @@ output:
 \def\indep{\perp\!\!\!\!\perp}
 \newcommand{\overeq}[2]{\stackrel{#1}{#2}}
 \def\epsilon{\varepsilon} 
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
-source("generalR.R")
-```
-
 
 # Quá trình ngẫu nhiên trong thời gian rời rạc
 

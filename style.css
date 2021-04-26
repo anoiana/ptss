@@ -103,7 +103,7 @@ a:hover {
   position: sticky;
   top: 600px; /*Controls where TOC stops when sticky */
   width: 100% !important;
-  padding: 10px;
+  padding: 7px;
 }
 
 /* NO TOC on mobile */

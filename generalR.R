@@ -56,3 +56,5 @@ newdate_func = function(update){
     saveRDS(mylist, file = 'date_list.rds')}
   readRDS(file ='date_list.rds')[[filename]]
 }
+
+totitle = function(x) paste("&#10001; ",stringr::str_to_title(x))
