@@ -1,0 +1,181 @@
+ /*----------------ADDING WHITE SPACE-------------*/
+
+.title {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.75em;
+}
+
+.section h1,
+.section h2,
+.section h3,
+.section h4,
+.section h5 {
+  padding-top: 3em !important; /*adding so much padding because theme adds a margin-top: -65px by default */
+  margin-bottom: 0.75em;
+}
+
+ /*------------- Whole Document---------------- */
+
+body {
+    font-family: 'Muli';
+    font-size: 19px;
+}
+
+
+/* links */
+a {
+  color: #A569BD;
+}
+
+a:hover {
+ color: #7D3C98; /* darker color when hovering */
+}
+
+
+  /* Space Between TOC and
+  Righthand side content on large screens */
+
+ @media (min-width: 992px) {
+    .col-md-9 {
+      width: 75%;
+      padding-left: 5em !important;
+    }
+ }
+
+
+/* -----------HERO IMAGE AT TOP OF PAGE -----------*/
+
+/* LARGE HERO IMAGE AT TOP OF PAGE*/
+
+.hero-image {
+    position: relative;
+    margin-bottom: 2em;
+    /* liner gradient tints the image darker for readability*/
+    background-image: linear-gradient( rgba(0,0,0,.2), rgba(0,0,0,.2) ), url(buivien.jpg);
+    height: 400px;
+    background-size: cover;
+    background-color: #141c25f2;
+    background-position: center center;
+    display: flex; /* Change to `display: none` for no hero image */
+    justify-content: center;
+    align-items: center;
+}
+
+.top-text {
+  position: relative;
+  font-size: 34px;
+  padding-bottom: 0.5em
+  text-transform: uppercase;
+  text-align: center;
+  display: block; /* Change to `display: none` for no top text */
+  color: #ffffff72;
+}
+
+.bottom-text {
+  position: relative;
+  letter-spacing: 0.065em;
+  line-height: 1em;
+  font-size: 68px;
+  text-transform: uppercase;
+  text-align: center;
+  display: block; /* Change to `display: none` for no bottom text */
+  color: #ffffff;
+  margin-bottom: 2.5rem;
+  font-weight: bold;
+}
+
+
+/*-----------------TOC----------------*/
+
+/* Makes TOC sticky (needed if you used a hero image) */
+
+.row-fluid{
+  display: flex; /* Necessary for sticky TOC*/
+
+}
+
+.tocify {
+  border: none;   /*Removes border */
+  border-radius: 0.1px; /* Gets rid of rounded corners on TOC */
+  font-size: 16px;
+  position: -webkit-sticky;
+  background: #f9f9f9 none repeat scroll 0 0;
+  position: sticky;
+  top: 600px; /*Controls where TOC stops when sticky */
+  width: 100% !important;
+  padding: 10px;
+}
+
+/* NO TOC on mobile */
+@media screen and (max-width: 767px){
+
+  .col-xs-12.col-sm-4.col-md-3 {
+    display: none;
+  }
+
+  .top-text {
+    font-size: 25px;
+  }
+
+  .bottom-text {
+    font-size: 40px;
+  }
+
+}
+
+   /* TOC links */
+
+.list-group-item {
+    color: #7b8a8b;
+    font-size: 16px;
+}
+
+.list-group-item.active {
+    color: #2c3e50;
+    background-color: white;
+    border: none;
+}
+
+.list-group-item:hover,
+.list-group-item.active:hover {
+    color: #131b23;
+    background-color: white;
+}
+
+/*-------------------------------------------------------*/
+
+.blackbox {
+  padding: 0.2em 0em 0.2em 0.2em;
+  border: 2px solid #A8A8A8;
+  border-radius: 10px;
+  background: #EBEBEB 5px 0.3em/2.5em no-repeat;
+  margin-bottom: 10px;
+}
+
+.center {
+  text-align: left;
+  padding: 0em 0em 0.3em 3em;
+  font-style: italic;
+}
+
+.mathematics {
+  background-image: url("MATH.png");
+}
+
+.important {
+  background-image: url("important.png");
+  background-size: 30px;
+}
+
+.brainstorm {
+  background-image: url("brainstorm.png");
+}
+
+.notes {
+  background-image: url("shark.png");
+}
+
+.right {
+  text-align: right;
+}
+

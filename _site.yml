@@ -1,0 +1,30 @@
+name: "ANOIANA"
+output_dir: "docs"
+output:
+  bookdown::html_document2:
+    css: style.css
+    theme: default
+    highlight: tango
+    includes:
+      in_header:
+      - header.html
+      - hero-image.html
+navbar:
+  title: "ANOIANA"
+  left:
+    - text: "Home"
+      href: index.html
+      icon: fa-home
+    - text: "About"
+      href: about.html
+      icon: fa-comment-dots
+    - text: "books"
+      icon: fa-book-open
+      menu:
+      - text: Chương một
+        href: about.html
+      - text: "---"
+      - text: Chương hai
+        href: book_chap2.html
+  type: inverse
+
