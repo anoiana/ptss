@@ -22,7 +22,7 @@ navbar:
       icon: fa-book-open
       menu:
       - text: "Kiến Thức Toán Cần Thiết"
-        href: book_chap2.html
+        href: book_vn_chap2.html
       - text: "---"
       - text: "Phân Tích Phi Tham Số"
         href: book_chap3.html

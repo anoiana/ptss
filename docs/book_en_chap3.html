@@ -342,7 +342,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="book_chap2.html">Kiến Thức Toán Cần Thiết</a>
+      <a href="book_vn_chap2.html">Kiến Thức Toán Cần Thiết</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -394,8 +394,8 @@ div.tocify {
 
 <hr />
 <div id="introduction" class="section level1">
-<h1>INTRODUCTION</h1>
-<p>Each <span class="math inline">\(n\)</span> patients has a counting process that registers the number of occurrences of an event of interest. We shall denote it as <span class="math inline">\(N_i(t)\)</span> for <span class="math inline">\(i\)</span>th patient in the time interval <span class="math inline">\([0,t]\)</span>. The intensity process of <span class="math inline">\(N_i(t)\)</span> has the following form
+<h1>Introduction</h1>
+<p>Each <span class="math inline">\(n\)</span> patient has a counting process that registers the number of occurrences of an event of interest. We shall denote it as <span class="math inline">\(N_i(t)\)</span> for <span class="math inline">\(i\)</span>th patient in the time interval <span class="math inline">\([0,t]\)</span>. The intensity process of <span class="math inline">\(N_i(t)\)</span> has the following form
 <span class="math display" id="eq:eq1">\[
 \lambda_i(t) = \alpha(t)Y_i(t), 
 \tag{1}
@@ -405,6 +405,55 @@ where <span class="math inline">\(\alpha(t)\)</span> is a non-negative function,
 Y_i(t) = \cases{1, \quad \text{patient i is at risk &quot;just before&quot; time t}\\
 0, \quad \text{otherwise}}
 \]</span></p>
+<p>Also, <span class="math inline">\(N(t) = \sum_{i=1}^n N_i(t)\)</span> is the total number of observed events in the interval <span class="math inline">\([0,t)\)</span>. If no tied event occurs we can obtain the intensity process
+<span class="math display" id="eq:eq2">\[
+\lambda(t) = \sum_{i=1}^n\lambda_i(t) = \alpha(t)Y(t)
+\tag{2}
+\]</span>
+where <span class="math inline">\(Y(t) = \sum_{i=1}^nY_i(t)\)</span> is the number at risk “just before” time <span class="math inline">\(t\)</span>.</p>
+</div>
+<div id="the-nelson-aalen-estimator" class="section level1">
+<h1>The Nelson-Aalen estimator</h1>
+<div id="the-survival-data" class="section level2">
+<h2>The survival data</h2>
+<p>For survival data in which we are interested in the time to occurrence of an event for patients in a population. In this case, the hazard rate <span class="math inline">\(\alpha(t)\)</span> specifies the instanstaneous probability of the event, that is, <span class="math inline">\(\alpha(t)dt\)</span> is the conditional probability the event will occur in the small time interval <span class="math inline">\([t,t+dt)\)</span> condition on the fact that it has not occurred earlier.</p>
+<p>Without parametric assumptions, <span class="math inline">\(\alpha(t)\)</span> can be any non-negative function that make it difficult to estimate. Thus, it is preferable to estimate the cumulative hazard
+<span class="math display" id="eq:eq3">\[
+A(t) = \int_0^t\alpha(s)ds
+\tag{3}
+\]</span>
+and it is ended up with the Nelson-Aalen estimator that is as follows
+<span class="math display" id="eq:eq4">\[
+\widehat{A}(t) = \sum_{T_j \le t}\frac{1}{Y(T_j)}
+\tag{4}
+\]</span></p>
+<p><strong>An intuitive justification of the estimator for censored survival data:</strong> the interal <span class="math inline">\([0,t]\)</span> is partitioned into small intervals, a typical interval that is <span class="math inline">\([s,s+ds)\)</span> contains at most one observed event. The contribution to <span style="color: black; font-size: 18px;"><em>equation</em></span> <a href="#eq:eq3">(3)</a> over the interval <span class="math inline">\([s,s+dt)\)</span> is <span class="math inline">\(\alpha(s)ds\)</span> that was defined above. If there is no event occuring in <span class="math inline">\((s,s+ds)\)</span> then <span class="math inline">\(\alpha(s)ds\)</span> is zero, and it is equal to <span class="math inline">\(1/Y(s) = 1/Y(T_j)\)</span>, with <span class="math inline">\(T_j \in [s,s+ds)\)</span>. Aggregating these contributions over all time interval, we end up with <span class="math inline">\(\widehat{A}(t)\)</span> as a sensible estimator of <span class="math inline">\(A(t)\)</span>.</p>
+<p>Later we will show that the variance of the Nelson-Aslen estimator is
+<span class="math display" id="eq:eq5">\[
+\widehat{\sigma}^2(t) = \sum_{T_j \le t}\frac{1}{Y(T_j)^2}
+\tag{5}
+\]</span>
+hence,
+<span class="math display" id="eq:eq6">\[
+\widehat{(}A)(t) \pm \Phi^{-1}(1-\alpha/2)\widehat{\sigma}(t)
+\tag{6}
+\]</span>
+alternative option is to use log-transformation
+<span class="math display" id="eq:eq7">\[
+\widehat{A}(t)\exp\{\pm \Phi^{-1}(1-\alpha/2)\widehat{\sigma}(t)/\widehat{A}(t)\}
+\tag{7}
+\]</span></p>
+</div>
+<div id="the-multiplicative-intensity-model" class="section level2">
+<h2>The multiplicative intensity model</h2>
+<p>Suppose we want to study the <span style="color: tomato; font-size: 18px;">time to death</span> and <span style="color: tomato; font-size: 18px;">the cause of death</span> for individuals in a population. With competing risk, we can model by a Markov chain with one transient state <span class="math inline">\(0\)</span> representing “alive” and <span class="math inline">\(k\)</span> absorbing states corresponding to “death by cause <span class="math inline">\(h\)</span>”, <span class="math inline">\(h = 1,2,\dots,k\)</span>. Thus, the transition intensity from state 0 to state <span class="math inline">\(h\)</span> is denoted <span class="math inline">\(\alpha_{0h}(t)\)</span> and the instantaneous risk of dying from cause <span class="math inline">\(h\)</span> is <span class="math inline">\(\alpha_{0h}(t)dt\)</span> that is the conditional probability an individual will die of cause <span class="math inline">\(h\)</span> in the small intervall <span class="math inline">\([t,t+dt)\)</span> condition on the individual is still alive just prior to <span class="math inline">\(t\)</span>. <span class="math inline">\(\alpha_{0h}(t)dt\)</span> is termed <em>cause-specific hazard rates</em>.</p>
+<p>Hence, if we have sample of <span class="math inline">\(n\)</span> patients, then <span class="math inline">\(N_{0h}(t)\)</span> is the process that counts the number of patients who are observed to die from cause <span class="math inline">\(h\)</span> in the interval <span class="math inline">\([0,t]\)</span>, and <span class="math inline">\(Y_0(t)\)</span> is the number of individuals at risk just prior to time <span class="math inline">\(t\)</span>. The intensity process of multiplicative of <span class="math inline">\(N_{0h}(t)\)</span> is <span class="math inline">\(\alpha_{0h}(t)Y_0(h)\)</span>. By using the Nelson-Aalen estimator, we obtain estimate of the cumulative cause-specific hazard <span class="math inline">\(A_{0h}(t) = \int_0^t \alpha_{0h}(u)du\)</span>.</p>
+<p>More general, we can use Markov chain with a finite number of states in which the transition intensity <span class="math inline">\(\alpha_{gh}(t)\)</span> describes the instantaneous risk of transition from state <span class="math inline">\(g\)</span> to <span class="math inline">\(h\)</span>, that is, <span class="math inline">\(\alpha_{gh}(t)dt\)</span> is the conditional probability a patient who is in state <span class="math inline">\(g\)</span> just before time <span class="math inline">\(t\)</span> will make a transition to state <span class="math inline">\(h\)</span> in the small time interval <span class="math inline">\([t,t+dt)\)</span>.</p>
+<!-- ------------------------------------------------------------------------------------ -->
+</div>
+</div>
+<div id="references" class="section level1">
+<h1><em>References</em></h1>
 </div>
 
 

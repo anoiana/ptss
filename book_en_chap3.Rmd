@@ -1,5 +1,7 @@
 ---
-date: "&#x1F4C5; `r source('generalR.R'); newdate_func(TRUE)`"
+params:
+  update_date: FALSE
+date: "`r source('generalR.R'); newdate_func(params$update_date)`"
 title: "`r totitle('Nonparametric Analysis of Time-to-event')`"
 output:
   bookdown::html_document2:
@@ -9,6 +11,7 @@ output:
     toc_depth: 3
     code_folding: hide
     number_sections: false
+bibliography: ["citation.bib"]
 ---
 
 \newcommand{\bf}[1]{\boldsymbol{#1}}
@@ -27,9 +30,11 @@ output:
 
 ---
 
-# INTRODUCTION
+`r lb = purrr::partial(lb,vn = FALSE)`
 
-Each $n$ patients has a counting process that registers the number of occurrences of an event of interest. We shall denote it as $N_i(t)$ for $i$th patient in the time interval $[0,t]$. The intensity process of $N_i(t)$ has the following form 
+# Introduction
+
+Each $n$ patient has a counting process that registers the number of occurrences of an event of interest. We shall denote it as $N_i(t)$ for $i$th patient in the time interval $[0,t]$. The intensity process of $N_i(t)$ has the following form 
 $$
 \lambda_i(t) = \alpha(t)Y_i(t), 
 (\#eq:eq1)
@@ -40,8 +45,57 @@ Y_i(t) = \cases{1, \quad \text{patient i is at risk "just before" time t}\\
 0, \quad \text{otherwise}}
 $$
 
+Also, $N(t) = \sum_{i=1}^n N_i(t)$ is the total number of observed events in the interval $[0,t)$. If no tied event occurs we can obtain the intensity process
+$$
+\lambda(t) = \sum_{i=1}^n\lambda_i(t) = \alpha(t)Y(t)
+(\#eq:eq2)
+$$
+where $Y(t) = \sum_{i=1}^nY_i(t)$ is the number at risk "just before" time $t$.
+
+# The Nelson-Aalen estimator
+
+## The survival data
+
+For survival data in which we are interested in the time to occurrence of an event for patients in a population. In this case, the hazard rate $\alpha(t)$ specifies the instanstaneous probability of the event, that is, $\alpha(t)dt$ is the conditional probability the event will occur in the small time interval $[t,t+dt)$ condition on the fact that it has not occurred earlier. 
+
+Without parametric assumptions, $\alpha(t)$ can be any non-negative function that make it difficult to estimate. Thus, it is preferable to estimate the cumulative hazard
+$$
+A(t) = \int_0^t\alpha(s)ds
+(\#eq:eq3)
+$$
+and it is ended up with the Nelson-Aalen estimator that is as follows
+$$
+\hat{A}(t) = \sum_{T_j \le t}\frac{1}{Y(T_j)}
+(\#eq:eq4)
+$$
+
+__An intuitive justification of the estimator for censored survival data:__ the interal $[0,t]$ is partitioned into small intervals, a typical interval that is  $[s,s+ds)$  contains at most one observed event. The contribution to `r lb(eq3)` over the interval $[s,s+dt)$ is $\alpha(s)ds$ that was defined above. If there is no event occuring in $(s,s+ds)$ then $\alpha(s)ds$ is zero, and it is equal to $1/Y(s) = 1/Y(T_j)$, with $T_j \in [s,s+ds)$. Aggregating these contributions over all time interval, we end up with $\hat{A}(t)$ as a sensible estimator of $A(t)$. 
+
+Later we will show that the variance of the Nelson-Aslen estimator is 
+$$
+\hat{\sigma}^2(t) = \sum_{T_j \le t}\frac{1}{Y(T_j)^2}
+(\#eq:eq5)
+$$
+hence,
+$$
+\hat(A)(t) \pm \Phi^{-1}(1-\alpha/2)\hat{\sigma}(t)
+(\#eq:eq6)
+$$
+alternative option is to use log-transformation
+$$
+\hat{A}(t)\exp\{\pm \Phi^{-1}(1-\alpha/2)\hat{\sigma}(t)/\hat{A}(t)\}
+(\#eq:eq7)
+$$
+
+## The multiplicative intensity model
+
+Suppose we want to study the `r colorize('time to death','tomato')` and `r colorize('the cause of death','tomato')` for individuals in a population. With competing risk, we can model by a Markov chain with one transient state $0$ representing "alive" and $k$ absorbing states corresponding to "death by cause $h$", $h = 1,2,\dots,k$. Thus, the transition intensity from state 0 to state $h$ is denoted $\alpha_{0h}(t)$ and the instantaneous risk of dying from cause $h$ is $\alpha_{0h}(t)dt$ that is the conditional probability an individual will die of cause $h$ in the small intervall $[t,t+dt)$ condition on the individual is still alive just prior to $t$. $\alpha_{0h}(t)dt$ is termed _cause-specific hazard rates_.
+
+Hence, if we have  sample of $n$ patients, then $N_{0h}(t)$ is the process that counts the number of patients who are observed to die from cause $h$ in the interval $[0,t]$, and $Y_0(t)$ is the number of individuals at risk just prior to time $t$. The intensity process of multiplicative of $N_{0h}(t)$ is $\alpha_{0h}(t)Y_0(h)$. By using the Nelson-Aalen estimator, we obtain estimate of the cumulative cause-specific hazard $A_{0h}(t) = \int_0^t \alpha_{0h}(u)du$.
+
+More general, we can use Markov chain with a finite number of states in which the transition intensity $\alpha_{gh}(t)$ describes the instantaneous risk of transition from state $g$ to $h$, that is, $\alpha_{gh}(t)dt$ is the conditional probability a patient who is in state $g$ just before time $t$ will make a transition to state $h$ in the small time interval $[t,t+dt)$. 
 
 
 
-
-
+<!-- ------------------------------------------------------------------------------------ -->
+# _References_

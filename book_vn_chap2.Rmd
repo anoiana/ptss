@@ -1,6 +1,8 @@
 ---
+params:
+  update_date: FALSE
 title: "Kiến Thức Toán Cần Thiết"
-date: "&#x1F4C5; `r source('generalR.R'); newdate_func(TRUE) `"
+date: "&#x1F4C5; `r source('generalR.R'); newdate_func(params$update_date)`"
 output:
   bookdown::html_document2:
     toc: true

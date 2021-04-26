@@ -52,7 +52,7 @@ newdate_func = function(update){
   mylist <- readRDS(file ='date_list.rds')
 
   if(update|!(filename%in%names(mylist))){
-    mylist[[filename]]<- format(Sys.time(),format = c('%Y-%m-%d') )
+    mylist[[filename]]<- format(Sys.time(),format = c('%Y-%m-%d') )%>% {paste("&#x1F4C5;",.)}
     saveRDS(mylist, file = 'date_list.rds')}
   readRDS(file ='date_list.rds')[[filename]]
 }

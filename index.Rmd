@@ -3,5 +3,4 @@ title: "ANOIANA"
 output:  bookdown::html_document2
 ---
 
-
-Trang này tập trung các kiến thức liên quan đến phân tích sống sót (survival analysis). 
+This is my collection of lectures and notes that relate to survival analysis. 
