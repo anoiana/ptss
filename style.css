@@ -158,21 +158,8 @@ a:hover {
   font-style: italic;
 }
 
-.mathematics {
-  background-image: url("MATH.png");
-}
-
-.important {
-  background-image: url("important.png");
-  background-size: 30px;
-}
-
 .brainstorm {
   background-image: url("brainstorm.png");
-}
-
-.notes {
-  background-image: url("shark.png");
 }
 
 .right {
