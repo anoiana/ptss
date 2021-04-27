@@ -7,8 +7,8 @@ output:
     highlight: tango
     includes:
       in_header:
-      - header.html
-      - hero-image.html
+      - "_supp/header.html"
+      - "_supp/hero-image.html"
 navbar:
   title: "ANOIANA"
   left:
@@ -25,7 +25,7 @@ navbar:
         href: book_vn_chap2.html
       - text: "---"
       - text: "Phân Tích Phi Tham Số"
-        href: book_chap3.html
+        href: book_vn_chap3.html
     - text: "books (en)"
       icon: fa-book-open
       menu:

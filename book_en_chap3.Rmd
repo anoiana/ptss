@@ -1,8 +1,8 @@
 ---
 params:
   update_date: FALSE
-date: "`r source('generalR.R'); newdate_func(params$update_date)`"
-title: "`r totitle('Nonparametric Analysis of Time-to-event')`"
+date: "`r source('_supp/helper.R');newdate_func(params$update_date)`"
+title: "`r totitle('nonparametric analysis of time-to-event')`"
 output:
   bookdown::html_document2:
     toc: true
@@ -11,7 +11,7 @@ output:
     toc_depth: 3
     code_folding: hide
     number_sections: false
-bibliography: ["citation.bib"]
+bibliography: ["_supp/citation.bib"]
 ---
 
 \newcommand{\bf}[1]{\boldsymbol{#1}}
@@ -95,7 +95,7 @@ Hence, if we have  sample of $n$ patients, then $N_{0h}(t)$ is the process that 
 
 More general, we can use Markov chain with a finite number of states in which the transition intensity $\alpha_{gh}(t)$ describes the instantaneous risk of transition from state $g$ to $h$, that is, $\alpha_{gh}(t)dt$ is the conditional probability a patient who is in state $g$ just before time $t$ will make a transition to state $h$ in the small time interval $[t,t+dt)$. 
 
-
+@aal2008
 
 <!-- ------------------------------------------------------------------------------------ -->
 # _References_

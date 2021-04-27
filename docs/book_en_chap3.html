@@ -346,7 +346,7 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="book_chap3.html">Phân Tích Phi Tham Số</a>
+      <a href="book_vn_chap3.html">Phân Tích Phi Tham Số</a>
     </li>
   </ul>
 </li>
@@ -449,11 +449,17 @@ alternative option is to use log-transformation
 <p>Suppose we want to study the <span style="color: tomato; font-size: 18px;">time to death</span> and <span style="color: tomato; font-size: 18px;">the cause of death</span> for individuals in a population. With competing risk, we can model by a Markov chain with one transient state <span class="math inline">\(0\)</span> representing “alive” and <span class="math inline">\(k\)</span> absorbing states corresponding to “death by cause <span class="math inline">\(h\)</span>”, <span class="math inline">\(h = 1,2,\dots,k\)</span>. Thus, the transition intensity from state 0 to state <span class="math inline">\(h\)</span> is denoted <span class="math inline">\(\alpha_{0h}(t)\)</span> and the instantaneous risk of dying from cause <span class="math inline">\(h\)</span> is <span class="math inline">\(\alpha_{0h}(t)dt\)</span> that is the conditional probability an individual will die of cause <span class="math inline">\(h\)</span> in the small intervall <span class="math inline">\([t,t+dt)\)</span> condition on the individual is still alive just prior to <span class="math inline">\(t\)</span>. <span class="math inline">\(\alpha_{0h}(t)dt\)</span> is termed <em>cause-specific hazard rates</em>.</p>
 <p>Hence, if we have sample of <span class="math inline">\(n\)</span> patients, then <span class="math inline">\(N_{0h}(t)\)</span> is the process that counts the number of patients who are observed to die from cause <span class="math inline">\(h\)</span> in the interval <span class="math inline">\([0,t]\)</span>, and <span class="math inline">\(Y_0(t)\)</span> is the number of individuals at risk just prior to time <span class="math inline">\(t\)</span>. The intensity process of multiplicative of <span class="math inline">\(N_{0h}(t)\)</span> is <span class="math inline">\(\alpha_{0h}(t)Y_0(h)\)</span>. By using the Nelson-Aalen estimator, we obtain estimate of the cumulative cause-specific hazard <span class="math inline">\(A_{0h}(t) = \int_0^t \alpha_{0h}(u)du\)</span>.</p>
 <p>More general, we can use Markov chain with a finite number of states in which the transition intensity <span class="math inline">\(\alpha_{gh}(t)\)</span> describes the instantaneous risk of transition from state <span class="math inline">\(g\)</span> to <span class="math inline">\(h\)</span>, that is, <span class="math inline">\(\alpha_{gh}(t)dt\)</span> is the conditional probability a patient who is in state <span class="math inline">\(g\)</span> just before time <span class="math inline">\(t\)</span> will make a transition to state <span class="math inline">\(h\)</span> in the small time interval <span class="math inline">\([t,t+dt)\)</span>.</p>
+<p><span class="citation">Aalen, Borgan, and Gjessing (2008)</span></p>
 <!-- ------------------------------------------------------------------------------------ -->
 </div>
 </div>
-<div id="references" class="section level1">
+<div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>
+<div id="refs" class="references">
+<div id="ref-aal2008">
+<p>Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.</p>
+</div>
+</div>
 </div>
 
 

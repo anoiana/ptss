@@ -1,7 +1,6 @@
 ---
-title: "ANOIANA"
+title: "`r source('_supp/helper.R'); my_text('Hello,','Papyrus','15')`"
 output:  bookdown::html_document2
 ---
 
-
-This is my collection of lectures and notes that relate to survival analysis. 
+`r my_text('This is my collection of lectures and notes that relate to survival analysis.', 'Papyrus','28')`

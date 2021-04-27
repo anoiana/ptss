@@ -1,6 +1,6 @@
 ---
 title: "Phân Tích Phi Tham Số"
-date: "&#x1F4C5; `r source('generalR.R'); newdate_func(TRUE)`"
+date: "`r source('_supp/helper.R'); newdate_func(TRUE)`"
 output:
   bookdown::html_document2:
     toc: true

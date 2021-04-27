@@ -46,15 +46,22 @@ draw_table = purrr::partial(reactable::reactable,bordered = TRUE, striped = TRUE
 rs = function(x) paste0("<P align=right> ",x," </P>")
 
 newdate_func = function(update){
-  if(!file.exists('date_list.rds')){saveRDS(list(), file = 'date_list.rds')}
+ if(!file.exists('date_list.rds')){saveRDS(list(), file = 'date_list.rds')}
 
-  filename=knitr::current_input(dir = FALSE)
-  mylist <- readRDS(file ='date_list.rds')
+ filename=knitr::current_input(dir = FALSE)
+ mylist <- readRDS(file ='date_list.rds')
 
-  if(update|!(filename%in%names(mylist))){
-    mylist[[filename]]<- format(Sys.time(),format = c('%Y-%m-%d') )%>% {paste("&#x1F4C5;",.)}
-    saveRDS(mylist, file = 'date_list.rds')}
-  readRDS(file ='date_list.rds')[[filename]]
+ if(update|!(filename%in%names(mylist))){
+  mylist[[filename]]<- format(Sys.time(),format = c('%Y-%m-%d') )%>% {paste("&#x1F4C5;",.)}
+  saveRDS(mylist, file = 'date_list.rds')}
+ readRDS(file ='date_list.rds')[[filename]]
 }
-
+##############################
 totitle = function(x) paste("&#10001; ",stringr::str_to_title(x))
+
+#############################
+
+
+my_text = function(x, font = "Arial", size = 19){
+  sprintf("<p style='font-family:%s; font-size:%s px;'>%s</p>", font, size, x)
+}

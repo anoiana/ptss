@@ -51,7 +51,7 @@ a:hover {
     position: relative;
     margin-bottom: 2em;
     /* liner gradient tints the image darker for readability*/
-    background-image: linear-gradient( rgba(0,0,0,.2), rgba(0,0,0,.2) ), url(buivien.jpg);
+    background-image: linear-gradient( rgba(0,0,0,.2), rgba(0,0,0,.2) ), url("buivien.jpg");
     height: 400px;
     background-size: cover;
     background-color: #141c25f2;
@@ -166,3 +166,10 @@ a:hover {
   text-align: right;
 }
 
+
+/* Remove excessive white space at the end of page */
+
+.tocify-extend-page {
+  height: 100px !important;
+
+}
