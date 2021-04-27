@@ -13,36 +13,30 @@
 
 <title>✑ Phương Pháp Phi Tham Số</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="site_libs/core-js-2.5.3/shim.min.js"></script>
 <script src="site_libs/react-16.12.0/react.min.js"></script>
 <script src="site_libs/react-16.12.0/react-dom.min.js"></script>
 <script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
-<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
 <script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="fugu.png"/>
+
 <div class="hero-image">
         <div class="image-text">
           <div class="top-text">STATISTICS</div>
@@ -60,28 +54,20 @@
     </style>
 
 
-<style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
-</style>
+<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -101,7 +87,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -163,9 +149,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -176,6 +192,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -192,13 +212,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -226,7 +273,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -238,7 +285,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -249,23 +296,10 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.tab('show');
+  menuAnchor.parent().addClass('active');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
 });
 </script>
 
@@ -277,6 +311,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -411,13 +446,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -436,14 +471,14 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-book-open"></span>
      
     books (vn)
      
@@ -457,7 +492,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-book-open"></span>
      
     books (en)
      
@@ -477,11 +512,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -495,9 +530,7 @@ div.tocify {
 </div>
 
 
-
-
-<p><em>(tham khảo tại <span class="citation">Collett (2015)</span> và <span class="citation">Kalbfleisch and Prentice (2011)</span>)</em></p>
+<p><em>tham khảo tại <span class="citation">Collett (2015)</span> và <span class="citation">Kalbfleisch and Prentice (2011)</span></em></p>
 <div id="ý-nghĩa-toán-học-của-các-hàm-số-được-sử-dụng-trong-phân-tích-sống-sót" class="section level1">
 <h1>Ý nghĩa toán học của các hàm số được sử dụng trong phân tích sống sót</h1>
 <p>Gọi <span class="math inline">\(T\)</span> là một biến ngẫu nhiên không âm đại diện cho khoảng thời gian tính tới khi bệnh nhân tử vong. Có ba phương pháp để xác định phân bố xác suất của <span class="math inline">\(T\)</span>, đó là thông qua <em>hàm tồn tại, hàm mật độ xác suất</em> và <em>hàm nguy cơ</em>.</p>
@@ -804,29 +837,29 @@ chính là <span style="color: black; font-size: 18px;"><em>phương trình</em>
 <h2>Ví dụ về ước lượng Kaplan-Meier</h2>
 <p>Ta xem xét ví dụ sau</p>
 <div class="figure"><span id="fig:unnamed-chunk-1"></span>
-<div id="htmlwidget-9d7cb558cbe197b5b257" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9d7cb558cbe197b5b257">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7f8f13ad3ca08531aa59" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7f8f13ad3ca08531aa59">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1: <em>Bảng số liệu minh họa</em>
 </p>
 </div>
 <p>Ta sẽ lần lượt tính các ước lượng và khoảng tin cậy của hàm sống sót như sau</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>time_int =<span class="st"> </span><span class="kw">which</span>(dt<span class="op">$</span>status<span class="op">==</span><span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>nj =<span class="st"> </span><span class="kw">map_dbl</span>(time_int, <span class="cf">function</span>(i)  <span class="kw">nrow</span>(dt[i<span class="op">:</span><span class="kw">nrow</span>(dt),]))<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">c</span>(<span class="kw">nrow</span>(dt),.)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>dj =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(time_int))<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,.)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>result =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">time_int =</span> <span class="kw">c</span>(<span class="dv">0</span>, dt<span class="op">$</span>time[time_int])<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste0</span>(.,<span class="st">&quot;-&quot;</span>), <span class="dt">dj =</span> dj, <span class="dt">nj =</span> nj)<span class="op">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prob =</span> (nj<span class="op">-</span>dj)<span class="op">/</span>nj)<span class="op">%&gt;%</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">St =</span> <span class="kw">cumprod</span>(prob)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dt">digits =</span> <span class="dv">4</span>))<span class="op">%&gt;%</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">se =</span> <span class="kw">sqrt</span>(St<span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">cumsum</span>(dj<span class="op">/</span>(nj<span class="op">*</span>(nj<span class="op">-</span>dj)))) )<span class="op">%&gt;%</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lower  =</span> St <span class="op">-</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span>se, <span class="dt">upper  =</span> St <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span>se )<span class="op">%&gt;%</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lower =</span> <span class="kw">ifelse</span>(lower <span class="op">&lt;</span><span class="dv">0</span>,<span class="dv">0</span>,lower), <span class="dt">upper =</span> <span class="kw">ifelse</span>(upper <span class="op">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,upper))<span class="op">%&gt;%</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric, round,<span class="dt">digits=</span><span class="dv">3</span>))</span>
-<span id="cb1-11"><a href="#cb1-11"></a>gt<span class="op">::</span><span class="kw">gt</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>time_int <span class="ot">=</span> <span class="fu">which</span>(dt<span class="sc">$</span>status<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>nj <span class="ot">=</span> <span class="fu">map_dbl</span>(time_int, <span class="cf">function</span>(i)  <span class="fu">nrow</span>(dt[i<span class="sc">:</span><span class="fu">nrow</span>(dt),]))<span class="sc">%&gt;%</span> <span class="fu">c</span>(<span class="fu">nrow</span>(dt),.)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dj <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(time_int))<span class="sc">%&gt;%</span> <span class="fu">c</span>(<span class="dv">0</span>,.)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">time_int =</span> <span class="fu">c</span>(<span class="dv">0</span>, dt<span class="sc">$</span>time[time_int])<span class="sc">%&gt;%</span> <span class="fu">paste0</span>(.,<span class="st">&quot;-&quot;</span>), <span class="at">dj =</span> dj, <span class="at">nj =</span> nj)<span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> (nj<span class="sc">-</span>dj)<span class="sc">/</span>nj)<span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">St =</span> <span class="fu">cumprod</span>(prob)<span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">4</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se =</span> <span class="fu">sqrt</span>(St<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">cumsum</span>(dj<span class="sc">/</span>(nj<span class="sc">*</span>(nj<span class="sc">-</span>dj)))) )<span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower  =</span> St <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>se, <span class="at">upper  =</span> St <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>se )<span class="sc">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower =</span> <span class="fu">ifelse</span>(lower <span class="sc">&lt;</span><span class="dv">0</span>,<span class="dv">0</span>,lower), <span class="at">upper =</span> <span class="fu">ifelse</span>(upper <span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,upper))<span class="sc">%&gt;%</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(is.numeric, round,<span class="at">digits=</span><span class="dv">3</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(result)</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#vylbxvsxma .gt_table {
+#ckxmingstv .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -851,7 +884,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#vylbxvsxma .gt_heading {
+#ckxmingstv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -863,7 +896,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#vylbxvsxma .gt_title {
+#ckxmingstv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -873,7 +906,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#vylbxvsxma .gt_subtitle {
+#ckxmingstv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -883,13 +916,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#vylbxvsxma .gt_bottom_border {
+#ckxmingstv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vylbxvsxma .gt_col_headings {
+#ckxmingstv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -904,7 +937,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#vylbxvsxma .gt_col_heading {
+#ckxmingstv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -924,7 +957,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#vylbxvsxma .gt_column_spanner_outer {
+#ckxmingstv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -936,15 +969,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#vylbxvsxma .gt_column_spanner_outer:first-child {
+#ckxmingstv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vylbxvsxma .gt_column_spanner_outer:last-child {
+#ckxmingstv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vylbxvsxma .gt_column_spanner {
+#ckxmingstv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -956,7 +989,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#vylbxvsxma .gt_group_heading {
+#ckxmingstv .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -978,7 +1011,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#vylbxvsxma .gt_empty_group_heading {
+#ckxmingstv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -993,15 +1026,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#vylbxvsxma .gt_from_md > :first-child {
+#ckxmingstv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vylbxvsxma .gt_from_md > :last-child {
+#ckxmingstv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vylbxvsxma .gt_row {
+#ckxmingstv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1020,7 +1053,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#vylbxvsxma .gt_stub {
+#ckxmingstv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1032,7 +1065,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#vylbxvsxma .gt_summary_row {
+#ckxmingstv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1042,7 +1075,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#vylbxvsxma .gt_first_summary_row {
+#ckxmingstv .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1052,7 +1085,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#vylbxvsxma .gt_grand_summary_row {
+#ckxmingstv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1062,7 +1095,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#vylbxvsxma .gt_first_grand_summary_row {
+#ckxmingstv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1072,11 +1105,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#vylbxvsxma .gt_striped {
+#ckxmingstv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vylbxvsxma .gt_table_body {
+#ckxmingstv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1085,7 +1118,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#vylbxvsxma .gt_footnotes {
+#ckxmingstv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1099,13 +1132,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#vylbxvsxma .gt_footnote {
+#ckxmingstv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#vylbxvsxma .gt_sourcenotes {
+#ckxmingstv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1119,46 +1152,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#vylbxvsxma .gt_sourcenote {
+#ckxmingstv .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#vylbxvsxma .gt_left {
+#ckxmingstv .gt_left {
   text-align: left;
 }
 
-#vylbxvsxma .gt_center {
+#ckxmingstv .gt_center {
   text-align: center;
 }
 
-#vylbxvsxma .gt_right {
+#ckxmingstv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vylbxvsxma .gt_font_normal {
+#ckxmingstv .gt_font_normal {
   font-weight: normal;
 }
 
-#vylbxvsxma .gt_font_bold {
+#ckxmingstv .gt_font_bold {
   font-weight: bold;
 }
 
-#vylbxvsxma .gt_font_italic {
+#ckxmingstv .gt_font_italic {
   font-style: italic;
 }
 
-#vylbxvsxma .gt_super {
+#ckxmingstv .gt_super {
   font-size: 65%;
 }
 
-#vylbxvsxma .gt_footnote_marks {
+#ckxmingstv .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="vylbxvsxma" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="ckxmingstv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1198,7 +1231,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
       <td class="gt_row gt_right">1</td>
       <td class="gt_row gt_right">15</td>
       <td class="gt_row gt_right">0.933</td>
-      <td class="gt_row gt_right">0.882</td>
+      <td class="gt_row gt_right">0.881</td>
       <td class="gt_row gt_right">0.079</td>
       <td class="gt_row gt_right">0.727</td>
       <td class="gt_row gt_right">1.000</td>
@@ -1278,17 +1311,17 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   
 </table></div>
 <p>Ta dùng package <code>survival</code> để tính</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>out =<span class="st"> </span>survival<span class="op">::</span><span class="kw">survfit</span>(<span class="kw">Surv</span>(time,status)<span class="op">~</span><span class="dv">1</span>, <span class="dt">data =</span> dt, <span class="dt">conf.type =</span> <span class="st">&quot;plain&quot;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>broom<span class="op">::</span><span class="kw">tidy</span>(out)<span class="op">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span><span class="kw">relocate</span>(conf.low, <span class="dt">.before =</span> <span class="st">&quot;conf.high&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric, round,<span class="dt">digits =</span> <span class="dv">4</span>))<span class="op">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="st">  </span><span class="kw">filter</span>(time <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,  <span class="dv">10</span>,  <span class="dv">19</span>,  <span class="dv">30</span>,  <span class="dv">36</span>,  <span class="dv">59</span>,  <span class="dv">75</span>,  <span class="dv">93</span>,  <span class="dv">97</span>, <span class="dv">107</span>))<span class="op">%&gt;%</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> survival<span class="sc">::</span><span class="fu">survfit</span>(<span class="fu">Surv</span>(time,status)<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> dt, <span class="at">conf.type =</span> <span class="st">&quot;plain&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(out)<span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(conf.low, <span class="at">.before =</span> <span class="st">&quot;conf.high&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(is.numeric, round,<span class="at">digits =</span> <span class="dv">4</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,  <span class="dv">10</span>,  <span class="dv">19</span>,  <span class="dv">30</span>,  <span class="dv">36</span>,  <span class="dv">59</span>,  <span class="dv">75</span>,  <span class="dv">93</span>,  <span class="dv">97</span>, <span class="dv">107</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#zabmafxjoi .gt_table {
+#jsnbgnmtuu .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1313,7 +1346,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#zabmafxjoi .gt_heading {
+#jsnbgnmtuu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1325,7 +1358,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#zabmafxjoi .gt_title {
+#jsnbgnmtuu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1335,7 +1368,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#zabmafxjoi .gt_subtitle {
+#jsnbgnmtuu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1345,13 +1378,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#zabmafxjoi .gt_bottom_border {
+#jsnbgnmtuu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zabmafxjoi .gt_col_headings {
+#jsnbgnmtuu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1366,7 +1399,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#zabmafxjoi .gt_col_heading {
+#jsnbgnmtuu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1386,7 +1419,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#zabmafxjoi .gt_column_spanner_outer {
+#jsnbgnmtuu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1398,15 +1431,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#zabmafxjoi .gt_column_spanner_outer:first-child {
+#jsnbgnmtuu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zabmafxjoi .gt_column_spanner_outer:last-child {
+#jsnbgnmtuu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zabmafxjoi .gt_column_spanner {
+#jsnbgnmtuu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1418,7 +1451,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#zabmafxjoi .gt_group_heading {
+#jsnbgnmtuu .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1440,7 +1473,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#zabmafxjoi .gt_empty_group_heading {
+#jsnbgnmtuu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1455,15 +1488,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#zabmafxjoi .gt_from_md > :first-child {
+#jsnbgnmtuu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zabmafxjoi .gt_from_md > :last-child {
+#jsnbgnmtuu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zabmafxjoi .gt_row {
+#jsnbgnmtuu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1482,7 +1515,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#zabmafxjoi .gt_stub {
+#jsnbgnmtuu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1494,7 +1527,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#zabmafxjoi .gt_summary_row {
+#jsnbgnmtuu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1504,7 +1537,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#zabmafxjoi .gt_first_summary_row {
+#jsnbgnmtuu .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1514,7 +1547,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#zabmafxjoi .gt_grand_summary_row {
+#jsnbgnmtuu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1524,7 +1557,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#zabmafxjoi .gt_first_grand_summary_row {
+#jsnbgnmtuu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1534,11 +1567,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#zabmafxjoi .gt_striped {
+#jsnbgnmtuu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zabmafxjoi .gt_table_body {
+#jsnbgnmtuu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1547,7 +1580,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#zabmafxjoi .gt_footnotes {
+#jsnbgnmtuu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1561,13 +1594,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#zabmafxjoi .gt_footnote {
+#jsnbgnmtuu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#zabmafxjoi .gt_sourcenotes {
+#jsnbgnmtuu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1581,46 +1614,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#zabmafxjoi .gt_sourcenote {
+#jsnbgnmtuu .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#zabmafxjoi .gt_left {
+#jsnbgnmtuu .gt_left {
   text-align: left;
 }
 
-#zabmafxjoi .gt_center {
+#jsnbgnmtuu .gt_center {
   text-align: center;
 }
 
-#zabmafxjoi .gt_right {
+#jsnbgnmtuu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zabmafxjoi .gt_font_normal {
+#jsnbgnmtuu .gt_font_normal {
   font-weight: normal;
 }
 
-#zabmafxjoi .gt_font_bold {
+#jsnbgnmtuu .gt_font_bold {
   font-weight: bold;
 }
 
-#zabmafxjoi .gt_font_italic {
+#jsnbgnmtuu .gt_font_italic {
   font-style: italic;
 }
 
-#zabmafxjoi .gt_super {
+#jsnbgnmtuu .gt_super {
   font-size: 65%;
 }
 
-#zabmafxjoi .gt_footnote_marks {
+#jsnbgnmtuu .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="zabmafxjoi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="jsnbgnmtuu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1730,15 +1763,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   
 </table></div>
 <p>Như vậy ta thu được hai kết quả như nhau. Ngoài ra package <code>survival</code> còn hổ trợ nhiều công cụ dành riêng cho phân tích sống sót. Đầu tiên là biểu đồ KM</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>survminer<span class="op">::</span><span class="kw">ggsurvplot</span>(out, <span class="dt">risk.table =</span> <span class="ot">TRUE</span>, <span class="dt">data =</span> dt)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggsurvplot</span>(out, <span class="at">risk.table =</span> <span class="cn">TRUE</span>, <span class="at">data =</span> dt)</span></code></pre></div>
 <p><img src="book_vn_chap1_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Tiếp theo là kết quả của trung vị</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>broom<span class="op">::</span><span class="kw">glance</span>(out)<span class="op">%&gt;%</span><span class="st"> </span>gt<span class="op">::</span><span class="kw">gt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(out)<span class="sc">%&gt;%</span> gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#gsbopbiviu .gt_table {
+#lrshgynvgw .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1763,7 +1796,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#gsbopbiviu .gt_heading {
+#lrshgynvgw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1775,7 +1808,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#gsbopbiviu .gt_title {
+#lrshgynvgw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1785,7 +1818,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#gsbopbiviu .gt_subtitle {
+#lrshgynvgw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1795,13 +1828,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#gsbopbiviu .gt_bottom_border {
+#lrshgynvgw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gsbopbiviu .gt_col_headings {
+#lrshgynvgw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1816,7 +1849,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#gsbopbiviu .gt_col_heading {
+#lrshgynvgw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1836,7 +1869,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#gsbopbiviu .gt_column_spanner_outer {
+#lrshgynvgw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1848,15 +1881,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#gsbopbiviu .gt_column_spanner_outer:first-child {
+#lrshgynvgw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gsbopbiviu .gt_column_spanner_outer:last-child {
+#lrshgynvgw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gsbopbiviu .gt_column_spanner {
+#lrshgynvgw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1868,7 +1901,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#gsbopbiviu .gt_group_heading {
+#lrshgynvgw .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1890,7 +1923,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#gsbopbiviu .gt_empty_group_heading {
+#lrshgynvgw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1905,15 +1938,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#gsbopbiviu .gt_from_md > :first-child {
+#lrshgynvgw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gsbopbiviu .gt_from_md > :last-child {
+#lrshgynvgw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gsbopbiviu .gt_row {
+#lrshgynvgw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1932,7 +1965,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#gsbopbiviu .gt_stub {
+#lrshgynvgw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1944,7 +1977,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#gsbopbiviu .gt_summary_row {
+#lrshgynvgw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1954,7 +1987,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#gsbopbiviu .gt_first_summary_row {
+#lrshgynvgw .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1964,7 +1997,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#gsbopbiviu .gt_grand_summary_row {
+#lrshgynvgw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1974,7 +2007,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#gsbopbiviu .gt_first_grand_summary_row {
+#lrshgynvgw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1984,11 +2017,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#gsbopbiviu .gt_striped {
+#lrshgynvgw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gsbopbiviu .gt_table_body {
+#lrshgynvgw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1997,7 +2030,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#gsbopbiviu .gt_footnotes {
+#lrshgynvgw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2011,13 +2044,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#gsbopbiviu .gt_footnote {
+#lrshgynvgw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#gsbopbiviu .gt_sourcenotes {
+#lrshgynvgw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2031,46 +2064,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#gsbopbiviu .gt_sourcenote {
+#lrshgynvgw .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#gsbopbiviu .gt_left {
+#lrshgynvgw .gt_left {
   text-align: left;
 }
 
-#gsbopbiviu .gt_center {
+#lrshgynvgw .gt_center {
   text-align: center;
 }
 
-#gsbopbiviu .gt_right {
+#lrshgynvgw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gsbopbiviu .gt_font_normal {
+#lrshgynvgw .gt_font_normal {
   font-weight: normal;
 }
 
-#gsbopbiviu .gt_font_bold {
+#lrshgynvgw .gt_font_bold {
   font-weight: bold;
 }
 
-#gsbopbiviu .gt_font_italic {
+#lrshgynvgw .gt_font_italic {
   font-style: italic;
 }
 
-#gsbopbiviu .gt_super {
+#lrshgynvgw .gt_super {
   font-size: 65%;
 }
 
-#gsbopbiviu .gt_footnote_marks {
+#lrshgynvgw .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="gsbopbiviu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="lrshgynvgw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -2123,12 +2156,12 @@ Figure 1: <em>Bảng số liệu minh họa</em>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>
-<div id="refs" class="references">
-<div id="ref-col2015">
-<p>Collett, David. 2015. <em>Modelling Survival Data in Medical Research</em>. CRC press.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-col2015" class="csl-entry">
+Collett, David. 2015. <em>Modelling Survival Data in Medical Research</em>. CRC press.
 </div>
-<div id="ref-kal2002">
-<p>Kalbfleisch, John D, and Ross L Prentice. 2011. <em>The Statistical Analysis of Failure Time Data</em>. Vol. 360. John Wiley &amp; Sons.</p>
+<div id="ref-kal2002" class="csl-entry">
+Kalbfleisch, John D, and Ross L Prentice. 2011. <em>The Statistical Analysis of Failure Time Data</em>. Vol. 360. John Wiley &amp; Sons.
 </div>
 </div>
 </div>
@@ -2162,7 +2195,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>

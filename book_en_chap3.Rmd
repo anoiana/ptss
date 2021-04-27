@@ -32,6 +32,8 @@ bibliography: ["_supp/citation.bib"]
 
 `r lb = purrr::partial(lb,vn = FALSE)`
 
+*ref. to @aal2008*
+
 # Introduction
 
 Each of $n$ patients has a counting process that registers the number of occurrences of an event of interest. We shall denote it as $N_i(t)$ for $i$th patient in the time interval $[0,t]$. The intensity process of $N_i(t)$ has the following form 
