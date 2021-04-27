@@ -1,6 +1,6 @@
 ---
-title: "`r source('_supp/helper.R'); my_text('Hello,','Papyrus','15')`"
+title: "`r source('_supp/helper.R'); my_text('Hello,','didot','15')`"
 output:  bookdown::html_document2
 ---
 
-`r my_text('This is my collection of lectures and notes that relate to survival analysis.', 'Papyrus','28')`
+`r my_text('This is my collection of lectures and notes that relate to survival analysis.', 'didot','28')`
