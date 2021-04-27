@@ -18,16 +18,16 @@ navbar:
     #- text: "About"
     #  href: about.html
     #  icon: fa-comment-dots
-    - text: "notes (en)" # english notes
+    - text: "Notes" # english notes
       icon: fa-book-open
       menu:
       - text: "1. Nonparametric Analysis of Time-to-event"
         href: book_en_chap3.html
-    - text: "readings" # english readings
+    - text: "Readings" # english readings
       icon: fa-book-open
       menu:
       - text: "Multivariate analysis"
-    - text: "notes (vn)" # vnese notes
+    - text: "Đọc sách" # vnese notes
       icon: fa-book-open
       menu:
       - text: "Phương pháp phi tham số"
