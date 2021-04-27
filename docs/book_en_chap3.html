@@ -395,7 +395,7 @@ div.tocify {
 <hr />
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>Each <span class="math inline">\(n\)</span> patient has a counting process that registers the number of occurrences of an event of interest. We shall denote it as <span class="math inline">\(N_i(t)\)</span> for <span class="math inline">\(i\)</span>th patient in the time interval <span class="math inline">\([0,t]\)</span>. The intensity process of <span class="math inline">\(N_i(t)\)</span> has the following form
+<p>Each of <span class="math inline">\(n\)</span> patients has a counting process that registers the number of occurrences of an event of interest. We shall denote it as <span class="math inline">\(N_i(t)\)</span> for <span class="math inline">\(i\)</span>th patient in the time interval <span class="math inline">\([0,t]\)</span>. The intensity process of <span class="math inline">\(N_i(t)\)</span> has the following form
 <span class="math display" id="eq:eq1">\[
 \lambda_i(t) = \alpha(t)Y_i(t), 
 \tag{1}
@@ -427,7 +427,7 @@ and it is ended up with the Nelson-Aalen estimator that is as follows
 \widehat{A}(t) = \sum_{T_j \le t}\frac{1}{Y(T_j)}
 \tag{4}
 \]</span></p>
-<p><strong>An intuitive justification of the estimator for censored survival data:</strong> the interal <span class="math inline">\([0,t]\)</span> is partitioned into small intervals, a typical interval that is <span class="math inline">\([s,s+ds)\)</span> contains at most one observed event. The contribution to <span style="color: black; font-size: 18px;"><em>equation</em></span> <a href="#eq:eq3">(3)</a> over the interval <span class="math inline">\([s,s+dt)\)</span> is <span class="math inline">\(\alpha(s)ds\)</span> that was defined above. If there is no event occuring in <span class="math inline">\((s,s+ds)\)</span> then <span class="math inline">\(\alpha(s)ds\)</span> is zero, and it is equal to <span class="math inline">\(1/Y(s) = 1/Y(T_j)\)</span>, with <span class="math inline">\(T_j \in [s,s+ds)\)</span>. Aggregating these contributions over all time interval, we end up with <span class="math inline">\(\widehat{A}(t)\)</span> as a sensible estimator of <span class="math inline">\(A(t)\)</span>.</p>
+<p><strong>An intuitive justification of the estimator for censored survival data:</strong> the interal <span class="math inline">\([0,t]\)</span> is partitioned into small intervals, a typical interval that is <span class="math inline">\([s,s+ds)\)</span> contains at most one observed event. The contribution to <span style="color: black; font-size: 18px;"><em>equation</em></span> <a href="#eq:eq3">(3)</a> over the interval <span class="math inline">\([s,s+dt)\)</span> is <span class="math inline">\(\alpha(s)ds\)</span> that was defined above. If there is no event occuring in <span class="math inline">\((s,s+ds)\)</span> then <span class="math inline">\(\alpha(s)ds\)</span> is zero, and it is equal to <span class="math inline">\(1/Y(s) = 1/Y(T_j)\)</span>, otherwise, with <span class="math inline">\(T_j \in [s,s+ds)\)</span>. Aggregating these contributions over all time interval, we end up with <span class="math inline">\(\widehat{A}(t)\)</span> as a sensible estimator of <span class="math inline">\(A(t)\)</span>.</p>
 <p>Later we will show that the variance of the Nelson-Aslen estimator is
 <span class="math display" id="eq:eq5">\[
 \widehat{\sigma}^2(t) = \sum_{T_j \le t}\frac{1}{Y(T_j)^2}

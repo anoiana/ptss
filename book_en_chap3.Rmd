@@ -34,7 +34,7 @@ bibliography: ["citation.bib"]
 
 # Introduction
 
-Each $n$ patient has a counting process that registers the number of occurrences of an event of interest. We shall denote it as $N_i(t)$ for $i$th patient in the time interval $[0,t]$. The intensity process of $N_i(t)$ has the following form 
+Each of $n$ patients has a counting process that registers the number of occurrences of an event of interest. We shall denote it as $N_i(t)$ for $i$th patient in the time interval $[0,t]$. The intensity process of $N_i(t)$ has the following form 
 $$
 \lambda_i(t) = \alpha(t)Y_i(t), 
 (\#eq:eq1)
@@ -69,7 +69,7 @@ $$
 (\#eq:eq4)
 $$
 
-__An intuitive justification of the estimator for censored survival data:__ the interal $[0,t]$ is partitioned into small intervals, a typical interval that is  $[s,s+ds)$  contains at most one observed event. The contribution to `r lb(eq3)` over the interval $[s,s+dt)$ is $\alpha(s)ds$ that was defined above. If there is no event occuring in $(s,s+ds)$ then $\alpha(s)ds$ is zero, and it is equal to $1/Y(s) = 1/Y(T_j)$, with $T_j \in [s,s+ds)$. Aggregating these contributions over all time interval, we end up with $\hat{A}(t)$ as a sensible estimator of $A(t)$. 
+__An intuitive justification of the estimator for censored survival data:__ the interal $[0,t]$ is partitioned into small intervals, a typical interval that is  $[s,s+ds)$  contains at most one observed event. The contribution to `r lb(eq3)` over the interval $[s,s+dt)$ is $\alpha(s)ds$ that was defined above. If there is no event occuring in $(s,s+ds)$ then $\alpha(s)ds$ is zero, and it is equal to $1/Y(s) = 1/Y(T_j)$, otherwise, with $T_j \in [s,s+ds)$. Aggregating these contributions over all time interval, we end up with $\hat{A}(t)$ as a sensible estimator of $A(t)$. 
 
 Later we will show that the variance of the Nelson-Aslen estimator is 
 $$
