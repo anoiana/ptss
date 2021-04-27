@@ -95,7 +95,7 @@ Hence, if we have  sample of $n$ patients, then $N_{0h}(t)$ is the process that 
 
 More general, we can use Markov chain with a finite number of states in which the transition intensity $\alpha_{gh}(t)$ describes the instantaneous risk of transition from state $g$ to $h$, that is, $\alpha_{gh}(t)dt$ is the conditional probability a patient who is in state $g$ just before time $t$ will make a transition to state $h$ in the small time interval $[t,t+dt)$. 
 
-@aal2008
+
 
 <!-- ------------------------------------------------------------------------------------ -->
 # _References_

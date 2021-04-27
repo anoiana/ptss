@@ -21,11 +21,8 @@ navbar:
     - text: "books (vn)"
       icon: fa-book-open
       menu:
-      - text: "Kiến Thức Toán Cần Thiết"
-        href: book_vn_chap2.html
-      - text: "---"
-      - text: "Phân Tích Phi Tham Số"
-        href: book_vn_chap3.html
+      - text: "Phương pháp phi tham số"
+        href: book_vn_chap1.html
     - text: "books (en)"
       icon: fa-book-open
       menu:
