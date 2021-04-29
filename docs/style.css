@@ -97,15 +97,18 @@ a:hover {
 .tocify {
   position: -webkit-sticky;
   position: sticky;
-  top: 120px; /*Controls where TOC stops when sticky */
+  top: 0; /*Controls where TOC stops when sticky */
   width: 100% !important;
   border: none;
-  pad: 7px;
+  padding: 7px;
+  background-color: snow;
+  border-radius: 0px; /* Gets rid of rounded corners on TOC */
+
 }
 
 
 /* NO TOC on mobile */
-@media screen and (max-width: 767px){
+@media screen and (max-width: 1000px){
 
   .col-xs-12.col-sm-4.col-md-3 {
     display: none;
