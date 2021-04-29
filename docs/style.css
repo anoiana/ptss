@@ -100,6 +100,7 @@ a:hover {
   top: 120px; /*Controls where TOC stops when sticky */
   width: 100% !important;
   border: none;
+  pad: 7px;
 }
 
 
