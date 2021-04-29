@@ -28,7 +28,7 @@ navbar:
       icon: fa-book-open
       menu:
       - text: "1. Nonparametric Analysis of Time-to-event"
-        href: book_en_chap3.html
+        href: 01_notes_nonparametric-analysis-of-time-to-event.html
     - text: "Readings" # english readings
       icon: fa-book-open
       menu:
@@ -37,6 +37,6 @@ navbar:
       icon: fa-book-open
       menu:
       - text: "Phương pháp phi tham số"
-        href: book_vn_chap1.html
+        href: 03_docsach_phuong-phap-phi-tham-so.html
   type: inverse
 
