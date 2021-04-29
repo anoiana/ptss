@@ -9,6 +9,7 @@ output:
       in_header:
       - header.html
       - hero-image.html
+    #  after_body: footer.html
 navbar:
   title: "ANOIANA"
   left:
@@ -32,5 +33,5 @@ navbar:
       menu:
       - text: "Phương pháp phi tham số"
         href: book_vn_chap1.html
-type: inverse
+  type: inverse
 

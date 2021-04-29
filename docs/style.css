@@ -95,16 +95,13 @@ a:hover {
 }
 
 .tocify {
-  border: none;   /*Removes border */
-  border-radius: 0.1px; /* Gets rid of rounded corners on TOC */
-  font-size: 16px;
   position: -webkit-sticky;
-  background: #f9f9f9 none repeat scroll 0 0;
   position: sticky;
-  top: 500px; /*Controls where TOC stops when sticky */
+  top: 120px; /*Controls where TOC stops when sticky */
   width: 100% !important;
-  padding: 7px;
+  border: none;
 }
+
 
 /* NO TOC on mobile */
 @media screen and (max-width: 767px){
@@ -175,9 +172,10 @@ a:hover {
 }
 
 
+
 /*----------------NAVBAR ---------------*/
 .navbar-default {
-    background-color: #141c25;
+    background-color: #141c25f2;
 }
 
 .navbar-default .navbar-nav>.open>a,
@@ -193,7 +191,7 @@ a.dropdown-toggle:hover {
 
 /* Dropdown menu hover color */
   .navbar-default .dropdown-menu>li>a:hover {
-    background-color: #202831;
+    background-color: #202831f2;
   }
 
 /* Navbar Links when hovered*/
@@ -202,6 +200,38 @@ a.dropdown-toggle:hover {
 .navbar-default .navbar-nav:hover,
 .navbar-default .navbar-nav>li>a:hover,
 a.navbar-brand:hover {
-  color: #ffffff !important;
+  color: #ffffffab !important;
   background-color: #141c25;
+}
+
+
+
+/*------------FOOTER----------*/
+
+/* Divider line above footer */
+.footer hr{
+  width: 100%;
+}
+
+.footer {
+  font-size: 16px;
+  color: #808080;
+  text-align: center;
+  width: 90%;
+  margin: 3rem auto;
+  font-weight: 300;
+}
+
+.footer.logo {
+  width: 25px;
+  margin: 0px !important;
+}
+
+.rstudio4edu-footer {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.tocify-extend-page {
+  height: 0px !important; /* Gets rid of extra space after footer*/
 }
