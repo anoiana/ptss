@@ -3,15 +3,9 @@ params:
   update_date: FALSE
 date: "`r source('_supp/helper.R');newdate_func(params$update_date)`"
 title: "`r totitle('nonparametric analysis of time-to-event')`"
-output:
+output: 
   bookdown::html_document2:
-    fig_caption: yes
-    toc: true
-    toc_float: 
-     collapsed: false
-    toc_depth: 3
     code_folding: hide
-    number_sections: false
 bibliography: ["_supp/citation.bib"]
 link-citations: true
 ---
@@ -118,4 +112,4 @@ So far we have restricted our calculation to no tie event times, which make more
 
 
 <!-- ------------------------------------------------------------------------------------ -->
-# _References_
+# _References_ {-}

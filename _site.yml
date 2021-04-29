@@ -10,6 +10,11 @@ output:
       - header.html
       - hero-image.html
     #  after_body: footer.html
+    fig_caption: yes
+    toc: true
+    toc_float: false
+    toc_depth: 3
+    number_sections: false
 navbar:
   title: "ANOIANA"
   left:

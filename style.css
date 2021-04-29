@@ -1,18 +1,4 @@
- /*----------------ADDING WHITE SPACE-------------*/
 
-.title {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.75em;
-}
-
-.section h1,
-.section h2,
-.section h3,
-.section h4,
-.section h5 {
-  padding-top: 3em !important; /*adding so much padding because theme adds a margin-top: -65px by default */
-  margin-bottom: 0.75em;
-}
 
  /*------------- Whole Document---------------- */
 
@@ -108,7 +94,8 @@ a:hover {
 
 
 /* NO TOC on mobile */
-@media screen and (max-width: 1000px){
+
+@media screen and (max-width: 767px){
 
   .col-xs-12.col-sm-4.col-md-3 {
     display: none;
@@ -236,6 +223,22 @@ a.navbar-brand:hover {
   text-transform: uppercase;
 }
 
-.tocify-extend-page {
-  height: 0px !important; /* Gets rid of extra space after footer*/
+
+
+
+ /*----------------ADDING WHITE SPACE-------------*/
+
+
+.title {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.75em;
+}
+
+.section h1,
+.section h2,
+.section h3,
+.section h4,
+.section h5 {
+  padding-top: 3em !important; /*adding so much padding because theme adds a margin-top: -65px by default */
+  margin-bottom: 0.75em;
 }

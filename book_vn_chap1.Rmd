@@ -3,15 +3,9 @@ params:
   update_date: FALSE
 date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
 title: "`r totitle('phương pháp phi tham số')`"
-output:
+output: 
   bookdown::html_document2:
-    fig_caption: yes
-    toc: true
-    toc_float: 
-       collapsed: true
-    toc_depth: 3
     code_folding: hide
-    number_sections: false
 bibliography: ["_supp/citation.bib"]
 link-citations: true
 ---
@@ -30,6 +24,7 @@ link-citations: true
 \newcommand{\overeq}[2]{\stackrel{#1}{#2}}
 \def\epsilon{\varepsilon} 
 
+---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
@@ -588,4 +583,4 @@ Có nhiều kiểm định được sử dụng để so sánh thời gian sốn
 
 <!-- ----------------------------------------------------------------------------- -->
 
-# _References_
+# _References_ {-}

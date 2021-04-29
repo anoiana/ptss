@@ -28,9 +28,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
@@ -333,69 +330,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -403,16 +337,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -501,9 +425,26 @@ div.tocify {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#ý-nghĩa-toán-học-của-các-hàm-số-được-sử-dụng-trong-phân-tích-sống-sót">Ý nghĩa toán học của các hàm số được sử dụng trong phân tích sống sót</a><ul>
+<li><a href="#biến-thời-gian-liên-tục">Biến thời gian liên tục</a></li>
+<li><a href="#biến-thời-gian-rời-rạc">Biến thời gian rời rạc</a></li>
+</ul></li>
+<li><a href="#ước-lượng-hàm-sống-sót">Ước lượng hàm sống sót</a><ul>
+<li><a href="#ước-lượng-kaplan-meier">Ước lượng Kaplan-Meier</a></li>
+<li><a href="#ví-dụ-về-ước-lượng-kaplan-meier">Ví dụ về ước lượng Kaplan-Meier</a></li>
+</ul></li>
+<li><a href="#so-sánh-các-biểu-đồ-sống-sót">So sánh các biểu đồ sống sót</a><ul>
+<li><a href="#so-sánh-hiệu-quả-của-hai-phương-pháp-điều-trị">So sánh hiệu quả của hai phương pháp điều trị</a></li>
+</ul></li>
+<li><a href="#references"><em>References</em></a></li>
+</ul>
+</div>
 
 
 
+<hr />
 <p><em>tham khảo tại <span class="citation">Collett (<a href="#ref-col2015" role="doc-biblioref">2015</a>)</span> và <span class="citation">Kalbfleisch and Prentice (<a href="#ref-kal2002" role="doc-biblioref">2011</a>)</span></em></p>
 <div id="ý-nghĩa-toán-học-của-các-hàm-số-được-sử-dụng-trong-phân-tích-sống-sót" class="section level1">
 <h1>Ý nghĩa toán học của các hàm số được sử dụng trong phân tích sống sót</h1>
@@ -811,8 +752,8 @@ chính là <span style="color: black; font-size: 18px;"><em>phương trình</em>
 <h2>Ví dụ về ước lượng Kaplan-Meier</h2>
 <p>Ta xem xét ví dụ sau</p>
 <div class="figure"><span id="fig:unnamed-chunk-1"></span>
-<div id="htmlwidget-0cb7bbd9c02deba9ce65" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-0cb7bbd9c02deba9ce65">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-50e7f770641124a797e6" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-50e7f770641124a797e6">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1: <em>Bảng số liệu minh họa</em>
 </p>
@@ -833,7 +774,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#mxzanljofr .gt_table {
+#qhxqerehxg .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -858,7 +799,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#mxzanljofr .gt_heading {
+#qhxqerehxg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -870,7 +811,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#mxzanljofr .gt_title {
+#qhxqerehxg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -880,7 +821,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#mxzanljofr .gt_subtitle {
+#qhxqerehxg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -890,13 +831,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#mxzanljofr .gt_bottom_border {
+#qhxqerehxg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mxzanljofr .gt_col_headings {
+#qhxqerehxg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -911,7 +852,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#mxzanljofr .gt_col_heading {
+#qhxqerehxg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -931,7 +872,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#mxzanljofr .gt_column_spanner_outer {
+#qhxqerehxg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -943,15 +884,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#mxzanljofr .gt_column_spanner_outer:first-child {
+#qhxqerehxg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mxzanljofr .gt_column_spanner_outer:last-child {
+#qhxqerehxg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mxzanljofr .gt_column_spanner {
+#qhxqerehxg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -963,7 +904,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#mxzanljofr .gt_group_heading {
+#qhxqerehxg .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -985,7 +926,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#mxzanljofr .gt_empty_group_heading {
+#qhxqerehxg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1000,15 +941,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#mxzanljofr .gt_from_md > :first-child {
+#qhxqerehxg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mxzanljofr .gt_from_md > :last-child {
+#qhxqerehxg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mxzanljofr .gt_row {
+#qhxqerehxg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1027,7 +968,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#mxzanljofr .gt_stub {
+#qhxqerehxg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1039,7 +980,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#mxzanljofr .gt_summary_row {
+#qhxqerehxg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1049,7 +990,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#mxzanljofr .gt_first_summary_row {
+#qhxqerehxg .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1059,7 +1000,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#mxzanljofr .gt_grand_summary_row {
+#qhxqerehxg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1069,7 +1010,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#mxzanljofr .gt_first_grand_summary_row {
+#qhxqerehxg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1079,11 +1020,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#mxzanljofr .gt_striped {
+#qhxqerehxg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mxzanljofr .gt_table_body {
+#qhxqerehxg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1092,7 +1033,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#mxzanljofr .gt_footnotes {
+#qhxqerehxg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1106,13 +1047,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#mxzanljofr .gt_footnote {
+#qhxqerehxg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#mxzanljofr .gt_sourcenotes {
+#qhxqerehxg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1126,46 +1067,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#mxzanljofr .gt_sourcenote {
+#qhxqerehxg .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#mxzanljofr .gt_left {
+#qhxqerehxg .gt_left {
   text-align: left;
 }
 
-#mxzanljofr .gt_center {
+#qhxqerehxg .gt_center {
   text-align: center;
 }
 
-#mxzanljofr .gt_right {
+#qhxqerehxg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mxzanljofr .gt_font_normal {
+#qhxqerehxg .gt_font_normal {
   font-weight: normal;
 }
 
-#mxzanljofr .gt_font_bold {
+#qhxqerehxg .gt_font_bold {
   font-weight: bold;
 }
 
-#mxzanljofr .gt_font_italic {
+#qhxqerehxg .gt_font_italic {
   font-style: italic;
 }
 
-#mxzanljofr .gt_super {
+#qhxqerehxg .gt_super {
   font-size: 65%;
 }
 
-#mxzanljofr .gt_footnote_marks {
+#qhxqerehxg .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="mxzanljofr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="qhxqerehxg" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1295,7 +1236,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#cxnfezgwfe .gt_table {
+#isfwjaodgn .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1320,7 +1261,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#cxnfezgwfe .gt_heading {
+#isfwjaodgn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1332,7 +1273,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#cxnfezgwfe .gt_title {
+#isfwjaodgn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1342,7 +1283,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#cxnfezgwfe .gt_subtitle {
+#isfwjaodgn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1352,13 +1293,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#cxnfezgwfe .gt_bottom_border {
+#isfwjaodgn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cxnfezgwfe .gt_col_headings {
+#isfwjaodgn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1373,7 +1314,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#cxnfezgwfe .gt_col_heading {
+#isfwjaodgn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1393,7 +1334,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#cxnfezgwfe .gt_column_spanner_outer {
+#isfwjaodgn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1405,15 +1346,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#cxnfezgwfe .gt_column_spanner_outer:first-child {
+#isfwjaodgn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cxnfezgwfe .gt_column_spanner_outer:last-child {
+#isfwjaodgn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cxnfezgwfe .gt_column_spanner {
+#isfwjaodgn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1425,7 +1366,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#cxnfezgwfe .gt_group_heading {
+#isfwjaodgn .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1447,7 +1388,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#cxnfezgwfe .gt_empty_group_heading {
+#isfwjaodgn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1462,15 +1403,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#cxnfezgwfe .gt_from_md > :first-child {
+#isfwjaodgn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cxnfezgwfe .gt_from_md > :last-child {
+#isfwjaodgn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cxnfezgwfe .gt_row {
+#isfwjaodgn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1489,7 +1430,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#cxnfezgwfe .gt_stub {
+#isfwjaodgn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1501,7 +1442,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#cxnfezgwfe .gt_summary_row {
+#isfwjaodgn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1511,7 +1452,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#cxnfezgwfe .gt_first_summary_row {
+#isfwjaodgn .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1521,7 +1462,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#cxnfezgwfe .gt_grand_summary_row {
+#isfwjaodgn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1531,7 +1472,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#cxnfezgwfe .gt_first_grand_summary_row {
+#isfwjaodgn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1541,11 +1482,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#cxnfezgwfe .gt_striped {
+#isfwjaodgn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cxnfezgwfe .gt_table_body {
+#isfwjaodgn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1554,7 +1495,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#cxnfezgwfe .gt_footnotes {
+#isfwjaodgn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1568,13 +1509,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#cxnfezgwfe .gt_footnote {
+#isfwjaodgn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#cxnfezgwfe .gt_sourcenotes {
+#isfwjaodgn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1588,46 +1529,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#cxnfezgwfe .gt_sourcenote {
+#isfwjaodgn .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#cxnfezgwfe .gt_left {
+#isfwjaodgn .gt_left {
   text-align: left;
 }
 
-#cxnfezgwfe .gt_center {
+#isfwjaodgn .gt_center {
   text-align: center;
 }
 
-#cxnfezgwfe .gt_right {
+#isfwjaodgn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cxnfezgwfe .gt_font_normal {
+#isfwjaodgn .gt_font_normal {
   font-weight: normal;
 }
 
-#cxnfezgwfe .gt_font_bold {
+#isfwjaodgn .gt_font_bold {
   font-weight: bold;
 }
 
-#cxnfezgwfe .gt_font_italic {
+#isfwjaodgn .gt_font_italic {
   font-style: italic;
 }
 
-#cxnfezgwfe .gt_super {
+#isfwjaodgn .gt_super {
   font-size: 65%;
 }
 
-#cxnfezgwfe .gt_footnote_marks {
+#isfwjaodgn .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="cxnfezgwfe" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="isfwjaodgn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1745,7 +1686,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#lbfnduczbz .gt_table {
+#mqioejlfnh .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1770,7 +1711,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#lbfnduczbz .gt_heading {
+#mqioejlfnh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1782,7 +1723,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#lbfnduczbz .gt_title {
+#mqioejlfnh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1792,7 +1733,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#lbfnduczbz .gt_subtitle {
+#mqioejlfnh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1802,13 +1743,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#lbfnduczbz .gt_bottom_border {
+#mqioejlfnh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lbfnduczbz .gt_col_headings {
+#mqioejlfnh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1823,7 +1764,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#lbfnduczbz .gt_col_heading {
+#mqioejlfnh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1843,7 +1784,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#lbfnduczbz .gt_column_spanner_outer {
+#mqioejlfnh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1855,15 +1796,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#lbfnduczbz .gt_column_spanner_outer:first-child {
+#mqioejlfnh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lbfnduczbz .gt_column_spanner_outer:last-child {
+#mqioejlfnh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lbfnduczbz .gt_column_spanner {
+#mqioejlfnh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1875,7 +1816,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#lbfnduczbz .gt_group_heading {
+#mqioejlfnh .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1897,7 +1838,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#lbfnduczbz .gt_empty_group_heading {
+#mqioejlfnh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1912,15 +1853,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#lbfnduczbz .gt_from_md > :first-child {
+#mqioejlfnh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lbfnduczbz .gt_from_md > :last-child {
+#mqioejlfnh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lbfnduczbz .gt_row {
+#mqioejlfnh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1939,7 +1880,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#lbfnduczbz .gt_stub {
+#mqioejlfnh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1951,7 +1892,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#lbfnduczbz .gt_summary_row {
+#mqioejlfnh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1961,7 +1902,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#lbfnduczbz .gt_first_summary_row {
+#mqioejlfnh .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1971,7 +1912,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#lbfnduczbz .gt_grand_summary_row {
+#mqioejlfnh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1981,7 +1922,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#lbfnduczbz .gt_first_grand_summary_row {
+#mqioejlfnh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1991,11 +1932,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#lbfnduczbz .gt_striped {
+#mqioejlfnh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lbfnduczbz .gt_table_body {
+#mqioejlfnh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2004,7 +1945,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#lbfnduczbz .gt_footnotes {
+#mqioejlfnh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2018,13 +1959,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#lbfnduczbz .gt_footnote {
+#mqioejlfnh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#lbfnduczbz .gt_sourcenotes {
+#mqioejlfnh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2038,46 +1979,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#lbfnduczbz .gt_sourcenote {
+#mqioejlfnh .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#lbfnduczbz .gt_left {
+#mqioejlfnh .gt_left {
   text-align: left;
 }
 
-#lbfnduczbz .gt_center {
+#mqioejlfnh .gt_center {
   text-align: center;
 }
 
-#lbfnduczbz .gt_right {
+#mqioejlfnh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lbfnduczbz .gt_font_normal {
+#mqioejlfnh .gt_font_normal {
   font-weight: normal;
 }
 
-#lbfnduczbz .gt_font_bold {
+#mqioejlfnh .gt_font_bold {
   font-weight: bold;
 }
 
-#lbfnduczbz .gt_font_italic {
+#mqioejlfnh .gt_font_italic {
   font-style: italic;
 }
 
-#lbfnduczbz .gt_super {
+#mqioejlfnh .gt_super {
   font-size: 65%;
 }
 
-#lbfnduczbz .gt_footnote_marks {
+#mqioejlfnh .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="lbfnduczbz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="mqioejlfnh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -2142,8 +2083,6 @@ Figure 1: <em>Bảng số liệu minh họa</em>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -2181,32 +2120,6 @@ $(document).ready(function () {
 });
 </script>
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
