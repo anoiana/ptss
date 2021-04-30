@@ -364,7 +364,7 @@ $(document).ready(function () {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-book-open"></span>
      
-    Notes
+    Time-to-event Analysis
      
     <span class="caret"></span>
   </a>
@@ -383,7 +383,9 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Multivariate analysis</li>
+    <li>
+      <a href="02_readings_lim-inf-lim-sup.html">Limit of Supremum and Infimum</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -752,8 +754,8 @@ chính là <span style="color: black; font-size: 18px;"><em>phương trình</em>
 <h2>Ví dụ về ước lượng Kaplan-Meier</h2>
 <p>Ta xem xét ví dụ sau</p>
 <div class="figure"><span id="fig:unnamed-chunk-1"></span>
-<div id="htmlwidget-3b8874e1c7cfc60adcc0" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3b8874e1c7cfc60adcc0">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0a8b534f744cb8fca591" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0a8b534f744cb8fca591">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1: <em>Bảng số liệu minh họa</em>
 </p>
@@ -774,7 +776,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#iubhpgkaoc .gt_table {
+#kltpumyfro .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -799,7 +801,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#iubhpgkaoc .gt_heading {
+#kltpumyfro .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -811,7 +813,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#iubhpgkaoc .gt_title {
+#kltpumyfro .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -821,7 +823,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#iubhpgkaoc .gt_subtitle {
+#kltpumyfro .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -831,13 +833,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#iubhpgkaoc .gt_bottom_border {
+#kltpumyfro .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iubhpgkaoc .gt_col_headings {
+#kltpumyfro .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -852,7 +854,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#iubhpgkaoc .gt_col_heading {
+#kltpumyfro .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -872,7 +874,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#iubhpgkaoc .gt_column_spanner_outer {
+#kltpumyfro .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -884,15 +886,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#iubhpgkaoc .gt_column_spanner_outer:first-child {
+#kltpumyfro .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iubhpgkaoc .gt_column_spanner_outer:last-child {
+#kltpumyfro .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iubhpgkaoc .gt_column_spanner {
+#kltpumyfro .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -904,7 +906,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#iubhpgkaoc .gt_group_heading {
+#kltpumyfro .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -926,7 +928,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#iubhpgkaoc .gt_empty_group_heading {
+#kltpumyfro .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -941,15 +943,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#iubhpgkaoc .gt_from_md > :first-child {
+#kltpumyfro .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iubhpgkaoc .gt_from_md > :last-child {
+#kltpumyfro .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iubhpgkaoc .gt_row {
+#kltpumyfro .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -968,7 +970,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#iubhpgkaoc .gt_stub {
+#kltpumyfro .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -980,7 +982,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#iubhpgkaoc .gt_summary_row {
+#kltpumyfro .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -990,7 +992,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#iubhpgkaoc .gt_first_summary_row {
+#kltpumyfro .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1000,7 +1002,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#iubhpgkaoc .gt_grand_summary_row {
+#kltpumyfro .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1010,7 +1012,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#iubhpgkaoc .gt_first_grand_summary_row {
+#kltpumyfro .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1020,11 +1022,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#iubhpgkaoc .gt_striped {
+#kltpumyfro .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iubhpgkaoc .gt_table_body {
+#kltpumyfro .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1033,7 +1035,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#iubhpgkaoc .gt_footnotes {
+#kltpumyfro .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1047,13 +1049,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#iubhpgkaoc .gt_footnote {
+#kltpumyfro .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#iubhpgkaoc .gt_sourcenotes {
+#kltpumyfro .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1067,46 +1069,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#iubhpgkaoc .gt_sourcenote {
+#kltpumyfro .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#iubhpgkaoc .gt_left {
+#kltpumyfro .gt_left {
   text-align: left;
 }
 
-#iubhpgkaoc .gt_center {
+#kltpumyfro .gt_center {
   text-align: center;
 }
 
-#iubhpgkaoc .gt_right {
+#kltpumyfro .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iubhpgkaoc .gt_font_normal {
+#kltpumyfro .gt_font_normal {
   font-weight: normal;
 }
 
-#iubhpgkaoc .gt_font_bold {
+#kltpumyfro .gt_font_bold {
   font-weight: bold;
 }
 
-#iubhpgkaoc .gt_font_italic {
+#kltpumyfro .gt_font_italic {
   font-style: italic;
 }
 
-#iubhpgkaoc .gt_super {
+#kltpumyfro .gt_super {
   font-size: 65%;
 }
 
-#iubhpgkaoc .gt_footnote_marks {
+#kltpumyfro .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="iubhpgkaoc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="kltpumyfro" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1236,7 +1238,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#hhaiaxepwu .gt_table {
+#afozxjiiql .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1261,7 +1263,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#hhaiaxepwu .gt_heading {
+#afozxjiiql .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1273,7 +1275,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#hhaiaxepwu .gt_title {
+#afozxjiiql .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1283,7 +1285,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#hhaiaxepwu .gt_subtitle {
+#afozxjiiql .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1293,13 +1295,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#hhaiaxepwu .gt_bottom_border {
+#afozxjiiql .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hhaiaxepwu .gt_col_headings {
+#afozxjiiql .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1314,7 +1316,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#hhaiaxepwu .gt_col_heading {
+#afozxjiiql .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1334,7 +1336,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#hhaiaxepwu .gt_column_spanner_outer {
+#afozxjiiql .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1346,15 +1348,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#hhaiaxepwu .gt_column_spanner_outer:first-child {
+#afozxjiiql .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hhaiaxepwu .gt_column_spanner_outer:last-child {
+#afozxjiiql .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hhaiaxepwu .gt_column_spanner {
+#afozxjiiql .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1366,7 +1368,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#hhaiaxepwu .gt_group_heading {
+#afozxjiiql .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1388,7 +1390,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#hhaiaxepwu .gt_empty_group_heading {
+#afozxjiiql .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1403,15 +1405,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#hhaiaxepwu .gt_from_md > :first-child {
+#afozxjiiql .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hhaiaxepwu .gt_from_md > :last-child {
+#afozxjiiql .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hhaiaxepwu .gt_row {
+#afozxjiiql .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1430,7 +1432,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#hhaiaxepwu .gt_stub {
+#afozxjiiql .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1442,7 +1444,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#hhaiaxepwu .gt_summary_row {
+#afozxjiiql .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1452,7 +1454,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#hhaiaxepwu .gt_first_summary_row {
+#afozxjiiql .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1462,7 +1464,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#hhaiaxepwu .gt_grand_summary_row {
+#afozxjiiql .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1472,7 +1474,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#hhaiaxepwu .gt_first_grand_summary_row {
+#afozxjiiql .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1482,11 +1484,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#hhaiaxepwu .gt_striped {
+#afozxjiiql .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hhaiaxepwu .gt_table_body {
+#afozxjiiql .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1495,7 +1497,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#hhaiaxepwu .gt_footnotes {
+#afozxjiiql .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1509,13 +1511,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#hhaiaxepwu .gt_footnote {
+#afozxjiiql .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#hhaiaxepwu .gt_sourcenotes {
+#afozxjiiql .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1529,46 +1531,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#hhaiaxepwu .gt_sourcenote {
+#afozxjiiql .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#hhaiaxepwu .gt_left {
+#afozxjiiql .gt_left {
   text-align: left;
 }
 
-#hhaiaxepwu .gt_center {
+#afozxjiiql .gt_center {
   text-align: center;
 }
 
-#hhaiaxepwu .gt_right {
+#afozxjiiql .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hhaiaxepwu .gt_font_normal {
+#afozxjiiql .gt_font_normal {
   font-weight: normal;
 }
 
-#hhaiaxepwu .gt_font_bold {
+#afozxjiiql .gt_font_bold {
   font-weight: bold;
 }
 
-#hhaiaxepwu .gt_font_italic {
+#afozxjiiql .gt_font_italic {
   font-style: italic;
 }
 
-#hhaiaxepwu .gt_super {
+#afozxjiiql .gt_super {
   font-size: 65%;
 }
 
-#hhaiaxepwu .gt_footnote_marks {
+#afozxjiiql .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="hhaiaxepwu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="afozxjiiql" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1686,7 +1688,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#udjsnakuua .gt_table {
+#csbyaehsst .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1711,7 +1713,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#udjsnakuua .gt_heading {
+#csbyaehsst .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1723,7 +1725,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#udjsnakuua .gt_title {
+#csbyaehsst .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1733,7 +1735,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#udjsnakuua .gt_subtitle {
+#csbyaehsst .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1743,13 +1745,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#udjsnakuua .gt_bottom_border {
+#csbyaehsst .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#udjsnakuua .gt_col_headings {
+#csbyaehsst .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1764,7 +1766,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#udjsnakuua .gt_col_heading {
+#csbyaehsst .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1784,7 +1786,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#udjsnakuua .gt_column_spanner_outer {
+#csbyaehsst .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1796,15 +1798,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#udjsnakuua .gt_column_spanner_outer:first-child {
+#csbyaehsst .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#udjsnakuua .gt_column_spanner_outer:last-child {
+#csbyaehsst .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#udjsnakuua .gt_column_spanner {
+#csbyaehsst .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1816,7 +1818,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#udjsnakuua .gt_group_heading {
+#csbyaehsst .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1838,7 +1840,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#udjsnakuua .gt_empty_group_heading {
+#csbyaehsst .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1853,15 +1855,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#udjsnakuua .gt_from_md > :first-child {
+#csbyaehsst .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#udjsnakuua .gt_from_md > :last-child {
+#csbyaehsst .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#udjsnakuua .gt_row {
+#csbyaehsst .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1880,7 +1882,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#udjsnakuua .gt_stub {
+#csbyaehsst .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1892,7 +1894,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#udjsnakuua .gt_summary_row {
+#csbyaehsst .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1902,7 +1904,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#udjsnakuua .gt_first_summary_row {
+#csbyaehsst .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1912,7 +1914,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#udjsnakuua .gt_grand_summary_row {
+#csbyaehsst .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1922,7 +1924,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#udjsnakuua .gt_first_grand_summary_row {
+#csbyaehsst .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1932,11 +1934,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#udjsnakuua .gt_striped {
+#csbyaehsst .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#udjsnakuua .gt_table_body {
+#csbyaehsst .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1945,7 +1947,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#udjsnakuua .gt_footnotes {
+#csbyaehsst .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1959,13 +1961,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#udjsnakuua .gt_footnote {
+#csbyaehsst .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#udjsnakuua .gt_sourcenotes {
+#csbyaehsst .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1979,46 +1981,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#udjsnakuua .gt_sourcenote {
+#csbyaehsst .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#udjsnakuua .gt_left {
+#csbyaehsst .gt_left {
   text-align: left;
 }
 
-#udjsnakuua .gt_center {
+#csbyaehsst .gt_center {
   text-align: center;
 }
 
-#udjsnakuua .gt_right {
+#csbyaehsst .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#udjsnakuua .gt_font_normal {
+#csbyaehsst .gt_font_normal {
   font-weight: normal;
 }
 
-#udjsnakuua .gt_font_bold {
+#csbyaehsst .gt_font_bold {
   font-weight: bold;
 }
 
-#udjsnakuua .gt_font_italic {
+#csbyaehsst .gt_font_italic {
   font-style: italic;
 }
 
-#udjsnakuua .gt_super {
+#csbyaehsst .gt_super {
   font-size: 65%;
 }
 
-#udjsnakuua .gt_footnote_marks {
+#csbyaehsst .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="udjsnakuua" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="csbyaehsst" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>

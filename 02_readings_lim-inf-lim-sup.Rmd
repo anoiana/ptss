@@ -1,0 +1,135 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R');newdate_func(params$update_date)`"
+title: "`r totitle('Limit of Supremum and Infimum')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+---
+
+`r lb = purrr::partial(lb,vn = FALSE)`
+
+
+# $\lim\sup$ and $\lim\inf$ of a sequence of real numbers
+
+Suppose we have a bounded sequence of real numbers $(c_n)^{\infty}_{n=1}$. Also define 
+$$
+\begin{aligned}
+a_n &:= \inf\{c_k: k \ge n\}, \\
+b_n &:= \sup\{c_k:k \ge n\}.
+\end{aligned}
+$$
+We deem two cases that likely occur with $(c_n)_{n=1}^{\infty}$
+
+## $\lim\inf$
+
+If $(a_n)$ is bounded and increasing, then it has a limit called $a$. We can define the so-called $\lim\inf$ of such a sequence as follows
+$$
+\lim_{n}\inf(c_n) = \lim_{n \to \infty}\inf\{c_k: k \ge n\} 
+$$
+
+The following figure illustrates for $\lim\inf$: 
+
+```{r, echo=FALSE, fig.cap="example for $\\lim\\inf$", fig.align='center'}
+f = Vectorize(function(n) (-1)^n*(n+5)/n)
+n = 1:30
+s = f(n)
+d = cbind(n,s)
+r = runif(100,-1,0)
+plot(d[d[,2]<0,], pch = 16, ylim = c(-6,0), cex = 1.2, ylab = "sequence (c)")
+points(r, pch = 16, col = "red")
+abline(h = -1, col = "red")
+```
+as $n$ goes to $\infty$, $(c_n)$ approaches to $-1$ (never reach $-1$). The term *inf* or *infimum* is also called _the greatest lower bound_, this is, the greatest point of lower bound set. We can see that all black filled circle are less than $-1$, so all of them can be deemed lower bound of the collection of red filled circles, and a point corresponding $n$ as $n \to \infty$ is the greatest point. By definition, this is called _infimum_ or _the greatest lower bound_. 
+
+## $\lim\sup$
+
+Similarly, 
+
+If $(b_n)$ is bounded and decreasing, it has a limit called $b$. We can define the so-called $\lim\sup$ of such a sequence as follows
+$$
+\lim_n\sup(c_n) = \lim_{n \to \infty}\sup\{c_k: k \ge n\}.
+$$
+
+The following figure illustrates for _sup_ or _supremum_
+
+```{r,  echo=FALSE, fig.cap="example for $\\lim\\sup$", fig.align='center'}
+r = runif(100,0,1)
+plot(d[d[,2]>0,], pch = 16, cex = 1.2, ylab = "sequence (c)", ylim = c(0,3.5))
+points(r, pch = 16, col = "red")
+abline(h = 1, col = "red")
+```
+
+In this case, all black filled circles are greater than $1$, the sequence goes to $1$ as $n$ approaches to $\infty$ (never reach $1$). Thus, they are upper bounds of the collection of red filled circles. Also, a point corresponding $n$ as $n \to \infty$ is the least point of the upper bound set. This is called _supremum_ or _the least upper bound_. 
+
+If we combine both figures, we obtain
+
+```{r,  echo=FALSE, fig.cap="example for $\\lim\\sup$", fig.align='center'}
+r = runif(500,-1,1)
+plot(d, pch = 16, cex = 1.2, ylab = "sequence (c)")
+points(r, pch = 16, col = "red")
+abline(h = 1, col = "red")
+abline(h = -1, col = "red")
+```
+
+Two horizontal red lines represent for $a_n$ and $b_n$, and when $n$ goes to $\infty$ they approach to $-1$ and $1$, respectively. If we extend the interval $[-1,1]$ to a general interval $[a,b]$, then  $[a_{n+1},b_{n+1}]$ will be contained in $[a_n,b_n]$ for all $n$. We can say $\lim_{n \to \infty}[a_n,b_n] = [-1,1]$. This is, as $n \to \infty$ it approaches to the shortest length interval of $[a_n,b_n]_{n=1}^{\infty}$. 
+
+We can also express the above idea by intersection, ie., the intersection of all intervals $[a_n,b_n]_{n = 1,2,\dots}$ is $[a,b] \equiv [-1,1]$. In other words, intersection can be utilized to express the "smallest" magnitude of length, area, volume, etc. This idea can be extended to _limits of sets_.
+
+# $\lim\sup$ and $\lim\inf$ of a sequence of sets
+
+Let $A_n \subset \Omega$, we define
+$$
+\inf_{k \ge n}A_k := \bigcap_{k=n}^{\infty}A_k; \quad \sup_{k \ge n}A_k := \bigcup_{k=n}^{\infty}A_k
+(\#eq:eq1)
+$$
+thus,
+$$
+\begin{aligned}
+&\lim_{n \to \infty}\inf A_n = \bigcup_{n=1}^{\infty}\bigcap_{k=n}^{\infty}A_k, \\
+&\lim_{n \to \infty}\sup A_n = \bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}A_k
+\end{aligned}
+(\#eq:eq2)
+$$
+
+To get the intuition about $\lim\sup$ and $\lim\inf$ in term of union and intersection, let us consider `r lb(eq1)` in details. We will consider the case of intersection, second case can be explained in the same way.
+
+Suppose $n= 10$, 
+
+$$
+\begin{aligned}
+&B_1 = \bigcap_{i=1}^{10}A_i \\
+&B_2 = \bigcap_{i=2}^{10}A_i \\
+&\quad \dots \\
+&B_9 = A_9 \cap A_{10} \\
+&B_{10} = A_{10}
+\end{aligned}
+$$
+hence we can conclude
+$$
+B_1 \le B_2 \le \dots \le B_{10}
+$$
+and hence $B_n$ is an increasing sequence, so it has a limit. What we need is to find a set that corresponds to greatest lower bound. It is NOT akin to the sequence of real numbers, The sequence of sets i.e., the magnitude of sets is determined by the intersection and union of all available sets. Thus, to find the greatest set, we can't only compare among $\{B_i\}_{i=1}^{10}$, but we also compare all intersections and unions among $\{B_i\}_{i=1}^{10}$. To this end, the greatest set is 
+$$
+\bigcup_{i=1}^{10}B_i = \bigcup_{n=1}^{10}\bigcap_{i=n}^{10}A_i,
+$$
+which has a general form in `r lb(eq2)`. The case of supremum can be explained with an analogous manner. 

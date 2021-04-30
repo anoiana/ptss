@@ -24,19 +24,20 @@ navbar:
     #- text: "About"
     #  href: about.html
     #  icon: fa-comment-dots
-    - text: "Notes" # english notes
+    - text: "Time-to-event Analysis" # english notes
       icon: fa-book-open
       menu:
       - text: "1. Nonparametric Analysis of Time-to-event"
-        href: 01_notes_nonparametric-analysis-of-time-to-event.html
+        href: '01_notes_nonparametric-analysis-of-time-to-event.html'
     - text: "Readings" # english readings
       icon: fa-book-open
       menu:
-      - text: "Multivariate analysis"
+      - text: "Limit of Supremum and Infimum"
+        href: '02_readings_lim-inf-lim-sup.html'
     - text: "Đọc sách" # vnese notes
       icon: fa-book-open
       menu:
       - text: "Phương pháp phi tham số"
-        href: 03_docsach_phuong-phap-phi-tham-so.html
+        href: '03_docsach_phuong-phap-phi-tham-so.html'
   type: inverse
 
