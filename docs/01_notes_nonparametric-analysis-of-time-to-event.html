@@ -13,24 +13,31 @@
 
 <title>✑ Nonparametric Analysis Of Time-To-Event</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="fugu.png"/>
 
 <div class="hero-image">
         <div class="image-text">
-          <div class="top-text">Statistics</div>
+          <div class="top-text">STATISTICS</div>
             <div class="bottom-text">Survival Analysis</div>
         </div>
 </div>
@@ -47,32 +54,7 @@
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -83,10 +65,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -103,40 +81,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -164,7 +115,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -176,7 +127,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -187,10 +138,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -202,7 +166,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -283,14 +246,14 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-book-open"></span>
+    <span class="fas fa-book-open"></span>
      
     Time-to-event Analysis
      
@@ -304,7 +267,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-book-open"></span>
+    <span class="fas fa-book-open"></span>
      
     Readings
      
@@ -318,7 +281,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-book-open"></span>
+    <span class="fas fa-book-open"></span>
      
     Đọc sách
      
@@ -341,11 +304,11 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -361,8 +324,7 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#the-nelson-aalen-estimator">The Nelson-Aalen estimator</a>
-<ul>
+<li><a href="#the-nelson-aalen-estimator">The Nelson-Aalen estimator</a><ul>
 <li><a href="#the-survival-data">The survival data</a></li>
 <li><a href="#the-multiplicative-intensity-model">The multiplicative intensity model</a></li>
 <li><a href="#ties">Ties</a></li>
@@ -371,8 +333,10 @@ $(document).ready(function () {
 </ul>
 </div>
 
+
+
 <hr />
-<p><em>ref. to <span class="citation"><a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing</a> (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
+<p><em>ref. to <span class="citation">Aalen, Borgan, and Gjessing (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>Each of <span class="math inline">\(n\)</span> patients has a counting process that registers the number of occurrences of an event of interest. We shall denote it as <span class="math inline">\(N_i(t)\)</span> for <span class="math inline">\(i\)</span>th patient in the time interval <span class="math inline">\([0,t]\)</span>. The intensity process of <span class="math inline">\(N_i(t)\)</span> has the following form
@@ -426,9 +390,9 @@ alternative option is to use log-transformation
 </div>
 <div id="the-multiplicative-intensity-model" class="section level2">
 <h2>The multiplicative intensity model</h2>
-<p>Suppose we want to study the <span style="color: tomato; font-size: 18px;">time to death</span> and <span style="color: tomato; font-size: 18px;">the cause of death</span> for individuals in a population. With competing risk, we can model by a Markov chain with one transient state <span class="math inline">\(0\)</span> representing “alive” and <span class="math inline">\(k\)</span> absorbing states corresponding to “death by cause <span class="math inline">\(h\)</span>,” <span class="math inline">\(h = 1,2,\dots,k\)</span>. Thus, the transition intensity from state 0 to state <span class="math inline">\(h\)</span> is denoted <span class="math inline">\(\alpha_{0h}(t)\)</span> and the instantaneous risk of dying from cause <span class="math inline">\(h\)</span> is <span class="math inline">\(\alpha_{0h}(t)dt\)</span> that is the conditional probability an individual will die of cause <span class="math inline">\(h\)</span> in the small intervall <span class="math inline">\([t,t+dt)\)</span> condition on the individual is still alive just prior to <span class="math inline">\(t\)</span>. <span class="math inline">\(\alpha_{0h}(t)dt\)</span> is termed <em>cause-specific hazard rates</em>.</p>
+<p>Suppose we want to study the <span style="color: tomato; font-size: 18px;">time to death</span> and <span style="color: tomato; font-size: 18px;">the cause of death</span> for individuals in a population. With competing risk, we can model by a Markov chain with one transient state <span class="math inline">\(0\)</span> representing “alive” and <span class="math inline">\(k\)</span> absorbing states corresponding to “death by cause <span class="math inline">\(h\)</span>”, <span class="math inline">\(h = 1,2,\dots,k\)</span>. Thus, the transition intensity from state 0 to state <span class="math inline">\(h\)</span> is denoted <span class="math inline">\(\alpha_{0h}(t)\)</span> and the instantaneous risk of dying from cause <span class="math inline">\(h\)</span> is <span class="math inline">\(\alpha_{0h}(t)dt\)</span> that is the conditional probability an individual will die of cause <span class="math inline">\(h\)</span> in the small intervall <span class="math inline">\([t,t+dt)\)</span> condition on the individual is still alive just prior to <span class="math inline">\(t\)</span>. <span class="math inline">\(\alpha_{0h}(t)dt\)</span> is termed <em>cause-specific hazard rates</em>.</p>
 <p>Hence, if we have sample of <span class="math inline">\(n\)</span> patients, then <span class="math inline">\(N_{0h}(t)\)</span> is the process that counts the number of patients who are observed to die from cause <span class="math inline">\(h\)</span> in the interval <span class="math inline">\([0,t]\)</span>, and <span class="math inline">\(Y_0(t)\)</span> is the number of individuals at risk just prior to time <span class="math inline">\(t\)</span>. The intensity process of multiplicative of <span class="math inline">\(N_{0h}(t)\)</span> is <span class="math inline">\(\alpha_{0h}(t)Y_0(h)\)</span>. By using the Nelson-Aalen estimator, we obtain estimate of the cumulative cause-specific hazard <span class="math inline">\(A_{0h}(t) = \int_0^t \alpha_{0h}(u)du\)</span>.</p>
-<p>More general, Markov chain can be used with a finite number of states in which the transition intensity <span class="math inline">\(\alpha_{gh}(t)\)</span> describes the instantaneous risk of transition from state <span class="math inline">\(g\)</span> to <span class="math inline">\(h\)</span>. In other words, <span class="math inline">\(\alpha_{gh}(t)dt\)</span> is the conditional probability a patient who is in state <span class="math inline">\(g\)</span> just before time <span class="math inline">\(t\)</span> will make a transition to state <span class="math inline">\(h\)</span> in the small time interval <span class="math inline">\([t,t+dt)\)</span>, for further details refer to <span class="citation"><a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing</a> (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span>.</p>
+<p>More general, Markov chain can be used with a finite number of states in which the transition intensity <span class="math inline">\(\alpha_{gh}(t)\)</span> describes the instantaneous risk of transition from state <span class="math inline">\(g\)</span> to <span class="math inline">\(h\)</span>. In other words, <span class="math inline">\(\alpha_{gh}(t)dt\)</span> is the conditional probability a patient who is in state <span class="math inline">\(g\)</span> just before time <span class="math inline">\(t\)</span> will make a transition to state <span class="math inline">\(h\)</span> in the small time interval <span class="math inline">\([t,t+dt)\)</span>, for further details refer to <span class="citation">Aalen, Borgan, and Gjessing (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span>.</p>
 <p>For example, we deem a situation where the event of interest is dead, but hazard rates are not identical across subjects (or subgroups). This is
 <span class="math display" id="eq:eq9">\[
 \alpha_i(t) = \alpha(t)\mu_i(t),
@@ -448,9 +412,9 @@ where <span class="math inline">\(\alpha(t)\)</span> is termed relative mortalit
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-aal2008" class="csl-entry">
-Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.
+<div id="refs" class="references">
+<div id="ref-aal2008">
+<p>Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.</p>
 </div>
 </div>
 </div>
@@ -482,7 +446,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

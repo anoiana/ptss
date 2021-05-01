@@ -55,7 +55,7 @@ n = 1:30
 s = f(n)
 d = cbind(n,s)
 r = runif(100,-1,0)
-plot(d[d[,2]<0,], pch = 16, ylim = c(-6,0), cex = 1.2, ylab = "sequence (c)")
+plot(d[d[,2]<0,], pch = 16, ylim = c(-6,0), cex = 1.2, ylab = "sequence (c)",type = "o")
 points(r, pch = 16, col = "red")
 abline(h = -1, col = "red")
 ```
@@ -74,7 +74,7 @@ The following figure illustrates for _sup_ or _supremum_
 
 ```{r,  echo=FALSE, fig.cap="example for $\\lim\\sup$", fig.align='center'}
 r = runif(100,0,1)
-plot(d[d[,2]>0,], pch = 16, cex = 1.2, ylab = "sequence (c)", ylim = c(0,3.5))
+plot(d[d[,2]>0,], pch = 16, cex = 1.2, ylab = "sequence (c)", ylim = c(0,3.5),type = "o")
 points(r, pch = 16, col = "red")
 abline(h = 1, col = "red")
 ```
@@ -84,11 +84,11 @@ In this case, all black filled circles are greater than $1$, the sequence goes t
 If we combine both figures, we obtain
 
 ```{r,  echo=FALSE, fig.cap="example for $\\lim\\sup$", fig.align='center'}
-r = runif(500,-1,1)
-plot(d, pch = 16, cex = 1.2, ylab = "sequence (c)")
+r = runif(100,0,1)
+plot(d[d[,2]<0,], pch = 16, ylim = c(-6,6), cex = 0.7, ylab = "sequence (c)", type = "o")
+points(d[d[,2]>0,], pch = 16, cex = 0.7, ylab = "sequence (c)", ylim = c(0,3.5), type = "o")
 points(r, pch = 16, col = "red")
-abline(h = 1, col = "red")
-abline(h = -1, col = "red")
+abline(h = c(-1,1), col = "red")
 ```
 
 Two horizontal red lines represent for $a_n$ and $b_n$, and when $n$ goes to $\infty$ they approach to $-1$ and $1$, respectively. If we extend the interval $[-1,1]$ to a general interval $[a,b]$, then  $[a_{n+1},b_{n+1}]$ will be contained in $[a_n,b_n]$ for all $n$. We can say $\lim_{n \to \infty}[a_n,b_n] = [-1,1]$. This is, as $n \to \infty$ it approaches to the shortest length interval of $[a_n,b_n]_{n=1}^{\infty}$. 

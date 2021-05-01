@@ -89,6 +89,7 @@ a:hover {
   padding: 7px;
   background-color: snow;
   border-radius: 0px; /* Gets rid of rounded corners on TOC */
+  padding-bottom: 27em;
 
 }
 
