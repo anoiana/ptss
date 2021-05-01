@@ -291,9 +291,7 @@ $(document).ready(function () {
     <li>
       <a href="03_docsach_phuong-phap-phi-tham-so.html">Phương pháp phi tham số</a>
     </li>
-    <li>
-      <a href="03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html">lý thuyết toán trong phân tích sống sót</a>
-    </li>
+    <li class="dropdown-header">lý thuyết toán trong phân tích sống sót</li>
   </ul>
 </li>
       </ul>
@@ -327,6 +325,7 @@ $(document).ready(function () {
 <li><a href="#đặc-tính-martingales-trong-cột-thời-gian-rời-rạc">Đặc tính martingales trong cột thời gian rời rạc</a></li>
 <li><a href="#sự-thay-đổi-của-quá-trình-ngẫu-nhiên">Sự thay đổi của quá trình ngẫu nhiên</a></li>
 </ul></li>
+<li><a href="#references"><em>References</em></a></li>
 </ul>
 </div>
 
@@ -334,6 +333,9 @@ $(document).ready(function () {
 
 <hr />
 <!-- ===================== START FROM HERE ========================== -->
+<div class="right">
+<p><em>refer to <span class="citation">Aalen, Borgan, and Gjessing (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
+</div>
 <div id="quá-trình-ngẫu-nhiên-trong-cột-thời-gian-rời-rạc" class="section level1">
 <h1>Quá trình ngẫu nhiên trong cột thời gian rời rạc</h1>
 <div id="đặc-tính-martingales-trong-cột-thời-gian-rời-rạc" class="section level2">
@@ -393,19 +395,19 @@ Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có t
 \Bbb{E}(M_m|\mathscr{F}_n) = M_n, \quad \forall m \le n.
 \tag{2}
 \]</span>
-Quá trình <span class="math inline">\(M = \{M_0, M_1, M_2,\dots\}\)</span> là một martingale tương ứng với tiền sự <span class="math inline">\(\{\scr{F}_n\}\)</span> nếu
+Quá trình <span class="math inline">\(M = \{M_0, M_1, M_2,\dots\}\)</span> là một martingale tương ứng với tiền sự <span class="math inline">\(\{\mathscr{F}_n\}\)</span> nếu
 <span class="math display" id="eq:eq3">\[
-\Bbb{E}(M_n|\scr{F}_{n-1}) = M_{n-1}, \quad \forall n \ge 1,
+\Bbb{E}(M_n|\mathscr{F}_{n-1}) = M_{n-1}, \quad \forall n \ge 1,
 \tag{3}
 \]</span>
 phương trình trên có thể suy rộng ra và khái quát như phương trình sau
 <span class="math display" id="eq:eq4">\[
-\Bbb{E}(M_n|\scr{F}_m) = M_m. \quad \forall n&gt;m
+\Bbb{E}(M_n|\mathscr{F}_m) = M_m. \quad \forall n&gt;m
 \tag{4}
 \]</span></p>
 <p>Như vậy nếu như <span class="math inline">\(M_0 =0\)</span> (tại thời gian <span class="math inline">\(t_0\)</span> không có ca tử vong nào xảy ra), ta có
 <span class="math display" id="eq:eq5">\[
-\Bbb{E}(M_n) = \Bbb{E}[\Bbb{E}(M_n|\scr{F}_0)] = \Bbb{E}(M_0) = 0. 
+\Bbb{E}(M_n) = \Bbb{E}[\Bbb{E}(M_n|\mathscr{F}_0)] = \Bbb{E}(M_0) = 0. 
 \tag{5}
 \]</span></p>
 <p>như vậy martingale sẽ có kỳ vọng là 0, gọi là một <em>“mean zero martingale”</em>, tương tự chúng ta cũng sẽ có</p>
@@ -415,7 +417,7 @@ Cov(M_m,M_n-M_m) = 0, \quad \forall n &gt; m
 nghĩa là martingale có <em>uncorrelated increments</em>.</p>
 <p>Từ <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq3">(3)</a> ta sẽ có</p>
 <p><span class="math display" id="eq:eq6">\[
-\Bbb{E}(M_n - M_{n-1}|\scr{F}_{n-1}) = 0, \quad \forall n &gt; 1
+\Bbb{E}(M_n - M_{n-1}|\mathscr{F}_{n-1}) = 0, \quad \forall n &gt; 1
 \tag{6}
 \]</span>
 <span class="math inline">\(\Delta M_n = M_n-M_{n-1}\)</span> gọi là hiệu martingale (martingale differences).</p>
@@ -424,7 +426,7 @@ nghĩa là martingale có <em>uncorrelated increments</em>.</p>
 <h2>Sự thay đổi của quá trình ngẫu nhiên</h2>
 <p>Có 2 sự thay đổi mà ta cần quan tâm, cái thứ nhất gọi là <em>quá trình thay đổi có thể dự đoán</em> được ký hiệu là <span class="math inline">\(\langle M \rangle\)</span> và được định nghĩa là tổng của phương sai có điều kiện
 <span class="math display" id="eq:eq7">\[
-\langle M \rangle_n = \sum_{i=1}^n \Bbb{E}\{(M_i-M_{i-1}^2|\scr{F}_{i-1}\} = \sum_{i=1}^n\Bbb{V}(\Delta M_i|\scr{F}_{i-1})
+\langle M \rangle_n = \sum_{i=1}^n \Bbb{E}\{(M_i-M_{i-1}^2|\mathscr{F}_{i-1}\} = \sum_{i=1}^n\Bbb{V}(\Delta M_i|\mathscr{F}_{i-1})
 \tag{7}
 \]</span>
 biết rằng <span class="math inline">\(\langle M \rangle_0 = 0\)</span>. quá trình thay đổi thứ hai gọi là <em>quá trình thay đổi tùy ý</em>, ký hiệu <span class="math inline">\([M]\)</span> và được định nghĩa như sau
@@ -441,7 +443,14 @@ M^2 - [M] \text{ chính là martingale có kỳ vọng bằng 0}
 \tag{9}
 \]</span></p>
 <!-- ====================== END ====================================== -->
-<!-- # *References* {.unnumbered} -->
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1><em>References</em></h1>
+<div id="refs" class="references">
+<div id="ref-aal2008">
+<p>Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.</p>
+</div>
 </div>
 </div>
 

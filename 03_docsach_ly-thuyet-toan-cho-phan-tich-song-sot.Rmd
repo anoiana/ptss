@@ -15,6 +15,7 @@ link-citations: true
 \newcommand{\mm}[1]{\mathbb{#1}}
 \newcommand{\bar}[1]{\overline{#1}}
 \newcommand{\tp}[1]{{#1}^{\top}}
+\newcommand{\scr}[1]{\mathscr{#1}}
 
 \def\E{\Bbb{E}}
 \def\V{\Bbb{V}}
@@ -31,6 +32,10 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 <!-- ===================== START FROM HERE ========================== -->
+
+:::{.right}
+*refer to @aal2008*
+:::
 
 # Quá trình ngẫu nhiên trong cột thời gian rời rạc
 
@@ -87,6 +92,7 @@ Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có t
 :::{.center}
 `r colorize("Tại sao ta cần nắm kiến thức trên?","tomato")`
 :::
+
 Liên hệ với phân tích sốt sót, ta thấy rằng cứ sau mỗi một bệnh nhân tử vong được ghi nhận, thì các giá trị của hàm sống sót, hàm nguy cơ,... đều thay đổi. Câu hỏi được đặc ra là liệu sau mỗi một ca tử vong ghi nhận được, thì ta có thể dự đoán gì về các ca tiếp theo? và liệu với các thông tin ta có cho tới thời điển hiện tại (tiền sự) thì sẽ trả lời được cho ta về điều gì trong những lần tới? 
 ::::
 
@@ -151,6 +157,7 @@ M^2 - [M] \text{ chính là martingale có kỳ vọng bằng 0}
 $$
 
 
+
  
 
 
@@ -163,4 +170,4 @@ $$
 
 <!-- ====================== END ====================================== -->
 
-<!-- # *References* {.unnumbered} -->
+# *References* {.unnumbered}
