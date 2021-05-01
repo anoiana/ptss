@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Nonparametric Analysis Of Time-To-Event</title>
+<title>✑ Lý Thuyết Toán Cho Phân Tích Sống Sót</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -353,105 +353,131 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">✑ Nonparametric Analysis Of Time-To-Event</h1>
-<h4 class="date">📅 2021-04-29</h4>
+<h1 class="title toc-ignore">✑ Lý Thuyết Toán Cho Phân Tích Sống Sót</h1>
+<h4 class="date">📅 2021-05-01</h4>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#the-nelson-aalen-estimator">The Nelson-Aalen estimator</a>
+<li><a href="#quá-trình-ngẫu-nhiên-trong-cột-thời-gian-rời-rạc">Quá trình ngẫu nhiên trong cột thời gian rời rạc</a>
 <ul>
-<li><a href="#the-survival-data">The survival data</a></li>
-<li><a href="#the-multiplicative-intensity-model">The multiplicative intensity model</a></li>
-<li><a href="#ties">Ties</a></li>
+<li><a href="#đặc-tính-martingales-trong-cột-thời-gian-rời-rạc">Đặc tính martingales trong cột thời gian rời rạc</a></li>
+<li><a href="#sự-thay-đổi-của-quá-trình-ngẫu-nhiên">Sự thay đổi của quá trình ngẫu nhiên</a></li>
 </ul></li>
-<li><a href="#references"><em>References</em></a></li>
 </ul>
 </div>
 
 <hr />
-<p><em>ref. to <span class="citation"><a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing</a> (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
-<p>Each of <span class="math inline">\(n\)</span> patients has a counting process that registers the number of occurrences of an event of interest. We shall denote it as <span class="math inline">\(N_i(t)\)</span> for <span class="math inline">\(i\)</span>th patient in the time interval <span class="math inline">\([0,t]\)</span>. The intensity process of <span class="math inline">\(N_i(t)\)</span> has the following form
+<!-- ===================== START FROM HERE ========================== -->
+<div id="quá-trình-ngẫu-nhiên-trong-cột-thời-gian-rời-rạc" class="section level1">
+<h1>Quá trình ngẫu nhiên trong cột thời gian rời rạc</h1>
+<div id="đặc-tính-martingales-trong-cột-thời-gian-rời-rạc" class="section level2">
+<h2>Đặc tính martingales trong cột thời gian rời rạc</h2>
+<p>Ta có <span class="math inline">\(M = \{M_0,M_1,\dots\}\)</span> là quá trình ngẫu nhiên trong cột thời gian rời rạc. <span class="math inline">\(M\)</span> là một martingales khi
 <span class="math display" id="eq:eq1">\[
-\lambda_i(t) = \alpha(t)Y_i(t), 
+\Bbb{E}(M_n|M_0,M_1,\dots,M_{n-1}) = M_{n-1}, \quad n \ge 1
 \tag{1}
 \]</span>
-where <span class="math inline">\(\alpha(t)\)</span> is a non-negative function, and
+Đặc tính này liên quan tới “fair game,” nghĩa là dựa trên các thông tin ta có được sau khi quan sát <span class="math inline">\(n-1\)</span> trò chơi thì thông tin tăng lên mà ta kỳ vọng cho trò chơi tiếp theo sẽ không thay đổi.</p>
+<p>Tạm gọi <span class="math inline">\(\mathscr{F}_n\)</span> là thông tin tích lũy đến thời điểm thứ <span class="math inline">\(n\)</span>. Trong lý thuyết về tập hợp ta có thể xem <span class="math inline">\(\{\mathscr{F}_n\}\)</span> là một tập hợp, số lượng phần tử của tập hợp này sẽ tăng dần khi lần lượt đi qua các mốc thời gian (đi càng nhiều, chứng kiền càng nhiều, kiến thức càng nhiều). Ví dụ, ta ném 3 đồng xu thì ta biết trước có tất cả 8 trường hợp có thể xảy ra nhưng ta không biết cụ thể trường hợp nào, và ta cũng không biết trường hợp nào có nhiều khả năng hơn trường hợp nào. Nói cách khác tất cả các khả năng đều ngang bằng nhau, cũng có thể nói ta không có bất kỳ thông tin nào. 8 trường hợp đó là
 <span class="math display">\[
-Y_i(t) = \cases{1, \quad \text{patient i is at risk &quot;just before&quot; time t}\\
-0, \quad \text{otherwise}}
+M_0 = \{(HHH, HHT, HTH, HTT, THH,THT, TTH, TTT)\},
+\]</span>
+ở giai đoạn đầu tiên này, ta không hề có bất kỳ thông tin gì ngoài việc ba đồng xu sẽ được ném lên. Tuy nhiên, sau khi 1 đồng xu được ném lên, ta biết rằng sẽ có 2 trường hợp có thể xảy ra, và ta sẽ có sự phân bố các phần tử như sau
+<span class="math display">\[
+M_1 = \{(HHH, HHT, HTH, HTT), (THH,THT, TTH, TTT)\},
+\]</span>
+sau khi đồng xu thứ 2 được ném ra, ta có sự phân bố như sau
+<span class="math display">\[
+M_2 = \{(HHH, HHT),(HTH,HTT),(THH,THT), (TTH,TTT)\},
+\]</span>
+cuối cùng sau khi đồng xu thứ 3 được ném ra ta sẽ biết được tất cả thông tin, và sự phân bố bây giờ là
+<span class="math display">\[
+M_3 = \{(HHH), (HHT), (HTH), (HTT), (THH), (THT), (TTH), (TTT)\}.
+\]</span>
+Sau mỗi một đồng xu được ném ra và quan sát ta lại có thêm thông tin, và sự phân nhóm của tập hợp ban đầu có sự thay đổi theo chiều hướng chi tiết hơn, cho đến khi cả 3 đồng xu được ném ra thì ta có đầy đủ thông tin để khẳng định kiểu hình của 3 đồng xu đó là gì. Một lưu ý ta cần nhớ là thông tin ta có sau mỗi một đồng xu được ném ra nhiều hơn và bao gồm các thông tin trước đó. Nghĩa là
+<span class="math display">\[
+\begin{aligned}
+&amp;\mathscr{F}_0 = \{M_0, \emptyset\} \\
+&amp;\mathscr{F}_1 = \{M_0, M_1, \emptyset\} \\
+&amp;\mathscr{F}_2 = \{M_0, M_1, M_2, \emptyset\} \\
+&amp;\mathscr{F}_3 = \{M_0, M_1, M_2, M_3, \emptyset\}
+\end{aligned}
+\]</span>
+theo lý thuyết tập hợp ta có thể ký hiệu quá trình này là
+<span class="math display">\[
+\mathscr{F}_1 \subset \mathscr{F}_2 \subset \mathscr{F}_3.
 \]</span></p>
-<p>Also, <span class="math inline">\(N(t) = \sum_{i=1}^n N_i(t)\)</span> is the total number of observed events in the interval <span class="math inline">\([0,t)\)</span>. If no tied event occurs we can obtain the intensity process
+<p>Như vậy ta nói rằng quá trình <span class="math inline">\(M = \{M_0, M_1, M_2, \dots\}\)</span> thích nghi với lịch sử <span class="math inline">\(\{\mathscr{F}_n\}\)</span>. Và theo đó mỗi một biến ngẫu nhiên <span class="math inline">\(M_1, \dots, M_n\)</span> có thể tính toán (nghĩa là có thể tính ra xác suất cho mỗi trường hợp cụ thể). Lấy một ví dụ cụ thể là
+<span class="math display">\[
+\begin{aligned}
+\mathscr{F}_1 = \begin{bmatrix}\color{red}{(HHH, HHT, HTH, HTT, THH,THT, TTH, TTT)} \\ 
+\color{blue}{(HHH, HHT, HTH, HTT)}, \color{blue}{(THH,THT, TTH, TTT)}\\ 
+\color{green}{\emptyset}\end{bmatrix}
+\end{aligned}
+\]</span>
+Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có thể tính được xác suất của các trường hợp trong <span class="math inline">\(\mathscr{F}_1\)</span> bằng phương pháp đếm trong tập hợp mẹ <span class="math inline">\(\Omega\)</span> chứa 8 điểm giống nhau về các đặc tính định lượng. Nghĩa là mỗi 1 điểm đều có xác suất là <span class="math inline">\(1/8\)</span>. Như vậy ta lần lượt tính được xác suất cả các trường hợp trên là (từ trên xuống, từ trái qua): <span class="math inline">\(\{1, 1/2, 1/2,0\}\)</span>.</p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p><span style="color: tomato; font-size: 18px;">Tại sao ta cần nắm kiến thức trên?</span></p>
+</div>
+<p>Liên hệ với phân tích sốt sót, ta thấy rằng cứ sau mỗi một bệnh nhân tử vong được ghi nhận, thì các giá trị của hàm sống sót, hàm nguy cơ,… đều thay đổi. Câu hỏi được đặc ra là liệu sau mỗi một ca tử vong ghi nhận được, thì ta có thể dự đoán gì về các ca tiếp theo? và liệu với các thông tin ta có cho tới thời điển hiện tại (tiền sự) thì sẽ trả lời được cho ta về điều gì trong những lần tới?</p>
+</div>
+<p>Như vậy <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq1">(1)</a> có thể được viết lại là
 <span class="math display" id="eq:eq2">\[
-\lambda(t) = \sum_{i=1}^n\lambda_i(t) = \alpha(t)Y(t)
+\Bbb{E}(M_m|\mathscr{F}_n) = M_n, \quad \forall m \le n.
 \tag{2}
 \]</span>
-where <span class="math inline">\(Y(t) = \sum_{i=1}^nY_i(t)\)</span> is the number at risk “just before” time <span class="math inline">\(t\)</span>.</p>
-</div>
-<div id="the-nelson-aalen-estimator" class="section level1">
-<h1>The Nelson-Aalen estimator</h1>
-<div id="the-survival-data" class="section level2">
-<h2>The survival data</h2>
-<p>For survival data in which we are interested in the time to occurrence of an event for patients in a population. In this case, the hazard rate <span class="math inline">\(\alpha(t)\)</span> specifies the instanstaneous probability of the event, that is, <span class="math inline">\(\alpha(t)dt\)</span> is the conditional probability the event will occur in the small time interval <span class="math inline">\([t,t+dt)\)</span> condition on the fact that it has not occurred earlier.</p>
-<p>Without parametric assumptions, <span class="math inline">\(\alpha(t)\)</span> can be any non-negative function that make it difficult to estimate. Thus, it is preferable to estimate the cumulative hazard
+Quá trình <span class="math inline">\(M = \{M_0, M_1, M_2,\dots\}\)</span> là một martingale tương ứng với tiền sự <span class="math inline">\(\{\scr{F}_n\}\)</span> nếu
 <span class="math display" id="eq:eq3">\[
-A(t) = \int_0^t\alpha(s)ds
+\Bbb{E}(M_n|\scr{F}_{n-1}) = M_{n-1}, \quad \forall n \ge 1,
 \tag{3}
 \]</span>
-and it is ended up with the Nelson-Aalen estimator that is as follows
+phương trình trên có thể suy rộng ra và khái quát như phương trình sau
 <span class="math display" id="eq:eq4">\[
-\widehat{A}(t) = \sum_{T_j \le t}\frac{1}{Y(T_j)}
+\Bbb{E}(M_n|\scr{F}_m) = M_m. \quad \forall n&gt;m
 \tag{4}
 \]</span></p>
-<p><strong>An intuitive justification of the estimator for censored survival data:</strong> the interal <span class="math inline">\([0,t]\)</span> is partitioned into small intervals, a typical interval that is <span class="math inline">\([s,s+ds)\)</span> contains at most one observed event. The contribution to <span style="color: black; font-size: 18px;"><em>equation</em></span> <a href="#eq:eq3">(3)</a> over the interval <span class="math inline">\([s,s+dt)\)</span> is <span class="math inline">\(\alpha(s)ds\)</span> that was defined above. If there is no event occuring in <span class="math inline">\((s,s+ds)\)</span> then <span class="math inline">\(\alpha(s)ds\)</span> is zero, and it is equal to <span class="math inline">\(1/Y(s) = 1/Y(T_j)\)</span>, otherwise, with <span class="math inline">\(T_j \in [s,s+ds)\)</span>. Aggregating these contributions over all time interval, we end up with <span class="math inline">\(\widehat{A}(t)\)</span> as a sensible estimator of <span class="math inline">\(A(t)\)</span>.</p>
-<p>Later we will show that the variance of the Nelson-Aslen estimator is
+<p>Như vậy nếu như <span class="math inline">\(M_0 =0\)</span> (tại thời gian <span class="math inline">\(t_0\)</span> không có ca tử vong nào xảy ra), ta có
 <span class="math display" id="eq:eq5">\[
-\widehat{\sigma}^2(t) = \sum_{T_j \le t}\frac{1}{Y(T_j)^2}
+\Bbb{E}(M_n) = \Bbb{E}[\Bbb{E}(M_n|\scr{F}_0)] = \Bbb{E}(M_0) = 0. 
 \tag{5}
+\]</span></p>
+<p>như vậy martingale sẽ có kỳ vọng là 0, gọi là một <em>“mean zero martingale”</em>, tương tự chúng ta cũng sẽ có</p>
+<p><span class="math display">\[
+Cov(M_m,M_n-M_m) = 0, \quad \forall n &gt; m
 \]</span>
-hence,
-<span class="math display" id="eq:eq6">\[
-\widehat{(}A)(t) \pm \Phi^{-1}(1-\alpha/2)\widehat{\sigma}(t)
+nghĩa là martingale có <em>uncorrelated increments</em>.</p>
+<p>Từ <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq3">(3)</a> ta sẽ có</p>
+<p><span class="math display" id="eq:eq6">\[
+\Bbb{E}(M_n - M_{n-1}|\scr{F}_{n-1}) = 0, \quad \forall n &gt; 1
 \tag{6}
 \]</span>
-alternative option is to use log-transformation
-<span class="math display" id="eq:eq7">\[
-\widehat{A}(t)\exp\{\pm \Phi^{-1}(1-\alpha/2)\widehat{\sigma}(t)/\widehat{A}(t)\}
-\tag{7}
-\]</span></p>
+<span class="math inline">\(\Delta M_n = M_n-M_{n-1}\)</span> gọi là hiệu martingale (martingale differences).</p>
 </div>
-<div id="the-multiplicative-intensity-model" class="section level2">
-<h2>The multiplicative intensity model</h2>
-<p>Suppose we want to study the <span style="color: tomato; font-size: 18px;">time to death</span> and <span style="color: tomato; font-size: 18px;">the cause of death</span> for individuals in a population. With competing risk, we can model by a Markov chain with one transient state <span class="math inline">\(0\)</span> representing “alive” and <span class="math inline">\(k\)</span> absorbing states corresponding to “death by cause <span class="math inline">\(h\)</span>,” <span class="math inline">\(h = 1,2,\dots,k\)</span>. Thus, the transition intensity from state 0 to state <span class="math inline">\(h\)</span> is denoted <span class="math inline">\(\alpha_{0h}(t)\)</span> and the instantaneous risk of dying from cause <span class="math inline">\(h\)</span> is <span class="math inline">\(\alpha_{0h}(t)dt\)</span> that is the conditional probability an individual will die of cause <span class="math inline">\(h\)</span> in the small intervall <span class="math inline">\([t,t+dt)\)</span> condition on the individual is still alive just prior to <span class="math inline">\(t\)</span>. <span class="math inline">\(\alpha_{0h}(t)dt\)</span> is termed <em>cause-specific hazard rates</em>.</p>
-<p>Hence, if we have sample of <span class="math inline">\(n\)</span> patients, then <span class="math inline">\(N_{0h}(t)\)</span> is the process that counts the number of patients who are observed to die from cause <span class="math inline">\(h\)</span> in the interval <span class="math inline">\([0,t]\)</span>, and <span class="math inline">\(Y_0(t)\)</span> is the number of individuals at risk just prior to time <span class="math inline">\(t\)</span>. The intensity process of multiplicative of <span class="math inline">\(N_{0h}(t)\)</span> is <span class="math inline">\(\alpha_{0h}(t)Y_0(h)\)</span>. By using the Nelson-Aalen estimator, we obtain estimate of the cumulative cause-specific hazard <span class="math inline">\(A_{0h}(t) = \int_0^t \alpha_{0h}(u)du\)</span>.</p>
-<p>More general, Markov chain can be used with a finite number of states in which the transition intensity <span class="math inline">\(\alpha_{gh}(t)\)</span> describes the instantaneous risk of transition from state <span class="math inline">\(g\)</span> to <span class="math inline">\(h\)</span>. In other words, <span class="math inline">\(\alpha_{gh}(t)dt\)</span> is the conditional probability a patient who is in state <span class="math inline">\(g\)</span> just before time <span class="math inline">\(t\)</span> will make a transition to state <span class="math inline">\(h\)</span> in the small time interval <span class="math inline">\([t,t+dt)\)</span>, for further details refer to <span class="citation"><a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing</a> (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span>.</p>
-<p>For example, we deem a situation where the event of interest is dead, but hazard rates are not identical across subjects (or subgroups). This is
-<span class="math display" id="eq:eq9">\[
-\alpha_i(t) = \alpha(t)\mu_i(t),
-\tag{8}
+<div id="sự-thay-đổi-của-quá-trình-ngẫu-nhiên" class="section level2">
+<h2>Sự thay đổi của quá trình ngẫu nhiên</h2>
+<p>Có 2 sự thay đổi mà ta cần quan tâm, cái thứ nhất gọi là <em>quá trình thay đổi có thể dự đoán</em> được ký hiệu là <span class="math inline">\(\langle M \rangle\)</span> và được định nghĩa là tổng của phương sai có điều kiện
+<span class="math display" id="eq:eq7">\[
+\langle M \rangle_n = \sum_{i=1}^n \Bbb{E}\{(M_i-M_{i-1}^2|\scr{F}_{i-1}\} = \sum_{i=1}^n\Bbb{V}(\Delta M_i|\scr{F}_{i-1})
+\tag{7}
 \]</span>
-where <span class="math inline">\(\alpha(t)\)</span> is termed relative mortality common to all individuals and <span class="math inline">\(\mu_i(t)\)</span> is hazard rate (mortality rate) at time <span class="math inline">\(t\)</span> that is from a standard population relative to subject <span class="math inline">\(i\)</span>, e.g., sex, age, etc. The process <span class="math inline">\(N(t)\)</span> that counts the number of deaths in <span class="math inline">\([0,t]\)</span> has intensity process of multiplicative form <span class="math inline">\(\alpha(t)Y(t)\)</span>, where <span class="math inline">\(Y(t) = \sum_{i=1}^nY_i(t)\mu_i(t)\)</span>. Thus, the Nelson-Aalen estimator for cumulative relative mortality <span class="math inline">\(A(t) = \int_0^t\alpha(u)du\)</span> is
-<span class="math display" id="eq:eq10">\[
-\widehat{A}(t) = \sum_{T_j \le t}\frac{1}{\sum_{i=1}^nY_i(T_j)\mu_i(T_j)}.
+biết rằng <span class="math inline">\(\langle M \rangle_0 = 0\)</span>. quá trình thay đổi thứ hai gọi là <em>quá trình thay đổi tùy ý</em>, ký hiệu <span class="math inline">\([M]\)</span> và được định nghĩa như sau
+<span class="math display">\[
+[M]_n = \sum_{i=1}^n (M_i-M_{i-1})^2 = \sum_{i=1}^n (\Delta M_i)^2, \quad n \ge 0
+\]</span>
+biết rằng <span class="math inline">\([M]_0 = 0\)</span>. Ta có thể chứng minh được rằng</p>
+<p><span class="math display" id="eq:eq9">\[
+M^2 - \langle M \rangle \text{ chính là martingale có kỳ vọng bằng 0}
+\tag{8}
+\]</span></p>
+<p><span class="math display" id="eq:eq10">\[
+M^2 - [M] \text{ chính là martingale có kỳ vọng bằng 0}
 \tag{9}
 \]</span></p>
-</div>
-<div id="ties" class="section level2">
-<h2>Ties</h2>
-<p>So far we have restricted our calculation to no tie event times, which make more sense with continuous case but this assumption is unrealistic in practice.</p>
-<!-- ------------------------------------------------------------------------------------ -->
-</div>
-</div>
-<div id="references" class="section level1 unnumbered">
-<h1><em>References</em></h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-aal2008" class="csl-entry">
-Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.
-</div>
+<!-- ====================== END ====================================== -->
+<!-- # *References* {.unnumbered} -->
 </div>
 </div>
 

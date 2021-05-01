@@ -39,5 +39,7 @@ navbar:
       menu:
       - text: "Phương pháp phi tham số"
         href: '03_docsach_phuong-phap-phi-tham-so.html'
+      - text: "lý thuyết toán trong phân tích sống sót"
+        href: "03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html"
   type: inverse
 
