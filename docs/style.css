@@ -83,11 +83,10 @@ a:hover {
 .tocify {
   position: -webkit-sticky;
   position: sticky;
-  top: 0; /*Controls where TOC stops when sticky */
+  top: 5em; /*Controls where TOC stops when sticky */
   width: 100% !important;
   border: none;
   padding: 7px;
-  background-color: snow;
   border-radius: 0px; /* Gets rid of rounded corners on TOC */
   padding-bottom: 27em;
 

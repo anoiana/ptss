@@ -54,6 +54,7 @@ f = Vectorize(function(n) (-1)^n*(n+5)/n)
 n = 1:30
 s = f(n)
 d = cbind(n,s)
+set.seed(200)
 r = runif(100,-1,0)
 plot(d[d[,2]<0,], pch = 16, ylim = c(-6,0), cex = 1.2, ylab = "sequence (c)",type = "o")
 points(r, pch = 16, col = "red")
@@ -73,6 +74,7 @@ $$
 The following figure illustrates for _sup_ or _supremum_
 
 ```{r,  echo=FALSE, fig.cap="example for $\\lim\\sup$", fig.align='center'}
+set.seed(200)
 r = runif(100,0,1)
 plot(d[d[,2]>0,], pch = 16, cex = 1.2, ylab = "sequence (c)", ylim = c(0,3.5),type = "o")
 points(r, pch = 16, col = "red")
@@ -84,7 +86,8 @@ In this case, all black filled circles are greater than $1$, the sequence goes t
 If we combine both figures, we obtain
 
 ```{r,  echo=FALSE, fig.cap="example for $\\lim\\sup$", fig.align='center'}
-r = runif(100,0,1)
+set.seed(200)
+r = runif(500,-1,1)
 plot(d[d[,2]<0,], pch = 16, ylim = c(-6,6), cex = 0.7, ylab = "sequence (c)", type = "o")
 points(d[d[,2]>0,], pch = 16, cex = 0.7, ylab = "sequence (c)", ylim = c(0,3.5), type = "o")
 points(r, pch = 16, col = "red")
