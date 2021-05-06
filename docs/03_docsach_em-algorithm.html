@@ -434,11 +434,11 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#đặc-vấn-đề">Đặc vấn đề</a></li>
-<li><a href="#thuật-toán-em">Thuật toán EM</a></li>
-<li><a href="#áp-dụng-em-vào-bài-toán-đồng-xu">Áp dụng EM vào bài toán đồng xu</a></li>
-<li><a href="#thực-hành">Thực hành</a></li>
-<li><a href="#phân-bố-gaussian-hỗn-hợp">Phân bố Gaussian hỗn hợp</a></li>
+<li><a href="#đặt-vấn-đề">Đặt vấn đề</a></li>
+<li><a href="#thuật-toán-em">Thuật Toán EM</a></li>
+<li><a href="#áp-dụng-em-vào-bài-toán-đồng-xu">Áp Dụng EM Vào Bài Toán Đồng Xu</a></li>
+<li><a href="#thực-hành">Thực Hành</a></li>
+<li><a href="#phân-bố-gaussian-hỗn-hợp">Phân Bố Gaussian Hỗn Hợp</a></li>
 <li><a href="#references"><em>References</em></a></li>
 </ul>
 </div>
@@ -447,8 +447,8 @@ $(document).ready(function () {
 
 
 <hr />
-<div id="đặc-vấn-đề" class="section level1">
-<h1>Đặc vấn đề</h1>
+<div id="đặt-vấn-đề" class="section level1">
+<h1>Đặt vấn đề</h1>
 <p>Ta xem xét trường hợp đầu tiên với 2 đồng xu. Với đồng xu một (1), ta có xác suất của mặt hình là <span class="math inline">\(p\)</span>, còn đồn xu hai (2) có xác suất mặt hình là <span class="math inline">\(q\)</span>. Mỗi một lần ta sẽ ngẫu nhiên rút một trong hai đồng xu đó để tung 10 lần và ghi nhận kết quả, ta cũng biết rằng xác suất đồng xu một và hai được rút trúng lần lượt là <span class="math inline">\(\pi_1\)</span> và <span class="math inline">\(\pi_2\)</span>. Ta lập lại 2 bước trên <span class="math inline">\(N\)</span> lần. Nếu như ta biết mỗi kết quả thu được tương ứng với một đồng xu nào đó trong hai đồng xu trên, thì ta dễ dàng tính được ước lượng <span class="math inline">\(\widehat{p}\)</span> và <span class="math inline">\(\widehat{q}\)</span>. Như vậy nếu như ta được cung cấp một tập dữ liệu ghi nhận kết quả của <span class="math inline">\(N\)</span> lần rút và tung đồng xu, ta sẽ nhận định rằng đây là một phân bố hỗn hợp giữ hai phân bố Bernoulli, tương ứng với 2 đồng xu một và hai. Để tính xác suất thu được mặt hình ta cần áp dụng công thức Bayes
 <span class="math display">\[
 \begin{aligned}
@@ -469,7 +469,7 @@ l(\boldsymbol{\theta}) = \sum_{n=1}^N\ln\sum_{k=1}^2\pi_k\Bbb{P}(x_n)
 <p>Thông thường khi đã có được phương trình likelihood, ta sẽ tính được <span class="math inline">\(\widehat{\boldsymbol{\theta}}_{MLE}\)</span> bằng cách maximize phương trình log-likelihood. Trong trường hợp trên ta cần biết biết thông tin của <span class="math inline">\(Z\)</span>, nghĩa là ta cần biết mỗi một kết quả được ghi nhận trong tập dữ liệu là của đồng xu một hay hai. Tuy nhiên, tập dữ liệu của ta không cung cấp giá trị của <span class="math inline">\(Z\)</span> mà chỉ có kết quả của <span class="math inline">\(X\)</span>. Nói cách khác dữ liệu hoàn chỉnh ta cần để tìm ước lượng <span class="math inline">\(\widehat{\boldsymbol{\theta}}_{MLE}\)</span> phải có dạng <span class="math inline">\(\{(x_1,z_1),(x_2,z_2),\dots,(x_N,z_N)\}\)</span>. Như vậy, với một tập dữ liệu khuyết <span class="math inline">\(Z\)</span>, phương pháp maximum likelihood không thể tiến hành, do đó để giải quyết bài toán trên ta cần một phương pháp khác.</p>
 </div>
 <div id="thuật-toán-em" class="section level1">
-<h1>Thuật toán EM</h1>
+<h1>Thuật Toán EM</h1>
 <p>Thuật toán EM được ứng dụng đối với các dạng dữ liệu khuyết. Trong ví dụ trên dữ liệu ta có là một dữ liệu khuyết vì biến <span class="math inline">\(Z\)</span> không được cung cấp. Một khi biến <span class="math inline">\(Z\)</span> được cung cấp, bài toán sẽ trở nên đơn giản hơn, vì thế để sử dụng phương pháp EM ta cần phải xác định được phần thông tin bị khuyết của tập dữ liệu mà ta có, và yêu cầu bắt buộc là một khi thông tin khuyết được cung cấp, thì bài toán phải đơn giản hơn <em>(nếu thêm vào mà rối hơn thì khỏi thêm !!!)</em></p>
 <p>Ta bắt đầu bằng hàm logarit tự nhiên của likelihood của dữ liệu khuyết
 <span class="math display">\[
@@ -530,7 +530,7 @@ kết quả của <span style="color: black; font-size: 18px;"><em>phương trì
 như vậy ta chỉ cần xem xét <span class="math inline">\(Q(\boldsymbol{\theta},\boldsymbol{\theta}^{old})\)</span>, đại lượng này cũng chính là <span class="math inline">\(\Bbb{E}[\ln\Bbb{P}(Z|X,\boldsymbol{\theta})]\)</span>, vì thế bước xác định <span class="math inline">\(Q(\boldsymbol{\theta},\boldsymbol{\theta}^{old})\)</span> được gọi là bước E trong 2 bước được giải thích ở trên.</p>
 </div>
 <div id="áp-dụng-em-vào-bài-toán-đồng-xu" class="section level1">
-<h1>Áp dụng EM vào bài toán đồng xu</h1>
+<h1>Áp Dụng EM Vào Bài Toán Đồng Xu</h1>
 <p>Đối với một tập dữ liệu đầy đủ, nghĩa là tập dữ liệu có dạng <span class="math inline">\(\{(\boldsymbol{x}_i,z_i)\}_{i=1,2,\dots,N}\)</span> thì hàm likelihood là
 <span class="math display">\[
 L(\boldsymbol{\theta}) = \prod_{n=1}^N [\pi_1p^{x_n}(1-p)^{10-x_n}]^{z_n}[\pi_2q^{x_n}(1-q)^{10-x_n}]^{1-z_n}
@@ -587,7 +587,7 @@ q = \frac{\sum_{n=1}^N[1-\gamma(z_n)]x_n}{10\sum_{n=1}^N[1-\gamma(z_n)]}
 </div>
 </div>
 <div id="thực-hành" class="section level1">
-<h1>Thực hành</h1>
+<h1>Thực Hành</h1>
 <p>Ta có tập dữ liệu gồm 5 sets, mỗi set có 10 kết quả.
 <span class="math display">\[
 \begin{bmatrix}
@@ -637,7 +637,7 @@ Figure 1: <em>xác suất cho ra mặt hình của mỗi đồng xu.</em>
 <p>Kết quả thu được sau 10 lần chạy giống với kết quả tại <span class="citation">Do and Batzoglou (<a href="#ref-do2008" role="doc-biblioref">2008</a>)</span>, (<a href="http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf">link</a>).</p>
 </div>
 <div id="phân-bố-gaussian-hỗn-hợp" class="section level1">
-<h1>Phân bố Gaussian hỗn hợp</h1>
+<h1>Phân Bố Gaussian Hỗn Hợp</h1>
 <p>Ta sẽ tiến tới một ứng dụng quan trọng của phương pháp EM đó là sử dụng để giải quyết bài toán phân cụm. Đây cũng chính là một trong các phương pháp phân cụm trong machine learning bên cạnh Naive Bayes, logistic model, decision tree v.v…</p>
 <!-- ----------------------------------------------------------------------------- -->
 </div>

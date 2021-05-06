@@ -34,7 +34,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 source("_supp/helper.R")
 ```
 
-# Đặc vấn đề
+# Đặt vấn đề
 
 Ta xem xét trường hợp đầu tiên với 2 đồng xu. Với đồng xu một (1), ta có xác suất của mặt hình là $p$, còn đồn xu hai (2) có xác suất mặt hình là $q$. Mỗi một lần ta sẽ ngẫu nhiên rút một trong hai đồng xu đó để tung 10 lần và ghi nhận kết quả, ta cũng biết rằng xác suất đồng xu một và hai  được rút trúng lần lượt là $\pi_1$ và $\pi_2$. Ta lập lại 2 bước trên $N$ lần. Nếu như ta biết mỗi kết quả thu được tương ứng với  một đồng xu nào đó trong hai đồng xu trên, thì ta dễ dàng tính được ước lượng $\hat{p}$ và $\hat{q}$. Như vậy nếu như ta được cung cấp một tập dữ liệu ghi nhận kết quả của $N$ lần rút và tung đồng xu, ta sẽ nhận định rằng đây là một phân bố hỗn hợp giữ hai phân bố Bernoulli, tương ứng với 2 đồng xu một và hai. Để tính xác suất thu được mặt hình ta cần áp dụng công thức Bayes
 $$
@@ -56,7 +56,7 @@ $$
 
 Thông thường khi đã có được phương trình likelihood, ta sẽ tính được $\hat{\bf{\theta}}_{MLE}$ bằng cách maximize phương trình log-likelihood. Trong trường hợp trên ta cần biết biết thông tin của $Z$, nghĩa là ta cần biết mỗi một kết quả được ghi nhận trong tập dữ liệu là của đồng xu một hay hai. Tuy nhiên, tập dữ liệu của ta không cung cấp giá trị của $Z$ mà chỉ có kết quả của $X$. Nói cách khác dữ liệu hoàn chỉnh ta cần để tìm ước lượng $\hat{\bf{\theta}}_{MLE}$ phải có dạng $\{(x_1,z_1),(x_2,z_2),\dots,(x_N,z_N)\}$. Như vậy, với một tập dữ liệu khuyết $Z$, phương pháp maximum likelihood không thể tiến hành, do đó để giải quyết bài toán trên ta cần một phương pháp khác. 
 
-# Thuật toán EM
+# Thuật Toán EM
 
 Thuật toán EM được ứng dụng đối với các dạng dữ liệu khuyết. Trong ví dụ trên dữ liệu ta có là một dữ liệu khuyết vì biến $Z$ không được cung cấp. Một khi biến $Z$ được cung cấp, bài toán sẽ trở nên đơn giản hơn, vì thế để sử dụng phương pháp EM ta cần phải xác định được phần thông tin bị khuyết của tập dữ liệu mà ta có, và yêu cầu bắt buộc là một khi thông tin khuyết được cung cấp, thì bài toán phải đơn giản hơn *(nếu thêm vào mà rối hơn thì khỏi thêm !!!)*
 
@@ -126,7 +126,7 @@ $$
 $$
 như vậy ta chỉ cần xem xét $Q(\bf{\theta},\bf{\theta}^{old})$, đại lượng này cũng chính là $\E[\ln\P(Z|X,\bf{\theta})]$, vì thế bước xác định $Q(\bf{\theta},\bf{\theta}^{old})$ được gọi là bước E trong 2 bước được giải thích ở trên. 
 
-# Áp dụng EM vào bài toán đồng xu
+# Áp Dụng EM Vào Bài Toán Đồng Xu
 
 Đối với một tập dữ liệu đầy đủ, nghĩa là tập dữ liệu có dạng $\{(\bf{x}_i,z_i)\}_{i=1,2,\dots,N}$ thì hàm likelihood là 
 $$
@@ -191,7 +191,7 @@ $$
 
 ::::
 
-# Thực hành 
+# Thực Hành 
 
 Ta có tập dữ liệu gồm 5 sets, mỗi set có 10 kết quả.
 $$
@@ -241,7 +241,7 @@ data.frame(p = p, q = q)%>% dplyr::mutate_all(round, digits = 2)%>% draw_table()
 
 Kết quả thu được sau 10 lần chạy giống với kết quả tại @do2008, ([link](http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf)). 
 
-# Phân bố Gaussian hỗn hợp
+# Phân Bố Gaussian Hỗn Hợp
 
 Ta sẽ tiến tới một ứng dụng quan trọng của phương pháp EM đó là sử dụng để giải quyết bài toán phân cụm. Đây cũng chính là một trong các phương pháp phân cụm trong machine learning bên cạnh Naive Bayes, logistic model, decision tree v.v...
 
