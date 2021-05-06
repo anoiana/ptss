@@ -28,7 +28,7 @@ link-citations: true
 
 `r lb = purrr::partial(lb,vn = FALSE)`
 
-*ref. to @aal2008*
+*ref. to @cal2015*
 
 # Introduction
 
