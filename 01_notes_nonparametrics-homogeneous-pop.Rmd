@@ -70,16 +70,20 @@ x = 1:length(reduce(k,c) )
 x2 = split(x,reduce(k,c))%>% rev()
 x3 = lapply(1:length(x2), function(i)  x2[[i]] - (i-1))%>% reduce(c)
 y = imap(x2, ~rep(.y,length(.x)))%>% reduce(c)%>% as.numeric()
-plot(x3,y, type = "l", xlab = "Survival time", ylab = "estimated survivor function")
+
+ggplot2::ggplot(tibble(x=x3,y=y), aes(x,y))+
+ geom_line()+ theme_bw()+
+ xlab("Survival time")+
+ ylab("Estimated survivor function")
 ```
 
 This method cannot be used if there exists censors since the information of censors are not capable of being included. Another method used with the presence of censors will now be described below. 
 
 ## Estimating Life-table
 
-## Estimating Kaplan-Meier
+<!-- ## Estimating Kaplan-Meier -->
 
-## Estimating Nelson-Aalen
+<!-- ## Estimating Nelson-Aalen -->
 
 
 
