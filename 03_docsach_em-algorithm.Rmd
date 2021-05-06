@@ -1,0 +1,252 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('Thuật toán Expectation-Maximization (E-M) trong bài toán phân cụm')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+\def\proved{\blacksquare\quad} 
+
+\usepackage{marvosym}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+source("_supp/helper.R")
+```
+
+# Đặc vấn đề
+
+Ta xem xét trường hợp đầu tiên với 2 đồng xu. Với đồng xu một (1), ta có xác suất của mặt hình là $p$, còn đồn xu hai (2) có xác suất mặt hình là $q$. Mỗi một lần ta sẽ ngẫu nhiên rút một trong hai đồng xu đó để tung 10 lần và ghi nhận kết quả, ta cũng biết rằng xác suất đồng xu một và hai  được rút trúng lần lượt là $\pi_1$ và $\pi_2$. Ta lập lại 2 bước trên $N$ lần. Nếu như ta biết mỗi kết quả thu được tương ứng với  một đồng xu nào đó trong hai đồng xu trên, thì ta dễ dàng tính được ước lượng $\hat{p}$ và $\hat{q}$. Như vậy nếu như ta được cung cấp một tập dữ liệu ghi nhận kết quả của $N$ lần rút và tung đồng xu, ta sẽ nhận định rằng đây là một phân bố hỗn hợp giữ hai phân bố Bernoulli, tương ứng với 2 đồng xu một và hai. Để tính xác suất thu được mặt hình ta cần áp dụng công thức Bayes
+$$
+\begin{aligned}
+\P(X=1) &= \E\big[\P(X=1|Z= z)\big] \\
+&=\P(Z=1) \P(X=1|Z=1) +\P(Z=2) \P(X=1|Z=2) \\
+&= \pi_1\P(X=1|Z=1) + \pi_2\P(X=1|Z=2)
+\end{aligned}
+$$
+trong đó $Z=1$ và $Z=2$ lần lượt đại diện cho đồng xu một và đồng su hai được rút. Vì ta có một tập dữ liệu có dạng $\{x_1,x_2,\dots,x_N\}$, nên phương trình likelihood sẽ là 
+$$
+L(\bf{\theta}) = \prod_{n=1}^N\sum_{k=1}^2\pi_k\P(x_n|z_n), \quad \bf{\theta} = \{\pi,p\}
+$$
+hay 
+$$
+l(\bf{\theta}) = \sum_{n=1}^N\ln\sum_{k=1}^2\pi_k\P(x_n)
+$$
+*($p$ được biết thông qua thông tin từ $z$, nghĩa là nếu ta biết $z$ ta sẽ biết đồng xu một hay hai được tung, vì thế ta cũng biết là $p$ hay $q$ được sử dụng để tính toán xác suất trong lần tung đó).*
+
+Thông thường khi đã có được phương trình likelihood, ta sẽ tính được $\hat{\bf{\theta}}_{MLE}$ bằng cách maximize phương trình log-likelihood. Trong trường hợp trên ta cần biết biết thông tin của $Z$, nghĩa là ta cần biết mỗi một kết quả được ghi nhận trong tập dữ liệu là của đồng xu một hay hai. Tuy nhiên, tập dữ liệu của ta không cung cấp giá trị của $Z$ mà chỉ có kết quả của $X$. Nói cách khác dữ liệu hoàn chỉnh ta cần để tìm ước lượng $\hat{\bf{\theta}}_{MLE}$ phải có dạng $\{(x_1,z_1),(x_2,z_2),\dots,(x_N,z_N)\}$. Như vậy, với một tập dữ liệu khuyết $Z$, phương pháp maximum likelihood không thể tiến hành, do đó để giải quyết bài toán trên ta cần một phương pháp khác. 
+
+# Thuật toán EM
+
+Thuật toán EM được ứng dụng đối với các dạng dữ liệu khuyết. Trong ví dụ trên dữ liệu ta có là một dữ liệu khuyết vì biến $Z$ không được cung cấp. Một khi biến $Z$ được cung cấp, bài toán sẽ trở nên đơn giản hơn, vì thế để sử dụng phương pháp EM ta cần phải xác định được phần thông tin bị khuyết của tập dữ liệu mà ta có, và yêu cầu bắt buộc là một khi thông tin khuyết được cung cấp, thì bài toán phải đơn giản hơn *(nếu thêm vào mà rối hơn thì khỏi thêm !!!)*
+
+Ta bắt đầu bằng hàm logarit tự nhiên của likelihood của dữ liệu khuyết
+$$
+l(\bf{\theta}) = \ln\P(X|\bf{\theta})
+$$
+Nếu thông tin khuyết được cung cấp ta có
+$$
+l(\bf{\theta}) = \ln\sum_{Z}\P(X,Z|\bf{\theta})
+$$
+ta tiếp tục biến đổi phương trình trên như sau 
+$$
+\begin{aligned}
+l(\bf{\theta}) = \ln\P(X|\bf{\theta}) &= \ln\sum_{Z}q(Z) \frac{\P(X,Z|\bf{\theta})}{q(Z)}, \quad \small \text{[thêm bớt } q(Z)] \\
+&\ge \sum_{Z}q(Z)\ln\bigg[\frac{\P(X,Z|\bf{\theta})}{q(Z)}\bigg], \quad \begin{bmatrix}\small\text{logarit tự nhiên là một hàm tăng, và}\\
+\small \text{theo bất đẳng thức Jassen ta có điều này}
+\end{bmatrix}
+\end{aligned}
+(\#eq:eq1)
+$$
+như vậy, thay vì maximize $l(\bf{\theta})$ ta sẽ maximize cận dưới của nó chính là vế phải của `r lb(eq1)`. Khi giá trị của `r lb(eq1)` càng lớn thì giá trị của $l(\bf{\theta})$ cũng sẽ càng lớn, và ta hy vọng rằng nó sẽ tiến tới giá trị cực đại của $l(\bf{\theta})$. Ta xét tiếp  
+$$
+\begin{aligned}
+&\quad \ln\P(X|\bf{\theta}) - \sum_{Z}q(Z)\ln\bigg[\frac{\P(X,Z|\bf{\theta})}{q(Z)}\bigg] \\
+&= \sum_{Z}q(Z)\ln\P(X|\bf{\theta}) - \sum_{Z}q(Z)\ln\bigg[\frac{\P(X,Z|\bf{\theta})}{q(Z)}\bigg] \\
+&= \sum_Z q(Z)\ln\frac{\P(X|\bf{\theta})q(Z)}{\P(X,Z|\bf{\theta]})} \\
+&= \sum_Z q(Z)\ln\frac{q(Z)}{\P(Z|X,\bf{\theta})} \\
+&= KL(q||p)
+\end{aligned}
+(\#eq:eq2)
+$$
+
+::::{.blackbox .brainstorm}
+:::{.center}
+KL - Kullback-Leibler divergence (cũng gọi là relative entropy)
+:::
+Trong cùng một không gian xác suất nếu ta có hai phân bố $P$ và $Q$ ta sẽ tính được đại lượng đặc trưng cho sự khác biệt của hai phân bố đó bằng công thức KL như sau 
+$$
+KL(P||Q) = \sum_{\chi}P(x)\ln\frac{P(x)}{Q(x)},
+$$
+kết quả của `r lb(eq2)` chính là sự khác biệt giữa marginal và conditional distribution của $Z$. 
+::::
+
+Như vậy, ta thấy rằng 
+$$
+\ln\P(X|\bf{\theta}) = \underbrace{ \sum_{Z}q(Z)\ln\bigg[\frac{\P(X,Z|\bf{\theta})}{q(Z)}\bigg]}_{\scr{L}(q,\theta)} + KL(q||p)
+(\#eq:eq3)
+$$
+$\scr{L}(q,\theta)$ chính là cận dưới của log-likelihood. 
+
+Ta nhớ rằng mục tiêu của ta là maximize cận dưới $\scr{L}(q,\theta)$ đến khi nào $KL(q||p) = 0$ thì  $\scr{L}(q,\theta)$ sẽ tương đương với $\ln\P(X|\bf{\theta})$, khi đó nghiệm tìm được cũng chính là nghiệm khi ta maximize $\ln\P(X|\bf{\theta})$. 
+
+Thuật toán EM sẽ được tiến hành theo 2 bước đặc trưng là bước E-expectation và bước M-maximization. 
+
+__Bước E:__ Giả sử giá trị ban đầu của $\bf{\theta}$ là $\bf{\theta}^{old}$, nếu ta biết $\bf{\theta}^{old}$ và ta có tập dữ liệu $X$ thì $\P(Z|X,\bf{\theta}^{old})$ sẽ được tính một cách dễ dàng. Như vậy nếu ta thay marginal distribution $\P(Z)$ của Z bằng conditional distribution $\P(Z|X,\bf{\theta}^{old})$ thì theo `r lb(eq2)` $KL(q||p) = 0$, đây là điều ta mong muốn. Khi đó $\scr{L}(q,\bf{\theta}) = l(\bf{\theta})$.
+
+__Bước M:__ Ta sẽ maximize $\scr{L}(q,\bf{\theta})$ theo biến $\bf{\theta}$. Một khi $\bf{\theta}$ mới tìm được thì $KL(q||P)$ mới sẽ khác 0. và ta quay lại bước E để thay marginal distribution của $Z$ bằng conditional distribution với $\bf{\theta} = \bf{\theta}^{new}$, và $KL(q||p) = 0$. Ta tiếp tục lập lại 2 bước này nhiều lần đến khi đạt điểm convergent.  
+
+Ở đây khi thay marginal distribution bằng conditional distribution ta có 
+
+$$
+\begin{aligned}
+\scr{L}(q,\bf{\theta}) &= \sum_{Z}\P(Z|X,\bf{\theta}^{old})\ln\bigg[\frac{\P(X,Z|\bf{\theta})}{\P(Z|X,\bf{\theta}^{old})}\bigg] \\
+&= \underbrace{\sum_Z \P(Z|X,\bf{\theta}^{old})\ln\P(X,Z|\bf{\theta})}_{Q(\bf{\theta},\bf{\theta}^{old})} - \underbrace{\sum_Z \P(Z|X,\bf{\theta}^{old})\ln\P(X,Z|\bf{\theta}^{old})}_{\text{constant theo biến }\bf{\theta}}
+\end{aligned}
+$$
+như vậy ta chỉ cần xem xét $Q(\bf{\theta},\bf{\theta}^{old})$, đại lượng này cũng chính là $\E[\ln\P(Z|X,\bf{\theta})]$, vì thế bước xác định $Q(\bf{\theta},\bf{\theta}^{old})$ được gọi là bước E trong 2 bước được giải thích ở trên. 
+
+# Áp dụng EM vào bài toán đồng xu
+
+Đối với một tập dữ liệu đầy đủ, nghĩa là tập dữ liệu có dạng $\{(\bf{x}_i,z_i)\}_{i=1,2,\dots,N}$ thì hàm likelihood là 
+$$
+L(\bf{\theta}) = \prod_{n=1}^N [\pi_1p^{x_n}(1-p)^{10-x_n}]^{z_n}[\pi_2q^{x_n}(1-q)^{10-x_n}]^{1-z_n}
+$$
+lấy logarit tự nhiên ta có
+$$
+\begin{aligned}
+l(\bf{\theta})  &= \sum_{n=1}^N\bigg[ z_n\Big[\ln\pi_1 + x_n\ln(p)+(10-x_n)\ln(1-p)\Big]+ 
+(1-z_n)\Big[\ln\pi_2 + x_n\ln(q)+(10-x_n)\ln(1-q)\Big]
+\bigg]
+\end{aligned}
+$$
+như vậy 
+
+$$
+\begin{aligned}
+&\E_Z[l(\bf{\theta})] = \\
+&\quad \sum_{n=1}^N\bigg[ \gamma(z_n)\Big[\ln\pi_1 + x_n\ln(p)+(10-x_n)\ln(1-p)\Big]+ 
+[1-\gamma(z_n)]\Big[\ln\pi_2 + x_n\ln(q)+(10-x_n)\ln(1-q)\Big]\bigg],
+\end{aligned}
+(\#eq:eq4)
+$$
+với $\gamma(z_n) = \P(Z|X,\bf{\theta})$ và bằng 
+$$
+\begin{aligned}
+\P(Z=1|X,\bf{\theta}^{old}) &= \frac{\P(X|Z=1,\bf{\theta}^{old})\P(Z=1|\bf{\theta}^{old})}{\P(X|Z=1,\bf{\theta}^{old})\P(Z=1|\bf{\theta}^{old}) + \P(X|Z=0,\bf{\theta}^{old})\P(Z=0|\bf{\theta}^{old})} \\
+&= \frac{\P(x_n|p^{old})\pi_1^{old}}{\P(x_n|p^{old})\pi_1^{old} + \P(x_n|q^{old})\pi_2^{old}}
+\end{aligned}
+$$
+
+Như vậy ta đã hoàn thành bước E, bước M sẽ là maximize phương trình trên. 
+
+Lấy đạo hàm theo $p$ và cho đạo hàm bằng 0 ta sẽ được 
+$$
+p = \frac{\sum_{n=1}^N\gamma(z_n)x_n}{10\sum_{n=1}^N\gamma(z_n)}; \quad
+q = \frac{\sum_{n=1}^N[1-\gamma(z_n)]x_n}{10\sum_{n=1}^N[1-\gamma(z_n)]} 
+$$
+
+Tiếp tục lấy đạo hàm theo $\pi_1$ và cho đạo hàm bằng 0, lưu ý $\pi_2 = 1-\pi_1$, ta được 
+$$
+\pi_1 = \frac{\sum_{n=1}^N \gamma(z_n)}{N}
+$$
+
+::::{.blackbox}
+Ta sẽ tóm tắc 2 bước E-M như sau:
+
+**Bước E:** Tính 
+$$
+\gamma(z_n) = \frac{\P(x_n|p^{old})\pi_1^{old}}{\P(x_n|p^{old})\pi_1^{old} + \P(x_n|q^{old})\pi_2^{old}}
+(\#eq:eq5)
+$$
+
+**Bước M:** Tính
+$$
+\begin{aligned}
+&\pi_1^{new} = \frac{\sum_{n=1}^N \gamma^{old}(z_n)}{N}, \\
+&p^{new} = \frac{\sum_{n=1}^N \gamma^{old}(z_n)x_n}{\sum_{n=1}^N\gamma^{old}(z_n)}
+\end{aligned}
+(\#eq:eq6)
+$$
+
+::::
+
+# Thực hành 
+
+Ta có tập dữ liệu gồm 5 sets, mỗi set có 10 kết quả.
+$$
+\begin{bmatrix}
+H & T & T & T & H & H & T & H & T & H \\
+H & H & H & H & T & H & H & H & H & H \\
+H & T & H & H & H & H & H & T & H & H \\
+H & T & H & T & T & T & H & H & T & T \\
+T & H & H & H & T & H & H & H & T & H \\
+\end{bmatrix}
+$$
+
+Cho xác suất rút trúng một trong hai đồng xu đều bằng nhau (ta sẽ bo qua bước tính $\pi_1$). Giả sử ta chọn giá trị ban đầu của $p$ và $q$ lần lượt là $0.6$ và $0.5$. Ta tiến hành viết code để chạy như sau 
+
+
+
+```{r, echo=TRUE, fig.cap="_xác suất cho ra mặt hình của mỗi đồng xu._", fig.align='center'}
+dat<-
+"H & T & T & T & H & H & T & H & T & H 
+H & H & H & H & T & H & H & H & H & H 
+H & T & H & H & H & H & H & T & H & H 
+H & T & H & T & T & T & H & H & T & T 
+T & H & H & H & T & H & H & H & T & H"
+dat<-
+stringr::str_remove_all(dat,"(\n)|(\\&)")%>%
+   stringr::str_replace_all(" +"," ")%>%
+   stringr::str_split(" ")%>%
+   unlist()%>%
+   matrix(byrow = T, ncol = 10)%>%
+   {ifelse(.=="H",1,0)}
+
+
+###########################
+
+p = 0.6; q = 0.5
+
+for(i in 1:10){
+gamm1 = apply(dat,1, function(i) dbinom(i,1,p)%>% prod() )
+gamm2 = apply(dat,1, function(i) dbinom(i,1,q)%>% prod() )
+gamm = gamm1/(gamm1 + gamm2)
+
+p =  t(gamm)%*%apply(dat,1,sum)/(sum(gamm)*10)
+q =  t(1-gamm)%*%apply(dat,1,sum)/(sum(1-gamm)*10)
+}
+data.frame(p = p, q = q)%>% dplyr::mutate_all(round, digits = 2)%>% draw_table()
+```
+
+Kết quả thu được sau 10 lần chạy giống với kết quả tại @do2008, ([link](http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf)). 
+
+# Phân bố Gaussian hỗn hợp
+
+Ta sẽ tiến tới một ứng dụng quan trọng của phương pháp EM đó là sử dụng để giải quyết bài toán phân cụm. Đây cũng chính là một trong các phương pháp phân cụm trong machine learning bên cạnh Naive Bayes, logistic model, decision tree v.v...
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+# _References_ 

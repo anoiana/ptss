@@ -133,7 +133,7 @@ a:hover {
 /*-------------------------------------------------------*/
 
 .blackbox {
-  padding: 0.2em 0em 0.2em 0.2em;
+  padding: 1em 0em 0.2em 0.2em;
   border: 2px solid #A8A8A8;
   border-radius: 10px;
   background: #EBEBEB 5px 0.3em/2.5em no-repeat;

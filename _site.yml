@@ -12,34 +12,49 @@ output:
     #  after_body: footer.html
     fig_caption: yes
     toc: true
-    toc_float: true
+    toc_float: false
     toc_depth: 3
     number_sections: false
 navbar:
   title: "ANOIANA"
   left:
+# ----------------------- TAB 1 : HOME ------------------------------------------
     - text: "Home"
       href: index.html
       icon: fa-home
     #- text: "About"
     #  href: about.html
     #  icon: fa-comment-dots
-    - text: "Time-to-event Analysis" # english notes
+
+#-------------------------TAB 2: TIME-TO-EVENT -----------------------------------
+    - text: "Time-to-event Analysis"
       icon: fa-book-open
       menu:
+      # SEC. 1 ************************************************************
       - text: "1. Nonparametric Analysis of Time-to-event"
         href: '01_notes_nonparametric-analysis-of-time-to-event.html'
-    - text: "Readings" # english readings
+
+#-------------------------TAB 3: READING  ----------------------------------------
+    - text: "Readings"
       icon: fa-book-open
       menu:
+      # SEC 1 *************************************************************
       - text: "Limit of Supremum and Infimum"
         href: '02_readings_lim-inf-lim-sup.html'
-    - text: "Đọc sách" # vnese notes
+#-------------------------TAB 4: DOC SACH ------ ---------------------------------
+
+    - text: "Đọc sách"
       icon: fa-book-open
       menu:
-      - text: "Phương pháp phi tham số"
-        href: '03_docsach_phuong-phap-phi-tham-so.html'
+      # SEC. 1 ************************************************************
       - text: "lý thuyết toán trong phân tích sống sót"
       #  href: "03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html"
+      # SEC. 2 ************************************************************
+      - text: "Phương pháp phi tham số"
+        href: '03_docsach_phuong-phap-phi-tham-so.html'
+      - text: '---'
+      - text: "Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm"
+        href: "03_docsach_em-algorithm.html"
+#------------------------------------------------ ---------------------------------
   type: inverse
 

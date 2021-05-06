@@ -13,28 +13,32 @@
 
 <title>✑ Lý Thuyết Toán Cho Phân Tích Sống Sót</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="fugu.png"/>
 
 <div class="hero-image">
         <div class="image-text">
-          <div class="top-text">STATISTICS</div>
-            <div class="bottom-text">Survival Analysis</div>
+          <div class="top-text"> </div>
+            <div class="bottom-text"> </div>
         </div>
 </div>
 
@@ -50,32 +54,7 @@
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -86,10 +65,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -106,40 +81,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -167,7 +115,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -179,7 +127,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -190,10 +138,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -205,7 +166,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -261,69 +221,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -331,16 +228,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -359,14 +246,14 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-book-open"></span>
+    <span class="fas fa-book-open"></span>
      
     Time-to-event Analysis
      
@@ -380,7 +267,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-book-open"></span>
+    <span class="fas fa-book-open"></span>
      
     Readings
      
@@ -394,17 +281,21 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-book-open"></span>
+    <span class="fas fa-book-open"></span>
      
     Đọc sách
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">lý thuyết toán trong phân tích sống sót</li>
     <li>
       <a href="03_docsach_phuong-phap-phi-tham-so.html">Phương pháp phi tham số</a>
     </li>
-    <li class="dropdown-header">lý thuyết toán trong phân tích sống sót</li>
+    <li class="divider"></li>
+    <li>
+      <a href="03_docsach_em-algorithm.html">Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -415,11 +306,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -432,22 +323,35 @@ div.tocify {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#quá-trình-ngẫu-nhiên-trong-cột-thời-gian-rời-rạc">Quá trình ngẫu nhiên trong cột thời gian rời rạc</a><ul>
+<li><a href="#đặc-tính-martingales">Đặc tính martingales</a></li>
+<li><a href="#đặc-tính-martingales-trong-cột-thời-gian-rời-rạc">Đặc tính martingales trong cột thời gian rời rạc</a></li>
+<li><a href="#sự-thay-đổi-của-quá-trình-ngẫu-nhiên">Sự thay đổi của quá trình ngẫu nhiên</a></li>
+<li><a href="#thời-gian-ngừng">Thời gian ngừng</a></li>
+</ul></li>
+<li><a href="#references"><em>References</em></a></li>
+</ul>
+</div>
+
+
 
 <hr />
 <!-- ===================== START FROM HERE ========================== -->
 <div class="right">
-<p><em>refer to <span class="citation"><a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing</a> (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
+<p><em>refer to <span class="citation">Aalen, Borgan, and Gjessing (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
 </div>
 <div id="quá-trình-ngẫu-nhiên-trong-cột-thời-gian-rời-rạc" class="section level1">
 <h1>Quá trình ngẫu nhiên trong cột thời gian rời rạc</h1>
-<div id="đặc-tính-martingales-trong-cột-thời-gian-rời-rạc" class="section level2">
-<h2>Đặc tính martingales trong cột thời gian rời rạc</h2>
+<div id="đặc-tính-martingales" class="section level2">
+<h2>Đặc tính martingales</h2>
 <p>Ta có <span class="math inline">\(M = \{M_0,M_1,\dots\}\)</span> là quá trình ngẫu nhiên trong cột thời gian rời rạc. <span class="math inline">\(M\)</span> là một martingales khi
 <span class="math display" id="eq:eq1">\[
 \Bbb{E}(M_n|M_0,M_1,\dots,M_{n-1}) = M_{n-1}, \quad n \ge 1
 \tag{1}
 \]</span>
-Đặc tính này liên quan tới “fair game,” nghĩa là dựa trên các thông tin ta có được sau khi quan sát <span class="math inline">\(n-1\)</span> trò chơi thì thông tin tăng lên mà ta kỳ vọng cho trò chơi tiếp theo sẽ không thay đổi.</p>
+Đặc tính này liên quan tới “fair game”, nghĩa là dựa trên các thông tin ta có được sau khi quan sát <span class="math inline">\(n-1\)</span> trò chơi thì thông tin tăng lên mà ta kỳ vọng cho trò chơi tiếp theo sẽ không thay đổi.</p>
 <p>Tạm gọi <span class="math inline">\(\mathscr{F}_n\)</span> là thông tin tích lũy đến thời điểm thứ <span class="math inline">\(n\)</span>. Trong lý thuyết về tập hợp ta có thể xem <span class="math inline">\(\{\mathscr{F}_n\}\)</span> là một tập hợp, số lượng phần tử của tập hợp này sẽ tăng dần khi lần lượt đi qua các mốc thời gian (đi càng nhiều, chứng kiền càng nhiều, kiến thức càng nhiều). Ví dụ, ta ném 3 đồng xu thì ta biết trước có tất cả 8 trường hợp có thể xảy ra nhưng ta không biết cụ thể trường hợp nào, và ta cũng không biết trường hợp nào có nhiều khả năng hơn trường hợp nào. Nói cách khác tất cả các khả năng đều ngang bằng nhau, cũng có thể nói ta không có bất kỳ thông tin nào. 8 trường hợp đó là
 <span class="math display">\[
 M_0 = \{(HHH, HHT, HTH, HTT, THH,THT, TTH, TTT)\},
@@ -492,6 +396,9 @@ Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có t
 </div>
 <p>Liên hệ với phân tích sốt sót, ta thấy rằng cứ sau mỗi một bệnh nhân tử vong được ghi nhận, thì các giá trị của hàm sống sót, hàm nguy cơ,… đều thay đổi. Câu hỏi được đặc ra là liệu sau mỗi một ca tử vong ghi nhận được, thì ta có thể dự đoán gì về các ca tiếp theo? và liệu với các thông tin ta có cho tới thời điển hiện tại (tiền sự) thì sẽ trả lời được cho ta về điều gì trong những lần tới?</p>
 </div>
+</div>
+<div id="đặc-tính-martingales-trong-cột-thời-gian-rời-rạc" class="section level2">
+<h2>Đặc tính martingales trong cột thời gian rời rạc</h2>
 <p>Như vậy <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq1">(1)</a> có thể được viết lại là
 <span class="math display" id="eq:eq2">\[
 \Bbb{E}(M_m|\mathscr{F}_n) = M_n, \quad \forall m \le n.
@@ -544,22 +451,71 @@ M^2 - \langle M \rangle \text{ chính là martingale có kỳ vọng bằng 0}
 M^2 - [M] \text{ chính là martingale có kỳ vọng bằng 0}
 \tag{9}
 \]</span></p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>Chứng minh <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq10">(9)</a> như sau</p>
+</div>
+<p>Với <span class="math inline">\(M^2_n\)</span>, ta có thể ghi lại như sau
+<span class="math display">\[
+\begin{aligned}
+&amp;M_n^2 = (M_n - M_{n-1} + M_{n-1})^2 \\
+&amp; [M]_n = \sum_{i=1}^{n-1}(M_i-M_{i-1})^2 + (M_n - M_{n-1})^2 = [M]_{n-1}+ (N_n-M_{n-1})^2
+\end{aligned}
+\]</span>
+thus,
+<span class="math display">\[
+\begin{aligned}
+\Bbb{E}(M_n^2-[M]_n|\mathscr{F}_{n-1}) &amp;= \Bbb{E}[2M_{n-1}(M_n-M_{n-1}) + M_{n-1}^2  - [M]_{n-1}|\mathscr{F}_{n-1}] \\
+&amp;= M^2_{n-1} - [M]_{n-1}+2M_{n-1}\Bbb{E}(M_n-M_{n-1}|\mathscr{F}_{n-1}) \\
+&amp;= M_{n-1}^2 - [M]_{n-1}
+\end{aligned}
+\]</span></p>
+<div class="right">
+<p><span class="math inline">\(\blacksquare\quad\)</span></p>
+</div>
+</div>
+</div>
+<div id="thời-gian-ngừng" class="section level2">
+<h2>Thời gian ngừng</h2>
+<p><em>stopping time</em> hay thời gian ngừng là khoảng thời gian phải có để một sự kiện nào đó xảy ra. Ta có thể định nghĩa thời gian ngừng như sau
+<span class="math display" id="eq:eq11">\[
+M_{n}^T = M_{n \wedge T}, \quad [n \wedge T := \min(n,T)]
+\tag{10}
+\]</span>
+nghĩa là nếu thời gian xem xét là <span class="math inline">\(T = t\)</span> thì tại các mốc thời gian trước <span class="math inline">\(t\)</span> sẽ chính là giá trị của mốc thời gian đó, còn các mốc thời gian sau <span class="math inline">\(t\)</span> sẽ luôn là <span class="math inline">\(t\)</span>. Đối với thời gian ngừng trong <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq11">(10)</a> ta có thể chỉ ra rằng nó cũng có tính chất martingale. Tuy nhiên ta sẽ xem xét trường hợp tổng quát trước rồi sẽ xem xét trường hợp đặc trưng sau.</p>
+<p>Thông thường ta sẽ không chứng minh trực tiếp đặc tính martingale của thời gian ngừng mà sẽ thông qua một bước đổi biến. Gọi <span class="math inline">\(X = \{X_i\}_{i=0,1,\dots}\)</span> là một quá trình tổng quát với tiền sự <span class="math inline">\(\{\mathscr{F}_n\}\)</span>, và <span class="math inline">\(H = \{H_i\}_{i=0,1,\dots}\)</span> là một quá trình có thể dự đoán <em>(predictable process)</em>, với già thuyết này thì <span class="math inline">\(H_n\)</span> sẽ có thể tính toán dựa trên tiền sự <span class="math inline">\(\mathscr{F}_{n-1}\)</span>. Như vậy ta đổi biến <span class="math inline">\(X\)</span> thành biến <span class="math inline">\(Z\)</span> như sau
+<span class="math display" id="eq:eq12">\[
+Z_n = H \bullet X = H_0X_0+H_1(X_1-X_0)+ \dots + H_{n-1}(X_{n-1}-X_{n-2})+ H_{n}(X_{n}-X_{n-1}),
+\tag{11}
+\]</span>
+như vậy ta có thể chỉ ra rằng
+<span class="math display">\[
+\begin{aligned}
+\Bbb{E}(Z_n - Z_{n-1}|\mathscr{F}_{n-1}) &amp;= \Bbb{E}[H_n(M_n-M_{n-1})|\mathscr{F}_{n-1}] \\
+&amp;= H_n\Bbb{E}(M_n-M_{n-1}|\mathscr{F}_{n-1}) = 0,
+\end{aligned}
+\]</span>
+ta kết luận rằng nếu <span class="math inline">\(M\)</span> là martingle thì <span class="math inline">\(Z\)</span> cũng như thế. Ngoài ra vì <span class="math inline">\(Z_0 = H_0M_0 = 0\)</span> nên <span class="math inline">\(Z\)</span> là martingale có kỳ vọng là 0.</p>
+<p>Với <span class="math inline">\(n\)</span> lớn hơn <span class="math inline">\(1\)</span> ta sẽ có
+<span class="math display" id="eq:eq13">\[
+Z_n = (H \bullet M)_n = {\boldsymbol{H}}^{\top}\Delta\boldsymbol{M}
+\tag{12}
+\]</span>
+với <span class="math inline">\(\boldsymbol{H} = {(H_1,H_2,\dots,H_n)}^{\top}\)</span> và <span class="math inline">\(\Delta\boldsymbol{M} = {(\Delta M_1, \Delta M_2, \dots, \Delta M_n)}^{\top}\)</span> với <span class="math inline">\(\Delta M_s = M_s - M_{s-1}\)</span>.</p>
 <!-- ====================== END ====================================== -->
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-aal2008" class="csl-entry">
-Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.
+<div id="refs" class="references">
+<div id="ref-aal2008">
+<p>Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.</p>
 </div>
 </div>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -585,7 +541,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -597,32 +553,6 @@ $(document).ready(function () {
 });
 </script>
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

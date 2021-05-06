@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>✑ Thuật Toán Expectation-Maximization (E-M) Trong Bài Toán Phân Cụm</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-16.12.0/react.min.js"></script>
+<script src="site_libs/react-16.12.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="fugu.png"/>
+
+<div class="hero-image">
+        <div class="image-text">
+          <div class="top-text"> </div>
+            <div class="bottom-text"> </div>
+        </div>
+</div>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANOIANA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fas fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-book-open"></span>
+     
+    Time-to-event Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01_notes_nonparametric-analysis-of-time-to-event.html">1. Nonparametric Analysis of Time-to-event</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-book-open"></span>
+     
+    Readings
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="02_readings_lim-inf-lim-sup.html">Limit of Supremum and Infimum</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-book-open"></span>
+     
+    Đọc sách
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">lý thuyết toán trong phân tích sống sót</li>
+    <li>
+      <a href="03_docsach_phuong-phap-phi-tham-so.html">Phương pháp phi tham số</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="03_docsach_em-algorithm.html">Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">✑ Thuật Toán Expectation-Maximization (E-M) Trong Bài Toán Phân Cụm</h1>
+<h4 class="date">📅 2021-05-05</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#đặc-vấn-đề">Đặc vấn đề</a></li>
+<li><a href="#thuật-toán-em">Thuật toán EM</a></li>
+<li><a href="#áp-dụng-em-vào-bài-toán-đồng-xu">Áp dụng EM vào bài toán đồng xu</a></li>
+<li><a href="#thực-hành">Thực hành</a></li>
+<li><a href="#phân-bố-gaussian-hỗn-hợp">Phân bố Gaussian hỗn hợp</a></li>
+<li><a href="#references"><em>References</em></a></li>
+</ul>
+</div>
+
+
+
+
+<hr />
+<div id="đặc-vấn-đề" class="section level1">
+<h1>Đặc vấn đề</h1>
+<p>Ta xem xét trường hợp đầu tiên với 2 đồng xu. Với đồng xu một (1), ta có xác suất của mặt hình là <span class="math inline">\(p\)</span>, còn đồn xu hai (2) có xác suất mặt hình là <span class="math inline">\(q\)</span>. Mỗi một lần ta sẽ ngẫu nhiên rút một trong hai đồng xu đó để tung 10 lần và ghi nhận kết quả, ta cũng biết rằng xác suất đồng xu một và hai được rút trúng lần lượt là <span class="math inline">\(\pi_1\)</span> và <span class="math inline">\(\pi_2\)</span>. Ta lập lại 2 bước trên <span class="math inline">\(N\)</span> lần. Nếu như ta biết mỗi kết quả thu được tương ứng với một đồng xu nào đó trong hai đồng xu trên, thì ta dễ dàng tính được ước lượng <span class="math inline">\(\widehat{p}\)</span> và <span class="math inline">\(\widehat{q}\)</span>. Như vậy nếu như ta được cung cấp một tập dữ liệu ghi nhận kết quả của <span class="math inline">\(N\)</span> lần rút và tung đồng xu, ta sẽ nhận định rằng đây là một phân bố hỗn hợp giữ hai phân bố Bernoulli, tương ứng với 2 đồng xu một và hai. Để tính xác suất thu được mặt hình ta cần áp dụng công thức Bayes
+<span class="math display">\[
+\begin{aligned}
+\Bbb{P}(X=1) &amp;= \Bbb{E}\big[\Bbb{P}(X=1|Z= z)\big] \\
+&amp;=\Bbb{P}(Z=1) \Bbb{P}(X=1|Z=1) +\Bbb{P}(Z=2) \Bbb{P}(X=1|Z=2) \\
+&amp;= \pi_1\Bbb{P}(X=1|Z=1) + \pi_2\Bbb{P}(X=1|Z=2)
+\end{aligned}
+\]</span>
+trong đó <span class="math inline">\(Z=1\)</span> và <span class="math inline">\(Z=2\)</span> lần lượt đại diện cho đồng xu một và đồng su hai được rút. Vì ta có một tập dữ liệu có dạng <span class="math inline">\(\{x_1,x_2,\dots,x_N\}\)</span>, nên phương trình likelihood sẽ là
+<span class="math display">\[
+L(\boldsymbol{\theta}) = \prod_{n=1}^N\sum_{k=1}^2\pi_k\Bbb{P}(x_n|z_n), \quad \boldsymbol{\theta} = \{\pi,p\}
+\]</span>
+hay
+<span class="math display">\[
+l(\boldsymbol{\theta}) = \sum_{n=1}^N\ln\sum_{k=1}^2\pi_k\Bbb{P}(x_n)
+\]</span>
+<em>(<span class="math inline">\(p\)</span> được biết thông qua thông tin từ <span class="math inline">\(z\)</span>, nghĩa là nếu ta biết <span class="math inline">\(z\)</span> ta sẽ biết đồng xu một hay hai được tung, vì thế ta cũng biết là <span class="math inline">\(p\)</span> hay <span class="math inline">\(q\)</span> được sử dụng để tính toán xác suất trong lần tung đó).</em></p>
+<p>Thông thường khi đã có được phương trình likelihood, ta sẽ tính được <span class="math inline">\(\widehat{\boldsymbol{\theta}}_{MLE}\)</span> bằng cách maximize phương trình log-likelihood. Trong trường hợp trên ta cần biết biết thông tin của <span class="math inline">\(Z\)</span>, nghĩa là ta cần biết mỗi một kết quả được ghi nhận trong tập dữ liệu là của đồng xu một hay hai. Tuy nhiên, tập dữ liệu của ta không cung cấp giá trị của <span class="math inline">\(Z\)</span> mà chỉ có kết quả của <span class="math inline">\(X\)</span>. Nói cách khác dữ liệu hoàn chỉnh ta cần để tìm ước lượng <span class="math inline">\(\widehat{\boldsymbol{\theta}}_{MLE}\)</span> phải có dạng <span class="math inline">\(\{(x_1,z_1),(x_2,z_2),\dots,(x_N,z_N)\}\)</span>. Như vậy, với một tập dữ liệu khuyết <span class="math inline">\(Z\)</span>, phương pháp maximum likelihood không thể tiến hành, do đó để giải quyết bài toán trên ta cần một phương pháp khác.</p>
+</div>
+<div id="thuật-toán-em" class="section level1">
+<h1>Thuật toán EM</h1>
+<p>Thuật toán EM được ứng dụng đối với các dạng dữ liệu khuyết. Trong ví dụ trên dữ liệu ta có là một dữ liệu khuyết vì biến <span class="math inline">\(Z\)</span> không được cung cấp. Một khi biến <span class="math inline">\(Z\)</span> được cung cấp, bài toán sẽ trở nên đơn giản hơn, vì thế để sử dụng phương pháp EM ta cần phải xác định được phần thông tin bị khuyết của tập dữ liệu mà ta có, và yêu cầu bắt buộc là một khi thông tin khuyết được cung cấp, thì bài toán phải đơn giản hơn <em>(nếu thêm vào mà rối hơn thì khỏi thêm !!!)</em></p>
+<p>Ta bắt đầu bằng hàm logarit tự nhiên của likelihood của dữ liệu khuyết
+<span class="math display">\[
+l(\boldsymbol{\theta}) = \ln\Bbb{P}(X|\boldsymbol{\theta})
+\]</span>
+Nếu thông tin khuyết được cung cấp ta có
+<span class="math display">\[
+l(\boldsymbol{\theta}) = \ln\sum_{Z}\Bbb{P}(X,Z|\boldsymbol{\theta})
+\]</span>
+ta tiếp tục biến đổi phương trình trên như sau
+<span class="math display" id="eq:eq1">\[
+\begin{aligned}
+l(\boldsymbol{\theta}) = \ln\Bbb{P}(X|\boldsymbol{\theta}) &amp;= \ln\sum_{Z}q(Z) \frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{q(Z)}, \quad \small \text{[thêm bớt } q(Z)] \\
+&amp;\ge \sum_{Z}q(Z)\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{q(Z)}\bigg], \quad \begin{bmatrix}\small\text{logarit tự nhiên là một hàm tăng, và}\\
+\small \text{theo bất đẳng thức Jassen ta có điều này}
+\end{bmatrix}
+\end{aligned}
+\tag{1}
+\]</span>
+như vậy, thay vì maximize <span class="math inline">\(l(\boldsymbol{\theta})\)</span> ta sẽ maximize cận dưới của nó chính là vế phải của <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq1">(1)</a>. Khi giá trị của <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq1">(1)</a> càng lớn thì giá trị của <span class="math inline">\(l(\boldsymbol{\theta})\)</span> cũng sẽ càng lớn, và ta hy vọng rằng nó sẽ tiến tới giá trị cực đại của <span class="math inline">\(l(\boldsymbol{\theta})\)</span>. Ta xét tiếp<br />
+<span class="math display" id="eq:eq2">\[
+\begin{aligned}
+&amp;\quad \ln\Bbb{P}(X|\boldsymbol{\theta}) - \sum_{Z}q(Z)\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{q(Z)}\bigg] \\
+&amp;= \sum_{Z}q(Z)\ln\Bbb{P}(X|\boldsymbol{\theta}) - \sum_{Z}q(Z)\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{q(Z)}\bigg] \\
+&amp;= \sum_Z q(Z)\ln\frac{\Bbb{P}(X|\boldsymbol{\theta})q(Z)}{\Bbb{P}(X,Z|\boldsymbol{\theta]})} \\
+&amp;= \sum_Z q(Z)\ln\frac{q(Z)}{\Bbb{P}(Z|X,\boldsymbol{\theta})} \\
+&amp;= KL(q||p)
+\end{aligned}
+\tag{2}
+\]</span></p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>KL - Kullback-Leibler divergence (cũng gọi là relative entropy)</p>
+</div>
+<p>Trong cùng một không gian xác suất nếu ta có hai phân bố <span class="math inline">\(P\)</span> và <span class="math inline">\(Q\)</span> ta sẽ tính được đại lượng đặc trưng cho sự khác biệt của hai phân bố đó bằng công thức KL như sau
+<span class="math display">\[
+KL(P||Q) = \sum_{\chi}P(x)\ln\frac{P(x)}{Q(x)},
+\]</span>
+kết quả của <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq2">(2)</a> chính là sự khác biệt giữa marginal và conditional distribution của <span class="math inline">\(Z\)</span>.</p>
+</div>
+<p>Như vậy, ta thấy rằng
+<span class="math display" id="eq:eq3">\[
+\ln\Bbb{P}(X|\boldsymbol{\theta}) = \underbrace{ \sum_{Z}q(Z)\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{q(Z)}\bigg]}_{\scr{L}(q,\theta)} + KL(q||p)
+\tag{3}
+\]</span>
+<span class="math inline">\(\scr{L}(q,\theta)\)</span> chính là cận dưới của log-likelihood.</p>
+<p>Ta nhớ rằng mục tiêu của ta là maximize cận dưới <span class="math inline">\(\scr{L}(q,\theta)\)</span> đến khi nào <span class="math inline">\(KL(q||p) = 0\)</span> thì <span class="math inline">\(\scr{L}(q,\theta)\)</span> sẽ tương đương với <span class="math inline">\(\ln\Bbb{P}(X|\boldsymbol{\theta})\)</span>, khi đó nghiệm tìm được cũng chính là nghiệm khi ta maximize <span class="math inline">\(\ln\Bbb{P}(X|\boldsymbol{\theta})\)</span>.</p>
+<p>Thuật toán EM sẽ được tiến hành theo 2 bước đặc trưng là bước E-expectation và bước M-maximization.</p>
+<p><strong>Bước E:</strong> Giả sử giá trị ban đầu của <span class="math inline">\(\boldsymbol{\theta}\)</span> là <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span>, nếu ta biết <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span> và ta có tập dữ liệu <span class="math inline">\(X\)</span> thì <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> sẽ được tính một cách dễ dàng. Như vậy nếu ta thay marginal distribution <span class="math inline">\(\Bbb{P}(Z)\)</span> của Z bằng conditional distribution <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> thì theo <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq2">(2)</a> <span class="math inline">\(KL(q||p) = 0\)</span>, đây là điều ta mong muốn. Khi đó <span class="math inline">\(\scr{L}(q,\boldsymbol{\theta}) = l(\boldsymbol{\theta})\)</span>.</p>
+<p><strong>Bước M:</strong> Ta sẽ maximize <span class="math inline">\(\scr{L}(q,\boldsymbol{\theta})\)</span> theo biến <span class="math inline">\(\boldsymbol{\theta}\)</span>. Một khi <span class="math inline">\(\boldsymbol{\theta}\)</span> mới tìm được thì <span class="math inline">\(KL(q||P)\)</span> mới sẽ khác 0. và ta quay lại bước E để thay marginal distribution của <span class="math inline">\(Z\)</span> bằng conditional distribution với <span class="math inline">\(\boldsymbol{\theta} = \boldsymbol{\theta}^{new}\)</span>, và <span class="math inline">\(KL(q||p) = 0\)</span>. Ta tiếp tục lập lại 2 bước này nhiều lần đến khi đạt điểm convergent.</p>
+<p>Ở đây khi thay marginal distribution bằng conditional distribution ta có</p>
+<p><span class="math display">\[
+\begin{aligned}
+\scr{L}(q,\boldsymbol{\theta}) &amp;= \sum_{Z}\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})}\bigg] \\
+&amp;= \underbrace{\sum_Z \Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\ln\Bbb{P}(X,Z|\boldsymbol{\theta})}_{Q(\boldsymbol{\theta},\boldsymbol{\theta}^{old})} - \underbrace{\sum_Z \Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\ln\Bbb{P}(X,Z|\boldsymbol{\theta}^{old})}_{\text{constant theo biến }\boldsymbol{\theta}}
+\end{aligned}
+\]</span>
+như vậy ta chỉ cần xem xét <span class="math inline">\(Q(\boldsymbol{\theta},\boldsymbol{\theta}^{old})\)</span>, đại lượng này cũng chính là <span class="math inline">\(\Bbb{E}[\ln\Bbb{P}(Z|X,\boldsymbol{\theta})]\)</span>, vì thế bước xác định <span class="math inline">\(Q(\boldsymbol{\theta},\boldsymbol{\theta}^{old})\)</span> được gọi là bước E trong 2 bước được giải thích ở trên.</p>
+</div>
+<div id="áp-dụng-em-vào-bài-toán-đồng-xu" class="section level1">
+<h1>Áp dụng EM vào bài toán đồng xu</h1>
+<p>Đối với một tập dữ liệu đầy đủ, nghĩa là tập dữ liệu có dạng <span class="math inline">\(\{(\boldsymbol{x}_i,z_i)\}_{i=1,2,\dots,N}\)</span> thì hàm likelihood là
+<span class="math display">\[
+L(\boldsymbol{\theta}) = \prod_{n=1}^N [\pi_1p^{x_n}(1-p)^{10-x_n}]^{z_n}[\pi_2q^{x_n}(1-q)^{10-x_n}]^{1-z_n}
+\]</span>
+lấy logarit tự nhiên ta có
+<span class="math display">\[
+\begin{aligned}
+l(\boldsymbol{\theta})  &amp;= \sum_{n=1}^N\bigg[ z_n\Big[\ln\pi_1 + x_n\ln(p)+(10-x_n)\ln(1-p)\Big]+ 
+(1-z_n)\Big[\ln\pi_2 + x_n\ln(q)+(10-x_n)\ln(1-q)\Big]
+\bigg]
+\end{aligned}
+\]</span>
+như vậy</p>
+<p><span class="math display" id="eq:eq4">\[
+\begin{aligned}
+&amp;\Bbb{E}_Z[l(\boldsymbol{\theta})] = \\
+&amp;\quad \sum_{n=1}^N\bigg[ \gamma(z_n)\Big[\ln\pi_1 + x_n\ln(p)+(10-x_n)\ln(1-p)\Big]+ 
+[1-\gamma(z_n)]\Big[\ln\pi_2 + x_n\ln(q)+(10-x_n)\ln(1-q)\Big]\bigg],
+\end{aligned}
+\tag{4}
+\]</span>
+với <span class="math inline">\(\gamma(z_n) = \Bbb{P}(Z|X,\boldsymbol{\theta})\)</span> và bằng
+<span class="math display">\[
+\begin{aligned}
+\Bbb{P}(Z=1|X,\boldsymbol{\theta}^{old}) &amp;= \frac{\Bbb{P}(X|Z=1,\boldsymbol{\theta}^{old})\Bbb{P}(Z=1|\boldsymbol{\theta}^{old})}{\Bbb{P}(X|Z=1,\boldsymbol{\theta}^{old})\Bbb{P}(Z=1|\boldsymbol{\theta}^{old}) + \Bbb{P}(X|Z=0,\boldsymbol{\theta}^{old})\Bbb{P}(Z=0|\boldsymbol{\theta}^{old})} \\
+&amp;= \frac{\Bbb{P}(x_n|p^{old})\pi_1^{old}}{\Bbb{P}(x_n|p^{old})\pi_1^{old} + \Bbb{P}(x_n|q^{old})\pi_2^{old}}
+\end{aligned}
+\]</span></p>
+<p>Như vậy ta đã hoàn thành bước E, bước M sẽ là maximize phương trình trên.</p>
+<p>Lấy đạo hàm theo <span class="math inline">\(p\)</span> và cho đạo hàm bằng 0 ta sẽ được
+<span class="math display">\[
+p = \frac{\sum_{n=1}^N\gamma(z_n)x_n}{10\sum_{n=1}^N\gamma(z_n)}; \quad
+q = \frac{\sum_{n=1}^N[1-\gamma(z_n)]x_n}{10\sum_{n=1}^N[1-\gamma(z_n)]} 
+\]</span></p>
+<p>Tiếp tục lấy đạo hàm theo <span class="math inline">\(\pi_1\)</span> và cho đạo hàm bằng 0, lưu ý <span class="math inline">\(\pi_2 = 1-\pi_1\)</span>, ta được
+<span class="math display">\[
+\pi_1 = \frac{\sum_{n=1}^N \gamma(z_n)}{N}
+\]</span></p>
+<div class="blackbox">
+<p>Ta sẽ tóm tắc 2 bước E-M như sau:</p>
+<p><strong>Bước E:</strong> Tính
+<span class="math display" id="eq:eq5">\[
+\gamma(z_n) = \frac{\Bbb{P}(x_n|p^{old})\pi_1^{old}}{\Bbb{P}(x_n|p^{old})\pi_1^{old} + \Bbb{P}(x_n|q^{old})\pi_2^{old}}
+\tag{5}
+\]</span></p>
+<p><strong>Bước M:</strong> Tính
+<span class="math display" id="eq:eq6">\[
+\begin{aligned}
+&amp;\pi_1^{new} = \frac{\sum_{n=1}^N \gamma^{old}(z_n)}{N}, \\
+&amp;p^{new} = \frac{\sum_{n=1}^N \gamma^{old}(z_n)x_n}{\sum_{n=1}^N\gamma^{old}(z_n)}
+\end{aligned}
+\tag{6}
+\]</span></p>
+</div>
+</div>
+<div id="thực-hành" class="section level1">
+<h1>Thực hành</h1>
+<p>Ta có tập dữ liệu gồm 5 sets, mỗi set có 10 kết quả.
+<span class="math display">\[
+\begin{bmatrix}
+H &amp; T &amp; T &amp; T &amp; H &amp; H &amp; T &amp; H &amp; T &amp; H \\
+H &amp; H &amp; H &amp; H &amp; T &amp; H &amp; H &amp; H &amp; H &amp; H \\
+H &amp; T &amp; H &amp; H &amp; H &amp; H &amp; H &amp; T &amp; H &amp; H \\
+H &amp; T &amp; H &amp; T &amp; T &amp; T &amp; H &amp; H &amp; T &amp; T \\
+T &amp; H &amp; H &amp; H &amp; T &amp; H &amp; H &amp; H &amp; T &amp; H \\
+\end{bmatrix}
+\]</span></p>
+<p>Cho xác suất rút trúng một trong hai đồng xu đều bằng nhau (ta sẽ bo qua bước tính <span class="math inline">\(\pi_1\)</span>). Giả sử ta chọn giá trị ban đầu của <span class="math inline">\(p\)</span> và <span class="math inline">\(q\)</span> lần lượt là <span class="math inline">\(0.6\)</span> và <span class="math inline">\(0.5\)</span>. Ta tiến hành viết code để chạy như sau</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>dat&lt;-</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="st">&quot;H &amp; T &amp; T &amp; T &amp; H &amp; H &amp; T &amp; H &amp; T &amp; H </span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="st">H &amp; H &amp; H &amp; H &amp; T &amp; H &amp; H &amp; H &amp; H &amp; H </span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="st">H &amp; T &amp; H &amp; H &amp; H &amp; H &amp; H &amp; T &amp; H &amp; H </span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="st">H &amp; T &amp; H &amp; T &amp; T &amp; T &amp; H &amp; H &amp; T &amp; T </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="st">T &amp; H &amp; H &amp; H &amp; T &amp; H &amp; H &amp; H &amp; T &amp; H&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>dat&lt;-</span>
+<span id="cb1-8"><a href="#cb1-8"></a>stringr<span class="op">::</span><span class="kw">str_remove_all</span>(dat,<span class="st">&quot;(</span><span class="ch">\n</span><span class="st">)|(</span><span class="ch">\\</span><span class="st">&amp;)&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="st">   </span>stringr<span class="op">::</span><span class="kw">str_replace_all</span>(<span class="st">&quot; +&quot;</span>,<span class="st">&quot; &quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="st">   </span>stringr<span class="op">::</span><span class="kw">str_split</span>(<span class="st">&quot; &quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="st">   </span><span class="kw">unlist</span>()<span class="op">%&gt;%</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="st">   </span><span class="kw">matrix</span>(<span class="dt">byrow =</span> T, <span class="dt">ncol =</span> <span class="dv">10</span>)<span class="op">%&gt;%</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="st">   </span>{<span class="kw">ifelse</span>(.<span class="op">==</span><span class="st">&quot;H&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>)}</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">###########################</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a>p =<span class="st"> </span><span class="fl">0.6</span>; q =<span class="st"> </span><span class="fl">0.5</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){</span>
+<span id="cb1-21"><a href="#cb1-21"></a>gamm1 =<span class="st"> </span><span class="kw">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(i) <span class="kw">dbinom</span>(i,<span class="dv">1</span>,p)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">prod</span>() )</span>
+<span id="cb1-22"><a href="#cb1-22"></a>gamm2 =<span class="st"> </span><span class="kw">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(i) <span class="kw">dbinom</span>(i,<span class="dv">1</span>,q)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">prod</span>() )</span>
+<span id="cb1-23"><a href="#cb1-23"></a>gamm =<span class="st"> </span>gamm1<span class="op">/</span>(gamm1 <span class="op">+</span><span class="st"> </span>gamm2)</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>p =<span class="st">  </span><span class="kw">t</span>(gamm)<span class="op">%*%</span><span class="kw">apply</span>(dat,<span class="dv">1</span>,sum)<span class="op">/</span>(<span class="kw">sum</span>(gamm)<span class="op">*</span><span class="dv">10</span>)</span>
+<span id="cb1-26"><a href="#cb1-26"></a>q =<span class="st">  </span><span class="kw">t</span>(<span class="dv">1</span><span class="op">-</span>gamm)<span class="op">%*%</span><span class="kw">apply</span>(dat,<span class="dv">1</span>,sum)<span class="op">/</span>(<span class="kw">sum</span>(<span class="dv">1</span><span class="op">-</span>gamm)<span class="op">*</span><span class="dv">10</span>)</span>
+<span id="cb1-27"><a href="#cb1-27"></a>}</span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="kw">data.frame</span>(<span class="dt">p =</span> p, <span class="dt">q =</span> q)<span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">mutate_all</span>(round, <span class="dt">digits =</span> <span class="dv">2</span>)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">draw_table</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
+<div id="htmlwidget-f74604481e0f0d42ee2b" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f74604481e0f0d42ee2b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"p":[0.8],"q":[0.52]},"columns":[{"accessor":"p","name":"p","type":"numeric"},{"accessor":"q","name":"q","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"f950f334ac9e114aebc61a9387c0f529","key":"f950f334ac9e114aebc61a9387c0f529"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1: <em>xác suất cho ra mặt hình của mỗi đồng xu.</em>
+</p>
+</div>
+<p>Kết quả thu được sau 10 lần chạy giống với kết quả tại <span class="citation">Do and Batzoglou (<a href="#ref-do2008" role="doc-biblioref">2008</a>)</span>, (<a href="http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf">link</a>).</p>
+</div>
+<div id="phân-bố-gaussian-hỗn-hợp" class="section level1">
+<h1>Phân bố Gaussian hỗn hợp</h1>
+<p>Ta sẽ tiến tới một ứng dụng quan trọng của phương pháp EM đó là sử dụng để giải quyết bài toán phân cụm. Đây cũng chính là một trong các phương pháp phân cụm trong machine learning bên cạnh Naive Bayes, logistic model, decision tree v.v…</p>
+<!-- ----------------------------------------------------------------------------- -->
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1><em>References</em></h1>
+<div id="refs" class="references">
+<div id="ref-do2008">
+<p>Do, Chuong B, and Serafim Batzoglou. 2008. “What Is the Expectation Maximization Algorithm?” <em>Nature Biotechnology</em> 26 (8): 897–99.</p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

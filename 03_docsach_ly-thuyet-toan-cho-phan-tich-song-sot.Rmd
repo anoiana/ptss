@@ -24,6 +24,7 @@ link-citations: true
 \def\indep{\perp\!\!\!\!\perp}
 \newcommand{\overeq}[2]{\stackrel{#1}{#2}}
 \def\epsilon{\varepsilon} 
+\def\proved{\blacksquare\quad} 
 
 ---
 
@@ -39,7 +40,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
 # Quá trình ngẫu nhiên trong cột thời gian rời rạc
 
-##  Đặc tính martingales trong cột thời gian rời rạc
+## Đặc tính martingales
 
 Ta có $M = \{M_0,M_1,\dots\}$ là quá trình ngẫu nhiên trong cột thời gian rời rạc. $M$ là một martingales khi 
 $$
@@ -95,6 +96,8 @@ Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có t
 
 Liên hệ với phân tích sốt sót, ta thấy rằng cứ sau mỗi một bệnh nhân tử vong được ghi nhận, thì các giá trị của hàm sống sót, hàm nguy cơ,... đều thay đổi. Câu hỏi được đặc ra là liệu sau mỗi một ca tử vong ghi nhận được, thì ta có thể dự đoán gì về các ca tiếp theo? và liệu với các thông tin ta có cho tới thời điển hiện tại (tiền sự) thì sẽ trả lời được cho ta về điều gì trong những lần tới? 
 ::::
+
+##  Đặc tính martingales trong cột thời gian rời rạc
 
 Như vậy `r lb(eq1)` có thể được viết lại là 
 $$
@@ -155,6 +158,63 @@ $$
 M^2 - [M] \text{ chính là martingale có kỳ vọng bằng 0}
 (\#eq:eq10)
 $$
+
+::::{.blackbox .brainstorm}
+:::{.center}
+Chứng minh `r lb(eq10)` như sau
+:::
+Với $M^2_n$, ta có thể ghi lại như sau
+$$
+\begin{aligned}
+&M_n^2 = (M_n - M_{n-1} + M_{n-1})^2 \\
+& [M]_n = \sum_{i=1}^{n-1}(M_i-M_{i-1})^2 + (M_n - M_{n-1})^2 = [M]_{n-1}+ (N_n-M_{n-1})^2
+\end{aligned}
+$$
+thus, 
+$$
+\begin{aligned}
+\E(M_n^2-[M]_n|\scr{F}_{n-1}) &= \E[2M_{n-1}(M_n-M_{n-1}) + M_{n-1}^2  - [M]_{n-1}|\scr{F}_{n-1}] \\
+&= M^2_{n-1} - [M]_{n-1}+2M_{n-1}\E(M_n-M_{n-1}|\scr{F}_{n-1}) \\
+&= M_{n-1}^2 - [M]_{n-1}
+\end{aligned}
+$$
+
+:::{.right}
+$\proved$
+:::
+::::
+
+## Thời gian ngừng 
+
+*stopping time* hay thời gian ngừng là khoảng thời gian phải có để một sự kiện nào đó xảy ra. Ta có thể định nghĩa thời gian ngừng như sau 
+$$
+M_{n}^T = M_{n \wedge T}, \quad [n \wedge T := \min(n,T)]
+(\#eq:eq11)
+$$
+nghĩa là nếu thời gian xem xét là $T = t$ thì tại các mốc thời gian trước $t$ sẽ chính là giá trị của mốc thời gian đó, còn các mốc thời gian sau $t$ sẽ luôn là $t$. Đối với thời gian ngừng trong `r lb(eq11)` ta có thể chỉ ra rằng nó cũng có tính chất martingale. Tuy nhiên ta sẽ xem xét trường hợp tổng quát trước rồi sẽ xem xét trường hợp đặc trưng sau. 
+
+Thông thường ta sẽ không chứng minh trực tiếp đặc tính martingale của thời gian ngừng mà sẽ thông qua một bước đổi biến. Gọi $X = \{X_i\}_{i=0,1,\dots}$ là một quá trình tổng quát với tiền sự $\{\scr{F}_n\}$, và $H = \{H_i\}_{i=0,1,\dots}$ là một quá trình có thể dự đoán *(predictable process)*, với già thuyết này thì $H_n$ sẽ có thể tính toán dựa trên tiền sự $\scr{F}_{n-1}$. Như vậy ta đổi biến $X$ thành biến $Z$ như sau 
+$$
+Z_n = H \bullet X = H_0X_0+H_1(X_1-X_0)+ \dots + H_{n-1}(X_{n-1}-X_{n-2})+ H_{n}(X_{n}-X_{n-1}),
+(\#eq:eq12)
+$$
+như vậy ta có thể chỉ ra rằng 
+$$
+\begin{aligned}
+\E(Z_n - Z_{n-1}|\scr{F}_{n-1}) &= \E[H_n(M_n-M_{n-1})|\scr{F}_{n-1}] \\
+&= H_n\E(M_n-M_{n-1}|\scr{F}_{n-1}) = 0,
+\end{aligned}
+$$
+ta kết luận rằng nếu $M$ là martingle thì $Z$ cũng như thế. Ngoài ra vì $Z_0 = H_0M_0 = 0$ nên $Z$ là martingale có kỳ vọng là 0. 
+
+Với $n$ lớn hơn $1$ ta sẽ có 
+$$
+Z_n = (H \bullet M)_n = \tp{\bf{H}}\Delta\bf{M}
+(\#eq:eq13)
+$$
+với $\bf{H} = \tp{(H_1,H_2,\dots,H_n)}$ và $\Delta\bf{M} = \tp{(\Delta M_1, \Delta M_2, \dots, \Delta M_n)}$ với $\Delta M_s = M_s - M_{s-1}$. 
+
+
 
 
 
