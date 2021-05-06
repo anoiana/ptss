@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Maths Background For Survival Analysis</title>
+<title>✑ Non-Parametric Procedures For Homogeneous Population</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -255,13 +255,13 @@ $(document).ready(function () {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-book-open"></span>
      
-    Time-to-event Analysis
+    Survival Analysis
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="01_notes_nonparametric-analysis-of-time-to-event.html">1. Nonparametric Analysis of Time-to-event</a>
+      <a href="01_notes_nonparametrics-homogeneous-pop.html">Non-parametric procedures for homogeneous population</a>
     </li>
   </ul>
 </li>
@@ -288,7 +288,9 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">lý thuyết toán trong phân tích sống sót</li>
+    <li>
+      <a href="03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html">lý thuyết toán trong phân tích sống sót</a>
+    </li>
     <li>
       <a href="03_docsach_phuong-phap-phi-tham-so.html">Phương pháp phi tham số</a>
     </li>
@@ -318,14 +320,18 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">✑ Maths Background For Survival Analysis</h1>
-<h4 class="date">📅 2021-05-01</h4>
+<h1 class="title toc-ignore">✑ Non-Parametric Procedures For Homogeneous Population</h1>
+<h4 class="date">📅 2021-05-06</h4>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#time-and-martingales">Time and Martingales</a></li>
+<li><a href="#survival-function-and-its-estimates"><span class="toc-section-number">1</span> Survival Function And Its Estimates</a><ul>
+<li><a href="#estimating-life-table"><span class="toc-section-number">1.1</span> Estimating Life-table</a></li>
+<li><a href="#estimating-kaplan-meier"><span class="toc-section-number">1.2</span> Estimating Kaplan-Meier</a></li>
+<li><a href="#estimating-nelson-aalen"><span class="toc-section-number">1.3</span> Estimating Nelson-Aalen</a></li>
+</ul></li>
 <li><a href="#references"><em>References</em></a></li>
 </ul>
 </div>
@@ -336,9 +342,32 @@ $(document).ready(function () {
 <div class="right">
 <p><em>refer to <span class="citation">Aalen, Borgan, and Gjessing (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
 </div>
-<div id="time-and-martingales" class="section level1">
-<h1>Time and Martingales</h1>
+<div id="survival-function-and-its-estimates" class="section level1">
+<h1><span class="header-section-number">1</span> Survival Function And Its Estimates</h1>
+<!-- --------------------------- -->
+<p>In this section, we shall deem three estimates of survivor function, namely life-table, Kaplan-Meier (KM) and Nelson-Aalen (NA). Before we go into details, let us consider survival function <span class="math inline">\(S(t)\)</span> that is material to survival analysis. Suppose the duration of study is <span class="math inline">\((0, \tau)\)</span>, for all <span class="math inline">\(t \le \tau\)</span> we are able to calculate how many patients who still survive, this is, how many patients whose survival time is longer than <span class="math inline">\(t\)</span>, inclusively. This is estimator of survival function at <span class="math inline">\(t\)</span> shown bellow
+<span class="math display" id="eq:eq1">\[
+\widehat{S}(t) = \frac{\text{# of individuals with survival times }\ge t}{\text{# of individuals in the data set}}
+\tag{1.1}
+\]</span>
+we can now deduce <em>empiracal distribution</em> <span class="math inline">\(\widehat{F}(t) = 1 - \widehat{S}(t)\)</span>. There are some assumptions of survivor function:</p>
+<ol style="list-style-type: decimal">
+<li>Equal unity for <span class="math inline">\(t \le 0\)</span>.</li>
+<li>between two adjacent dead times, <span class="math inline">\(\widehat{S}(t)\)</span> is constant.</li>
+</ol>
+<p>Let us consider the following data set</p>
+<p><img src="01_notes_nonparametrics-homogeneous-pop_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This method cannot be used if there exists censors since the information of censors will not be included. Another method that can be used with the presence of censors will now be described below.</p>
+<div id="estimating-life-table" class="section level2">
+<h2><span class="header-section-number">1.1</span> Estimating Life-table</h2>
+</div>
+<div id="estimating-kaplan-meier" class="section level2">
+<h2><span class="header-section-number">1.2</span> Estimating Kaplan-Meier</h2>
+</div>
+<div id="estimating-nelson-aalen" class="section level2">
+<h2><span class="header-section-number">1.3</span> Estimating Nelson-Aalen</h2>
 <!-- ==================================================================================== -->
+</div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>

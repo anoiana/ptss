@@ -1,0 +1,109 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R');newdate_func(params$update_date)`"
+title: "`r totitle('Non-parametric procedures for homogeneous population')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+---
+
+`r lb = purrr::partial(lb,vn = FALSE)`
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+:::{.right}
+*refer to @aal2008*
+:::
+
+# Survival Function And Its Estimates
+<!-- --------------------------- -->
+
+In this section, we shall deem three estimates of survivor function, namely life-table, Kaplan-Meier (KM) and Nelson-Aalen (NA). Before we go into details, let us consider survival function $S(t)$ that is material to survival analysis. Suppose the duration of study is $(0, \tau)$, for all $t \le \tau$ we are able to calculate how many patients who still survive, this is, how many patients whose survival time is longer than $t$, inclusively. This is estimator of survival function at $t$ shown bellow
+$$
+\hat{S}(t) = \frac{\text{# of individuals with survival times }\ge t}{\text{# of individuals in the data set}}
+(\#eq:eq1)
+$$
+we can now deduce _empiracal distribution_ $\hat{F}(t) = 1 - \hat{S}(t)$. There are some assumptions of survivor function:
+
+1. Equal unity for $t \le 0$.
+2. between two adjacent dead times, $\hat{S}(t)$ is constant.
+
+Let us consider the following data set 
+
+```{r, fig.align='center'}
+if(!require(pacman)) install.packages("pacman");library(pacman);p_load(
+	  # General packages
+	tidyverse, survival, discSurv
+	  # Specific packages
+	)
+
+pul = read.csv("_supp/data/Pulmonary metastasis.dat") %>%
+ mutate(status = 1)
+
+life_table = discSurv::lifeTable(pul, timeColumn = "time", censColumn = "status" )
+
+S = (life_table$Output$S)%>% round(5)
+k = imap(table(S)%>% rev(), ~rep(.y,.x+1)) 
+x = 1:length(reduce(k,c) )
+x2 = split(x,reduce(k,c))%>% rev()
+x3 = lapply(1:length(x2), function(i)  x2[[i]] - (i-1))%>% reduce(c)
+y = imap(x2, ~rep(.y,length(.x)))%>% reduce(c)%>% as.numeric()
+plot(x3,y, type = "l", xlab = "Survival time", ylab = "estimated survivor function")
+```
+
+This method cannot be used if there exists censors since the information of censors will not be included. Another method that can be used with the presence of censors will now be described below. 
+
+## Estimating Life-table
+
+## Estimating Kaplan-Meier
+
+## Estimating Nelson-Aalen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ==================================================================================== -->
+# *References*

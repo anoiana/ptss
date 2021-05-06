@@ -364,13 +364,13 @@ $(document).ready(function () {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-book-open"></span>
      
-    Time-to-event Analysis
+    Survival Analysis
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="01_notes_nonparametric-analysis-of-time-to-event.html">1. Nonparametric Analysis of Time-to-event</a>
+      <a href="01_notes_nonparametrics-homogeneous-pop.html">Non-parametric procedures for homogeneous population</a>
     </li>
   </ul>
 </li>
@@ -397,7 +397,9 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">lý thuyết toán trong phân tích sống sót</li>
+    <li>
+      <a href="03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html">lý thuyết toán trong phân tích sống sót</a>
+    </li>
     <li>
       <a href="03_docsach_phuong-phap-phi-tham-so.html">Phương pháp phi tham số</a>
     </li>
@@ -442,7 +444,6 @@ $(document).ready(function () {
 <li><a href="#references"><em>References</em></a></li>
 </ul>
 </div>
-
 
 
 
@@ -512,18 +513,18 @@ kết quả của <span style="color: black; font-size: 18px;"><em>phương trì
 </div>
 <p>Như vậy, ta thấy rằng
 <span class="math display" id="eq:eq3">\[
-\ln\Bbb{P}(X|\boldsymbol{\theta}) = \underbrace{ \sum_{Z}q(Z)\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{q(Z)}\bigg]}_{\scr{L}(q,\theta)} + KL(q||p)
+\ln\Bbb{P}(X|\boldsymbol{\theta}) = \underbrace{ \sum_{Z}q(Z)\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{q(Z)}\bigg]}_{\mathscr{L}(q,\theta)} + KL(q||p)
 \tag{3}
 \]</span>
-<span class="math inline">\(\scr{L}(q,\theta)\)</span> chính là cận dưới của log-likelihood.</p>
-<p>Ta nhớ rằng mục tiêu của ta là maximize cận dưới <span class="math inline">\(\scr{L}(q,\theta)\)</span> đến khi nào <span class="math inline">\(KL(q||p) = 0\)</span> thì <span class="math inline">\(\scr{L}(q,\theta)\)</span> sẽ tương đương với <span class="math inline">\(\ln\Bbb{P}(X|\boldsymbol{\theta})\)</span>, khi đó nghiệm tìm được cũng chính là nghiệm khi ta maximize <span class="math inline">\(\ln\Bbb{P}(X|\boldsymbol{\theta})\)</span>.</p>
+<span class="math inline">\(\mathscr{L}(q,\theta)\)</span> chính là cận dưới của log-likelihood.</p>
+<p>Ta nhớ rằng mục tiêu của ta là maximize cận dưới <span class="math inline">\(\mathscr{L}(q,\theta)\)</span> đến khi nào <span class="math inline">\(KL(q||p) = 0\)</span> thì <span class="math inline">\(\mathscr{L}(q,\theta)\)</span> sẽ tương đương với <span class="math inline">\(\ln\Bbb{P}(X|\boldsymbol{\theta})\)</span>, khi đó nghiệm tìm được cũng chính là nghiệm khi ta maximize <span class="math inline">\(\ln\Bbb{P}(X|\boldsymbol{\theta})\)</span>.</p>
 <p>Thuật toán EM sẽ được tiến hành theo 2 bước đặc trưng là bước E-expectation và bước M-maximization.</p>
-<p><strong>Bước E:</strong> Giả sử giá trị ban đầu của <span class="math inline">\(\boldsymbol{\theta}\)</span> là <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span>, nếu ta biết <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span> và ta có tập dữ liệu <span class="math inline">\(X\)</span> thì <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> sẽ được tính một cách dễ dàng. Như vậy nếu ta thay marginal distribution <span class="math inline">\(\Bbb{P}(Z)\)</span> của Z bằng conditional distribution <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> thì theo <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq2">(2)</a> <span class="math inline">\(KL(q||p) = 0\)</span>, đây là điều ta mong muốn. Khi đó <span class="math inline">\(\scr{L}(q,\boldsymbol{\theta}) = l(\boldsymbol{\theta})\)</span>.</p>
-<p><strong>Bước M:</strong> Ta sẽ maximize <span class="math inline">\(\scr{L}(q,\boldsymbol{\theta})\)</span> theo biến <span class="math inline">\(\boldsymbol{\theta}\)</span>. Một khi <span class="math inline">\(\boldsymbol{\theta}\)</span> mới tìm được thì <span class="math inline">\(KL(q||P)\)</span> mới sẽ khác 0. và ta quay lại bước E để thay marginal distribution của <span class="math inline">\(Z\)</span> bằng conditional distribution với <span class="math inline">\(\boldsymbol{\theta} = \boldsymbol{\theta}^{new}\)</span>, và <span class="math inline">\(KL(q||p) = 0\)</span>. Ta tiếp tục lập lại 2 bước này nhiều lần đến khi đạt điểm convergent.</p>
+<p><strong>Bước E:</strong> Giả sử giá trị ban đầu của <span class="math inline">\(\boldsymbol{\theta}\)</span> là <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span>, nếu ta biết <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span> và ta có tập dữ liệu <span class="math inline">\(X\)</span> thì <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> sẽ được tính một cách dễ dàng. Như vậy nếu ta thay marginal distribution <span class="math inline">\(\Bbb{P}(Z)\)</span> của Z bằng conditional distribution <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> thì theo <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq2">(2)</a> <span class="math inline">\(KL(q||p) = 0\)</span>, đây là điều ta mong muốn. Khi đó <span class="math inline">\(\mathscr{L}(q,\boldsymbol{\theta}) = l(\boldsymbol{\theta})\)</span>.</p>
+<p><strong>Bước M:</strong> Ta sẽ maximize <span class="math inline">\(\mathscr{L}(q,\boldsymbol{\theta})\)</span> theo biến <span class="math inline">\(\boldsymbol{\theta}\)</span>. Một khi <span class="math inline">\(\boldsymbol{\theta}\)</span> mới tìm được thì <span class="math inline">\(KL(q||P)\)</span> mới sẽ khác 0. và ta quay lại bước E để thay marginal distribution của <span class="math inline">\(Z\)</span> bằng conditional distribution với <span class="math inline">\(\boldsymbol{\theta} = \boldsymbol{\theta}^{new}\)</span>, và <span class="math inline">\(KL(q||p) = 0\)</span>. Ta tiếp tục lập lại 2 bước này nhiều lần đến khi đạt điểm convergent.</p>
 <p>Ở đây khi thay marginal distribution bằng conditional distribution ta có</p>
 <p><span class="math display">\[
 \begin{aligned}
-\scr{L}(q,\boldsymbol{\theta}) &amp;= \sum_{Z}\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})}\bigg] \\
+\mathscr{L}(q,\boldsymbol{\theta}) &amp;= \sum_{Z}\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})}\bigg] \\
 &amp;= \underbrace{\sum_Z \Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\ln\Bbb{P}(X,Z|\boldsymbol{\theta})}_{Q(\boldsymbol{\theta},\boldsymbol{\theta}^{old})} - \underbrace{\sum_Z \Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\ln\Bbb{P}(X,Z|\boldsymbol{\theta}^{old})}_{\text{constant theo biến }\boldsymbol{\theta}}
 \end{aligned}
 \]</span>

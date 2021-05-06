@@ -27,12 +27,12 @@ navbar:
     #  icon: fa-comment-dots
 
 #-------------------------TAB 2: TIME-TO-EVENT -----------------------------------
-    - text: "Time-to-event Analysis"
+    - text: "Survival Analysis"
       icon: fa-book-open
       menu:
       # SEC. 1 ************************************************************
-      - text: "1. Nonparametric Analysis of Time-to-event"
-        href: '01_notes_nonparametric-analysis-of-time-to-event.html'
+      - text: "Non-parametric procedures for homogeneous population"
+        href: '01_notes_nonparametrics-homogeneous-pop.html'
 
 #-------------------------TAB 3: READING  ----------------------------------------
     - text: "Readings"
@@ -48,7 +48,7 @@ navbar:
       menu:
       # SEC. 1 ************************************************************
       - text: "lý thuyết toán trong phân tích sống sót"
-      #  href: "03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html"
+        href: "03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html"
       # SEC. 2 ************************************************************
       - text: "Phương pháp phi tham số"
         href: '03_docsach_phuong-phap-phi-tham-so.html'
