@@ -18,7 +18,7 @@ output:
 navbar:
   title: "ANOIANA"
   left:
-# ----------------------- TAB 1 : HOME ------------------------------------------
+# ----------------------- TAB 0 : HOME ------------------------------------------
     - text: "Home"
       href: index.html
       icon: fa-home
@@ -26,35 +26,42 @@ navbar:
     #  href: about.html
     #  icon: fa-comment-dots
 
-#-------------------------TAB 2: TIME-TO-EVENT -----------------------------------
+#-------------------------TAB 1: SURVIVAL ANALYSIS (1SA) -----------------------------------
     - text: "Survival Analysis"
-      icon: fa-book-open
+      icon: fa-bookmark
       menu:
       # SEC. 1 ************************************************************
-      - text: "Non-parametric procedures for homogeneous population"
-        href: '01_notes_nonparametrics-homogeneous-pop.html'
+      - text: "1. Non-parametric procedures for homogeneous population"
+        href: '1SA-01_nonparametrics-homogeneous-pop.html'
 
-#-------------------------TAB 3: READING  ----------------------------------------
+#-------------------------TAB 2: READING (2READ)  ----------------------------------------
     - text: "Readings"
-      icon: fa-book-open
+      icon: fa-bookmark
       menu:
       # SEC 1 *************************************************************
-      - text: "Limit of Supremum and Infimum"
-        href: '02_readings_lim-inf-lim-sup.html'
-#-------------------------TAB 4: DOC SACH ------ ---------------------------------
+      - text: "1. Limit of Supremum and Infimum"
+        href: '2READ-01_lim-inf-lim-sup.html'
 
+#-------------------------TAB 3: DOC SACH (3DS) ---------------------------------------
     - text: "Đọc sách"
-      icon: fa-book-open
+      icon: fa-bookmark
       menu:
-      # SEC. 1 ************************************************************
-      - text: "lý thuyết toán trong phân tích sống sót"
-        href: "03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html"
-      # SEC. 2 ************************************************************
-      - text: "Phương pháp phi tham số"
-        href: '03_docsach_phuong-phap-phi-tham-so.html'
+      # SEC. 1 ***************PHÂN TÍCH SỐNG SÓT (I) *********************
+      - text: "I. PHÂN TÍCH SỐNG SÓT"
+      - text: "1. lý thuyết toán trong phân tích sống sót"
+        href: "3DS-I-01_ly-thuyet-toan-cho-phan-tich-song-sot.html"
+      - text: "2. Phương pháp phi tham số"
+        href: '3DS-I-02_phuong-phap-phi-tham-so.html'
+      # SEC. 2 ********SUY LUẬN BAYES (II) *********************************
       - text: '---'
-      - text: "Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm"
-        href: "03_docsach_em-algorithm.html"
+      - text: 'II. SUY LUẬN BAYES'
+      # - text: ""
+      #  href: "03_docsach_em-algorithm.html"
+      # SEC. 3 ********CÁC CHỦ ĐỀ RIÊNG (III) ***************
+      - text: '---'
+      - text: 'III. CÁC CHỦ ĐỀ RIÊNG'
+      - text: "1. Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm"
+        href: "3DS-III-01_em-algorithm.html"
 #------------------------------------------------ ---------------------------------
   type: inverse
 

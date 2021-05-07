@@ -13,24 +13,17 @@
 
 <title>✑ Lý Thuyết Toán Cho Phân Tích Sống Sót</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="fugu.png"/>
@@ -54,7 +47,32 @@
 
 
 
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -65,6 +83,10 @@
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -81,13 +103,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -115,7 +164,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -127,7 +176,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -138,23 +187,10 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.tab('show');
+  menuAnchor.parent().addClass('active');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
 });
 </script>
 
@@ -166,6 +202,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -246,14 +283,14 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-bookmark"></span>
      
     Survival Analysis
      
@@ -261,13 +298,13 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="01_notes_nonparametrics-homogeneous-pop.html">Non-parametric procedures for homogeneous population</a>
+      <a href="1SA-01_nonparametrics-homogeneous-pop.html">1. Non-parametric procedures for homogeneous population</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-bookmark"></span>
      
     Readings
      
@@ -275,28 +312,32 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="02_readings_lim-inf-lim-sup.html">Limit of Supremum and Infimum</a>
+      <a href="2READ-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-bookmark"></span>
      
     Đọc sách
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT</li>
     <li>
-      <a href="03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html">lý thuyết toán trong phân tích sống sót</a>
+      <a href="3DS-I-01_ly-thuyet-toan-cho-phan-tich-song-sot.html">1. lý thuyết toán trong phân tích sống sót</a>
     </li>
     <li>
-      <a href="03_docsach_phuong-phap-phi-tham-so.html">Phương pháp phi tham số</a>
+      <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
     <li class="divider"></li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
     <li>
-      <a href="03_docsach_em-algorithm.html">Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
+      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
     </li>
   </ul>
 </li>
@@ -308,11 +349,11 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -321,13 +362,14 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">✑ Lý Thuyết Toán Cho Phân Tích Sống Sót</h1>
-<h4 class="date">📅 2021-05-01</h4>
+<h4 class="date">📅 2021-05-07</h4>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#quá-trình-ngẫu-nhiên-trong-cột-thời-gian-rời-rạc">Quá trình ngẫu nhiên trong cột thời gian rời rạc</a><ul>
+<li><a href="#quá-trình-ngẫu-nhiên-trong-cột-thời-gian-rời-rạc">Quá trình ngẫu nhiên trong cột thời gian rời rạc</a>
+<ul>
 <li><a href="#đặc-tính-martingales">Đặc tính martingales</a></li>
 <li><a href="#đặc-tính-martingales-trong-cột-thời-gian-rời-rạc">Đặc tính martingales trong cột thời gian rời rạc</a></li>
 <li><a href="#sự-thay-đổi-của-quá-trình-ngẫu-nhiên">Sự thay đổi của quá trình ngẫu nhiên</a></li>
@@ -337,12 +379,10 @@ $(document).ready(function () {
 </ul>
 </div>
 
-
-
 <hr />
 <!-- ===================== START FROM HERE ========================== -->
 <div class="right">
-<p><em>refer to <span class="citation">Aalen, Borgan, and Gjessing (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
+<p><em>refer to <span class="citation"><a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing</a> (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
 </div>
 <div id="quá-trình-ngẫu-nhiên-trong-cột-thời-gian-rời-rạc" class="section level1">
 <h1>Quá trình ngẫu nhiên trong cột thời gian rời rạc</h1>
@@ -353,7 +393,7 @@ $(document).ready(function () {
 \Bbb{E}(M_n|M_0,M_1,\dots,M_{n-1}) = M_{n-1}, \quad n \ge 1
 \tag{1}
 \]</span>
-Đặc tính này liên quan tới “fair game”, nghĩa là dựa trên các thông tin ta có được sau khi quan sát <span class="math inline">\(n-1\)</span> trò chơi thì thông tin tăng lên mà ta kỳ vọng cho trò chơi tiếp theo sẽ không thay đổi.</p>
+Đặc tính này liên quan tới “fair game,” nghĩa là dựa trên các thông tin ta có được sau khi quan sát <span class="math inline">\(n-1\)</span> trò chơi thì thông tin tăng lên mà ta kỳ vọng cho trò chơi tiếp theo sẽ không thay đổi.</p>
 <p>Tạm gọi <span class="math inline">\(\mathscr{F}_n\)</span> là thông tin tích lũy đến thời điểm thứ <span class="math inline">\(n\)</span>. Trong lý thuyết về tập hợp ta có thể xem <span class="math inline">\(\{\mathscr{F}_n\}\)</span> là một tập hợp, số lượng phần tử của tập hợp này sẽ tăng dần khi lần lượt đi qua các mốc thời gian (đi càng nhiều, chứng kiền càng nhiều, kiến thức càng nhiều). Ví dụ, ta ném 3 đồng xu thì ta biết trước có tất cả 8 trường hợp có thể xảy ra nhưng ta không biết cụ thể trường hợp nào, và ta cũng không biết trường hợp nào có nhiều khả năng hơn trường hợp nào. Nói cách khác tất cả các khả năng đều ngang bằng nhau, cũng có thể nói ta không có bất kỳ thông tin nào. 8 trường hợp đó là
 <span class="math display">\[
 M_0 = \{(HHH, HHT, HTH, HTT, THH,THT, TTH, TTT)\},
@@ -509,9 +549,9 @@ với <span class="math inline">\(\boldsymbol{H} = {(H_1,H_2,\dots,H_n)}^{\top}\
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>
-<div id="refs" class="references">
-<div id="ref-aal2008">
-<p>Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-aal2008" class="csl-entry">
+Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.
 </div>
 </div>
 </div>
@@ -543,7 +583,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>

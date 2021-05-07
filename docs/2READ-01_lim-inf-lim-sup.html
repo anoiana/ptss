@@ -13,24 +13,17 @@
 
 <title>✑ Limit Of Supremum And Infimum</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="fugu.png"/>
@@ -54,7 +47,32 @@
 
 
 
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -65,6 +83,10 @@
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -81,13 +103,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -115,7 +164,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -127,7 +176,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -138,23 +187,10 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.tab('show');
+  menuAnchor.parent().addClass('active');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
 });
 </script>
 
@@ -166,6 +202,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -246,14 +283,14 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-bookmark"></span>
      
     Survival Analysis
      
@@ -261,13 +298,13 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="01_notes_nonparametrics-homogeneous-pop.html">Non-parametric procedures for homogeneous population</a>
+      <a href="1SA-01_nonparametrics-homogeneous-pop.html">1. Non-parametric procedures for homogeneous population</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-bookmark"></span>
      
     Readings
      
@@ -275,28 +312,32 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="02_readings_lim-inf-lim-sup.html">Limit of Supremum and Infimum</a>
+      <a href="2READ-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-bookmark"></span>
      
     Đọc sách
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT</li>
     <li>
-      <a href="03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html">lý thuyết toán trong phân tích sống sót</a>
+      <a href="3DS-I-01_ly-thuyet-toan-cho-phan-tich-song-sot.html">1. lý thuyết toán trong phân tích sống sót</a>
     </li>
     <li>
-      <a href="03_docsach_phuong-phap-phi-tham-so.html">Phương pháp phi tham số</a>
+      <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
     <li class="divider"></li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
     <li>
-      <a href="03_docsach_em-algorithm.html">Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
+      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
     </li>
   </ul>
 </li>
@@ -308,11 +349,11 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -321,21 +362,20 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">✑ Limit Of Supremum And Infimum</h1>
-<h4 class="date">📅 2021-04-29</h4>
+<h4 class="date">📅 2021-05-07</h4>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#limsup-and-liminf-of-a-sequence-of-real-numbers"><span class="math inline">\(\lim\sup\)</span> and <span class="math inline">\(\lim\inf\)</span> of a sequence of real numbers</a><ul>
+<li><a href="#limsup-and-liminf-of-a-sequence-of-real-numbers"><span class="math inline">\(\lim\sup\)</span> and <span class="math inline">\(\lim\inf\)</span> of a sequence of real numbers</a>
+<ul>
 <li><a href="#liminf"><span class="math inline">\(\lim\inf\)</span></a></li>
 <li><a href="#limsup"><span class="math inline">\(\lim\sup\)</span></a></li>
 </ul></li>
 <li><a href="#limsup-and-liminf-of-a-sequence-of-sets"><span class="math inline">\(\lim\sup\)</span> and <span class="math inline">\(\lim\inf\)</span> of a sequence of sets</a></li>
 </ul>
 </div>
-
-
 
 <hr />
 <div id="limsup-and-liminf-of-a-sequence-of-real-numbers" class="section level1">
@@ -356,7 +396,7 @@ We deem two cases that likely occur with <span class="math inline">\((c_n)_{n=1}
 \]</span></p>
 <p>The following figure illustrates for <span class="math inline">\(\lim\inf\)</span>:</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
-<img src="02_readings_lim-inf-lim-sup_files/figure-html/unnamed-chunk-1-1.png" alt="example for $\lim\inf$" width="672" />
+<img src="2READ-01_lim-inf-lim-sup_files/figure-html/unnamed-chunk-1-1.png" alt="example for $\lim\inf$" width="672" />
 <p class="caption">
 Figure 1: example for <span class="math inline">\(\lim\inf\)</span>
 </p>
@@ -372,7 +412,7 @@ Figure 1: example for <span class="math inline">\(\lim\inf\)</span>
 \]</span></p>
 <p>The following figure illustrates for <em>sup</em> or <em>supremum</em></p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
-<img src="02_readings_lim-inf-lim-sup_files/figure-html/unnamed-chunk-2-1.png" alt="example for $\lim\sup$" width="672" />
+<img src="2READ-01_lim-inf-lim-sup_files/figure-html/unnamed-chunk-2-1.png" alt="example for $\lim\sup$" width="672" />
 <p class="caption">
 Figure 2: example for <span class="math inline">\(\lim\sup\)</span>
 </p>
@@ -380,7 +420,7 @@ Figure 2: example for <span class="math inline">\(\lim\sup\)</span>
 <p>In this case, all black filled circles are greater than <span class="math inline">\(1\)</span>, the sequence goes to <span class="math inline">\(1\)</span> as <span class="math inline">\(n\)</span> approaches to <span class="math inline">\(\infty\)</span> (never reach <span class="math inline">\(1\)</span>). Thus, they are upper bounds of the collection of red filled circles. Also, a point corresponding <span class="math inline">\(n\)</span> as <span class="math inline">\(n \to \infty\)</span> is the least point of the upper bound set. This is called <em>supremum</em> or <em>the least upper bound</em>.</p>
 <p>If we combine both figures, we obtain</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
-<img src="02_readings_lim-inf-lim-sup_files/figure-html/unnamed-chunk-3-1.png" alt="example for $\lim\sup$" width="672" />
+<img src="2READ-01_lim-inf-lim-sup_files/figure-html/unnamed-chunk-3-1.png" alt="example for $\lim\sup$" width="672" />
 <p class="caption">
 Figure 3: example for <span class="math inline">\(\lim\sup\)</span>
 </p>
@@ -453,7 +493,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>

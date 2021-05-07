@@ -13,29 +13,22 @@
 
 <title>✑ Phương Pháp Phi Tham Số</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="site_libs/core-js-2.5.3/shim.min.js"></script>
 <script src="site_libs/react-16.12.0/react.min.js"></script>
 <script src="site_libs/react-16.12.0/react-dom.min.js"></script>
 <script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
-<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
 <script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
@@ -58,28 +51,20 @@
     </style>
 
 
-<style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
-</style>
+<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -99,7 +84,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -161,9 +146,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -174,6 +189,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -190,13 +209,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -224,7 +270,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -236,7 +282,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -247,23 +293,10 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.tab('show');
+  menuAnchor.parent().addClass('active');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
 });
 </script>
 
@@ -275,6 +308,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -355,14 +389,14 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-bookmark"></span>
      
     Survival Analysis
      
@@ -370,13 +404,13 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="01_notes_nonparametrics-homogeneous-pop.html">Non-parametric procedures for homogeneous population</a>
+      <a href="1SA-01_nonparametrics-homogeneous-pop.html">1. Non-parametric procedures for homogeneous population</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-bookmark"></span>
      
     Readings
      
@@ -384,28 +418,32 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="02_readings_lim-inf-lim-sup.html">Limit of Supremum and Infimum</a>
+      <a href="2READ-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book-open"></span>
+    <span class="fa fa-bookmark"></span>
      
     Đọc sách
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT</li>
     <li>
-      <a href="03_docsach_ly-thuyet-toan-cho-phan-tich-song-sot.html">lý thuyết toán trong phân tích sống sót</a>
+      <a href="3DS-I-01_ly-thuyet-toan-cho-phan-tich-song-sot.html">1. lý thuyết toán trong phân tích sống sót</a>
     </li>
     <li>
-      <a href="03_docsach_phuong-phap-phi-tham-so.html">Phương pháp phi tham số</a>
+      <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
     <li class="divider"></li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
     <li>
-      <a href="03_docsach_em-algorithm.html">Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
+      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
     </li>
   </ul>
 </li>
@@ -417,11 +455,11 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -430,31 +468,32 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">✑ Phương Pháp Phi Tham Số</h1>
-<h4 class="date">📅 2021-04-29</h4>
+<h4 class="date">📅 2021-05-07</h4>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#ý-nghĩa-toán-học-của-các-hàm-số-được-sử-dụng-trong-phân-tích-sống-sót">Ý nghĩa toán học của các hàm số được sử dụng trong phân tích sống sót</a><ul>
+<li><a href="#ý-nghĩa-toán-học-của-các-hàm-số-được-sử-dụng-trong-phân-tích-sống-sót">Ý nghĩa toán học của các hàm số được sử dụng trong phân tích sống sót</a>
+<ul>
 <li><a href="#biến-thời-gian-liên-tục">Biến thời gian liên tục</a></li>
 <li><a href="#biến-thời-gian-rời-rạc">Biến thời gian rời rạc</a></li>
 </ul></li>
-<li><a href="#ước-lượng-hàm-sống-sót">Ước lượng hàm sống sót</a><ul>
+<li><a href="#ước-lượng-hàm-sống-sót">Ước lượng hàm sống sót</a>
+<ul>
 <li><a href="#ước-lượng-kaplan-meier">Ước lượng Kaplan-Meier</a></li>
 <li><a href="#ví-dụ-về-ước-lượng-kaplan-meier">Ví dụ về ước lượng Kaplan-Meier</a></li>
 </ul></li>
-<li><a href="#so-sánh-các-biểu-đồ-sống-sót">So sánh các biểu đồ sống sót</a><ul>
+<li><a href="#so-sánh-các-biểu-đồ-sống-sót">So sánh các biểu đồ sống sót</a>
+<ul>
 <li><a href="#so-sánh-hiệu-quả-của-hai-phương-pháp-điều-trị">So sánh hiệu quả của hai phương pháp điều trị</a></li>
 </ul></li>
 <li><a href="#references"><em>References</em></a></li>
 </ul>
 </div>
 
-
-
 <hr />
-<p><em>tham khảo tại <span class="citation">Collett (<a href="#ref-col2015" role="doc-biblioref">2015</a>)</span> và <span class="citation">Kalbfleisch and Prentice (<a href="#ref-kal2002" role="doc-biblioref">2011</a>)</span></em></p>
+<p><em>tham khảo tại <span class="citation"><a href="#ref-col2015" role="doc-biblioref">Collett</a> (<a href="#ref-col2015" role="doc-biblioref">2015</a>)</span> và <span class="citation"><a href="#ref-kal2002" role="doc-biblioref">Kalbfleisch and Prentice</a> (<a href="#ref-kal2002" role="doc-biblioref">2011</a>)</span></em></p>
 <div id="ý-nghĩa-toán-học-của-các-hàm-số-được-sử-dụng-trong-phân-tích-sống-sót" class="section level1">
 <h1>Ý nghĩa toán học của các hàm số được sử dụng trong phân tích sống sót</h1>
 <p>Gọi <span class="math inline">\(T\)</span> là một biến ngẫu nhiên không âm đại diện cho khoảng thời gian tính tới khi bệnh nhân tử vong. Có ba phương pháp để xác định phân bố xác suất của <span class="math inline">\(T\)</span>, đó là thông qua <em>hàm tồn tại, hàm mật độ xác suất</em> và <em>hàm nguy cơ</em>.</p>
@@ -761,24 +800,24 @@ chính là <span style="color: black; font-size: 18px;"><em>phương trình</em>
 <h2>Ví dụ về ước lượng Kaplan-Meier</h2>
 <p>Ta xem xét ví dụ sau</p>
 <div class="figure"><span id="fig:unnamed-chunk-1"></span>
-<div id="htmlwidget-8aa28b287de1de2f42a8" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8aa28b287de1de2f42a8">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f74604481e0f0d42ee2b" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f74604481e0f0d42ee2b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1: <em>Bảng số liệu minh họa</em>
 </p>
 </div>
 <p>Ta sẽ lần lượt tính các ước lượng và khoảng tin cậy của hàm sống sót như sau</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>time_int =<span class="st"> </span><span class="kw">which</span>(dt<span class="op">$</span>status<span class="op">==</span><span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>nj =<span class="st"> </span><span class="kw">map_dbl</span>(time_int, <span class="cf">function</span>(i)  <span class="kw">nrow</span>(dt[i<span class="op">:</span><span class="kw">nrow</span>(dt),]))<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">c</span>(<span class="kw">nrow</span>(dt),.)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>dj =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(time_int))<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,.)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>result =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">time_int =</span> <span class="kw">c</span>(<span class="dv">0</span>, dt<span class="op">$</span>time[time_int])<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste0</span>(.,<span class="st">&quot;-&quot;</span>), <span class="dt">dj =</span> dj, <span class="dt">nj =</span> nj)<span class="op">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prob =</span> (nj<span class="op">-</span>dj)<span class="op">/</span>nj)<span class="op">%&gt;%</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">St =</span> <span class="kw">cumprod</span>(prob)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dt">digits =</span> <span class="dv">4</span>))<span class="op">%&gt;%</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">se =</span> <span class="kw">sqrt</span>(St<span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">cumsum</span>(dj<span class="op">/</span>(nj<span class="op">*</span>(nj<span class="op">-</span>dj)))) )<span class="op">%&gt;%</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lower  =</span> St <span class="op">-</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span>se, <span class="dt">upper  =</span> St <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span>se )<span class="op">%&gt;%</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lower =</span> <span class="kw">ifelse</span>(lower <span class="op">&lt;</span><span class="dv">0</span>,<span class="dv">0</span>,lower), <span class="dt">upper =</span> <span class="kw">ifelse</span>(upper <span class="op">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,upper))<span class="op">%&gt;%</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric, round,<span class="dt">digits=</span><span class="dv">3</span>))</span>
-<span id="cb1-11"><a href="#cb1-11"></a>gt<span class="op">::</span><span class="kw">gt</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>time_int <span class="ot">=</span> <span class="fu">which</span>(dt<span class="sc">$</span>status<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>nj <span class="ot">=</span> <span class="fu">map_dbl</span>(time_int, <span class="cf">function</span>(i)  <span class="fu">nrow</span>(dt[i<span class="sc">:</span><span class="fu">nrow</span>(dt),]))<span class="sc">%&gt;%</span> <span class="fu">c</span>(<span class="fu">nrow</span>(dt),.)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dj <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(time_int))<span class="sc">%&gt;%</span> <span class="fu">c</span>(<span class="dv">0</span>,.)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">time_int =</span> <span class="fu">c</span>(<span class="dv">0</span>, dt<span class="sc">$</span>time[time_int])<span class="sc">%&gt;%</span> <span class="fu">paste0</span>(.,<span class="st">&quot;-&quot;</span>), <span class="at">dj =</span> dj, <span class="at">nj =</span> nj)<span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> (nj<span class="sc">-</span>dj)<span class="sc">/</span>nj)<span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">St =</span> <span class="fu">cumprod</span>(prob)<span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">4</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se =</span> <span class="fu">sqrt</span>(St<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">cumsum</span>(dj<span class="sc">/</span>(nj<span class="sc">*</span>(nj<span class="sc">-</span>dj)))) )<span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower  =</span> St <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>se, <span class="at">upper  =</span> St <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>se )<span class="sc">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower =</span> <span class="fu">ifelse</span>(lower <span class="sc">&lt;</span><span class="dv">0</span>,<span class="dv">0</span>,lower), <span class="at">upper =</span> <span class="fu">ifelse</span>(upper <span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,upper))<span class="sc">%&gt;%</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(is.numeric, round,<span class="at">digits=</span><span class="dv">3</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(result)</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1155,7 +1194,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
       <td class="gt_row gt_right">1</td>
       <td class="gt_row gt_right">15</td>
       <td class="gt_row gt_right">0.933</td>
-      <td class="gt_row gt_right">0.882</td>
+      <td class="gt_row gt_right">0.881</td>
       <td class="gt_row gt_right">0.079</td>
       <td class="gt_row gt_right">0.727</td>
       <td class="gt_row gt_right">1.000</td>
@@ -1235,12 +1274,12 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   
 </table></div>
 <p>Ta dùng package <code>survival</code> để tính</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>out =<span class="st"> </span>survival<span class="op">::</span><span class="kw">survfit</span>(<span class="kw">Surv</span>(time,status)<span class="op">~</span><span class="dv">1</span>, <span class="dt">data =</span> dt, <span class="dt">conf.type =</span> <span class="st">&quot;plain&quot;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>broom<span class="op">::</span><span class="kw">tidy</span>(out)<span class="op">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span><span class="kw">relocate</span>(conf.low, <span class="dt">.before =</span> <span class="st">&quot;conf.high&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric, round,<span class="dt">digits =</span> <span class="dv">4</span>))<span class="op">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="st">  </span><span class="kw">filter</span>(time <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,  <span class="dv">10</span>,  <span class="dv">19</span>,  <span class="dv">30</span>,  <span class="dv">36</span>,  <span class="dv">59</span>,  <span class="dv">75</span>,  <span class="dv">93</span>,  <span class="dv">97</span>, <span class="dv">107</span>))<span class="op">%&gt;%</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> survival<span class="sc">::</span><span class="fu">survfit</span>(<span class="fu">Surv</span>(time,status)<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> dt, <span class="at">conf.type =</span> <span class="st">&quot;plain&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(out)<span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(conf.low, <span class="at">.before =</span> <span class="st">&quot;conf.high&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(is.numeric, round,<span class="at">digits =</span> <span class="dv">4</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,  <span class="dv">10</span>,  <span class="dv">19</span>,  <span class="dv">30</span>,  <span class="dv">36</span>,  <span class="dv">59</span>,  <span class="dv">75</span>,  <span class="dv">93</span>,  <span class="dv">97</span>, <span class="dv">107</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1687,10 +1726,10 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   
 </table></div>
 <p>Như vậy ta thu được hai kết quả như nhau. Ngoài ra package <code>survival</code> còn hổ trợ nhiều công cụ dành riêng cho phân tích sống sót. Đầu tiên là biểu đồ KM</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>survminer<span class="op">::</span><span class="kw">ggsurvplot</span>(out, <span class="dt">risk.table =</span> <span class="ot">TRUE</span>, <span class="dt">data =</span> dt)</span></code></pre></div>
-<p><img src="03_docsach_phuong-phap-phi-tham-so_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggsurvplot</span>(out, <span class="at">risk.table =</span> <span class="cn">TRUE</span>, <span class="at">data =</span> dt)</span></code></pre></div>
+<p><img src="3DS-I-02_phuong-phap-phi-tham-so_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Tiếp theo là kết quả của trung vị</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>broom<span class="op">::</span><span class="kw">glance</span>(out)<span class="op">%&gt;%</span><span class="st"> </span>gt<span class="op">::</span><span class="kw">gt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(out)<span class="sc">%&gt;%</span> gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -2080,12 +2119,12 @@ Figure 1: <em>Bảng số liệu minh họa</em>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>
-<div id="refs" class="references">
-<div id="ref-col2015">
-<p>Collett, David. 2015. <em>Modelling Survival Data in Medical Research</em>. CRC press.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-col2015" class="csl-entry">
+Collett, David. 2015. <em>Modelling Survival Data in Medical Research</em>. CRC press.
 </div>
-<div id="ref-kal2002">
-<p>Kalbfleisch, John D, and Ross L Prentice. 2011. <em>The Statistical Analysis of Failure Time Data</em>. Vol. 360. John Wiley &amp; Sons.</p>
+<div id="ref-kal2002" class="csl-entry">
+Kalbfleisch, John D, and Ross L Prentice. 2011. <em>The Statistical Analysis of Failure Time Data</em>. Vol. 360. John Wiley &amp; Sons.
 </div>
 </div>
 </div>
@@ -2117,7 +2156,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>
