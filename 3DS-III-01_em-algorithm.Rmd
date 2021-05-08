@@ -3,6 +3,7 @@ params:
   update_date: FALSE
 date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
 title: "`r totitle('Thuật toán Expectation-Maximization (E-M) trong bài toán phân cụm')`"
+subtitle: "`r totitle('phần I - Bài toán hai đồng xu')`"
 output: 
   bookdown::html_document2:
     code_folding: hide
@@ -240,10 +241,6 @@ data.frame(p = p, q = q)%>% dplyr::mutate_all(round, digits = 2)%>% draw_table()
 ```
 
 Kết quả thu được sau 10 lần chạy giống với kết quả tại @do2008, ([link](http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf)). 
-
-# Phân Bố Gaussian Hỗn Hợp
-
-Ta sẽ tiến tới một ứng dụng quan trọng của phương pháp EM đó là sử dụng để giải quyết bài toán phân cụm. Đây cũng chính là một trong các phương pháp phân cụm trong machine learning bên cạnh Naive Bayes, logistic model, decision tree v.v...
 
 
 

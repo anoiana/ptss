@@ -440,11 +440,13 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">II. SUY LUẬN BAYES</li>
+    <li class="dropdown-header">1. Kiểm định Bayes</li>
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
     <li>
       <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
     </li>
+    <li class="dropdown-header">2. Phương pháp MLE và EM trong bài toán bệnh nhân ung thư với số liệu khuyết</li>
   </ul>
 </li>
       </ul>
@@ -468,6 +470,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">✑ Thuật Toán Expectation-Maximization (E-M) Trong Bài Toán Phân Cụm</h1>
+<h3 class="subtitle">✑ Phần I - Bài Toán Hai Đồng Xu</h3>
 <h4 class="date">📅 2021-05-07</h4>
 
 </div>
@@ -478,7 +481,6 @@ $(document).ready(function () {
 <li><a href="#thuật-toán-em">Thuật Toán EM</a></li>
 <li><a href="#áp-dụng-em-vào-bài-toán-đồng-xu">Áp Dụng EM Vào Bài Toán Đồng Xu</a></li>
 <li><a href="#thực-hành">Thực Hành</a></li>
-<li><a href="#phân-bố-gaussian-hỗn-hợp">Phân Bố Gaussian Hỗn Hợp</a></li>
 <li><a href="#references"><em>References</em></a></li>
 </ul>
 </div>
@@ -672,10 +674,6 @@ Figure 1: <em>xác suất cho ra mặt hình của mỗi đồng xu.</em>
 </p>
 </div>
 <p>Kết quả thu được sau 10 lần chạy giống với kết quả tại <span class="citation"><a href="#ref-do2008" role="doc-biblioref">Do and Batzoglou</a> (<a href="#ref-do2008" role="doc-biblioref">2008</a>)</span>, (<a href="http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf">link</a>).</p>
-</div>
-<div id="phân-bố-gaussian-hỗn-hợp" class="section level1">
-<h1>Phân Bố Gaussian Hỗn Hợp</h1>
-<p>Ta sẽ tiến tới một ứng dụng quan trọng của phương pháp EM đó là sử dụng để giải quyết bài toán phân cụm. Đây cũng chính là một trong các phương pháp phân cụm trong machine learning bên cạnh Naive Bayes, logistic model, decision tree v.v…</p>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 <div id="references" class="section level1 unnumbered">

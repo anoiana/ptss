@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Non-Parametric Procedures For Homogeneous Population</title>
+<title>✑ Thuật Toán Expectation-Maximization (E-M) Trong Bài Toán Phân Cụm</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -363,55 +363,26 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">✑ Non-Parametric Procedures For Homogeneous Population</h1>
+<h1 class="title toc-ignore">✑ Thuật Toán Expectation-Maximization (E-M) Trong Bài Toán Phân Cụm</h1>
+<h3 class="subtitle">✑ Phần Ii - Bài Toán Chẩn Đoán Ung Thư</h3>
 <h4 class="date">📅 2021-05-07</h4>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#survival-function-and-its-estimates"><span class="toc-section-number">1</span> Survival Function And Its Estimates</a>
-<ul>
-<li><a href="#estimating-life-table"><span class="toc-section-number">1.1</span> Estimating Life-table</a></li>
-</ul></li>
-<li><a href="#references"><em>References</em></a></li>
+<li><a href="#đặt-vấn-đề"><span class="toc-section-number">1</span> Đặt vấn đề</a></li>
+<li><a href="#references"><span class="toc-section-number">2</span> <em>References</em></a></li>
 </ul>
 </div>
 
 <hr />
-<div class="right">
-<p><em>refer to <span class="citation"><a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing</a> (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
+<div id="đặt-vấn-đề" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Đặt vấn đề</h1>
+<!-- ----------------------------------------------------------------------------- -->
 </div>
-<div id="survival-function-and-its-estimates" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Survival Function And Its Estimates</h1>
-<!-- --------------------------- -->
-<p>In this section, we shall deem three estimates of survivor function, namely life-table, Kaplan-Meier (KM) and Nelson-Aalen (NA). Before we go into details, let us consider survival function <span class="math inline">\(S(t)\)</span> that is material to survival analysis. Suppose the duration of study is <span class="math inline">\((0, \tau)\)</span>, for all <span class="math inline">\(t \le \tau\)</span> we are able to calculate how many patients who still survive, this is, how many patients whose survival time is longer than <span class="math inline">\(t\)</span>, inclusively. This is estimator of survival function at <span class="math inline">\(t\)</span> shown bellow
-<span class="math display" id="eq:eq1">\[
-\widehat{S}(t) = \frac{\text{# of individuals with survival times }\ge t}{\text{# of individuals in the data set}}
-\tag{1.1}
-\]</span>
-we can now deduce <em>empiracal distribution</em> <span class="math inline">\(\widehat{F}(t) = 1 - \widehat{S}(t)\)</span>. There are some assumptions of survivor function:</p>
-<ol style="list-style-type: decimal">
-<li>Equal unity for <span class="math inline">\(t \le 0\)</span>.</li>
-<li>between two adjacent dead times, <span class="math inline">\(\widehat{S}(t)\)</span> is constant.</li>
-</ol>
-<p>Let us consider the following data set</p>
-<p><img src="1SA-01_nonparametrics-homogeneous-pop_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>This method cannot be used if there exists censors since the information of censors are not capable of being included. Another method used with the presence of censors will now be described below.</p>
-<div id="estimating-life-table" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Estimating Life-table</h2>
-<!-- ## Estimating Kaplan-Meier -->
-<!-- ## Estimating Nelson-Aalen -->
-<!-- ==================================================================================== -->
-</div>
-</div>
-<div id="references" class="section level1 unnumbered">
-<h1><em>References</em></h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-aal2008" class="csl-entry">
-Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.
-</div>
-</div>
+<div id="references" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> <em>References</em></h1>
 </div>
 
 
