@@ -2,8 +2,8 @@
 params:
   update_date: FALSE
 date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
-title: "`r totitle('Thuật toán Expectation-Maximization (E-M) trong bài toán phân cụm')`"
-subtitle: "`r totitle('phần II - bài toán chẩn đoán ung thư')`"
+title: "Thuật Toán Expectation-Maximization (EM) Trong Bài Toán Phân Cụm"
+subtitle: "Phần II - Bài Toán Chẩn Đoán Bệnh"
 output: 
   bookdown::html_document2:
     code_folding: hide
@@ -36,7 +36,142 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 source("_supp/helper.R")
 ```
 
+:::{.right}
+*tham khảo tại @kne2015*
+:::
+
 # Đặt vấn đề
+
+Ta xem xét một tập dữ liệu bao gồm một số bệnh nhân, trong đó mỗi bệnh nhân trải qua 6 lần xét nghiệm. Tập dữ liệu ghi nhận số bệnh nhân có kết quả dương tính lần lượt từ 0 đến 6.
+
+```{r, fig.align='center', fig.cap="*Tập dữ liệu số bệnh nhân có kết quả dương tính lần lượt từ 0 đến 6.*"}
+dplyr::tibble(`số kết quả dương tính (X)` = c(0,1,2,3,4,5,6), `số bệnh nhân (Z)`= c(NA, 37,22,25,29,34,49))%>%
+ draw_table()
+```
+
+Trong tập dữ liệu trên ta thấy rằng số bệnh nhân không có kết quả dương tính ở cả 6 lần xét nghiệm không được cung cấp, vì thế đây được xem là một tập dữ liệu khuyết. Đối với tập dữ liệu này ta có thể áp dụng cả 2 phương pháp *maximum likelihood* (có điều chỉnh) và *expectation-maximization*. Ta sẽ lần lượt xem xét từng phương pháp. 
+
+# Phương pháp maximum likelihood (ML)
+
+Phương pháp này đơn giản là một bài toán tìm cực trị của hàm likelihood theo tham số $\theta$. Giá trị tìm được chính là ước lượng của tham số đó ký hiệu là $\hat{\theta}$. 
+
+Gọi $\{z_i\}_{i=0,1,\dots,6.}$ là số bệnh nhân trong từng trường hợp, $X$ là số kết quả dương tính của một bệnh nhân, mỗi lần xét nghiệm có xác suất dương tính là $\pi$. Như vậy ta thấy rằng $X$ thuộc phân bố nhị thức, $X \sim Bin(6,\pi)$. 
+
+Bởi vì $z_0$ không được cung cấp nên ta không thể tiến hành tìm *ước lượng cực đại* (maximum likelihood estimator-MLE). Thay vào đó, ta sẽ viết hàm likelihood theo một xác suất có điều kiện như sau 
+$$
+\P(X = k|X > 0) = \frac{\P(X = k)}{\P(X >0)}.
+(\#eq:eq1)
+$$
+
+Ta có 
+$$
+\lambda_k = \P(X=k) = {6 \choose k}\pi^k(1-\pi)^{6-k},
+(\#eq:eq2)
+$$
+tương ứng với mỗi $\lambda_k$ ta có $z_k$ bệnh nhân, như vậy $Z$ là một biến ngẫu nhiên thuộc phân bố đa thức, $Z \sim Multinomial(\sum_{k=0}^6z_i,\lambda_0,\dots,\lambda_6)$. 
+
+Vì thế ta có thể viết hàm likelihood như sau
+$$
+L(\pi) =  \frac{\prod_{k=1}^6\lambda_k^{z_k}}{[1-(1-\pi)^6]^{\sum_{k=1}^6z_i}},
+(\#eq:eq3)
+$$
+chú ý trong phần tử số của phương trình `r lb(eq3)`, ta đã bỏ đi trường hợp $k=0$ vì $Z_0$ không được cung cấp, và phần mẫu số chính là xác suất của các bệnh nhân có ít nhất một kết quả dương tính. Ta suy ra hàm log-likelihood như sau
+$$
+l(\pi) = \sum_{k=1}^6z_k\Big[\ln{6 \choose k}+ k\ln \pi + (6-k)\ln (1-\pi)\Big] - \sum_{k=1}^6z_i\ln[1-(1-\pi)^6]
+(\#eq:eq4)
+$$
+ta thấy rằng hạng tử $\ln{6 \choose k}$ là hằng số theo biến $\pi$ nên ta có thể rút ngắn phương trình `r lb(eq4)` như sau
+$$
+l(\pi) = \sum_{k=1}^6z_k\Big[k\ln \pi + (6-k)\ln (1-\pi)\Big] - \sum_{k=1}^6z_i\ln[1-(1-\pi)^6]
+(\#eq:eq5)
+$$
+Ta tiến hành tìm cực trị cho hàm likelihood trong `r lb(eq5)` bằng phương pháp xấp xỉ như sau
+
+```{r, echo=TRUE}
+k = 1:6
+z = c(37,22,25,29,34,49)
+
+f = function(p) {r = t(z)%*%(k*log(p) + (6-k)*log(1-p)) - sum(z)*log(1-(1-p)^6); -r}
+
+out = optim(0.5,f, method = "Brent", lower = 1e-10, upper = 1- 1e-10)
+out$par
+```
+
+Như vậy ta có $\hat{\pi}_{MLE}$ là `r out$par`, ngoài ra ta cũng có thể ước lượng giá trị của $Z_0$ như sau 
+$$
+\P(X = 0) = (1-\pi)^6 = (1 -\hat{\pi}_{MLE})^6
+$$
+và bằng `r (1-out$par)^6`. Sau đó ta có 
+$$
+\frac{\hat{Z}_{0_{MLE}}}{\sum_{k=1}^6z_k + \hat{Z}_{0_{MLE}}} = \P(X=0) = 0.00282191
+$$
+giải phương trình trên ta được `r 196*(1-out$par)^6/(1-(1-out$par)^6)`.
+
+# Phương pháp expectation-maximization (EM)
+
+Trong trường hợp $Z_0$ được biết, nghĩa là thông tin khuyết được cung cấp và tập dữ liệu đầy đủ. Ta sẽ có phương trình log-likelihood như sau 
+$$
+l(\pi) = \sum_{k=0}^6 z_k\ln(\lambda_k) = \sum_{k=0}^6z_k\Big[k\ln\pi + (6-k)\ln(1-\pi) \Big].
+(\#eq:eq6)
+$$
+
+Trong bước E ta cần tính $\E[l(\pi)]$, ta có
+$$
+\E[l(\pi)] = \sum_{k=0}^6\E(Z_k)\ln(\lambda_k),
+(\#eq:eq7)
+$$
+tất cả các giá trị $Z_i$ đều được cung cấp ngoại trừ $Z_0$. Ta nhớ lại rằng $Z_0$ chính là số bệnh nhân không có kết quả dương tính, nếu gọi $n$ là số bệnh nhân có ít nhất 1 kết quả dương tính, nghĩa là $n = \sum_{k=1}^6z_k$. Nếu ta chỉ xem xét 2 sự kiện là dương tính và không dương tính, thì $Z_0 +n$ chính là tổng số bệnh nhân, và $n$ là số ca dương tính. Như vậy, $Z_0+n$ chính là một phân bố *nhị thức âm* (negative binomial), nếu $Y\sim NBin(r,p)$ thì Y là số thí nghiệm cần thực hiện để đạt được $r$ thành công. Như vậy 
+$$
+Z_0+n \sim NBin(n,1-\lambda_0)
+$$
+chính là số bệnh nhân cần có để có $n$ bệnh nhân dương tính. Như thế ta có $\E(Z_0+n) = n\lambda_0/(1-\lambda_0)$, ta suy ra 
+$$
+\E(Z_0) = n\frac{\lambda_0}{1-\lambda_0}.
+(\#eq:eq8)
+$$
+
+Tiếp theo trong bước M ta sẽ maximize `r lb(eq7)`, ta có đạo hàm theo biến $\pi$ của nó là 
+$$
+S(\pi) =\frac{ \sum_{k=0}^6k\frac{Z_k}{\pi} - 6\sum_{k=0}Z_k}{1-\pi},
+$$
+cho $S(\pi) = 0$ ta được 
+$$
+\pi = \frac{\sum_{k=0}^6 kZ_k}{6\sum_{k=0}^6Z_k}.
+(\#eq:eq9)
+$$
+
+Sử dụng `r lb(eq8)` và `r lb(eq9)` để tính như sau
+
+```{r, echo=TRUE}
+z0 = 10
+k = 0:6
+z = c(NA,37,22,25,29,34,49)
+
+for(i in 1:10){
+z[1]<- z0
+p  = t(k)%*%z/6/sum(z, na.rm = T)
+z0 = sum(z, na.rm = T)*(1-p)^6/(1-(1-p)^6)
+}
+```
+như vậy ta có $\hat{p}=$ `r p` và $\hat{Z}_0 =$ `r z0`.
+
+# Nhận xét
+
+Với giá trị $\hat{Z}_0 =$ `r z0`, ta nghi ngờ rằng giả thuyết mô hình nhị phân không phù hợp với tập dữ liệu ta đang có. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

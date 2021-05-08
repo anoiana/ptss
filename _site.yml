@@ -63,7 +63,7 @@ navbar:
       - text: "1. Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm"
         href: "3DS-III-01_em-algorithm.html"
       - text: "2. Phương pháp MLE và EM trong bài toán bệnh nhân ung thư với số liệu khuyết"
-      # href: "3DS-III-02_mle-va-em.html"
+        href: "3DS-III-02_mle-va-em.html"
 #------------------------------------------------ ---------------------------------
   type: inverse
 
