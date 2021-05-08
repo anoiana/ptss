@@ -165,7 +165,7 @@ $$
 \frac{\P(X=k)}{\P(X>0)}\sum_{k=1}^6z_k
 $$
 
-```{r, fig.align='center', fig.cap="*Ước lượng số bệnh nhân lần lượt có kết quả dương tính từ 1 đến 6.*"}
+```{r, fig.align='center', fig.cap="*Ước lượng số bệnh nhân lần lượt có kết quả dương tính từ 1 đến 6.*", echo = TRUE}
 p_hat<-dbinom(1:6,6,p)/(1- pbinom(0,6,p))
 tibble::tibble(
  `Số kết quả dương tính của một bệnh nhân` = 1:6,
@@ -184,7 +184,7 @@ $$
 \chi^2 = \sum_{i=1}^6\frac{[\text{(giá trị đúng) - (giá trị ước lượng)}]^2}{\text{(giá trị ước lượng)}}
 $$
 
-```{r}
+```{r, echo=TRUE}
 obs = z[-1]
 expec = p_hat*sum(z, na.rm = T)
 chi_sq = sum((obs - expec)^2/expec)
