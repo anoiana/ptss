@@ -13,29 +13,22 @@
 
 <title>Thuật Toán Expectation-Maximization (EM) Trong Bài Toán Phân Cụm</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="site_libs/core-js-2.5.3/shim.min.js"></script>
 <script src="site_libs/react-16.12.0/react.min.js"></script>
 <script src="site_libs/react-16.12.0/react-dom.min.js"></script>
 <script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
-<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
 <script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
@@ -58,28 +51,20 @@
     </style>
 
 
-<style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
-</style>
+<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -99,7 +84,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -161,9 +146,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -174,6 +189,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -190,13 +209,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -224,7 +270,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -236,7 +282,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -247,23 +293,10 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.tab('show');
+  menuAnchor.parent().addClass('active');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
 });
 </script>
 
@@ -275,6 +308,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -355,14 +389,14 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-bookmark"></span>
+    <span class="fa fa-bookmark"></span>
      
     Survival Analysis
      
@@ -376,7 +410,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-bookmark"></span>
+    <span class="fa fa-bookmark"></span>
      
     Readings
      
@@ -390,7 +424,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-bookmark"></span>
+    <span class="fa fa-bookmark"></span>
      
     Đọc sách
      
@@ -425,11 +459,11 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -453,13 +487,11 @@ $(document).ready(function () {
 </ul>
 </div>
 
-
-
 <hr />
 <div class="right">
-<p><em>tham khảo tại <span class="citation">Kneib (<a href="#ref-kne2015" role="doc-biblioref">2015</a>)</span></em></p>
+<p><em>tham khảo tại <span class="citation"><a href="#ref-kne2015" role="doc-biblioref">Kneib</a> (<a href="#ref-kne2015" role="doc-biblioref">2015</a>)</span></em></p>
 </div>
-<div id="đặt-vấn-đề" class="section level1">
+<div id="đặt-vấn-đề" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Đặt vấn đề</h1>
 <p>Ta xem xét một tập dữ liệu bao gồm một số bệnh nhân, trong đó mỗi bệnh nhân trải qua 6 lần xét nghiệm. Tập dữ liệu ghi nhận số bệnh nhân có kết quả dương tính lần lượt từ 0 đến 6.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
@@ -471,7 +503,7 @@ Figure 1.1: <em>Tập dữ liệu số bệnh nhân có kết quả dương tín
 </div>
 <p>Trong tập dữ liệu trên ta thấy rằng số bệnh nhân không có kết quả dương tính ở cả 6 lần xét nghiệm không được cung cấp, vì thế đây được xem là một tập dữ liệu khuyết. Đối với tập dữ liệu này ta có thể áp dụng cả 2 phương pháp <em>maximum likelihood</em> (có điều chỉnh) và <em>expectation-maximization</em>. Ta sẽ lần lượt xem xét từng phương pháp.</p>
 </div>
-<div id="phương-pháp-maximum-likelihood-ml" class="section level1">
+<div id="phương-pháp-maximum-likelihood-ml" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Phương pháp maximum likelihood (ML)</h1>
 <p>Phương pháp này đơn giản là một bài toán tìm cực trị của hàm likelihood theo tham số <span class="math inline">\(\theta\)</span>. Giá trị tìm được chính là ước lượng của tham số đó ký hiệu là <span class="math inline">\(\widehat{\theta}\)</span>.</p>
 <p>Gọi <span class="math inline">\(\{z_i\}_{i=0,1,\dots,6.}\)</span> là số bệnh nhân trong từng trường hợp, <span class="math inline">\(X\)</span> là số kết quả dương tính của một bệnh nhân, mỗi lần xét nghiệm có xác suất dương tính là <span class="math inline">\(\pi\)</span>. Như vậy ta thấy rằng <span class="math inline">\(X\)</span> thuộc phân bố nhị thức, <span class="math inline">\(X \sim Bin(6,\pi)\)</span>.</p>
@@ -502,13 +534,13 @@ l(\pi) = \sum_{k=1}^6z_k\Big[k\ln \pi + (6-k)\ln (1-\pi)\Big] - \sum_{k=1}^6z_i\
 \tag{2.5}
 \]</span>
 Ta tiến hành tìm cực trị cho hàm likelihood trong <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq5">(2.5)</a> bằng phương pháp xấp xỉ như sau</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>k =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>z =<span class="st"> </span><span class="kw">c</span>(<span class="dv">37</span>,<span class="dv">22</span>,<span class="dv">25</span>,<span class="dv">29</span>,<span class="dv">34</span>,<span class="dv">49</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a>f =<span class="st"> </span><span class="cf">function</span>(p) {r =<span class="st"> </span><span class="kw">t</span>(z)<span class="op">%*%</span>(k<span class="op">*</span><span class="kw">log</span>(p) <span class="op">+</span><span class="st"> </span>(<span class="dv">6</span><span class="op">-</span>k)<span class="op">*</span><span class="kw">log</span>(<span class="dv">1</span><span class="op">-</span>p)) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(z)<span class="op">*</span><span class="kw">log</span>(<span class="dv">1</span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span><span class="dv">6</span>); <span class="op">-</span>r}</span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a>out =<span class="st"> </span><span class="kw">optim</span>(<span class="fl">0.5</span>,f, <span class="dt">method =</span> <span class="st">&quot;Brent&quot;</span>, <span class="dt">lower =</span> <span class="fl">1e-10</span>, <span class="dt">upper =</span> <span class="dv">1</span><span class="op">-</span><span class="st"> </span><span class="fl">1e-10</span>)</span>
-<span id="cb1-7"><a href="#cb1-7"></a>out<span class="op">$</span>par</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">37</span>,<span class="dv">22</span>,<span class="dv">25</span>,<span class="dv">29</span>,<span class="dv">34</span>,<span class="dv">49</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(p) {r <span class="ot">=</span> <span class="fu">t</span>(z)<span class="sc">%*%</span>(k<span class="sc">*</span><span class="fu">log</span>(p) <span class="sc">+</span> (<span class="dv">6</span><span class="sc">-</span>k)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>p)) <span class="sc">-</span> <span class="fu">sum</span>(z)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">^</span><span class="dv">6</span>); <span class="sc">-</span>r}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">optim</span>(<span class="fl">0.5</span>,f, <span class="at">method =</span> <span class="st">&quot;Brent&quot;</span>, <span class="at">lower =</span> <span class="fl">1e-10</span>, <span class="at">upper =</span> <span class="dv">1</span><span class="sc">-</span> <span class="fl">1e-10</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>par</span></code></pre></div>
 <pre><code>## [1] 0.6240842</code></pre>
 <p>Như vậy ta có <span class="math inline">\(\widehat{\pi}_{MLE}\)</span> là 0.6240842, ngoài ra ta cũng có thể ước lượng giá trị của <span class="math inline">\(Z_0\)</span> như sau
 <span class="math display">\[
@@ -520,7 +552,7 @@ và bằng 0.0028219. Sau đó ta có
 \]</span>
 giải phương trình trên ta được 0.5546596.</p>
 </div>
-<div id="phương-pháp-expectation-maximization-em" class="section level1">
+<div id="phương-pháp-expectation-maximization-em" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Phương pháp expectation-maximization (EM)</h1>
 <p>Trong trường hợp <span class="math inline">\(Z_0\)</span> được biết, nghĩa là thông tin khuyết được cung cấp và tập dữ liệu đầy đủ. Ta sẽ có phương trình log-likelihood như sau
 <span class="math display" id="eq:eq6">\[
@@ -551,27 +583,44 @@ cho <span class="math inline">\(S(\pi) = 0\)</span> ta được
 \tag{3.4}
 \]</span></p>
 <p>Sử dụng <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq8">(3.3)</a> và <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq9">(3.4)</a> để tính như sau</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>z0 =<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>k =<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">6</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>z =<span class="st"> </span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="dv">37</span>,<span class="dv">22</span>,<span class="dv">25</span>,<span class="dv">29</span>,<span class="dv">34</span>,<span class="dv">49</span>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){</span>
-<span id="cb3-6"><a href="#cb3-6"></a>z[<span class="dv">1</span>]&lt;-<span class="st"> </span>z0</span>
-<span id="cb3-7"><a href="#cb3-7"></a>p  =<span class="st"> </span><span class="kw">t</span>(k)<span class="op">%*%</span>z<span class="op">/</span><span class="dv">6</span><span class="op">/</span><span class="kw">sum</span>(z, <span class="dt">na.rm =</span> T)</span>
-<span id="cb3-8"><a href="#cb3-8"></a>z0 =<span class="st"> </span><span class="kw">sum</span>(z, <span class="dt">na.rm =</span> T)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span><span class="dv">6</span><span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span><span class="dv">6</span>)</span>
-<span id="cb3-9"><a href="#cb3-9"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>z0 <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="dv">37</span>,<span class="dv">22</span>,<span class="dv">25</span>,<span class="dv">29</span>,<span class="dv">34</span>,<span class="dv">49</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>z[<span class="dv">1</span>]<span class="ot">&lt;-</span> z0</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>p  <span class="ot">=</span> <span class="fu">t</span>(k)<span class="sc">%*%</span>z<span class="sc">/</span><span class="dv">6</span><span class="sc">/</span><span class="fu">sum</span>(z, <span class="at">na.rm =</span> T)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>z0 <span class="ot">=</span> <span class="fu">sum</span>(z, <span class="at">na.rm =</span> T)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">^</span><span class="dv">6</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">^</span><span class="dv">6</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>như vậy ta có <span class="math inline">\(\widehat{p}=\)</span> 0.6240791 và <span class="math inline">\(\widehat{Z}_0 =\)</span> 0.5562796.</p>
 </div>
-<div id="nhận-xét" class="section level1">
+<div id="nhận-xét" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Nhận xét</h1>
-<p>Với giá trị <span class="math inline">\(\widehat{Z}_0 =\)</span> 0.5562796, ta nghi ngờ rằng giả thuyết mô hình nhị phân không phù hợp với tập dữ liệu ta đang có.</p>
+<p>Với giá trị <span class="math inline">\(\widehat{Z}_0 =\)</span> 0.5562796, ta nghi ngờ rằng giả thuyết mô hình nhị phân không phù hợp với tập dữ liệu ta đang có. Điều này có thể nhận xét thông giá trị ước lượng của <span class="math inline">\(\{\widehat{Z}_i\}_{i=1,2,\dots,6.}\)</span></p>
+<p>Ta có <span class="math inline">\(\widehat{\pi} =\)</span> 0.6240791 là ước lượng của xác suất cho ra kết quả dương tính, như vậy xác suất để một bệnh nhân lần lượt có 1,2,…,6 kết quả dương tính là
+<span class="math display">\[
+\frac{\Bbb{P}(X=k)}{\Bbb{P}(X&gt;0)}\sum_{k=1}^6z_k
+\]</span></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
+<div id="htmlwidget-c1d33dc3ad0a976afd44" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c1d33dc3ad0a976afd44">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Số kết quả dương tính của một bệnh nhân":[1,2,3,4,5,6],"Xác suất dương tính":[0.03,0.12,0.26,0.32,0.21,0.06],"Ước lượng số bệnh nhân dương tính":[5.54,23,50.9,63.38,42.09,11.65],"Số bệnh nhân dương tính":[37,22,25,29,34,49]},"columns":[{"accessor":"Số kết quả dương tính của một bệnh nhân","name":"Số kết quả dương tính của một bệnh nhân","type":"numeric"},{"accessor":"Xác suất dương tính","name":"Xác suất dương tính","type":"numeric"},{"accessor":"Ước lượng số bệnh nhân dương tính","name":"Ước lượng số bệnh nhân dương tính","type":"numeric"},{"accessor":"Số bệnh nhân dương tính","name":"Số bệnh nhân dương tính","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"9fb4b1448a5f42418fa9845a85c6e311","key":"9fb4b1448a5f42418fa9845a85c6e311"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 4.1: <em>Ước lượng số bệnh nhân lần lượt có kết quả dương tính từ 1 đến 6.</em>
+</p>
+</div>
+<p>Từ kết quả trên ta có thể tiến hành kiểm định <em>goodness-of-fit</em> để xem xét tính khả thi của mô hình được sử dụng. Ở đây, bằng trực quan ta có thể nhận thấy giá trị ước lượng và giá trị đúng của số bệnh nhân có từ 1 đến 6 kết quả dương tính rất khác nhau.</p>
+<p>Ta sử dụng kiểm định <span class="math inline">\(\chi^2\)</span> với công thức
+<span class="math display">\[
+\chi^2 = \sum_{i=1}^6\frac{[\text{(giá trị đúng) - (giá trị ước lượng)}]^2}{\text{(giá trị ước lượng)}}
+\]</span></p>
+<p>Với <span class="math inline">\(\chi^2 =\)</span> 331.860258 ta có <span class="math inline">\(p_{\text{value}} &lt; 0.0001\)</span>, kết quả là <em>reject</em> giả thuyết null <span class="math inline">\(H_o:\)</span> <em>phân bố được sử dụng phù hợp với tập dữ liệu</em>. Như vậy ta có đủ băng chứng để kết luận giả thuyết <span class="math inline">\(H_a:\)</span> <em>phân bố được sử dụng KHÔNG phù hợp với tập dữ liệu</em>.</p>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>
-<div id="refs" class="references">
-<div id="ref-kne2015">
-<p>Kneib, Thomas. 2015. “Applied Statistical Inference: Likelihood and Bayes. L. Held and d. Sabanés Bové (2014). Heidelberg: Springer. 376 Pages, Isbn: 3642378862.” Wiley Online Library.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-kne2015" class="csl-entry">
+Kneib, Thomas. 2015. <span>“Applied Statistical Inference: Likelihood and Bayes. L. Held and d. Saban<span>é</span>s Bov<span>é</span> (2014). Heidelberg: Springer. 376 Pages, ISBN: 3642378862.”</span> Wiley Online Library.
 </div>
 </div>
 </div>
@@ -603,7 +652,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>

@@ -34,6 +34,7 @@ link-citations: true
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 source("_supp/helper.R")
+library(tidyverse)
 ```
 
 :::{.right}
@@ -157,7 +158,43 @@ như vậy ta có $\hat{p}=$ `r p` và $\hat{Z}_0 =$ `r z0`.
 
 # Nhận xét
 
-Với giá trị $\hat{Z}_0 =$ `r z0`, ta nghi ngờ rằng giả thuyết mô hình nhị phân không phù hợp với tập dữ liệu ta đang có. 
+Với giá trị $\hat{Z}_0 =$ `r z0`, ta nghi ngờ rằng giả thuyết mô hình nhị phân không phù hợp với tập dữ liệu ta đang có. Điều này có thể nhận xét thông giá trị ước lượng của $\{\hat{Z}_i\}_{i=1,2,\dots,6.}$
+
+Ta có $\hat{\pi} =$ `r p` là ước lượng của xác suất cho ra kết quả dương tính, như vậy xác suất để một bệnh nhân lần lượt có 1,2,...,6 kết quả dương tính là 
+$$
+\frac{\P(X=k)}{\P(X>0)}\sum_{k=1}^6z_k
+$$
+
+```{r, fig.align='center', fig.cap="*Ước lượng số bệnh nhân lần lượt có kết quả dương tính từ 1 đến 6.*"}
+p_hat<-dbinom(1:6,6,p)/(1- pbinom(0,6,p))
+tibble::tibble(
+ `Số kết quả dương tính của một bệnh nhân` = 1:6,
+ `Xác suất dương tính` = p_hat,
+ `Ước lượng số bệnh nhân dương tính` = p_hat*sum(z, na.rm = T),
+ `Số bệnh nhân dương tính` = z[-1]
+               )%>%
+ dplyr::mutate(dplyr::across(everything(),round,2))%>%
+ draw_table()
+```
+
+Từ kết quả trên ta có thể tiến hành kiểm định *goodness-of-fit* để xem xét tính khả thi của mô hình được sử dụng. Ở đây, bằng trực quan ta có thể nhận thấy giá trị ước lượng và giá trị đúng của số bệnh nhân có từ 1 đến 6 kết quả dương tính rất khác nhau. 
+
+Ta sử dụng kiểm định $\chi^2$ với công thức 
+$$
+\chi^2 = \sum_{i=1}^6\frac{[\text{(giá trị đúng) - (giá trị ước lượng)}]^2}{\text{(giá trị ước lượng)}}
+$$
+
+```{r}
+obs = z[-1]
+expec = p_hat*sum(z, na.rm = T)
+chi_sq = sum((obs - expec)^2/expec)
+p_val =  1 - pchisq(chi_sq,4)
+```
+
+Với $\chi^2 =$ `r chi_sq` ta có $p_{\text{value}} < 0.0001$, kết quả là _reject_ giả thuyết null $H_o:$ *phân bố được sử dụng phù hợp với tập dữ liệu*. Như vậy ta có đủ băng chứng để kết luận giả thuyết $H_a:$ *phân bố được sử dụng KHÔNG phù hợp với tập dữ liệu*.
+
+
+
 
 
 
