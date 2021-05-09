@@ -1,6 +1,8 @@
 ---
 title: "ANOIANA"
-output:  bookdown::html_document2
+output:  
+  bookdown::html_document2:
+    toc: false
 ---
 
 Hello,
