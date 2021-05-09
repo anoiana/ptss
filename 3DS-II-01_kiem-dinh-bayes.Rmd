@@ -2,8 +2,7 @@
 params:
   update_date: FALSE
 date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
-title: "`r totitle('kiểm định bayes (1)')`"
-subtitle: "Phần I - `r totitle('giới thiệu đến phương pháp bayes',icon='')` "
+title: "`r totitle('giới thiệu về bayes')`"
 output: 
   bookdown::html_document2:
     code_folding: hide
@@ -19,7 +18,6 @@ link-citations: true
 \newcommand{\tp}[1]{{#1}^{\top}}
 \newcommand{\scr}[1]{\mathscr{#1}}
 
-
 \def\E{\Bbb{E}}
 \def\V{\Bbb{V}}
 \def\P{\Bbb{P}}
@@ -29,7 +27,6 @@ link-citations: true
 \def\epsilon{\varepsilon} 
 \def\proved{\blacksquare\quad} 
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
@@ -44,7 +41,7 @@ $$
 \P(\theta|X) = \frac{\P(X|\theta)\P(\theta)}{\P(X)};
 (\#eq:eq1)
 $$
-Ta cũng có thể xem xét $\theta$ chính là tham số cần tìm và $X$ đại diện cho tập dữ liệu. 
+Ta cũng có thể xem xét $\theta$ chính là tham số cần tìm và $X$ đại diện cho tập dữ liệu. Để hiểu rõ công thức trên ta sẽ xem xét một vài ví dụ minh họa. 
 
 Ví dụ, ta xem xét 2 đồng xu *một* và *hai* với xác suất mặt hình lần lượt là $\pi_1$ và $\pi_2$. Ta chọn một trong hai đồng xu, ném 3 lần và xem xét số mặt hình thu được, biết rằng xác suất để chọn đồng xu *một* và *hai* lần lượt là $\theta_1$ và $\theta_2$ 
 
@@ -53,6 +50,6 @@ Ví dụ, ta xem xét 2 đồng xu *một* và *hai* với xác suất mặt hì
 
 
 
-<!-- ----------------------------------------------------------------------------- -->
+<!-- --------------------------------------------------------------------------- -->
 
-# _References_ {-}
+# *References* {-}
