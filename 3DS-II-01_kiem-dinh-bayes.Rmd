@@ -2,10 +2,12 @@
 params:
   update_date: FALSE
 date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
-title: "`r totitle('kiểm định bayes')`"
+title: "`r totitle('kiểm định bayes (1)')`"
+subtitle: "Phần I - `r totitle('giới thiệu đến phương pháp bayes',icon='')` "
 output: 
   bookdown::html_document2:
     code_folding: hide
+    number_sections: true
 bibliography: ["_supp/citation.bib"]
 link-citations: true
 ---
@@ -32,9 +34,25 @@ link-citations: true
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 source("_supp/helper.R")
+library(tidyverse)
 ```
+
+# Công thức Bayes
+
+Ta bắt đầu với công thức Bayes với 2 sự kiện $\theta$ và $X$:
+$$
+\P(\theta|X) = \frac{\P(X|\theta)\P(\theta)}{\P(X)};
+(\#eq:eq1)
+$$
+Ta cũng có thể xem xét $\theta$ chính là tham số cần tìm và $X$ đại diện cho tập dữ liệu. 
+
+Ví dụ, ta xem xét 2 đồng xu *một* và *hai* với xác suất mặt hình lần lượt là $\pi_1$ và $\pi_2$. Ta chọn một trong hai đồng xu, ném 3 lần và xem xét số mặt hình thu được, biết rằng xác suất để chọn đồng xu *một* và *hai* lần lượt là $\theta_1$ và $\theta_2$ 
+
+
+
+
 
 
 <!-- ----------------------------------------------------------------------------- -->
 
-# _References_ 
+# _References_ {-}

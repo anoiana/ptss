@@ -7,6 +7,12 @@ body {
     font-size: 19px;
 }
 
+/* make scrollbar for long math equations*/
+
+.MathJax_Display, .MJXc-display, .MathJax_SVG_Display {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
 
 /* links */
 a {

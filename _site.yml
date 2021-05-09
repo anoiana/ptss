@@ -12,7 +12,7 @@ output:
     #  after_body: footer.html
     fig_caption: yes
     toc: true
-    toc_float: false
+    toc_float: true
     toc_depth: 3
     number_sections: false
 navbar:
@@ -25,22 +25,19 @@ navbar:
     #- text: "About"
     #  href: about.html
     #  icon: fa-comment-dots
-
-#-------------------------TAB 1: SURVIVAL ANALYSIS (1SA) -----------------------------------
-    - text: "Survival Analysis"
-      icon: fa-bookmark
-      menu:
-      # SEC. 1 ************************************************************
-      - text: "1. Non-parametric procedures for homogeneous population"
-        href: '1SA-01_nonparametrics-homogeneous-pop.html'
-
 #-------------------------TAB 2: READING (2READ)  ----------------------------------------
     - text: "Readings"
       icon: fa-bookmark
       menu:
-      # SEC 1 *************************************************************
+      # SEC A *************************************************************
+      - text: "A. SURVIVAL ANALYSIS"
+      - text: "1. Non-parametric procedures for homogeneous population"
+        href: '2READ-A-01_nonparametrics-homogeneous-pop.html'
+      # SEC B *************************************************************
+      - text: "---"
+      - text: "B. OTHER TOPICS"
       - text: "1. Limit of Supremum and Infimum"
-        href: '2READ-01_lim-inf-lim-sup.html'
+        href: '2READ-B-01_lim-inf-lim-sup.html'
 
 #-------------------------TAB 3: DOC SACH (3DS) ---------------------------------------
     - text: "Đọc sách"

@@ -5,4 +5,4 @@ output:  bookdown::html_document2
 
 Hello,
 
-This is my collection of lectures and notes that relate to survival analysis.
+
