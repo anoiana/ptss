@@ -382,6 +382,11 @@ div.tocify {
     <li>
       <a href="2READ-B-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
     </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">C. BAYESIAN ANALYSIS</li>
+    <li>
+      <a href="2READ-C-01_intro-to-bayes.html">1. Introduction to Bayesian analysis</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -399,11 +404,6 @@ div.tocify {
     </li>
     <li>
       <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
-    </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">II. SUY LUẬN BAYES</li>
-    <li>
-      <a href="3DS-II-01_kiem-dinh-bayes.html">1. Kiểm định Bayes</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
@@ -503,7 +503,7 @@ Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có t
 </div>
 <div id="đặc-tính-martingales-trong-cột-thời-gian-rời-rạc" class="section level2">
 <h2>Đặc tính martingales trong cột thời gian rời rạc</h2>
-<p>Như vậy <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq1">(1)</a> có thể được viết lại là
+<p>Như vậy <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> có thể được viết lại là
 <span class="math display" id="eq:eq2">\[
 \Bbb{E}(M_m|\mathscr{F}_n) = M_n, \quad \forall m \le n.
 \tag{2}
@@ -528,7 +528,7 @@ phương trình trên có thể suy rộng ra và khái quát như phương trì
 Cov(M_m,M_n-M_m) = 0, \quad \forall n &gt; m
 \]</span>
 nghĩa là martingale có <em>uncorrelated increments</em>.</p>
-<p>Từ <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq3">(3)</a> ta sẽ có</p>
+<p>Từ <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(3)</a> ta sẽ có</p>
 <p><span class="math display" id="eq:eq6">\[
 \Bbb{E}(M_n - M_{n-1}|\mathscr{F}_{n-1}) = 0, \quad \forall n &gt; 1
 \tag{6}
@@ -557,7 +557,7 @@ M^2 - [M] \text{ chính là martingale có kỳ vọng bằng 0}
 \]</span></p>
 <div class="blackbox brainstorm">
 <div class="center">
-<p>Chứng minh <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq10">(9)</a> như sau</p>
+<p>Chứng minh <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq10">(9)</a> như sau</p>
 </div>
 <p>Với <span class="math inline">\(M^2_n\)</span>, ta có thể ghi lại như sau
 <span class="math display">\[
@@ -586,7 +586,7 @@ thus,
 M_{n}^T = M_{n \wedge T}, \quad [n \wedge T := \min(n,T)]
 \tag{10}
 \]</span>
-nghĩa là nếu thời gian xem xét là <span class="math inline">\(T = t\)</span> thì tại các mốc thời gian trước <span class="math inline">\(t\)</span> sẽ chính là giá trị của mốc thời gian đó, còn các mốc thời gian sau <span class="math inline">\(t\)</span> sẽ luôn là <span class="math inline">\(t\)</span>. Đối với thời gian ngừng trong <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq11">(10)</a> ta có thể chỉ ra rằng nó cũng có tính chất martingale. Tuy nhiên ta sẽ xem xét trường hợp tổng quát trước rồi sẽ xem xét trường hợp đặc trưng sau.</p>
+nghĩa là nếu thời gian xem xét là <span class="math inline">\(T = t\)</span> thì tại các mốc thời gian trước <span class="math inline">\(t\)</span> sẽ chính là giá trị của mốc thời gian đó, còn các mốc thời gian sau <span class="math inline">\(t\)</span> sẽ luôn là <span class="math inline">\(t\)</span>. Đối với thời gian ngừng trong <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq11">(10)</a> ta có thể chỉ ra rằng nó cũng có tính chất martingale. Tuy nhiên ta sẽ xem xét trường hợp tổng quát trước rồi sẽ xem xét trường hợp đặc trưng sau.</p>
 <p>Thông thường ta sẽ không chứng minh trực tiếp đặc tính martingale của thời gian ngừng mà sẽ thông qua một bước đổi biến. Gọi <span class="math inline">\(X = \{X_i\}_{i=0,1,\dots}\)</span> là một quá trình tổng quát với tiền sự <span class="math inline">\(\{\mathscr{F}_n\}\)</span>, và <span class="math inline">\(H = \{H_i\}_{i=0,1,\dots}\)</span> là một quá trình có thể dự đoán <em>(predictable process)</em>, với già thuyết này thì <span class="math inline">\(H_n\)</span> sẽ có thể tính toán dựa trên tiền sự <span class="math inline">\(\mathscr{F}_{n-1}\)</span>. Như vậy ta đổi biến <span class="math inline">\(X\)</span> thành biến <span class="math inline">\(Z\)</span> như sau
 <span class="math display" id="eq:eq12">\[
 Z_n = H \bullet X = H_0X_0+H_1(X_1-X_0)+ \dots + H_{n-1}(X_{n-1}-X_{n-2})+ H_{n}(X_{n}-X_{n-1}),

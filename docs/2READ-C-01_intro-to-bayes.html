@@ -27,6 +27,12 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-16.12.0/react.min.js"></script>
+<script src="site_libs/react-16.12.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="fugu.png"/>
@@ -48,6 +54,106 @@
     </style>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -382,6 +488,11 @@ div.tocify {
     <li>
       <a href="2READ-B-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
     </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">C. BAYESIAN ANALYSIS</li>
+    <li>
+      <a href="2READ-C-01_intro-to-bayes.html">1. Introduction to Bayesian analysis</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -399,11 +510,6 @@ div.tocify {
     </li>
     <li>
       <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
-    </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">II. SUY LUẬN BAYES</li>
-    <li>
-      <a href="3DS-II-01_kiem-dinh-bayes.html">1. Kiểm định Bayes</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
@@ -436,21 +542,67 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">✑ Giới Thiệu Về Bayes</h1>
-<h4 class="date">📅 2021-05-07</h4>
+<h4 class="date">📅 2021-05-09</h4>
 
 </div>
 
 
 <hr />
-<div id="công-thức-bayes" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Công thức Bayes</h1>
-<p>Ta bắt đầu với công thức Bayes với 2 sự kiện <span class="math inline">\(\theta\)</span> và <span class="math inline">\(X\)</span>:
+<div class="watermark">
+<p><em>incompleted</em></p>
+</div>
+<div id="bayess-formula" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Bayes’s formula</h1>
+<p>We shall start with Bayes’s formula with two events <span class="math inline">\(\theta\)</span> and <span class="math inline">\(X\)</span>:
 <span class="math display" id="eq:eq1">\[
 \Bbb{P}(\theta|X) = \frac{\Bbb{P}(X|\theta)\Bbb{P}(\theta)}{\Bbb{P}(X)};
 \tag{1.1}
 \]</span>
-Ta cũng có thể xem xét <span class="math inline">\(\theta\)</span> chính là tham số cần tìm và <span class="math inline">\(X\)</span> đại diện cho tập dữ liệu. Để hiểu rõ công thức trên ta sẽ xem xét một vài ví dụ minh họa.</p>
-<p>Ví dụ, ta xem xét 2 đồng xu <em>một</em> và <em>hai</em> với xác suất mặt hình lần lượt là <span class="math inline">\(\pi_1\)</span> và <span class="math inline">\(\pi_2\)</span>. Ta chọn một trong hai đồng xu, ném 3 lần và xem xét số mặt hình thu được, biết rằng xác suất để chọn đồng xu <em>một</em> và <em>hai</em> lần lượt là <span class="math inline">\(\theta_1\)</span> và <span class="math inline">\(\theta_2\)</span></p>
+where <span class="math inline">\(\theta\)</span> is parameter of interest and <span class="math inline">\(X\)</span> represents for observed data. To understand <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> intuitively let us deem the following example</p>
+<div class="example">
+<p><span id="exm:exm1" class="example"><strong>Example 1.1  </strong></span>We have 2 coins A and B with the probability of getting a head is <span class="math inline">\(0.2\)</span> and <span class="math inline">\(0.7\)</span>, respectively. We randomly choose a coin, flip it <span class="math inline">\(5\)</span> times and save the result. We also know that coin A is selected with probability <span class="math inline">\(\theta = 0.5\)</span>. We are interested in probability of choosing coin A after observing data.</p>
+</div>
+<p>We know that a selected coin is flipped <span class="math inline">\(5\)</span> with probability <span class="math inline">\(p\)</span> in which <span class="math inline">\(p=0.2\)</span> if coin A is selected and <span class="math inline">\(p=0.7\)</span>, otherwise. Thus,
+<span class="math display">\[
+X \sim \mathcal{B}in(5,p),
+\]</span>
+where <span class="math inline">\(X\)</span> is the number of head.</p>
+<p>Suppose After experiment has been conducted, we have 3 heads and 2 tails. Thus, the probability with coin A selected is
+<span class="math display">\[
+\Bbb{P}(X=3|A) = {5 \choose 3}0.2^30.8^2 = 0.0512,
+\]</span>
+and
+<span class="math display">\[
+\Bbb{P}(X=3|B) = {5 \choose 3}0.7^30.3^2 = 0.3087,
+\]</span>
+if coin B was selected.</p>
+<p>Applying <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> we calculate
+<span class="math display" id="eq:eq2">\[
+\begin{aligned}
+\Bbb{P}(A|X=3) &amp;= \frac{\Bbb{P}(X=3|A)\Bbb{P}(A)}{\Bbb{P}(X=3|A)\Bbb{P}(A)+ \Bbb{P}(X=3|B)\Bbb{P}(B)} \\
+&amp;= \frac{0.0512(0.5)}{0.0512(0.5)+ 0.3087(0.5)}\\
+&amp;= 0.1423
+\end{aligned}
+\tag{1.2}
+\]</span></p>
+<p>Let us write a generic function to calculate <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(1.2)</a> and use the function to calculate when the number of observed Heads is <span class="math inline">\(x = {(0,1,2,3,4,5)}^{\top}\)</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(x){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> p <span class="ot">=</span> <span class="fu">dbinom</span>(x,<span class="dv">5</span>,<span class="fl">0.2</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> p1 <span class="ot">=</span> <span class="fu">dbinom</span>(x,<span class="dv">5</span>,<span class="fl">0.7</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> p<span class="sc">/</span>(p<span class="sc">+</span>p1)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="st">`</span><span class="at">X = x</span><span class="st">`</span> <span class="ot">=</span> 0L<span class="sc">:</span>5L, <span class="st">`</span><span class="at">P(A|X=x)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sapply</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>,f))<span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.double), round, <span class="at">digits =</span> <span class="dv">3</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">draw_table</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
+<div id="htmlwidget-f74604481e0f0d42ee2b" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f74604481e0f0d42ee2b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"X = x":[0,1,2,3,4,5],"P(A|X=x)":[0.993,0.935,0.608,0.142,0.017,0.002]},"columns":[{"accessor":"X = x","name":"X = x","type":"numeric"},{"accessor":"P(A|X=x)","name":"P(A|X=x)","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"7461c2808bcd873a122ec3d46a6d1969","key":"7461c2808bcd873a122ec3d46a6d1969"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1.1: <em>Probability coin A is selected given x Heads was observed</em>
+</p>
+</div>
+<p>Intuitively, we know the probability coin A landing on a head is <span class="math inline">\(0.2\)</span> moderately smaller than <span class="math inline">\(0.7\)</span> that is the probability coin B lands on a head . Thus, If the number of head is zero, it can be more likely that coin A was chosen, it probability is <span class="math inline">\(0.993\)</span>, and when the number of head increases this probability is smaller. We see that if all 5 realizations come up with head, we have the probability of <span class="math inline">\(0.002\)</span>, which means the possibility of choosing coin A is not feasible.</p>
 <!-- --------------------------------------------------------------------------- -->
 </div>
 <div id="references" class="section level1 unnumbered">

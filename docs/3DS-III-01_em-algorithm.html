@@ -488,6 +488,11 @@ div.tocify {
     <li>
       <a href="2READ-B-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
     </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">C. BAYESIAN ANALYSIS</li>
+    <li>
+      <a href="2READ-C-01_intro-to-bayes.html">1. Introduction to Bayesian analysis</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -505,11 +510,6 @@ div.tocify {
     </li>
     <li>
       <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
-    </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">II. SUY LUẬN BAYES</li>
-    <li>
-      <a href="3DS-II-01_kiem-dinh-bayes.html">1. Kiểm định Bayes</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
@@ -591,7 +591,7 @@ l(\boldsymbol{\theta}) = \ln\Bbb{P}(X|\boldsymbol{\theta}) &amp;= \ln\sum_{Z}q(Z
 \end{aligned}
 \tag{1}
 \]</span>
-như vậy, thay vì maximize <span class="math inline">\(l(\boldsymbol{\theta})\)</span> ta sẽ maximize cận dưới của nó chính là vế phải của <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq1">(1)</a>. Khi giá trị của <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq1">(1)</a> càng lớn thì giá trị của <span class="math inline">\(l(\boldsymbol{\theta})\)</span> cũng sẽ càng lớn, và ta hy vọng rằng nó sẽ tiến tới giá trị cực đại của <span class="math inline">\(l(\boldsymbol{\theta})\)</span>. Ta xét tiếp<br />
+như vậy, thay vì maximize <span class="math inline">\(l(\boldsymbol{\theta})\)</span> ta sẽ maximize cận dưới của nó chính là vế phải của <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a>. Khi giá trị của <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> càng lớn thì giá trị của <span class="math inline">\(l(\boldsymbol{\theta})\)</span> cũng sẽ càng lớn, và ta hy vọng rằng nó sẽ tiến tới giá trị cực đại của <span class="math inline">\(l(\boldsymbol{\theta})\)</span>. Ta xét tiếp<br />
 <span class="math display" id="eq:eq2">\[
 \begin{aligned}
 &amp;\quad \ln\Bbb{P}(X|\boldsymbol{\theta}) - \sum_{Z}q(Z)\ln\bigg[\frac{\Bbb{P}(X,Z|\boldsymbol{\theta})}{q(Z)}\bigg] \\
@@ -610,7 +610,7 @@ như vậy, thay vì maximize <span class="math inline">\(l(\boldsymbol{\theta})
 <span class="math display">\[
 KL(P||Q) = \sum_{\chi}P(x)\ln\frac{P(x)}{Q(x)},
 \]</span>
-kết quả của <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq2">(2)</a> chính là sự khác biệt giữa marginal và conditional distribution của <span class="math inline">\(Z\)</span>.</p>
+kết quả của <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> chính là sự khác biệt giữa marginal và conditional distribution của <span class="math inline">\(Z\)</span>.</p>
 </div>
 <p>Như vậy, ta thấy rằng
 <span class="math display" id="eq:eq3">\[
@@ -620,7 +620,7 @@ kết quả của <span style="color: black; font-size: 18px;"><em>phương trì
 <span class="math inline">\(\mathscr{L}(q,\theta)\)</span> chính là cận dưới của log-likelihood.</p>
 <p>Ta nhớ rằng mục tiêu của ta là maximize cận dưới <span class="math inline">\(\mathscr{L}(q,\theta)\)</span> đến khi nào <span class="math inline">\(KL(q||p) = 0\)</span> thì <span class="math inline">\(\mathscr{L}(q,\theta)\)</span> sẽ tương đương với <span class="math inline">\(\ln\Bbb{P}(X|\boldsymbol{\theta})\)</span>, khi đó nghiệm tìm được cũng chính là nghiệm khi ta maximize <span class="math inline">\(\ln\Bbb{P}(X|\boldsymbol{\theta})\)</span>.</p>
 <p>Thuật toán EM sẽ được tiến hành theo 2 bước đặc trưng là bước E-expectation và bước M-maximization.</p>
-<p><strong>Bước E:</strong> Giả sử giá trị ban đầu của <span class="math inline">\(\boldsymbol{\theta}\)</span> là <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span>, nếu ta biết <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span> và ta có tập dữ liệu <span class="math inline">\(X\)</span> thì <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> sẽ được tính một cách dễ dàng. Như vậy nếu ta thay marginal distribution <span class="math inline">\(\Bbb{P}(Z)\)</span> của Z bằng conditional distribution <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> thì theo <span style="color: black; font-size: 18px;"><em>phương trình</em></span> <a href="#eq:eq2">(2)</a> <span class="math inline">\(KL(q||p) = 0\)</span>, đây là điều ta mong muốn. Khi đó <span class="math inline">\(\mathscr{L}(q,\boldsymbol{\theta}) = l(\boldsymbol{\theta})\)</span>.</p>
+<p><strong>Bước E:</strong> Giả sử giá trị ban đầu của <span class="math inline">\(\boldsymbol{\theta}\)</span> là <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span>, nếu ta biết <span class="math inline">\(\boldsymbol{\theta}^{old}\)</span> và ta có tập dữ liệu <span class="math inline">\(X\)</span> thì <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> sẽ được tính một cách dễ dàng. Như vậy nếu ta thay marginal distribution <span class="math inline">\(\Bbb{P}(Z)\)</span> của Z bằng conditional distribution <span class="math inline">\(\Bbb{P}(Z|X,\boldsymbol{\theta}^{old})\)</span> thì theo <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> <span class="math inline">\(KL(q||p) = 0\)</span>, đây là điều ta mong muốn. Khi đó <span class="math inline">\(\mathscr{L}(q,\boldsymbol{\theta}) = l(\boldsymbol{\theta})\)</span>.</p>
 <p><strong>Bước M:</strong> Ta sẽ maximize <span class="math inline">\(\mathscr{L}(q,\boldsymbol{\theta})\)</span> theo biến <span class="math inline">\(\boldsymbol{\theta}\)</span>. Một khi <span class="math inline">\(\boldsymbol{\theta}\)</span> mới tìm được thì <span class="math inline">\(KL(q||P)\)</span> mới sẽ khác 0. và ta quay lại bước E để thay marginal distribution của <span class="math inline">\(Z\)</span> bằng conditional distribution với <span class="math inline">\(\boldsymbol{\theta} = \boldsymbol{\theta}^{new}\)</span>, và <span class="math inline">\(KL(q||p) = 0\)</span>. Ta tiếp tục lập lại 2 bước này nhiều lần đến khi đạt điểm convergent.</p>
 <p>Ở đây khi thay marginal distribution bằng conditional distribution ta có</p>
 <p><span class="math display">\[
@@ -730,8 +730,8 @@ T &amp; H &amp; H &amp; H &amp; T &amp; H &amp; H &amp; H &amp; T &amp; H \\
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">p =</span> p, <span class="at">q =</span> q)<span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate_all</span>(round, <span class="at">digits =</span> <span class="dv">2</span>)<span class="sc">%&gt;%</span> <span class="fu">draw_table</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
-<div id="htmlwidget-8aa28b287de1de2f42a8" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8aa28b287de1de2f42a8">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"p":[0.8],"q":[0.52]},"columns":[{"accessor":"p","name":"p","type":"numeric"},{"accessor":"q","name":"q","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"f950f334ac9e114aebc61a9387c0f529","key":"f950f334ac9e114aebc61a9387c0f529"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ae14d724d7fdf92fc3fc" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ae14d724d7fdf92fc3fc">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"p":[0.8],"q":[0.52]},"columns":[{"accessor":"p","name":"p","type":"numeric"},{"accessor":"q","name":"q","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"f950f334ac9e114aebc61a9387c0f529","key":"f950f334ac9e114aebc61a9387c0f529"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1: <em>xác suất cho ra mặt hình của mỗi đồng xu.</em>
 </p>

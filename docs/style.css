@@ -91,11 +91,7 @@ a:hover {
   position: sticky;
   top: 5em; /*Controls where TOC stops when sticky */
   width: 100% !important;
-  border: none;
-  padding: 7px;
   border-radius: 0px; /* Gets rid of rounded corners on TOC */
-  padding-bottom: 27em;
-
 }
 
 
@@ -253,4 +249,14 @@ a.navbar-brand:hover {
  /*-------------------------------------------------------------------------*/
 #TOC::before {
   content: "CONTENTS";
+}
+
+
+.watermark {
+  opacity: 0.1;
+  position: fixed;
+  top: 7%;
+  left: 40%;
+  font-size: 350%;
+  color: #7d0040;
 }

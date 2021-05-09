@@ -26,9 +26,6 @@ link-citations: true
 
 ---
 
-`r lb = purrr::partial(lb,vn = FALSE)`
-
-
 # $\lim\sup$ and $\lim\inf$ of a sequence of real numbers
 
 Suppose we have a bounded sequence of real numbers $(c_n)^{\infty}_{n=1}$. Also define 
