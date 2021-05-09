@@ -44,7 +44,14 @@ newdate_func = function(update){
  readRDS(file ='date_list.rds')[[filename]]
 }
 ##############################
-totitle = function(x, icon = "&#10001; ") paste(icon,stringr::str_to_title(x))
+totitle = function(x, icon = "&#10001; "){
+  b = str_split(x," +")[[1]]
+  check= str_detect(b, "(to)|(and)|(as)|(but)|([A-Z]+)")
+  ifelse(check,b,str_to_title(b))%>%
+    paste(collapse = " ")%>%
+    paste("&#10001;",.)
+}
+
 
 #############################
 

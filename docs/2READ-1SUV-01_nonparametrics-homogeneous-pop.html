@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Limit Of Supremum And Infimum</title>
+<title>✑ Non-parametric Procedures For Homogeneous Population</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -373,19 +373,19 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">A. SURVIVAL ANALYSIS</li>
+    <li class="dropdown-header">I. SURVIVAL ANALYSIS</li>
     <li>
-      <a href="2READ-A-01_nonparametrics-homogeneous-pop.html">1. Non-parametric procedures for homogeneous population</a>
+      <a href="2READ-1SUV-01_nonparametrics-homogeneous-pop.html">1. Non-parametric procedures for homogeneous population</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">B. OTHER TOPICS</li>
+    <li class="dropdown-header">II. OTHER TOPICS</li>
     <li>
-      <a href="2READ-B-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
+      <a href="2READ-2OTHER-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">C. BAYESIAN ANALYSIS</li>
+    <li class="dropdown-header">III. BAYESIAN ANALYSIS</li>
     <li>
-      <a href="2READ-C-01_intro-to-bayes.html">1. Introduction to Bayesian analysis</a>
+      <a href="2READ-3BAY-01_intro-to-bayes.html">1. Introduction to Bayesian analysis</a>
     </li>
   </ul>
 </li>
@@ -435,99 +435,46 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">✑ Limit Of Supremum And Infimum</h1>
+<h1 class="title toc-ignore">✑ Non-parametric Procedures For Homogeneous Population</h1>
 <h4 class="date">📅 2021-05-09</h4>
 
 </div>
 
 
 <hr />
-<div id="limsup-and-liminf-of-a-sequence-of-real-numbers" class="section level1">
-<h1><span class="math inline">\(\lim\sup\)</span> and <span class="math inline">\(\lim\inf\)</span> of a sequence of real numbers</h1>
-<p>Suppose we have a bounded sequence of real numbers <span class="math inline">\((c_n)^{\infty}_{n=1}\)</span>. Also define
-<span class="math display">\[
-\begin{aligned}
-a_n &amp;:= \inf\{c_k: k \ge n\}, \\
-b_n &amp;:= \sup\{c_k:k \ge n\}.
-\end{aligned}
-\]</span>
-We deem two cases that likely occur with <span class="math inline">\((c_n)_{n=1}^{\infty}\)</span></p>
-<div id="liminf" class="section level2">
-<h2><span class="math inline">\(\lim\inf\)</span></h2>
-<p>If <span class="math inline">\((a_n)\)</span> is bounded and increasing, then it has a limit called <span class="math inline">\(a\)</span>. We can define the so-called <span class="math inline">\(\lim\inf\)</span> of such a sequence as follows
-<span class="math display">\[
-\lim_{n}\inf(c_n) = \lim_{n \to \infty}\inf\{c_k: k \ge n\} 
-\]</span></p>
-<p>The following figure illustrates for <span class="math inline">\(\lim\inf\)</span>:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
-<img src="2READ-B-01_lim-inf-lim-sup_files/figure-html/unnamed-chunk-1-1.png" alt="example for $\lim\inf$" width="672" />
-<p class="caption">
-Figure 1: example for <span class="math inline">\(\lim\inf\)</span>
-</p>
+<div class="right">
+<p><em>refer to <span class="citation"><a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing</a> (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></em></p>
 </div>
-<p>as <span class="math inline">\(n\)</span> goes to <span class="math inline">\(\infty\)</span>, <span class="math inline">\((c_n)\)</span> approaches to <span class="math inline">\(-1\)</span> (never reach <span class="math inline">\(-1\)</span>). The term <em>inf</em> or <em>infimum</em> is also called <em>the greatest lower bound</em>, this is, the greatest point of lower bound set. We can see that all black filled circle are less than <span class="math inline">\(-1\)</span>, so all of them can be deemed lower bound of the collection of red filled circles, and a point corresponding <span class="math inline">\(n\)</span> as <span class="math inline">\(n \to \infty\)</span> is the greatest point. By definition, this is called <em>infimum</em> or <em>the greatest lower bound</em>.</p>
-</div>
-<div id="limsup" class="section level2">
-<h2><span class="math inline">\(\lim\sup\)</span></h2>
-<p>Similarly,</p>
-<p>If <span class="math inline">\((b_n)\)</span> is bounded and decreasing, it has a limit called <span class="math inline">\(b\)</span>. We can define the so-called <span class="math inline">\(\lim\sup\)</span> of such a sequence as follows
-<span class="math display">\[
-\lim_n\sup(c_n) = \lim_{n \to \infty}\sup\{c_k: k \ge n\}.
-\]</span></p>
-<p>The following figure illustrates for <em>sup</em> or <em>supremum</em></p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
-<img src="2READ-B-01_lim-inf-lim-sup_files/figure-html/unnamed-chunk-2-1.png" alt="example for $\lim\sup$" width="672" />
-<p class="caption">
-Figure 2: example for <span class="math inline">\(\lim\sup\)</span>
-</p>
-</div>
-<p>In this case, all black filled circles are greater than <span class="math inline">\(1\)</span>, the sequence goes to <span class="math inline">\(1\)</span> as <span class="math inline">\(n\)</span> approaches to <span class="math inline">\(\infty\)</span> (never reach <span class="math inline">\(1\)</span>). Thus, they are upper bounds of the collection of red filled circles. Also, a point corresponding <span class="math inline">\(n\)</span> as <span class="math inline">\(n \to \infty\)</span> is the least point of the upper bound set. This is called <em>supremum</em> or <em>the least upper bound</em>.</p>
-<p>If we combine both figures, we obtain</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
-<img src="2READ-B-01_lim-inf-lim-sup_files/figure-html/unnamed-chunk-3-1.png" alt="example for $\lim\sup$" width="672" />
-<p class="caption">
-Figure 3: example for <span class="math inline">\(\lim\sup\)</span>
-</p>
-</div>
-<p>Two horizontal red lines represent for <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span>, and when <span class="math inline">\(n\)</span> goes to <span class="math inline">\(\infty\)</span> they approach to <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span>, respectively. If we extend the interval <span class="math inline">\([-1,1]\)</span> to a general interval <span class="math inline">\([a,b]\)</span>, then <span class="math inline">\([a_{n+1},b_{n+1}]\)</span> will be contained in <span class="math inline">\([a_n,b_n]\)</span> for all <span class="math inline">\(n\)</span>. We can say <span class="math inline">\(\lim_{n \to \infty}[a_n,b_n] = [-1,1]\)</span>. This is, as <span class="math inline">\(n \to \infty\)</span> it approaches to the shortest length interval of <span class="math inline">\([a_n,b_n]_{n=1}^{\infty}\)</span>.</p>
-<p>We can also express the above idea by intersection, ie., the intersection of all intervals <span class="math inline">\([a_n,b_n]_{n = 1,2,\dots}\)</span> is <span class="math inline">\([a,b] \equiv [-1,1]\)</span>. In other words, intersection can be utilized to express the “smallest” magnitude of length, area, volume, etc. This idea can be extended to <em>limits of sets</em>.</p>
-</div>
-</div>
-<div id="limsup-and-liminf-of-a-sequence-of-sets" class="section level1">
-<h1><span class="math inline">\(\lim\sup\)</span> and <span class="math inline">\(\lim\inf\)</span> of a sequence of sets</h1>
-<p>Let <span class="math inline">\(A_n \subset \Omega\)</span>, we define
+<div id="survival-function-and-its-estimates" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Survival Function And Its Estimates</h1>
+<!-- --------------------------- -->
+<p>In this section, we shall deem three estimates of survivor function, namely life-table, Kaplan-Meier (KM) and Nelson-Aalen (NA). Before we go into details, let us consider survival function <span class="math inline">\(S(t)\)</span> that is material to survival analysis. Suppose the duration of study is <span class="math inline">\((0, \tau)\)</span>, for all <span class="math inline">\(t \le \tau\)</span> we are able to calculate how many patients who still survive, this is, how many patients whose survival time is longer than <span class="math inline">\(t\)</span>, inclusively. This is estimator of survival function at <span class="math inline">\(t\)</span> shown bellow
 <span class="math display" id="eq:eq1">\[
-\inf_{k \ge n}A_k := \bigcap_{k=n}^{\infty}A_k; \quad \sup_{k \ge n}A_k := \bigcup_{k=n}^{\infty}A_k
-\tag{1}
+\widehat{S}(t) = \frac{\text{# of individuals with survival times }\ge t}{\text{# of individuals in the data set}}
+\tag{1.1}
 \]</span>
-thus,
-<span class="math display" id="eq:eq2">\[
-\begin{aligned}
-&amp;\lim_{n \to \infty}\inf A_n = \bigcup_{n=1}^{\infty}\bigcap_{k=n}^{\infty}A_k, \\
-&amp;\lim_{n \to \infty}\sup A_n = \bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}A_k
-\end{aligned}
-\tag{2}
-\]</span></p>
-<p>To get the intuition about <span class="math inline">\(\lim\sup\)</span> and <span class="math inline">\(\lim\inf\)</span> in term of union and intersection, let us consider <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> in details. We will consider the case of intersection, second case can be explained in the same way.</p>
-<p>Suppose <span class="math inline">\(n= 10\)</span>,</p>
-<p><span class="math display">\[
-\begin{aligned}
-&amp;B_1 = \bigcap_{i=1}^{10}A_i \\
-&amp;B_2 = \bigcap_{i=2}^{10}A_i \\
-&amp;\quad \dots \\
-&amp;B_9 = A_9 \cap A_{10} \\
-&amp;B_{10} = A_{10}
-\end{aligned}
-\]</span>
-hence we can conclude
-<span class="math display">\[
-B_1 \le B_2 \le \dots \le B_{10}
-\]</span>
-and hence <span class="math inline">\(B_n\)</span> is an increasing sequence, so it has a limit. What we need is to find a set that corresponds to greatest lower bound. It is NOT akin to the sequence of real numbers, The sequence of sets i.e., the magnitude of sets is determined by the intersection and union of all available sets. Thus, to find the greatest set, we can’t only compare among <span class="math inline">\(\{B_i\}_{i=1}^{10}\)</span>, but we also compare all intersections and unions among <span class="math inline">\(\{B_i\}_{i=1}^{10}\)</span>. To this end, the greatest set is
-<span class="math display">\[
-\bigcup_{i=1}^{10}B_i = \bigcup_{n=1}^{10}\bigcap_{i=n}^{10}A_i,
-\]</span>
-which has a general form in <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a>. The case of supremum can be explained with an analogous manner.</p>
+we can now deduce <em>empiracal distribution</em> <span class="math inline">\(\widehat{F}(t) = 1 - \widehat{S}(t)\)</span>. There are some assumptions of survivor function:</p>
+<ol style="list-style-type: decimal">
+<li>Equal unity for <span class="math inline">\(t \le 0\)</span>.</li>
+<li>between two adjacent dead times, <span class="math inline">\(\widehat{S}(t)\)</span> is constant.</li>
+</ol>
+<p>Let us consider the following data set</p>
+<p><img src="2READ-1SUV-01_nonparametrics-homogeneous-pop_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This method cannot be used if there exists censors since the information of censors are not capable of being included. Another method used with the presence of censors will now be described below.</p>
+<div id="estimating-life-table" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Estimating Life-table</h2>
+<!-- ## Estimating Kaplan-Meier -->
+<!-- ## Estimating Nelson-Aalen -->
+<!-- ==================================================================================== -->
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1><em>References</em></h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-aal2008" class="csl-entry">
+Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.
+</div>
+</div>
 </div>
 
 
