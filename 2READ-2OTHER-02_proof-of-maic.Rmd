@@ -3,7 +3,9 @@ params:
   update_date: FALSE
 date: "`r source('_supp/helper.R');newdate_func(params$update_date)`"
 title: "`r totitle('why does optimization of MAIC method turn out to be fitting logistic model?')`"
-output: bookdown::html_document2
+output: 
+  bookdown::html_document2:
+    toc: false
 bibliography: ["_supp/citation.bib"]
 link-citations: true
 ---
@@ -23,4 +25,13 @@ link-citations: true
 \def\epsilon{\varepsilon} 
 
 ---
+
+Let $\bf{p} = \tp{(p_1,p_2,\dots,p_n)}$ be propensity score and $\bf X = \tp{(\bf{x}_1,\bf{x}_2, \dots, \bf{x}_n)}$ be baseline characteristics of subjects in IPD. Also, $\bf{\mu}$ denotes average vector of baseline characteristics found in SLD. We aim to estimate $\bf p$ such that $\tp{\bf{p}}\bf{X} = \tp{\bf{\mu}}$, this is, we want to minimize Kullback Leibler divergence of $\bf p$ and empirical function with some constraints. Specifically, we want to minimize 
+$$
+\tp{\bf{p}}\ln(\frac{1}{n\bf{p}}),
+$$
+with two constraints:
+$$
+\tp{\bf{p}}\bf{1} = 1, \quad and \quad \tp{\bf{p}}\bf{X} = \tp{\bf{\mu}}
+$$ 
 
