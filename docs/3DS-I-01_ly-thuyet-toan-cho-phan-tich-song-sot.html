@@ -441,6 +441,9 @@ div.tocify {
 </div>
 
 
+<div class="watermark">
+<p><em>DRAFT</em></p>
+</div>
 <hr />
 <!-- ===================== START FROM HERE ========================== -->
 <div class="right">
@@ -605,7 +608,15 @@ ta kết luận rằng nếu <span class="math inline">\(M\)</span> là martingl
 Z_n = (H \bullet M)_n = {\boldsymbol{H}}^{\top}\Delta\boldsymbol{M}
 \tag{12}
 \]</span>
-với <span class="math inline">\(\boldsymbol{H} = {(H_1,H_2,\dots,H_n)}^{\top}\)</span> và <span class="math inline">\(\Delta\boldsymbol{M} = {(\Delta M_1, \Delta M_2, \dots, \Delta M_n)}^{\top}\)</span> với <span class="math inline">\(\Delta M_s = M_s - M_{s-1}\)</span>.</p>
+với <span class="math inline">\(\boldsymbol{H} = {(H_1,H_2,\dots,H_n)}^{\top}\)</span> và <span class="math inline">\(\Delta\boldsymbol{M} = {(\Delta M_1, \Delta M_2, \dots, \Delta M_n)}^{\top}\)</span> với <span class="math inline">\(\Delta M_s = M_s - M_{s-1}\)</span>. Ta sẽ thấy ở các phần sau rằng nhờ các phương pháp đổi biến phù hợp các tích phân sẽ trở nên đơn giản hơn. Ta nhớ rằng ký hiệu <span class="math inline">\(\langle . \rangle\)</span> chính là đại lượng moment thứ hai có điều kiện (moment thứ hai tương đương với phương sai), nghĩa là <span class="math inline">\(\langle M\rangle_ = \Bbb{V}(\Delta M|\mathscr{F}_{i-1})\)</span>, do đó ta có
+<span class="math display">\[
+\langle H \bullet M \rangle = H^2\bullet \langle M \rangle \quad and \quad [H\bullet M] = H^2\bullet[M]
+\]</span>
+tổng quát hơn ta có
+<span class="math display" id="eq:eq1415">\[
+\langle H\bullet M\rangle_m = \sum_{s=1}^nH_s^2\Delta\langle M \rangle_s \quad and \quad [H\bullet M]_n = \sum_{s=1}^nH_s^2\Delta[M]_s
+\tag{13}
+\]</span></p>
 <!-- ====================== END ====================================== -->
 </div>
 </div>
