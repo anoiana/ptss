@@ -38,6 +38,8 @@ navbar:
       - text: "II. OTHER TOPICS"
       - text: "1. Limit of Supremum and Infimum"
         href: '2READ-2OTHER-01_lim-inf-lim-sup.html'
+      - text: "2. Why does optimization of MAIC method turn out to be fitting logistic model?"
+      #  href: "2READ-2OTHER-02_proof-of-maic.html"
       # SEC III *************************************************************
       - text: "---"
       - text: "III. BAYESIAN ANALYSIS"
