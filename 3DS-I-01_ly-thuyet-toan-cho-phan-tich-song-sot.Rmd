@@ -95,7 +95,7 @@ Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có t
 
 ::::{.blackbox .brainstorm}
 :::{.center}
-`r colorize("Tại sao ta cần nắm kiến thức trên?","tomato")`
+Tại sao ta cần nắm kiến thức trên?
 :::
 
 Liên hệ với phân tích sốt sót, ta thấy rằng cứ sau mỗi một bệnh nhân tử vong được ghi nhận, thì các giá trị của hàm sống sót, hàm nguy cơ,... đều thay đổi. Câu hỏi được đặc ra là liệu sau mỗi một ca tử vong ghi nhận được, thì ta có thể dự đoán gì về các ca tiếp theo? và liệu với các thông tin ta có cho tới thời điển hiện tại (tiền sự) thì sẽ trả lời được cho ta về điều gì trong những lần tới? 
