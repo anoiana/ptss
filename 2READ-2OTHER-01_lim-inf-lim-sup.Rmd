@@ -25,6 +25,9 @@ link-citations: true
 \def\epsilon{\varepsilon} 
 
 ---
+:::{.watermark}
+*COMPLETED*
+:::
 
 # $\lim\sup$ and $\lim\inf$ of a sequence of real numbers
 

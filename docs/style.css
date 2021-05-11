@@ -257,8 +257,9 @@ a.navbar-brand:hover {
 .watermark {
   opacity: 0.1;
   position: fixed;
-  top: 7%;
-  left: 50%;
+  bottom: 0%;
+  left: 40%;
   font-size: 350%;
   color: #7d0040;
+  font-size: 40px;
 }

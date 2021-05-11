@@ -74,10 +74,13 @@ $$
 (\#eq:eq3)
 $$
 substitute `r lb(eq3)` to `r lb(eq2)`, we obtain 
+
+:::{.blackbox .brainstorm}
 $$
 p_i = \frac{\exp[\lambda(x_i - \mu)]}{\sum_{i=1}^n\exp[\lambda(x_i-\mu)]}
 (\#eq:eq4)
 $$
+:::
 `r lb(eq4)` indicates that $p_i$ can be estimated by fitting logistic model in which $z_i= x_i-\mu$ is one covariate, and $z_i$ must be statisfying `r lb(eq1)`.
 
 

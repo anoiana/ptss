@@ -29,7 +29,7 @@ link-citations: true
 ---
 
 ::: {.watermark} 
-_incompleted_
+_INCOMPLETED_
 :::
 
 ```{r setup, include=FALSE}
