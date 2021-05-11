@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Why Does Optimization of MAIC Method Turn Out to Be Fitting Logistic Model?</title>
+<title>✑ Notation of Time-To-Event Measures from The Perspective of Counting Process</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -20,7 +20,11 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -251,7 +255,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -261,6 +331,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -348,33 +428,39 @@ $(document).ready(function () {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">✑ Why Does Optimization of MAIC Method Turn Out to Be Fitting Logistic Model?</h1>
-<h4 class="date">📅 2021-05-10</h4>
+
+<h1 class="title toc-ignore">✑ Notation of Time-To-Event Measures from The Perspective of Counting Process</h1>
+<h4 class="date">📅 2021-05-11</h4>
 
 </div>
 
 
 <hr />
-<p>Let <span class="math inline">\(\boldsymbol{p} = {(p_1,p_2,\dots,p_n)}^{\top}\)</span> be propensity score and <span class="math inline">\(\boldsymbol{X} = {(\boldsymbol{x}_1,\boldsymbol{x}_2, \dots, \boldsymbol{x}_n)}^{\top}\)</span> be baseline characteristics of subjects in IPD. Also, <span class="math inline">\(\boldsymbol{\mu}\)</span> denotes average vector of baseline characteristics found in SLD. We aim to estimate <span class="math inline">\(\boldsymbol{p}\)</span> such that <span class="math inline">\({\boldsymbol{p}}^{\top}\boldsymbol{X} = {\boldsymbol{\mu}}^{\top}\)</span>, this is, we want to minimize Kullback Leibler divergence of <span class="math inline">\(\boldsymbol{p}\)</span> and empirical function with some constraints. Specifically, we want to minimize
-<span class="math display">\[
-{\boldsymbol{p}}^{\top}\ln(\frac{1}{n\boldsymbol{p}}),
-\]</span>
-with two constraints:
-<span class="math display">\[
-{\boldsymbol{p}}^{\top}\boldsymbol{1} = 1, \quad and \quad {\boldsymbol{p}}^{\top}\boldsymbol{X} = {\boldsymbol{\mu}}^{\top}
-\]</span></p>
-<p>We shall use <em>Lagrange Multiplier</em> to solve such an optimization problem as follows.</p>
-<p><span class="math display">\[
-\begin{aligned}
-\mathcal{L} &amp;= {\boldsymbol{p}}^{\top}\ln(\frac{1}{n\boldsymbol{p}})\boldsymbol{1} - \lambda{({\boldsymbol{p}}^{\top}\boldsymbol{X} - {\boldsymbol{\mu}}^{\top})}^{\top} \\
-&amp;= {\boldsymbol{p}}^{\top}\ln(\frac{1}{n\boldsymbol{p}})\boldsymbol{1} - \lambda[( {\boldsymbol{X}}^{\top} - \boldsymbol{\mu}{\boldsymbol{1}}^{\top} )\boldsymbol{p}]
-\end{aligned}
-\]</span></p>
+<div class="watermark">
+<p><em>DRAFT</em></p>
+</div>
+<div id="kaplan-meier" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Kaplan-Meier</h1>
+<p>Let <span class="math inline">\(S(t)\)</span> and <span class="math inline">\(\Lambda(s)\)</span> denote survivor function and cumulative hazard function, respectively. For <span class="math inline">\(j\)</span>th patient, let <span class="math inline">\(N(t)\)</span> is the number of event occurs in the interval <span class="math inline">\((0,t]\)</span>, and <span class="math inline">\(N(0) = 0\)</span>. Thus, <span class="math inline">\(N_j(t)\)</span> is a right continuous function and equal 0 until an event occurs and <span class="math inline">\(N_j(t)\)</span> will jump to unity at that moment. Let <span class="math inline">\(Y_j(t) = 1\)</span> indicates <span class="math inline">\(j\)</span>th patient has not experienced the event and uncensored just prior <span class="math inline">\(t\)</span>, and it is equal to zero when the event occurs. Thus, <span class="math inline">\(Y_j(t)\)</span> is a left continuous function. Also, <span class="math inline">\(N_{\bullet}(t) = \sum_{j=1}^nN_j(t)\)</span> and <span class="math inline">\(Y_{\bullet}(t) = \sum_{j=1}^nY_j(t)\)</span> where <span class="math inline">\(t \in (0,\tau]\)</span> with <span class="math inline">\(\tau\)</span> representing for the last point of the study.</p>
+<!-- ==================================================================================== -->
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1><em>References</em></h1>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -406,7 +492,38 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

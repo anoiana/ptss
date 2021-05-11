@@ -35,3 +35,12 @@ $$
 \tp{\bf{p}}\bf{1} = 1, \quad and \quad \tp{\bf{p}}\bf{X} = \tp{\bf{\mu}}
 $$ 
 
+We shall use *Lagrange Multiplier* to solve such an optimization problem as follows.
+
+$$
+\begin{aligned}
+\mathcal{L} &= \tp{\bf{p}}\ln(\frac{1}{n\bf{p}})\bf{1} - \lambda\tp{(\tp{\bf{p}}\bf{X} - \tp{\bf{\mu}})} \\
+&= \tp{\bf{p}}\ln(\frac{1}{n\bf{p}})\bf{1} - \lambda[( \tp{\bf{X}} - \bf{\mu}\tp{\bf{1}} )\bf{p}]
+\end{aligned}
+$$
+

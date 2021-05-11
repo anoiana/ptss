@@ -1,0 +1,59 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R');newdate_func(params$update_date)`"
+title: "`r totitle('notation of time-to-event measures from the perspective of counting process')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+:::{.watermark}
+*DRAFT*
+:::
+
+# Kaplan-Meier
+
+Let $S(t)$ and $\Lambda(s)$ denote survivor function and cumulative hazard function, respectively. For $j$th patient, let $N(t)$ is the number of event occurs in the interval $(0,t]$, and $N(0) = 0$. Thus, $N_j(t)$ is a right continuous function and equal 0 until an event occurs and $N_j(t)$ will jump to unity at that moment. Let $Y_j(t) = 1$ indicates $j$th patient has not experienced the event and uncensored just prior $t$, and it is equal to zero when the event occurs. Thus, $Y_j(t)$ is a left continuous function. Also, $N_{\bullet}(t) = \sum_{j=1}^nN_j(t)$ and $Y_{\bullet}(t) = \sum_{j=1}^nY_j(t)$ where $t \in (0,\tau]$ with $\tau$ representing for the last point of the study.   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ==================================================================================== -->
+# *References* {-}
