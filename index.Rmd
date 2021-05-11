@@ -7,9 +7,9 @@ output:
 
 
 ::: {.right}
-Hello,
-
-Welcome to my site.
+<p style="font-family:papyrus">"No mud, no lotus"</p>
+<p style="font-family:papyrus">"Smile to the cloud in your tea"</p>
+<p style="font-family:papyrus; font-size:15px" >_Thich Nhat Hanh_</p>
 :::
 
 
