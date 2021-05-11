@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Why Does Optimization of MAIC Method Turn Out to Be Fitting Logistic Model?</title>
+<title>✑ Why Does Optimization of MAIC Method Turn Out To Be Fitting Logistic Model?</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -351,28 +351,62 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">✑ Why Does Optimization of MAIC Method Turn Out to Be Fitting Logistic Model?</h1>
+<h1 class="title toc-ignore">✑ Why Does Optimization of MAIC Method Turn Out To Be Fitting Logistic Model?</h1>
 <h4 class="date">📅 2021-05-10</h4>
 
 </div>
 
 
 <hr />
+<div class="watermark">
+<p><em>COMPLETED</em></p>
+</div>
 <p>Let <span class="math inline">\(\boldsymbol{p} = {(p_1,p_2,\dots,p_n)}^{\top}\)</span> be propensity score and <span class="math inline">\(\boldsymbol{X} = {(\boldsymbol{x}_1,\boldsymbol{x}_2, \dots, \boldsymbol{x}_n)}^{\top}\)</span> be baseline characteristics of subjects in IPD. Also, <span class="math inline">\(\boldsymbol{\mu}\)</span> denotes average vector of baseline characteristics found in SLD. We aim to estimate <span class="math inline">\(\boldsymbol{p}\)</span> such that <span class="math inline">\({\boldsymbol{p}}^{\top}\boldsymbol{X} = {\boldsymbol{\mu}}^{\top}\)</span>, this is, we want to minimize Kullback Leibler divergence of <span class="math inline">\(\boldsymbol{p}\)</span> and empirical function with some constraints. Specifically, we want to minimize
 <span class="math display">\[
-{\boldsymbol{p}}^{\top}\ln(\frac{1}{n\boldsymbol{p}}),
+-{\boldsymbol{p}}^{\top}\ln(\frac{1}{n\boldsymbol{p}}),
 \]</span>
 with two constraints:
 <span class="math display">\[
 {\boldsymbol{p}}^{\top}\boldsymbol{1} = 1, \quad and \quad {\boldsymbol{p}}^{\top}\boldsymbol{X} = {\boldsymbol{\mu}}^{\top}
 \]</span></p>
 <p>We shall use <em>Lagrange Multiplier</em> to solve such an optimization problem as follows.</p>
-<p><span class="math display">\[
+<p><span class="math display" id="eq:eq0">\[
 \begin{aligned}
-\mathcal{L} &amp;= {\boldsymbol{p}}^{\top}\ln(\frac{1}{n\boldsymbol{p}})\boldsymbol{1} - \lambda{({\boldsymbol{p}}^{\top}\boldsymbol{X} - {\boldsymbol{\mu}}^{\top})}^{\top} \\
-&amp;= {\boldsymbol{p}}^{\top}\ln(\frac{1}{n\boldsymbol{p}})\boldsymbol{1} - \lambda[( {\boldsymbol{X}}^{\top} - \boldsymbol{\mu}{\boldsymbol{1}}^{\top} )\boldsymbol{p}]
+\mathcal{L} &amp;= -{\boldsymbol{p}}^{\top}\ln(\frac{1}{n\boldsymbol{p}})\boldsymbol{1} - \lambda{({\boldsymbol{p}}^{\top}\boldsymbol{X} - {\boldsymbol{\mu}}^{\top})}^{\top} \\
+&amp;= {\boldsymbol{p}}^{\top}\ln(n\boldsymbol{p})\boldsymbol{1} - \lambda[( {\boldsymbol{X}}^{\top} - \boldsymbol{\mu}{\boldsymbol{1}}^{\top} )\boldsymbol{p}].
 \end{aligned}
+\tag{1}
 \]</span></p>
+<p>The solution is to take derivative w.r.t <span class="math inline">\(\boldsymbol{p}\)</span> and <span class="math inline">\(\lambda\)</span>, equate both derivations to zero and solve both equations. First, Taking derivative <span class="math inline">\(\mathcal{L}\)</span> w.r.t <span class="math inline">\(\lambda\)</span> we obtain
+<span class="math display" id="eq:eq1">\[
+{\boldsymbol{p}}^{\top}\boldsymbol{X} = {\boldsymbol{\mu}}^{\top}.
+\tag{2}
+\]</span>
+Next, taking derivative w.r.t <span class="math inline">\(p_i\)</span>:
+<span class="math display" id="eq:eq2">\[
+\begin{aligned}
+&amp;\quad \frac{\partial\mathcal{L}}{\partial p_i} = 0 \\
+&amp;\Rightarrow \ln(np_i) +n -\lambda(x_i-\mu) = 0 \\
+&amp;\Rightarrow \ln(np_i) = \lambda(x_i-\mu)-n \\
+&amp;\Rightarrow p_i = \frac{\exp[\lambda(x_i -\mu)-n]}{n} \\
+&amp;\Rightarrow p_i = \frac{e^{-n}}{n}\exp[\lambda(x_i-\mu)]
+\end{aligned}
+\tag{3}
+\]</span>
+thus,
+<span class="math display" id="eq:eq3">\[
+\begin{aligned}
+&amp;\quad 1 = \sum_{i=1}^np_i = \frac{e^{-n}}{n}\sum_{i=1}^n\exp[\lambda(x_i-\mu)] \\
+&amp; \Rightarrow \frac{n}{e^{-n}} = \sum_{i=1}^n\exp[\lambda(x_i-\mu)]
+\end{aligned}
+\tag{4}
+\]</span>
+substitute <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(4)</a> to <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(3)</a>, we obtain
+<span class="math display" id="eq:eq4">\[
+p_i = \frac{\exp[\lambda(x_i - \mu)]}{\sum_{i=1}^n\exp[\lambda(x_i-\mu)]}
+\tag{5}
+\]</span>
+<span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(5)</a> indicates that <span class="math inline">\(p_i\)</span> can be estimated by fitting logistic model in which <span class="math inline">\(z_i= x_i-\mu\)</span> is one covariate, and <span class="math inline">\(z_i\)</span> must be statisfying <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(2)</a>.</p>
 
 
 

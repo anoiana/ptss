@@ -46,7 +46,7 @@ newdate_func = function(update){
 ##############################
 totitle = function(x, icon = "&#10001; "){
   b = str_split(x," +")[[1]]
-  word = c("to","and","as","but","of","from")
+  word = c("and","as","but","of","from")
   word = stringr::str_c("(^",word,"$)")%>% stringr::str_c(collapse = "|")%>%
     stringr::str_c(.,"|([A-Z]+)")
   check= str_detect(b, word)
