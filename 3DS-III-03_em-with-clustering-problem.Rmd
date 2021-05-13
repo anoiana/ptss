@@ -1,0 +1,109 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "Thuật Toán Expectation-Maximization (EM) (3/3)"
+subtitle: "Phần III - `r totitle('bai toán phân cụm',icon ='')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+\newcommand{\scr}[1]{\mathscr{#1}}
+
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+\def\proved{\blacksquare\quad} 
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+source("_supp/helper.R")
+library(tidyverse)
+```
+
+
+# Đặt vấn đề
+
+Ta lại tiếp tục xem xét một dạng bài thuộc nhóm phân cụm trong machine learning, và bàn này sẽ được giải bằng phương pháp EM. Ta nhắc lại cấu trúc bài toán "hai đồng xu" trong bài sô 1 lần trước. Trong bài toán "hai đổng xu" ta xem xét trường hợp khi ta có 2 đồng xu, mỗi đồng xu có xác suất mặt hình không giống nhau. Ta ngẫu nhiên chọn ra 1 đồng xu rồi tung đồng xu 5 lần, a lập lại 2 bước trên 10 lần.Như vậy ta thấy rằng mỗi một đổng xu đại diện cho 1 nhóm, tạm gọi là A và B. khi một đồng xu được chọn và tung 10 lần, ta có một phân bố nhị thức với parameters của nó là $5$ và $p_i$, với $i \in \{A,B\}$. Nghĩa là ta có $\P(X|A)$ và $\P(X|B)$ đều là phân bố nhị thức. Ngoài ra, ta cũng được cung cấp  một thông tin rằng đồng xu $A$ được chọn với xác suất là là $\pi_A$, như vậy xác suất để đồng xu B được chọn là $1-\pi_A$. Rõ ràng, hành động đồng xu A hoặc B được chọn lại là một phân bố bernoulli với parameter của nó là $\pi_A$. Với dạng bài này, ta gọi là phân bố hỗn hợp, vì nó kết hợp giữa 2 phân bố nhị thức bằng một phân bố bernoulli (bernoulli cũng là phân bố nhị thức với parameter $n =1$).
+
+Lần này ta cũng sẽ xét một bài tương tự. Với một tập dữ liệu $X$ có chiều không gian $n\times p$ và một biến target $y \in \{1,2,3\}^{n}$. Nếu giả định ban đầu mỗi một hàng trong tập dữ liệu $X$ thuộc một phân bố multivariate normal, và $X$ bao gồm các quan sát thuộc 3 phân bố multiviriate normal khác nhau, thì đây cũng là một dạng bài phân bố hỗn hợp. Nhưng lần này là 3 phân bố multivariate normal được kết hợp bằng một phân bố tam thức $Z \sim Trinomial(n,p_1,p_2)$. 
+
+# Data giả lập
+
+Đầu tiên ta sẽ tạo một data có dạng như trên. Ta sẽ tạo ra một tập dữ liệu bao gồm 360 observations, với mỗi observation thuộc một trong ba phân bố binormal như sau:
+$$
+\begin{aligned}
+&f(x|z_1) \sim BN\bigg(\begin{bmatrix}4\\4\end{bmatrix}, \begin{bmatrix}0.25 & 0.21\\ 0.21 & 0.25\end{bmatrix}\bigg); \\
+&f(x|z_2) \sim BN\bigg(\begin{bmatrix}5\\5\end{bmatrix}, \begin{bmatrix}0.25 & -0.21\\ -0.21 & 0.25\end{bmatrix}\bigg); \\
+&f(x|z_3) \sim BN\bigg(\begin{bmatrix}6.5\\5\end{bmatrix}, \begin{bmatrix}0.25 & 0.21\\ 0.21 & 0.25\end{bmatrix}\bigg)
+\end{aligned}
+$$
+vói $Z \sim Trinomial(360,0.2,0.5)$, trong thực tế các giá trị này sẽ không được biết, và nhiệm vụ của ta là ước lượng những giá trị này. 
+
+```{r, warning=FALSE, message=FALSE, fig.align='center', fig.cap="*Dữ liệu X nếu thông tin từ Z được cung cấp*",echo=TRUE}
+library(purrr)
+library(tidyverse)
+
+n = 360
+mu <- matrix(c(4.0,4.0, 5.0,5.0,6.5,5.0), ncol=2, byrow=T)
+mu = purrr::map(1:3, ~mu[.,])
+sig<-
+purrr::map(
+ list(c(.25, .21, .21,.25), 
+      c(.25,-.21,-.21,.25),
+      c(.25, .21, .21,.25)),
+ matrix, nrow = 2, byrow = T
+)
+p = c(0.2,0.5,0.3)
+y = sample(1:3,n, replace = T, prob = p )
+
+set.seed(111)
+dat<-
+purrr::map(y, ~MASS::mvrnorm(1, mu = mu[[.]], Sigma=sig[[.]]))%>%
+ reduce(rbind)
+color = c("red","blue","black")
+plot(dat, col = color[y], xlab = "x1", ylab = "x2")
+```
+
+như vậy, nếu phân bố của $Z$ không được biết thì tập giá trị ta có như sau 
+
+```{r, fig.align='center', fig.cap="*Dữ liệu X khi thông tin của Z không được cung cấp.*"}
+plot(dat, xlab = "x1", ylab = "x2")
+```
+
+Mục tiêu của ta là sẽ đi phân cụm cho tập dữ liệu này. 
+
+# Phân cụm bằng phương pháp EM
+
+
+
+```{r}
+knitr::include_graphics("img/img1.gif")
+```
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+# _References_ {-}

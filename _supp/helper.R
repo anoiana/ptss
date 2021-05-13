@@ -52,7 +52,7 @@ totitle = function(x, icon = "&#10001; "){
   check= str_detect(b, word)
   ifelse(check,b,str_to_title(b))%>%
     paste(collapse = " ")%>%
-    paste("&#10001;",.)
+    paste(icon,.)
 }
 
 

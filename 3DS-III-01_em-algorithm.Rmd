@@ -2,7 +2,7 @@
 params:
   update_date: FALSE
 date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
-title: "`r totitle('Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm')`"
+title: "`r totitle('Thuật toán Expectation-Maximization (EM) [1/3]')`"
 subtitle: "`r totitle('phần I - Bài toán hai đồng xu')`"
 output: 
   bookdown::html_document2:

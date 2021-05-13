@@ -29,7 +29,7 @@
 <script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="fugu.png"/>
+  <link rel="icon" type="image/png" href="img/fugu.png"/>
 
 <div class="hero-image">
         <div class="image-text">
@@ -412,10 +412,13 @@ div.tocify {
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
     <li>
-      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) trong bài toán phân cụm</a>
+      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) [1/3]</a>
     </li>
     <li>
-      <a href="3DS-III-02_mle-va-em.html">2. Phương pháp MLE và EM trong bài toán bệnh nhân ung thư với số liệu khuyết</a>
+      <a href="3DS-III-02_mle-va-em.html">2. Thuật toán Expectation-Maximization (EM) [2/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-03_em-with-clustering-problem.html">3. Thuật toán Expectation-Maximization (EM) [3/3]</a>
     </li>
   </ul>
 </li>
@@ -612,7 +615,7 @@ ta kết luận rằng nếu <span class="math inline">\(M\)</span> là martingl
 Z_n = (H \bullet M)_n = {\boldsymbol{H}}^{\top}\Delta\boldsymbol{M}
 \tag{12}
 \]</span>
-với <span class="math inline">\(\boldsymbol{H} = {(H_1,H_2,\dots,H_n)}^{\top}\)</span> và <span class="math inline">\(\Delta\boldsymbol{M} = {(\Delta M_1, \Delta M_2, \dots, \Delta M_n)}^{\top}\)</span> với <span class="math inline">\(\Delta M_s = M_s - M_{s-1}\)</span>. Ta sẽ thấy ở các phần sau rằng nhờ các phương pháp đổi biến phù hợp các tích phân sẽ trở nên đơn giản hơn. Ta nhớ rằng ký hiệu <span class="math inline">\(\langle . \rangle\)</span> chính là đại lượng moment thứ hai có điều kiện (moment thứ hai tương đương với phương sai), nghĩa là <span class="math inline">\(\langle M\rangle_ = \Bbb{V}(\Delta M|\mathscr{F}_{i-1})\)</span>, do đó ta có
+với <span class="math inline">\(\boldsymbol{H} = {(H_1,H_2,\dots,H_n)}^{\top}\)</span> và <span class="math inline">\(\Delta\boldsymbol{M} = {(\Delta M_1, \Delta M_2, \dots, \Delta M_n)}^{\top}\)</span> với <span class="math inline">\(\Delta M_s = M_s - M_{s-1}\)</span>. Ta sẽ thấy ở các phần sau rằng nhờ các phương pháp đổi biến phù hợp các tích phân sẽ trở nên đơn giản hơn. Ta nhớ rằng ký hiệu <span class="math inline">\(\langle . \rangle\)</span> chính là đại lượng moment thứ hai có điều kiện (moment thứ hai tương đương với phương sai), nghĩa là <span class="math inline">\(\langle M\rangle = \Bbb{V}(\Delta M|\mathscr{F}_{i-1})\)</span>, do đó ta có
 <span class="math display">\[
 \langle H \bullet M \rangle = H^2\bullet \langle M \rangle \quad and \quad [H\bullet M] = H^2\bullet[M]
 \]</span>

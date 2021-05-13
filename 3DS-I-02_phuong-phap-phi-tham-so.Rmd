@@ -567,7 +567,7 @@ r = func(data = survival::cancer, increment = 40, strata = c("sex"))
 kếu quả thu được là file excel như sau 
 
 ```{r}
-knitr::include_graphics(rep("excel.png"))
+knitr::include_graphics(rep("img/excel.png"))
 ```
 ::::
 

@@ -216,7 +216,7 @@ $$
 Z_n = (H \bullet M)_n = \tp{\bf{H}}\Delta\bf{M}
 (\#eq:eq13)
 $$
-với $\bf{H} = \tp{(H_1,H_2,\dots,H_n)}$ và $\Delta\bf{M} = \tp{(\Delta M_1, \Delta M_2, \dots, \Delta M_n)}$ với $\Delta M_s = M_s - M_{s-1}$. Ta sẽ thấy ở các phần sau rằng nhờ các phương pháp đổi biến phù hợp các tích phân sẽ trở nên đơn giản hơn. Ta nhớ rằng ký hiệu $\langle . \rangle$ chính là đại lượng moment thứ hai có điều kiện (moment thứ hai tương đương với phương sai), nghĩa là $\langle M\rangle_ = \V(\Delta M|\scr{F}_{i-1})$, do đó ta có 
+với $\bf{H} = \tp{(H_1,H_2,\dots,H_n)}$ và $\Delta\bf{M} = \tp{(\Delta M_1, \Delta M_2, \dots, \Delta M_n)}$ với $\Delta M_s = M_s - M_{s-1}$. Ta sẽ thấy ở các phần sau rằng nhờ các phương pháp đổi biến phù hợp các tích phân sẽ trở nên đơn giản hơn. Ta nhớ rằng ký hiệu $\langle . \rangle$ chính là đại lượng moment thứ hai có điều kiện (moment thứ hai tương đương với phương sai), nghĩa là $\langle M\rangle = \V(\Delta M|\scr{F}_{i-1})$, do đó ta có 
 $$
 \langle H \bullet M \rangle = H^2\bullet \langle M \rangle \quad and \quad [H\bullet M] = H^2\bullet[M]
 $$
