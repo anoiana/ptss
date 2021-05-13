@@ -1,0 +1,48 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('phương pháp phi tham số')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+*tham khảo tại @col2015 và @kal2002*
+
+# So sánh các biểu đồ sống sót
+
+Trong các ứng dụng về clinial trial ta thường hay so sánh hiệu quả của hai đến nhiều phương pháp điều trị với nhau. Dưới góc nhìn của thống kê thì đây là bài toán so sánh CDF của hai quần thể khác nhau. Trong phần này ta sẽ bàn về các phương pháp kiểm định thường được sử dụng trong phân tích sống sốt. Ta vẫn tiếp tục xem xét các quần thể đồng nhất, nghĩa là ta bỏ qua các biến phân nhóm, ví dụ như tuổi, giới tính, cân nặng... tất cả những đặc tính khác nhau này của từng bệnh nhân đều không được xem xét. 
+
+## So sánh hiệu quả của hai phương pháp điều trị
+
+Có nhiều kiểm định được sử dụng để so sánh thời gian sống sót của hai hay nhiều quần thể. Tuy nhiên dưới _giả định proportional_ thì _kiểm định log-rank_ được chứng minh là hiệu quả hơn các kiểm định còn lại. 
+
+Để tiến hành kiểm định log-rank ta sẽ xem xét
+
+<!-- ----------------------------------------------------------------------------- -->
+
+# _References_ {-}

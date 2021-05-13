@@ -3,7 +3,7 @@ params:
   update_date: FALSE
 date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
 title: "Thuật Toán Expectation-Maximization (EM) (3/3)"
-subtitle: "Phần III - `r totitle('bai toán phân cụm',icon ='')`"
+subtitle: "Phần III - `r totitle('bài toán phân cụm',icon ='')`"
 output: 
   bookdown::html_document2:
     code_folding: hide
@@ -40,13 +40,13 @@ library(tidyverse)
 
 # Đặt vấn đề
 
-Ta lại tiếp tục xem xét một dạng bài thuộc nhóm phân cụm trong machine learning, và bàn này sẽ được giải bằng phương pháp EM. Ta nhắc lại cấu trúc bài toán "hai đồng xu" trong bài sô 1 lần trước. Trong bài toán "hai đổng xu" ta xem xét trường hợp khi ta có 2 đồng xu, mỗi đồng xu có xác suất mặt hình không giống nhau. Ta ngẫu nhiên chọn ra 1 đồng xu rồi tung đồng xu 5 lần, a lập lại 2 bước trên 10 lần.Như vậy ta thấy rằng mỗi một đổng xu đại diện cho 1 nhóm, tạm gọi là A và B. khi một đồng xu được chọn và tung 10 lần, ta có một phân bố nhị thức với parameters của nó là $5$ và $p_i$, với $i \in \{A,B\}$. Nghĩa là ta có $\P(X|A)$ và $\P(X|B)$ đều là phân bố nhị thức. Ngoài ra, ta cũng được cung cấp  một thông tin rằng đồng xu $A$ được chọn với xác suất là là $\pi_A$, như vậy xác suất để đồng xu B được chọn là $1-\pi_A$. Rõ ràng, hành động đồng xu A hoặc B được chọn lại là một phân bố bernoulli với parameter của nó là $\pi_A$. Với dạng bài này, ta gọi là phân bố hỗn hợp, vì nó kết hợp giữa 2 phân bố nhị thức bằng một phân bố bernoulli (bernoulli cũng là phân bố nhị thức với parameter $n =1$).
+Ta lại tiếp tục xem xét một dạng bài thuộc nhóm phân cụm trong machine learning, và bài này sẽ được giải bằng phương pháp EM. Ta nhắc lại cấu trúc bài toán "hai đồng xu" trong bài số 1 lần trước. Trong bài toán "hai đồng xu" ta xem xét trường hợp khi ta phải chọn 2 đồng xu, mỗi đồng xu có xác suất mặt hình không giống nhau. Ta ngẫu nhiên chọn ra 1 đồng xu rồi tung đồng xu 5 lần, ta lập lại 2 bước trên 10 lần.Như vậy ta thấy rằng mỗi một đổng xu đại diện cho 1 nhóm, tạm gọi là A và B. khi một đồng xu được chọn và tung 5 lần, ta có một phân bố nhị thức với parameters của nó là $5$ và $p_i$, với $i \in \{A,B\}$. Nghĩa là ta có $\P(X|A)$ và $\P(X|B)$ đều là phân bố nhị thức, nghĩa là $X|A \sim \mathcal{Bin}(5,p_A)$ và $X|B \sim \mathcal{Bin}(5,p_B)$. Ngoài ra, ta cũng được cung cấp  một thông tin rằng đồng xu $A$ được chọn với xác suất là là $\pi_A$, như vậy xác suất để đồng xu B được chọn là $1-\pi_A$. Rõ ràng, hành động chọn đồng xu A hoặc B lại là một phân bố bernoulli với parameter của nó là $\pi_A$, nghĩa là $Z \sim \mathcal{Bin}(1,\pi_A)$. Với dạng bài này, ta gọi là phân bố hỗn hợp, vì nó kết hợp giữa 2 phân bố nhị thức bằng một phân bố bernoulli (bernoulli cũng là phân bố nhị thức với parameter $n =1$).
 
-Lần này ta cũng sẽ xét một bài tương tự. Với một tập dữ liệu $X$ có chiều không gian $n\times p$ và một biến target $y \in \{1,2,3\}^{n}$. Nếu giả định ban đầu mỗi một hàng trong tập dữ liệu $X$ thuộc một phân bố multivariate normal, và $X$ bao gồm các quan sát thuộc 3 phân bố multiviriate normal khác nhau, thì đây cũng là một dạng bài phân bố hỗn hợp. Nhưng lần này là 3 phân bố multivariate normal được kết hợp bằng một phân bố tam thức $Z \sim Trinomial(n,p_1,p_2)$. 
+Lần này ta cũng xét một bài tương tự. Với một tập dữ liệu $X$ có chiều không gian $n\times p$ và một biến target $y \in \{1,2,3\}^{n}$. Nếu giả định ban đầu mỗi một hàng trong tập dữ liệu $X$ thuộc một phân bố multivariate normal, và $X$ bao gồm các quan sát thuộc 3 phân bố multiviriate normal khác nhau, thì đây cũng là một dạng bài phân bố hỗn hợp. Nhưng lần này là 3 phân bố multivariate normal được kết hợp bằng một phân bố tam thức $Z \sim Trinomial(n,p_1,p_2)$. 
 
 # Data giả lập
 
-Đầu tiên ta sẽ tạo một data có dạng như trên. Ta sẽ tạo ra một tập dữ liệu bao gồm 360 observations, với mỗi observation thuộc một trong ba phân bố binormal như sau:
+Đầu tiên ta sẽ tạo một data có dạng như sau. Ta sẽ tạo ra một tập dữ liệu bao gồm 360 observations, với mỗi observation thuộc một trong ba phân bố binormal:
 $$
 \begin{aligned}
 &f(x|z_1) \sim BN\bigg(\begin{bmatrix}4\\4\end{bmatrix}, \begin{bmatrix}0.25 & 0.21\\ 0.21 & 0.25\end{bmatrix}\bigg); \\
@@ -95,7 +95,7 @@ Mỗi một quan sát sẽ có xác suất là $\pi_k\mathcal{N}(\bf{\mu}_k,\bf{
 $$
 L(\theta) = \prod_{i=1}^N\prod_{k=1}^K[\pi_k\mathcal{N}(\bf{\mu}_k,\bf{\Sigma}_k)]^{z_{ik}}
 $$
-và suy ra làm log-likelihood
+và suy ra hàm log-likelihood
 $$
 l(\theta) = \sum_{i =1}^N\sum_{k=1}^Kz_{ik}[\ln\pi_k+\ln\mathcal{N}(\bf{\mu}_k, \bf{\Sigma}_k)]
 (\#eq:eq1)

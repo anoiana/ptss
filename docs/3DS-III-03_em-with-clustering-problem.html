@@ -509,6 +509,9 @@ div.tocify {
     <li>
       <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
+    <li>
+      <a href="3DS-I-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
     <li>
@@ -543,7 +546,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Thuật Toán Expectation-Maximization (EM) (3/3)</h1>
-<h3 class="subtitle">Phần III - Bai Toán Phân Cụm</h3>
+<h3 class="subtitle">Phần III - Bài Toán Phân Cụm</h3>
 <h4 class="date">📅 2021-05-12</h4>
 
 </div>
@@ -552,12 +555,12 @@ div.tocify {
 <hr />
 <div id="đặt-vấn-đề" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Đặt vấn đề</h1>
-<p>Ta lại tiếp tục xem xét một dạng bài thuộc nhóm phân cụm trong machine learning, và bàn này sẽ được giải bằng phương pháp EM. Ta nhắc lại cấu trúc bài toán “hai đồng xu” trong bài sô 1 lần trước. Trong bài toán “hai đổng xu” ta xem xét trường hợp khi ta có 2 đồng xu, mỗi đồng xu có xác suất mặt hình không giống nhau. Ta ngẫu nhiên chọn ra 1 đồng xu rồi tung đồng xu 5 lần, a lập lại 2 bước trên 10 lần.Như vậy ta thấy rằng mỗi một đổng xu đại diện cho 1 nhóm, tạm gọi là A và B. khi một đồng xu được chọn và tung 10 lần, ta có một phân bố nhị thức với parameters của nó là <span class="math inline">\(5\)</span> và <span class="math inline">\(p_i\)</span>, với <span class="math inline">\(i \in \{A,B\}\)</span>. Nghĩa là ta có <span class="math inline">\(\Bbb{P}(X|A)\)</span> và <span class="math inline">\(\Bbb{P}(X|B)\)</span> đều là phân bố nhị thức. Ngoài ra, ta cũng được cung cấp một thông tin rằng đồng xu <span class="math inline">\(A\)</span> được chọn với xác suất là là <span class="math inline">\(\pi_A\)</span>, như vậy xác suất để đồng xu B được chọn là <span class="math inline">\(1-\pi_A\)</span>. Rõ ràng, hành động đồng xu A hoặc B được chọn lại là một phân bố bernoulli với parameter của nó là <span class="math inline">\(\pi_A\)</span>. Với dạng bài này, ta gọi là phân bố hỗn hợp, vì nó kết hợp giữa 2 phân bố nhị thức bằng một phân bố bernoulli (bernoulli cũng là phân bố nhị thức với parameter <span class="math inline">\(n =1\)</span>).</p>
-<p>Lần này ta cũng sẽ xét một bài tương tự. Với một tập dữ liệu <span class="math inline">\(X\)</span> có chiều không gian <span class="math inline">\(n\times p\)</span> và một biến target <span class="math inline">\(y \in \{1,2,3\}^{n}\)</span>. Nếu giả định ban đầu mỗi một hàng trong tập dữ liệu <span class="math inline">\(X\)</span> thuộc một phân bố multivariate normal, và <span class="math inline">\(X\)</span> bao gồm các quan sát thuộc 3 phân bố multiviriate normal khác nhau, thì đây cũng là một dạng bài phân bố hỗn hợp. Nhưng lần này là 3 phân bố multivariate normal được kết hợp bằng một phân bố tam thức <span class="math inline">\(Z \sim Trinomial(n,p_1,p_2)\)</span>.</p>
+<p>Ta lại tiếp tục xem xét một dạng bài thuộc nhóm phân cụm trong machine learning, và bài này sẽ được giải bằng phương pháp EM. Ta nhắc lại cấu trúc bài toán “hai đồng xu” trong bài số 1 lần trước. Trong bài toán “hai đồng xu” ta xem xét trường hợp khi ta phải chọn 2 đồng xu, mỗi đồng xu có xác suất mặt hình không giống nhau. Ta ngẫu nhiên chọn ra 1 đồng xu rồi tung đồng xu 5 lần, ta lập lại 2 bước trên 10 lần.Như vậy ta thấy rằng mỗi một đổng xu đại diện cho 1 nhóm, tạm gọi là A và B. khi một đồng xu được chọn và tung 5 lần, ta có một phân bố nhị thức với parameters của nó là <span class="math inline">\(5\)</span> và <span class="math inline">\(p_i\)</span>, với <span class="math inline">\(i \in \{A,B\}\)</span>. Nghĩa là ta có <span class="math inline">\(\Bbb{P}(X|A)\)</span> và <span class="math inline">\(\Bbb{P}(X|B)\)</span> đều là phân bố nhị thức, nghĩa là <span class="math inline">\(X|A \sim \mathcal{Bin}(5,p_A)\)</span> và <span class="math inline">\(X|B \sim \mathcal{Bin}(5,p_B)\)</span>. Ngoài ra, ta cũng được cung cấp một thông tin rằng đồng xu <span class="math inline">\(A\)</span> được chọn với xác suất là là <span class="math inline">\(\pi_A\)</span>, như vậy xác suất để đồng xu B được chọn là <span class="math inline">\(1-\pi_A\)</span>. Rõ ràng, hành động chọn đồng xu A hoặc B lại là một phân bố bernoulli với parameter của nó là <span class="math inline">\(\pi_A\)</span>, nghĩa là <span class="math inline">\(Z \sim \mathcal{Bin}(1,\pi_A)\)</span>. Với dạng bài này, ta gọi là phân bố hỗn hợp, vì nó kết hợp giữa 2 phân bố nhị thức bằng một phân bố bernoulli (bernoulli cũng là phân bố nhị thức với parameter <span class="math inline">\(n =1\)</span>).</p>
+<p>Lần này ta cũng xét một bài tương tự. Với một tập dữ liệu <span class="math inline">\(X\)</span> có chiều không gian <span class="math inline">\(n\times p\)</span> và một biến target <span class="math inline">\(y \in \{1,2,3\}^{n}\)</span>. Nếu giả định ban đầu mỗi một hàng trong tập dữ liệu <span class="math inline">\(X\)</span> thuộc một phân bố multivariate normal, và <span class="math inline">\(X\)</span> bao gồm các quan sát thuộc 3 phân bố multiviriate normal khác nhau, thì đây cũng là một dạng bài phân bố hỗn hợp. Nhưng lần này là 3 phân bố multivariate normal được kết hợp bằng một phân bố tam thức <span class="math inline">\(Z \sim Trinomial(n,p_1,p_2)\)</span>.</p>
 </div>
 <div id="data-giả-lập" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Data giả lập</h1>
-<p>Đầu tiên ta sẽ tạo một data có dạng như trên. Ta sẽ tạo ra một tập dữ liệu bao gồm 360 observations, với mỗi observation thuộc một trong ba phân bố binormal như sau:
+<p>Đầu tiên ta sẽ tạo một data có dạng như sau. Ta sẽ tạo ra một tập dữ liệu bao gồm 360 observations, với mỗi observation thuộc một trong ba phân bố binormal:
 <span class="math display">\[
 \begin{aligned}
 &amp;f(x|z_1) \sim BN\bigg(\begin{bmatrix}4\\4\end{bmatrix}, \begin{bmatrix}0.25 &amp; 0.21\\ 0.21 &amp; 0.25\end{bmatrix}\bigg); \\
@@ -609,7 +612,7 @@ Figure 2.2: <em>Dữ liệu X khi thông tin của Z không được cung cấp.
 <span class="math display">\[
 L(\theta) = \prod_{i=1}^N\prod_{k=1}^K[\pi_k\mathcal{N}(\boldsymbol{\mu}_k,\boldsymbol{\Sigma}_k)]^{z_{ik}}
 \]</span>
-và suy ra làm log-likelihood
+và suy ra hàm log-likelihood
 <span class="math display" id="eq:eq1">\[
 l(\theta) = \sum_{i =1}^N\sum_{k=1}^Kz_{ik}[\ln\pi_k+\ln\mathcal{N}(\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)]
 \tag{3.1}
