@@ -27,6 +27,12 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-16.12.0/react.min.js"></script>
+<script src="site_libs/react-16.12.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="img/fugu.png"/>
@@ -374,10 +380,6 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">I. SURVIVAL ANALYSIS</li>
-    <li>
-      <a href="2READ-1SUV-01_nonparametrics-homogeneous-pop.html">1. Non-parametric procedures for homogeneous population</a>
-    </li>
     <li class="divider"></li>
     <li class="dropdown-header">II. OTHER TOPICS</li>
     <li>
@@ -411,6 +413,9 @@ div.tocify {
     </li>
     <li>
       <a href="3DS-I-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
+    </li>
+    <li>
+      <a href="3DS-I-04_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html">4. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
@@ -453,15 +458,63 @@ div.tocify {
 
 <hr />
 <p><em>tham khảo tại <span class="citation"><a href="#ref-col2015" role="doc-biblioref">Collett</a> (<a href="#ref-col2015" role="doc-biblioref">2015</a>)</span> và <span class="citation"><a href="#ref-kal2002" role="doc-biblioref">Kalbfleisch and Prentice</a> (<a href="#ref-kal2002" role="doc-biblioref">2011</a>)</span></em></p>
-<div id="so-sánh-các-biểu-đồ-sống-sót" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> So sánh các biểu đồ sống sót</h1>
 <p>Trong các ứng dụng về clinial trial ta thường hay so sánh hiệu quả của hai đến nhiều phương pháp điều trị với nhau. Dưới góc nhìn của thống kê thì đây là bài toán so sánh CDF của hai quần thể khác nhau. Trong phần này ta sẽ bàn về các phương pháp kiểm định thường được sử dụng trong phân tích sống sốt. Ta vẫn tiếp tục xem xét các quần thể đồng nhất, nghĩa là ta bỏ qua các biến phân nhóm, ví dụ như tuổi, giới tính, cân nặng… tất cả những đặc tính khác nhau này của từng bệnh nhân đều không được xem xét.</p>
-<div id="so-sánh-hiệu-quả-của-hai-phương-pháp-điều-trị" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> So sánh hiệu quả của hai phương pháp điều trị</h2>
+<div id="so-sánh-hiệu-quả-của-hai-phương-pháp-điều-trị" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> So Sánh Hiệu Quả Của Hai Phương Pháp Điều Trị</h1>
 <p>Có nhiều kiểm định được sử dụng để so sánh thời gian sống sót của hai hay nhiều quần thể. Tuy nhiên dưới <em>giả định proportional</em> thì <em>kiểm định log-rank</em> được chứng minh là hiệu quả hơn các kiểm định còn lại.</p>
-<p>Để tiến hành kiểm định log-rank ta sẽ xem xét</p>
-<!-- ----------------------------------------------------------------------------- -->
+<p>Trước khi tìm hiểu về kiểm định log-rank, ta sẽ ôn lại phân bố hypergeometric vì phân bố này chính là nền tảng để hình thành kiểm định log-rank.</p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>Ví dụ về phân bố Hypergeometric:</p>
 </div>
+<p>Xem xét trong một hộp banh, có <span class="math inline">\(N\)</span> banh, trong đó <span class="math inline">\(K\)</span> banh đỏ, số còn lại là banh xanh. Ta ngẫu nhiên chọn <span class="math inline">\(n\)</span> banh từ trong hộp, xác suất chọn ra được <span class="math inline">\(x\)</span> banh màu đỏ là
+<span class="math display" id="eq:eq1">\[
+\Bbb{P}(X=x) = \frac{{K \choose x}{N-K 
+\choose n-x}}{N \choose n}
+\tag{1.1}
+\]</span>
+trong đó <span class="math inline">\(\max(0, n+K-N) \le x \le \min(n,K)\)</span>. Với phân bố này ta tính được kỳ vọng và phương sai lần lượt là
+<span class="math display" id="eq:eq2">\[
+\Bbb{E}(X) = \frac{nK}{N}; \quad \Bbb{V}(X) = \frac{nK}{N}\frac{N-K}{N}\frac{N-n}{N-1}
+\tag{1.2}
+\]</span></p>
+<div class="example">
+<p><span id="exm:exm1" class="example"><strong>Example 1.1  </strong></span>Ta xem xét 2 nhóm bệnh nhân được điều trị bằng 2 phương pháp A và B, nhóm thứ nhất có 10 bệnh nhân, nhóm thứ hai có 12 bệnh nhân. Sau một tháng điều trị thì trong nhóm một có 4 bệnh nhân đã hết bệnh, và nhóm hai có 8 bệnh nhân đã hết bệnh.</p>
+</div>
+<p>Như vậy dựa vào <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> ta có
+<span class="math display">\[
+\Bbb{P}(X = 4|N = 22,K=10,n=12) = \frac{{10 \choose 4} {12 \choose 8}}{22 \choose 12},
+\]</span>
+xác suất tính ra là 0.1607526.</p>
+</div>
+<p><span style="color: #424242; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm1">1.1</a> chính là một trường hợp trong kiểm định log rank. Ví dụ ta có <span class="math inline">\(t_1 &lt; t_2, \dots, t_k\)</span> chính là mốc thời gian tử vong từ <span class="math inline">\(p\)</span> nhóm bệnh nhân. Trong đó, <span class="math inline">\(n_{ij}\)</span> chính là số bệnh nhân chưa được ghi nhận tử vong ngay trước thời điểm <span class="math inline">\(t_j\)</span> và ta có <span class="math inline">\(\sum_{i=1}^p n_{ij} = n_j\)</span> chính la tổng số bệnh nhân chưa tử vong ngay trước thời điểm <span class="math inline">\(t_j\)</span> của <span class="math inline">\(p\)</span> nhóm. Tương tự <span class="math inline">\(d_{ij}\)</span> chính là số bệnh nhân tử vong tại thời điểm <span class="math inline">\(t_j\)</span> của nhóm bệnh nhân <span class="math inline">\(i\)</span>, và <span class="math inline">\(\sum_{i=1}^pd_{ij} = d_j\)</span> là tổng số bệnh nhân tử vong tại <span class="math inline">\(t_j\)</span> của cả <span class="math inline">\(p\)</span> nhóm. Nếu <span class="math inline">\(p=2\)</span>, ta có thể tóm tắc kết quả như sau</p>
+<div class="figure" style="text-align: center"><span id="fig:fig1"></span>
+<div id="htmlwidget-ae14d724d7fdf92fc3fc" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ae14d724d7fdf92fc3fc">{"x":{"tag":{"name":"Reactable","attribs":{"data":{" ":["Số bệnh nhân tử vong tại $$t_j$$","Số bệnh nhân còn sống tại $$t_j$$","Số bệnh nhân ngay trước thời điểm $$t_j$$"],"Nhóm I":["$$d_{1j}$$","$$n_{1j} - d_{1j}$$","$$n_{1j}$$"],"Nhóm II":["$$d_{2j}$$","$$n_{2j} - d_{2j}$$","$$n_{2j}$$"],"Tổng cộng":["$$d_j$$","$$n_j-d_j$$","$$n_j$$"]},"columns":[{"accessor":" ","name":" ","type":"character","minWidth":250},{"accessor":"Nhóm I","name":"Nhóm I","type":"character"},{"accessor":"Nhóm II","name":"Nhóm II","type":"character"},{"accessor":"Tổng cộng","name":"Tổng cộng","type":"character","minWidth":150}],"resizable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"2c02fd812ef36a7fad7f56f194882aad","key":"2c02fd812ef36a7fad7f56f194882aad"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1.1: <em>Bảng tóm tắt số bệnh nhân tử vong và còn sống tại <span class="math inline">\(t_j\)</span>.</em>
+</p>
+</div>
+<p>Như vậy tại thời điểm <span class="math inline">\(t_j\)</span> ta có một phân bố hypergeometric, và dựa vào <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(1.2)</a> ta tính được kỳ vọng, phương sai và hiệp phương sai của hai nhóm bệnh nhân <span class="math inline">\(i\)</span> và <span class="math inline">\(l\)</span>:<br />
+<span class="math display" id="eq:eq3">\[
+e_{ij} = \frac{n_{ij}d_j}{n_j},
+\tag{1.3}
+\]</span>
+<span class="math display" id="eq:eq4">\[
+(\boldsymbol{W}_j)_{ii} = n_{ij}(n_j-n_{ij})d_j(n_j-d_j)n_j^{-2}(n_j-1)^{-1},
+\tag{1.4}
+\]</span>
+<span class="math display" id="eq:eq5">\[
+(\boldsymbol{W}_j)_{il} = -n_{ij}n_{lj}d_j(n_j-d_j)n_j^{-2}(n_j-1)^{-1}.
+\tag{1.5}
+\]</span></p>
+<p>Như vậy ta xem xét statistic <span class="math inline">\(\boldsymbol{w}_j = {[d_{1j}-e_{1j}, d_{2j}-e_{2j}, \dots,d_{pj}-e_{pj}]}^{\top}\)</span> sẽ có ước lượng là <span class="math inline">\(0\)</span> và covariance matrix là <span class="math inline">\(\boldsymbol{W}_j\)</span>, như vậy log-rank statistic là
+<span class="math display" id="eq:eq6">\[
+\boldsymbol{w} = \sum_{j=1}^k\boldsymbol{w}_j = \boldsymbol{\mathcal{O}} - \boldsymbol{\mathcal{E}},
+\tag{1.6}
+\]</span>
+trong đó <span class="math inline">\(\boldsymbol{\mathcal{O}} = {[\mathcal{O}_1, \mathcal{O}_2, \dots, \mathcal{O}_p]}^{\top}\)</span>, <span class="math inline">\(\boldsymbol{\mathcal{E}} = [\mathcal{E}_1, \mathcal{E}_2, \dots, \mathcal{E}_p]\)</span>, với <span class="math inline">\(\mathcal{O}_i = \sum_{j=1}^k d_{ij}\)</span> và <span class="math inline">\(\mathcal{E}_i = \sum_{j=1}^ke_{ij}\)</span>.</p>
+<!-- ----------------------------------------------------------------------------- -->
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>

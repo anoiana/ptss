@@ -29,19 +29,89 @@ link-citations: true
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+totitle = purrr::partial(totitle, icon = "")
 ```
 
 *tham khảo tại @col2015 và @kal2002*
 
-# So sánh các biểu đồ sống sót
-
 Trong các ứng dụng về clinial trial ta thường hay so sánh hiệu quả của hai đến nhiều phương pháp điều trị với nhau. Dưới góc nhìn của thống kê thì đây là bài toán so sánh CDF của hai quần thể khác nhau. Trong phần này ta sẽ bàn về các phương pháp kiểm định thường được sử dụng trong phân tích sống sốt. Ta vẫn tiếp tục xem xét các quần thể đồng nhất, nghĩa là ta bỏ qua các biến phân nhóm, ví dụ như tuổi, giới tính, cân nặng... tất cả những đặc tính khác nhau này của từng bệnh nhân đều không được xem xét. 
 
-## So sánh hiệu quả của hai phương pháp điều trị
+# `r totitle("So sánh hiệu quả của hai phương pháp điều trị")`
 
 Có nhiều kiểm định được sử dụng để so sánh thời gian sống sót của hai hay nhiều quần thể. Tuy nhiên dưới _giả định proportional_ thì _kiểm định log-rank_ được chứng minh là hiệu quả hơn các kiểm định còn lại. 
 
-Để tiến hành kiểm định log-rank ta sẽ xem xét
+Trước khi tìm hiểu về kiểm định log-rank, ta sẽ ôn lại phân bố hypergeometric vì phân bố này chính là nền tảng để hình thành kiểm định log-rank. 
+
+::::{.blackbox .brainstorm}
+::: {.center}
+Ví dụ về phân bố Hypergeometric:
+:::
+Xem xét trong một hộp banh, có $N$ banh, trong đó $K$ banh đỏ, số còn lại là banh xanh. Ta ngẫu nhiên chọn $n$ banh từ trong hộp, xác suất chọn ra được $x$ banh màu đỏ là 
+$$
+\P(X=x) = \frac{{K \choose x}{N-K 
+\choose n-x}}{N \choose n}
+(\#eq:eq1)
+$$
+trong đó $\max(0, n+K-N) \le x \le \min(n,K)$. Với phân bố này ta tính được kỳ vọng và phương sai lần lượt là 
+$$
+\E(X) = \frac{nK}{N}; \quad \V(X) = \frac{nK}{N}\frac{N-K}{N}\frac{N-n}{N-1}
+(\#eq:eq2)
+$$
+
+::: {.example #exm1}
+Ta xem xét 2 nhóm bệnh nhân được điều trị bằng 2 phương pháp A và B, nhóm thứ nhất có 10 bệnh nhân, nhóm thứ hai có 12 bệnh nhân. Sau một tháng điều trị thì trong nhóm một có 4 bệnh nhân đã hết bệnh, và nhóm hai có 8 bệnh nhân đã hết bệnh. 
+:::
+Như vậy dựa vào `r lb(eq1)` ta có
+$$
+\P(X = 4|N = 22,K=10,n=12) = \frac{{10 \choose 4} {12 \choose 8}}{22 \choose 12},
+$$
+xác suất  tính ra là `r ncol(combn(10,4))*ncol(combn(12,8))/ncol(combn(22,12))`. 
+::::
+
+`r lb(exm1)` chính là một trường hợp trong kiểm định log rank. Ví dụ ta có $t_1 < t_2, \dots, t_k$ chính là mốc thời gian tử vong từ $p$ nhóm bệnh nhân. Trong đó, $n_{ij}$ chính là số bệnh nhân chưa được ghi nhận tử vong ngay trước thời điểm $t_j$ và ta có $\sum_{i=1}^p n_{ij} = n_j$ chính la tổng số bệnh nhân chưa tử vong ngay trước thời điểm $t_j$ của $p$ nhóm. Tương tự $d_{ij}$ chính là số bệnh nhân tử vong tại thời điểm $t_j$ của nhóm bệnh nhân $i$, và $\sum_{i=1}^pd_{ij} = d_j$ là tổng số bệnh nhân tử vong tại $t_j$ của cả $p$ nhóm. Nếu $p=2$, ta có thể tóm tắc kết quả như sau 
+
+```{r fig1, fig.align='center', fig.cap="*Bảng tóm tắt số bệnh nhân tử vong và còn sống tại $t_j$.*"}
+d<-
+tibble::tibble(
+ " " = c("Số bệnh nhân tử vong tại $$t_j$$",
+         "Số bệnh nhân còn sống tại $$t_j$$",
+          "Số bệnh nhân ngay trước thời điểm $$t_j$$"),
+ "Nhóm I" = c("$$d_{1j}$$","$$n_{1j} - d_{1j}$$","$$n_{1j}$$"),
+ "Nhóm II" = c("$$d_{2j}$$","$$n_{2j} - d_{2j}$$","$$n_{2j}$$"),
+ "Tổng cộng" = c("$$d_j$$","$$n_j-d_j$$","$$n_j$$")
+               )
+draw_table(d,columns = list(
+    ` ` = colDef(minWidth = 250),`Tổng cộng`= colDef(minWidth = 150)))
+```
+
+Như vậy tại thời điểm $t_j$ ta có một phân bố hypergeometric, và dựa vào `r lb(eq2)` ta tính được kỳ vọng, phương sai và hiệp phương sai của hai nhóm bệnh nhân $i$ và $l$:  
+$$
+e_{ij} = \frac{n_{ij}d_j}{n_j},
+(\#eq:eq3)
+$$
+$$
+(\bf{W}_j)_{ii} = n_{ij}(n_j-n_{ij})d_j(n_j-d_j)n_j^{-2}(n_j-1)^{-1},
+(\#eq:eq4)
+$$
+$$
+(\bf{W}_j)_{il} = -n_{ij}n_{lj}d_j(n_j-d_j)n_j^{-2}(n_j-1)^{-1}.
+(\#eq:eq5)
+$$
+
+Như vậy ta xem xét statistic $\bf{w}_j = \tp{[d_{1j}-e_{1j}, d_{2j}-e_{2j}, \dots,d_{pj}-e_{pj}]}$ sẽ có ước lượng là $0$ và covariance matrix là $\bf{W}_j$, như vậy log-rank statistic là
+$$
+\bf{w} = \sum_{j=1}^k\bf{w}_j = \bf{\mathcal{O}} - \bf{\mathcal{E}},
+(\#eq:eq6)
+$$
+trong đó $\bf{\mathcal{O}} = \tp{[\mathcal{O}_1, \mathcal{O}_2, \dots, \mathcal{O}_p]}$, $\bf{\mathcal{E}} = [\mathcal{E}_1, \mathcal{E}_2, \dots, \mathcal{E}_p]$, với $\mathcal{O}_i = \sum_{j=1}^k d_{ij}$ và $\mathcal{E}_i =   \sum_{j=1}^ke_{ij}$. 
+
+
+
+
+
+
+
+
 
 <!-- ----------------------------------------------------------------------------- -->
 

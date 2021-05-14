@@ -17,6 +17,7 @@ output:
     number_sections: false
 navbar:
   title: "ANOIANA"
+  type: inverse
   left:
 # ----------------------- TAB 0 : HOME ------------------------------------------
     - text: "Home"
@@ -30,9 +31,9 @@ navbar:
       icon: fa-bookmark
       menu:
       # SEC I *************************************************************
-      - text: "I. SURVIVAL ANALYSIS"
-      - text: "1. Non-parametric procedures for homogeneous population"
-        href: '2READ-1SUV-01_nonparametrics-homogeneous-pop.html'
+      # - text: "I. SURVIVAL ANALYSIS"
+      # - text: "1. Non-parametric procedures for homogeneous population"
+      #   href: '2READ-1SUV-01_nonparametrics-homogeneous-pop.html'
       # SEC II *************************************************************
       - text: "---"
       - text: "II. OTHER TOPICS"
@@ -57,6 +58,8 @@ navbar:
         href: '3DS-I-02_phuong-phap-phi-tham-so.html'
       - text: "3. So sánh 2 mẫu với phương pháp phi tham số"
         href: "3DS-I-03_so-sanh-2-mau-phi-tham-so.html"
+      - text: "4. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số"
+        href: "3DS-I-04_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html"
       # SEC. 2 ********SUY LUẬN BAYES (II) *********************************
       # - text: '---'
       # - text: 'II. SUY LUẬN BAYES'
@@ -72,5 +75,4 @@ navbar:
       - text: "3. Thuật toán Expectation-Maximization (EM) [3/3]"
         href: "3DS-III-03_em-with-clustering-problem.html"
 #------------------------------------------------ ---------------------------------
-  type: inverse
 

@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Notation of Time-To-Event Measures from The Perspective of Counting Process</title>
+<title>✑ Quá Trình Ngẫu Nhiên Trong Phân Tích Sống Sót Phi Tham Số</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -374,10 +374,6 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">I. SURVIVAL ANALYSIS</li>
-    <li>
-      <a href="2READ-1SUV-01_nonparametrics-homogeneous-pop.html">1. Non-parametric procedures for homogeneous population</a>
-    </li>
     <li class="divider"></li>
     <li class="dropdown-header">II. OTHER TOPICS</li>
     <li>
@@ -412,6 +408,9 @@ div.tocify {
     <li>
       <a href="3DS-I-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
     </li>
+    <li>
+      <a href="3DS-I-04_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html">4. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
     <li>
@@ -445,23 +444,24 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">✑ Notation of Time-To-Event Measures from The Perspective of Counting Process</h1>
-<h4 class="date">📅 2021-05-11</h4>
+<h1 class="title toc-ignore">✑ Quá Trình Ngẫu Nhiên Trong Phân Tích Sống Sót Phi Tham Số</h1>
+<h4 class="date">📅 2021-05-14</h4>
 
 </div>
 
 
+<div class="right shadtrans">
+<p><span class="citation">(Tham khảo tại chương 3, <a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing 2008</a>)</span></p>
+</div>
 <hr />
-<div class="watermark">
-<p><em>DRAFT</em></p>
-</div>
-<div id="kaplan-meier" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Kaplan-Meier</h1>
-<p>Let <span class="math inline">\(S(t)\)</span> and <span class="math inline">\(\Lambda(s)\)</span> denote survivor function and cumulative hazard function, respectively. For <span class="math inline">\(j\)</span>th patient, let <span class="math inline">\(N(t)\)</span> is the number of event occurs in the interval <span class="math inline">\((0,t]\)</span>, and <span class="math inline">\(N(0) = 0\)</span>. Thus, <span class="math inline">\(N_j(t)\)</span> is a right continuous function and equal 0 until an event occurs and <span class="math inline">\(N_j(t)\)</span> will jump to unity at that moment. Let <span class="math inline">\(Y_j(t) = 1\)</span> indicates <span class="math inline">\(j\)</span>th patient has not experienced the event and uncensored just prior <span class="math inline">\(t\)</span>, and it is equal to zero when the event occurs. Thus, <span class="math inline">\(Y_j(t)\)</span> is a left continuous function. Also, <span class="math inline">\(N_{\bullet}(t) = \sum_{j=1}^nN_j(t)\)</span> and <span class="math inline">\(Y_{\bullet}(t) = \sum_{j=1}^nY_j(t)\)</span> where <span class="math inline">\(t \in (0,\tau]\)</span> with <span class="math inline">\(\tau\)</span> representing for the last point of the study.</p>
-<!-- ==================================================================================== -->
-</div>
-<div id="references" class="section level1 unnumbered">
+<!-- ----------------------------------------------------------------------------- -->
+<div id="references" class="section level1 unnumbered shad">
 <h1><em>References</em></h1>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-aal2008" class="csl-entry">
+Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.
+</div>
 </div>
 
 

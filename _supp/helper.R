@@ -28,7 +28,8 @@ colorize <- function(x, color= "#F5B7B1",size = "18"){
  sprintf("<span style='color: %s; font-size: %s;'>%s</span>", color, size, x)
 }
 # table ---
-draw_table = purrr::partial(reactable::reactable,bordered = TRUE, striped = TRUE, highlight = TRUE, fullWidth = FALSE)
+draw_table = purrr::partial(reactable::reactable,bordered = TRUE, striped = TRUE,
+                            highlight = TRUE, fullWidth = FALSE, resizable = TRUE)
 # print from right side
 rs = function(x) paste0("<P align=right> ",x," </P>")
 

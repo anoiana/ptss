@@ -7,6 +7,10 @@ body {
     font-size: 19px;
 }
 
+.title {
+  text-shadow: 2px 2px 5px grey;
+}
+
 /* make scrollbar for long math equations*/
 
 .MathJax_Display, .MJXc-display, .MathJax_SVG_Display {
@@ -143,6 +147,15 @@ a:hover {
   color: #BDBFC2;
 }
 
+.whitebox {
+    padding: 1em 0em 0.2em 0.2em;
+    border: 2px solid #1B1C20;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 10px 10px 5px grey;
+    font-size: 17px;
+}
+
 .center {
   text-align: left;
   padding: 0em 0em 0.3em 3em;
@@ -156,6 +169,22 @@ a:hover {
 
 .right {
   text-align: right;
+}
+
+.shadtrans {
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-name: shadowtrans;
+  font-size: 17px;
+}
+
+.shad {
+  text-shadow: 2px 2px 5px grey;
+}
+
+@keyframes shadowtrans {
+  from {text-shadow: 2px 2px 5px white;}
+  to {text-shadow: 2px 2px 5px grey;}
 }
 
 /* Remove excessive white space at the end of page */
