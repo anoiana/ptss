@@ -135,6 +135,7 @@ muk = apply(ranges,2, function(i) runif(3,i[1],i[2]))
 muk = lapply(1:3, function(i) muk[i,])
 Sigmas <- lapply(1:3, function(i) matrix(c(1,0,0,1),nrow = 2))
 
+iter_n = expand.grid(letters,letters)%>% apply(1,purrr::lift_dv(paste0))%>% sort()
 for(iter in 1:30){
 # EM steps
 gammak<-
@@ -159,26 +160,26 @@ pmap(list(muk, gammak), ~{
 
 pred = reduce(gammak,cbind)%>%apply(1, which.max)
 
-# #create animated images
-# 
-# f = function()  plot(dat, col = pred, main = paste0(iter))
-# k = ggplotify::as.ggplot(f)
-# if(!dir.exists("_supp/myfolder")) dir.create("_supp/myfolder")
-# ggsave(plot = f, filename =  paste0("_supp/myfolder/",iter,".png"), device = "png")
+#create animated images
+
+f = function()  plot(dat, col = pred, main = paste0(iter))
+k = ggplotify::as.ggplot(f)
+if(!dir.exists("_supp/myfolder")) dir.create("_supp/myfolder")
+ggsave(plot = f, filename =  paste0("_supp/myfolder/",iter_n[iter],".png"), device = "png")
 
 }
 
-# ## list file names and read in
-# imgs <- list.files("_supp/myfolder", full.names = TRUE)
-# img_list <- lapply(imgs, magick::image_read)
-# ## join the images together
-# img_joined <- magick::image_join(img_list)
-# ## animate at 2 frames per second
-# img_animated <- magick::image_animate(img_joined, fps = 1)
-# ## save to disk
-# magick::image_write(image = img_animated,
-#             path = "img/img1.gif")
-# unlink("_supp/myfolder", recursive = TRUE)
+## list file names and read in
+imgs <- list.files("_supp/myfolder", full.names = TRUE)
+img_list <- lapply(imgs, magick::image_read)
+## join the images together
+img_joined <- magick::image_join(img_list)
+## animate at 2 frames per second
+img_animated <- magick::image_animate(img_joined, fps = 2)
+## save to disk
+magick::image_write(image = img_animated,
+            path = "img/img1.gif")
+unlink("_supp/myfolder", recursive = TRUE)
 
 
 b1 = sort(table(pred))
@@ -201,10 +202,12 @@ Sau 30 lần chạy, ta sẽ có kết quả được thể hiện như trong b�
 
 ```{r fig2, echo=TRUE, message=FALSE, warning=FALSE, fig.align='center', fig.cap= "*Bảng confusion thể hiện tỉ lệ dự đoán đúng và sai theo trong từng trường hợp.*"}
 load("_supp/confu1.RData")
-cvms::plot_confusion_matrix(confu,target_col = "y", prediction_col = "pred",
+a = cvms::plot_confusion_matrix(confu,target_col = "y", prediction_col = "pred",
                                                   counts_col = "n")
+r = mutate(a$data, g = ifelse(Target==Prediction,1,0))%>% group_by(g)%>% summarise(s=sum(N))%$% `names<-`(s,g)
+a
 ```
-Như vậy tỉ lệ dự đoán chính xác lên đến `r 48.3+25+19.4`% chính là tồng phần trăm thể hiện trên đường chéo của `r lb(fig2)`. 
+Như vậy tỉ lệ dự đoán chính xác lên đến `r r['1']*100/sum(r)`% chính là tồng phần trăm thể hiện trên đường chéo của `r lb(fig2)`. 
 
 
 

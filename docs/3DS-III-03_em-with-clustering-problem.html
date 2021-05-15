@@ -651,58 +651,59 @@ Trong đó
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>muk <span class="ot">=</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) muk[i,])</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>Sigmas <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">nrow =</span> <span class="dv">2</span>))</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(iter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>){</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># EM steps</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>gammak<span class="ot">&lt;-</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">pmap</span>(<span class="fu">list</span>(pik,muk,Sigmas), <span class="sc">~</span>{</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a> <span class="fu">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(i) ..<span class="dv">1</span><span class="sc">*</span><span class="fu">dmvnorm</span>(i,..<span class="dv">2</span>,..<span class="dv">3</span>) )</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>})<span class="sc">%&gt;%</span> purrr<span class="sc">::</span><span class="fu">pmap</span>(<span class="sc">~</span> <span class="fu">c</span>(...)<span class="sc">%&gt;%</span>{.<span class="sc">/</span><span class="fu">sum</span>(.)})<span class="sc">%&gt;%</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a> <span class="fu">reduce</span>(rbind)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># M step</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>pik<span class="ot">&lt;-</span><span class="fu">t</span>(gammak)<span class="sc">%*%</span><span class="fu">rep</span>(<span class="dv">1</span>,N)<span class="sc">/</span>N</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>muk <span class="ot">=</span> <span class="fu">apply</span>(gammak,<span class="dv">2</span>, <span class="cf">function</span>(i) <span class="fu">t</span>(dat)<span class="sc">%*%</span>i<span class="sc">/</span><span class="fu">sum</span>(i) )<span class="sc">%&gt;%</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a> {<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) .[,i] )}</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>gammak <span class="ot">=</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(gammak), <span class="cf">function</span>(i) gammak[,i] )</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>Sigmas<span class="ot">&lt;-</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap</span>(<span class="fu">list</span>(muk, gammak), <span class="sc">~</span>{</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a> m <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(j) (j<span class="sc">-</span>..<span class="dv">1</span>)))</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(m), <span class="cf">function</span>(i) m[i,]<span class="sc">%*%</span><span class="fu">t</span>(m[i,])<span class="sc">*</span>..<span class="dv">2</span>[i]<span class="sc">/</span><span class="fu">sum</span>(..<span class="dv">2</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">=</span> <span class="fu">reduce</span>(gammak,cbind)<span class="sc">%&gt;%</span><span class="fu">apply</span>(<span class="dv">1</span>, which.max)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># #create animated images</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># f = function()  plot(dat, col = pred, main = paste0(iter))</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co"># k = ggplotify::as.ggplot(f)</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># if(!dir.exists(&quot;_supp/myfolder&quot;)) dir.create(&quot;_supp/myfolder&quot;)</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(plot = f, filename =  paste0(&quot;_supp/myfolder/&quot;,iter,&quot;.png&quot;), device = &quot;png&quot;)</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co"># ## list file names and read in</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co"># imgs &lt;- list.files(&quot;_supp/myfolder&quot;, full.names = TRUE)</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co"># img_list &lt;- lapply(imgs, magick::image_read)</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co"># ## join the images together</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co"># img_joined &lt;- magick::image_join(img_list)</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co"># ## animate at 2 frames per second</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="co"># img_animated &lt;- magick::image_animate(img_joined, fps = 1)</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="co"># ## save to disk</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="co"># magick::image_write(image = img_animated,</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="co">#             path = &quot;img/img1.gif&quot;)</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co"># unlink(&quot;_supp/myfolder&quot;, recursive = TRUE)</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>iter_n <span class="ot">=</span> <span class="fu">expand.grid</span>(letters,letters)<span class="sc">%&gt;%</span> <span class="fu">apply</span>(<span class="dv">1</span>,purrr<span class="sc">::</span><span class="fu">lift_dv</span>(paste0))<span class="sc">%&gt;%</span> <span class="fu">sort</span>()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(iter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>){</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># EM steps</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>gammak<span class="ot">&lt;-</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">pmap</span>(<span class="fu">list</span>(pik,muk,Sigmas), <span class="sc">~</span>{</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a> <span class="fu">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(i) ..<span class="dv">1</span><span class="sc">*</span><span class="fu">dmvnorm</span>(i,..<span class="dv">2</span>,..<span class="dv">3</span>) )</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>})<span class="sc">%&gt;%</span> purrr<span class="sc">::</span><span class="fu">pmap</span>(<span class="sc">~</span> <span class="fu">c</span>(...)<span class="sc">%&gt;%</span>{.<span class="sc">/</span><span class="fu">sum</span>(.)})<span class="sc">%&gt;%</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a> <span class="fu">reduce</span>(rbind)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># M step</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>pik<span class="ot">&lt;-</span><span class="fu">t</span>(gammak)<span class="sc">%*%</span><span class="fu">rep</span>(<span class="dv">1</span>,N)<span class="sc">/</span>N</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>muk <span class="ot">=</span> <span class="fu">apply</span>(gammak,<span class="dv">2</span>, <span class="cf">function</span>(i) <span class="fu">t</span>(dat)<span class="sc">%*%</span>i<span class="sc">/</span><span class="fu">sum</span>(i) )<span class="sc">%&gt;%</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a> {<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) .[,i] )}</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>gammak <span class="ot">=</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(gammak), <span class="cf">function</span>(i) gammak[,i] )</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>Sigmas<span class="ot">&lt;-</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap</span>(<span class="fu">list</span>(muk, gammak), <span class="sc">~</span>{</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a> m <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(j) (j<span class="sc">-</span>..<span class="dv">1</span>)))</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(m), <span class="cf">function</span>(i) m[i,]<span class="sc">%*%</span><span class="fu">t</span>(m[i,])<span class="sc">*</span>..<span class="dv">2</span>[i]<span class="sc">/</span><span class="fu">sum</span>(..<span class="dv">2</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">=</span> <span class="fu">reduce</span>(gammak,cbind)<span class="sc">%&gt;%</span><span class="fu">apply</span>(<span class="dv">1</span>, which.max)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#create animated images</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>()  <span class="fu">plot</span>(dat, <span class="at">col =</span> pred, <span class="at">main =</span> <span class="fu">paste0</span>(iter))</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> ggplotify<span class="sc">::</span><span class="fu">as.ggplot</span>(f)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;_supp/myfolder&quot;</span>)) <span class="fu">dir.create</span>(<span class="st">&quot;_supp/myfolder&quot;</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> f, <span class="at">filename =</span>  <span class="fu">paste0</span>(<span class="st">&quot;_supp/myfolder/&quot;</span>,iter_n[iter],<span class="st">&quot;.png&quot;</span>), <span class="at">device =</span> <span class="st">&quot;png&quot;</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="do">## list file names and read in</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>imgs <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;_supp/myfolder&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>img_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(imgs, magick<span class="sc">::</span>image_read)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="do">## join the images together</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>img_joined <span class="ot">&lt;-</span> magick<span class="sc">::</span><span class="fu">image_join</span>(img_list)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="do">## animate at 2 frames per second</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>img_animated <span class="ot">&lt;-</span> magick<span class="sc">::</span><span class="fu">image_animate</span>(img_joined, <span class="at">fps =</span> <span class="dv">2</span>)</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="do">## save to disk</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>magick<span class="sc">::</span><span class="fu">image_write</span>(<span class="at">image =</span> img_animated,</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;img/img1.gif&quot;</span>)</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(<span class="st">&quot;_supp/myfolder&quot;</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">table</span>(pred))</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">table</span>(y))</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">names</span>(b2)<span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>(), <span class="fu">names</span>(b1)<span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>())</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">sapply</span>(y, <span class="cf">function</span>(i)  a[<span class="fu">match</span>(i,a[,<span class="dv">1</span>]),<span class="dv">2</span>])</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>confu <span class="ot">=</span> <span class="fu">table</span>(pred,y)<span class="sc">%&gt;%</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(confu, <span class="at">file =</span> <span class="st">&quot;_supp/confu1.RData&quot;</span>)</span></code></pre></div>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">table</span>(pred))</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">table</span>(y))</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">names</span>(b2)<span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>(), <span class="fu">names</span>(b1)<span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>())</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">sapply</span>(y, <span class="cf">function</span>(i)  a[<span class="fu">match</span>(i,a[,<span class="dv">1</span>]),<span class="dv">2</span>])</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>confu <span class="ot">=</span> <span class="fu">table</span>(pred,y)<span class="sc">%&gt;%</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(confu, <span class="at">file =</span> <span class="st">&quot;_supp/confu1.RData&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:fig1"></span>
 <img src="img/img1.gif" alt="*Quá trình thay đổi biến target trong 30 iterations*"  />
 <p class="caption">
@@ -713,15 +714,17 @@ Figure 3.1: <em>Quá trình thay đổi biến target trong 30 iterations</em>
 <p>Như trong <span style="color: #424242; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig1">3.1</a> ta thấy rằng qua mỗi lần iteration, thì các observations lại thay đổi qua lại trong 3 cụm. Càng về cuối thì sự thay đổi này càng ít đi và đến cuối cùng thì dường như không còn thay đổi nữa.</p>
 <p>Sau 30 lần chạy, ta sẽ có kết quả được thể hiện như trong bảng confusion <span style="color: #424242; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">3.2</a> bên dưới</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;_supp/confu1.RData&quot;</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cvms<span class="sc">::</span><span class="fu">plot_confusion_matrix</span>(confu,<span class="at">target_col =</span> <span class="st">&quot;y&quot;</span>, <span class="at">prediction_col =</span> <span class="st">&quot;pred&quot;</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">counts_col =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> cvms<span class="sc">::</span><span class="fu">plot_confusion_matrix</span>(confu,<span class="at">target_col =</span> <span class="st">&quot;y&quot;</span>, <span class="at">prediction_col =</span> <span class="st">&quot;pred&quot;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">counts_col =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">mutate</span>(a<span class="sc">$</span>data, <span class="at">g =</span> <span class="fu">ifelse</span>(Target<span class="sc">==</span>Prediction,<span class="dv">1</span>,<span class="dv">0</span>))<span class="sc">%&gt;%</span> <span class="fu">group_by</span>(g)<span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">s=</span><span class="fu">sum</span>(N))<span class="sc">%$%</span> <span class="st">`</span><span class="at">names&lt;-</span><span class="st">`</span>(s,g)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:fig2"></span>
 <img src="3DS-III-03_em-with-clustering-problem_files/figure-html/fig2-1.png" alt="*Bảng confusion thể hiện tỉ lệ dự đoán đúng và sai theo trong từng trường hợp.*" width="672" />
 <p class="caption">
 Figure 3.2: <em>Bảng confusion thể hiện tỉ lệ dự đoán đúng và sai theo trong từng trường hợp.</em>
 </p>
 </div>
-<p>Như vậy tỉ lệ dự đoán chính xác lên đến 92.7% chính là tồng phần trăm thể hiện trên đường chéo của <span style="color: #424242; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">3.2</a>.</p>
+<p>Như vậy tỉ lệ dự đoán chính xác lên đến 94.4444444% chính là tồng phần trăm thể hiện trên đường chéo của <span style="color: #424242; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">3.2</a>.</p>
 <!-- ----------------------------------------------------------------------------- -->
 <!-- # _References_ {-} -->
 </div>
