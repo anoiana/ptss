@@ -1,0 +1,211 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('giới thiệu bayes')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: false
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+\newcommand{\scr}[1]{\mathscr{#1}}
+
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+\def\proved{\blacksquare\quad} 
+
+::: {.right .shad}
+[tham khảo tại @held2014applied]
+:::
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options("scipen"=100)
+source("_supp/helper.R")
+library(tidyverse)
+ttt = purrr::partial(totitle, icon ="")
+```
+
+# `r ttt('công thức bayes')`
+
+Ta sẽ bắt đầu nội dung này bằng cách nhắc lại công thức _Bayes_ được phát biểu như sau 
+$$
+\P(\Theta|X) = \frac{\P(X|\Theta)\P(\Theta)}{\P(X)},
+(\#eq:eq1)
+$$
+
+với $\Theta$ và $X$ lần lượt là 2 sự kiện xảy ra trong một thí nghiệm. 
+
+:::{.example #exm1}
+Ta chọn ngẫu nhiên một trong hai đồng xu I và II với xác suất mặt hình lần lượt là $p_1=0.4$ và $p_2=0.7$, rồi tung đầu xu đó $n$ lần. Sẽ cò 2 hành động ta cần xem xét, hành động thứ nhất là "chọn một trong hai đồng xu", gọi xác suất đồng xu I được chọn là $\theta = 0.5$, như vậy xác suất đồng xu II được chọn là $1-\theta = 0.5$. Hành động thứ hai là tung đồng xu $n$ lần.Ta muốn xác định $\theta$ sau khi quan sát kết quả số mặt hình thu được sau khi tung đồng xu, nghĩa là $\P(\Theta|X)$. 
+:::
+
+Trong `r lb(exm1)` ta có thể thấy được rằng 2 hành động đều thuộc phân bố binomial, trong đó hành động chọn 1 trong 2 đồng xu là phân bố binomial với 2 parameters là $n =1$ và $p = \theta$, như vậy ta có $\Theta \sim \mathcal{Bin}(1,\theta)$. Hành động tung đồng xu $n$ lần cũng là một phân bố binomial có điều kiện. Nghĩa là tùy thuộc vào đồng xu được chọn mà ta sẽ có phân bố binomial với parameters khác nhau. Như vậy 2 phân bố binomial sẽ có dạng
+$$
+X|\Theta = \theta \sim \mathcal{Bin}(n,p_1); \quad X|\Theta = 1-\theta \sim \mathcal{Bin}(n,p_2)
+$$
+
+Để đơn giản ta sẽ xem xét trường hợp khi $n=10$. Như vậy nếu như sau 10 lần tung đồng xu ta thu được 7 mặt hình và 3 mặt chữ. Ta sẽ tính được xác suất này cho từng đồng xu như sau
+$$
+\P(X|\Theta = \theta) = {10 \choose 7}0.4^{7}0.6^{3}, \quad 
+\P(X|\Theta = \theta) = {10 \choose 7}0.7^{7}0.3^{3}, 
+$$
+
+kết quả bằng `r dbinom(7,10,0.4)` và `r dbinom(7,10,0.7)`. Sử dụng `r lb(eq1)` ta có
+$$
+\P(\Theta|X) = \frac{\P(X|\Theta = \theta)\P(\Theta=\theta)}{\P(X|\Theta = \theta)\P(\Theta=\theta)+\P(X|\Theta = 1-\theta)\P(\Theta=1-\theta)}
+$$
+kết quả bằng `r dbinom(7,10,0.4)/(dbinom(7,10,0.4)+dbinom(7,10,0.7))`, và đây là xác suất đồng xu I được chọn. 
+
+:::{.whitebox}
+Kết quả này rất hợp lý vì đồng xu I có xác suất mặt hình nhỏ hơn mặt chữ trong khi đồng xu II thì có xác suất mặt hình lớn hơn mặt chữ. Từ data $X$ ta thấy rằng ta thu đượt 7 mặt hình và 3 mặt chữ, tức là mặt hình nhiều hơn mặt chữ, vì thế trong điều kiện của $X = 7$ thì khả năng đồng xu số I đã được chọn là nhỏ hơn đồng xu II. 
+:::
+
+Nếu ta tiếp tụng tung đầu xu lên 10 lần, và tùy vào số mặt hình thu được, xác suất đồng xu I được chọn cũng thay đổi. Ta có thể vẽ biểu đồ sau đề thấy sự biến thiên của xác suất đồng xu I được chọn
+
+```{r fig1, fig.align='center', fig.cap="*Xác suất đồng xu I được chọn sau khi quan sát tập dữ liệu X.*"}
+thet = sapply(0:10, function(i) dbinom(i,10,0.4)/(dbinom(i,10,0.4)+dbinom(i,10,0.7)))
+ggplot(tibble(x = 0:10, y= thet), aes(x=x, y= y))+
+  geom_line(linetype =5, color = "grey60")+ 
+  geom_point()+
+  scale_x_continuous(breaks = 0:10)+
+  labs(x = "Số mặt hình", y="xác suất đồng xu I được chọn sau khi X được quan sát")+
+  theme_bw()
+```
+
+# `r ttt('phân bố posterior')`
+
+Nếu như trong công thức `r lb(eq1)` xác suất điều kiện được viết bằng hàm xác suất khối (probability mass function-PMF) với 2 sự kiện $\Theta$ và $X$, thì đối với tập dữ liệu liên tục ta sẽ viết thành
+$$
+f(\theta|x) = \frac{f(x|\theta)f(\theta)}{f(x)} = 
+\frac{f(x|\theta)f(\theta)}{\int_{\Theta} f(x|\theta)f(\theta)d\theta}.
+(\#eq:eq2)
+$$
+Phương trình trong `r lb(eq2)` là dạng tổng quát của `r lb(eq1)` có thể đại diện cho cả phân bố liên tục và rời rạc (trong trường hợp rời rạc thì dấu tích phân $\int$ dưới mẫu đổi thành phép tổng $\sum$). Và đây gọi là *phân bố posterior*. Ngoài ra, hàm $f(x|\theta)$ và $f(\theta)$ lần lượt là hàm *likelihood* và *hàm prior*. Một lưu ý nữa là phần tích phân dưới mẫu số của `r lb(eq2)` được tính trên tập xác định của $\theta$ nên kết quả độc lập với $\theta$, vì vì thế ta có thể viết
+$$
+f(\theta|x) \propto f(x|\theta)f(\theta)
+$$
+
+## `r ttt('ước lượng điểm')`
+
+Một khi đã xác định được hàm phân bố posterior, ta có thể tính được ước lượng bayesian điểm (bayesian point estimate) chính là  kỳ vọng (mean), trung vị (median) hay yếu vị (mode) của hàm posterior. Như vậy kỳ vọng của hàm posterior là
+$$
+\E(\theta|x) = \int\theta f(\theta|x)d\theta,
+(\#eq:eq3)
+$$
+trung vị là
+$$
+Med(\theta|x) = \bigg\{m : \int_{-\infty}^mf(\theta|x)d\theta = 0.5 \land \int_m^{\infty}f(\theta|x)d\theta =0.5 \bigg\} 
+(\#eq:eq4)
+$$
+và yếu vị là
+$$
+Mod(\theta|x) = \arg\max_{\theta \in \Theta}f(\theta|x)
+(\#eq:eq5)
+$$
+
+## `r ttt('ước lượng khoảng')`
+
+Ngoài ra ta có thể xác định ước lượng khoảng dựa vào hàm posterior, được gọi là khoảng tin cậy (credible interval). Khoảng tin cậy được định nghĩa là $L$ và $U$ nếu
+$$
+\int_{L}^Uf(\theta|x)d\theta = 1-\alpha
+(\#eq:eq6)
+$$
+
+Ta kết luận rằng $\theta \in (L,U)$ với xác suất là $(1-\alpha)100\%$. 
+
+::::{.blackbox .brainstorm}
+:::{.center}
+Lưu ý:
+:::
+Khoảng tin cậy được lấy từ hàm posterior có ý nghĩa khác với khoảng tin cậy theo phương pháp frequentist thông thường. Với phương pháp frequentist, thì parameter $\theta$ không phải là một biến ngẫu nhiên mà là một giá trị cố định nhưng không được biết, nghĩa là nó không có xác suất hoặc là xác suất của nó chỉ là $1$ hoặc $0$. Vì thế khoảng tin cậy của nó được giải thích là nếu ta lập lại thí nghiệm nhiều lần thì $(1-\alpha)100\%$ trong số đó sẽ chứa giá trị đúng của $\theta$. Trong khi theo trường phái Bayes thì $\theta$ là một biến ngẫu nhiên và phân bố của nó chính là phân phố posterior, nên ta có thể kết luận bằng khái niệm xác suất.
+::::
+
+:::{.example #exm2}
+Ta có một đồng xu với xác suất mặt hình là $\theta$, nhiệm vụ của ta là ước lượng giá trị $\theta$. Để thực hiện, ta bắt đầu làm một thí nghiệm bằng cách tung đồng xu $n$ lần và xem xét số mặt hình thu được. Ví dụ ta biết rằng $\theta$ là một biến ngẫu nhiên thuộc phân bố $\mathcal{Beta}$, ta có 
+$$
+\theta \sim \mathcal{Beta}(\alpha,\beta) \\
+f(\theta) = {n\choose x}\theta^x(1-\theta)^{n-x}
+$$ 
+và 
+$$
+X|\theta \sim \mathcal{Bin}(n,\theta)\\
+f(x|\theta) = \frac{1}{\mathcal{B}(\alpha,\beta)}\theta^{\alpha-1}(1-\alpha)^{\beta-1}
+$$
+Như vậy ta có thể suy ra rằng
+$$
+\begin{aligned}
+f(\theta|x) &\propto f(x|\theta)f(\theta) \\
+&= \theta^x(1-\theta)^{n-x}\theta^{\alpha-1}(1-\theta)^{\beta-1}\\
+&= \theta^{\alpha+x-1}(1-\theta)^{\beta+n-x-1}
+\end{aligned}
+$$
+Như vậy ta sẽ có
+$$
+\theta|x \sim \mathcal{Beta}(\alpha+x,\beta+n-x)
+(\#eq:eq7)
+$$
+:::
+
+Từ kết quả của `r lb(eq7)` ta có thể tính được kỳ vọng của $\theta|x$
+
+$$
+\begin{aligned}
+\E(\theta|x) &= \frac{\alpha+x}{\alpha+\beta+n} \\
+&= \underbrace{\frac{\alpha+\beta}{\alpha+\beta+n}}_{\text{tỉ lệ khối }\pi}\underbrace{\frac{\alpha}{\alpha+\beta}}_{\E(\theta)}+\underbrace{\frac{n}{\alpha+\beta+n}}_{\text{tỉ lệ khối }1-\pi}\underbrace{\frac{x}{n}}_{\E(X)}
+\end{aligned}
+(\#eq:eq8)
+$$
+Dựa vào `r lb(eq8)` ta thấy rằng kỳ vọng của hàm posterior chính là trung bình cộng của kỳ vọng hàm prior và kỳ vọng hàm likelihood. Ta thấy rằng nếu $n \to 0$ thì $\pi \to 1$ và kỳ vọng của hàm posterior tiến gần đến kỳ vọng của hàm prior, còn nếu $n \to \infty$ thì kỳ vọng hàm posterior tương đương kỳ vọng hàm likelihood. Điều này thể hiện rõ trong `r lb(fig2)`.
+
+```{r fig2, fig.align='center', fig.cap="*phân bố posterior và phân bố prior biến thiên theo giá trị của n.*"}
+knitr::include_graphics("img/img2.gif")
+```
+
+Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối $(1-\pi)$ là $n$ chính là kích cỡ mẫu của tập dữ liệu,như vậy ta có thể suy ra rằng phần tử số của tĩ lệ khối $\pi$ là $(\alpha+\beta)$ chính là kích cỡ mẫu của hàm prior. 
+
+Ta cũng biết rằng $\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)$, hàm prior này có ý nghĩa là ta không hề có bất kỳ thông tin nào về $\theta$ đưo5c cho trước. Vì kích cỡ mẫu của hàm prior bấy giờ là $\alpha+\beta =2$, một success một failure. Khi đó kỳ vọng của hàm posterior là $(x+1)/(n+2)$ và yếu vị của hàm posterior chính là $\hat{\theta}_{MLE} = \bar{x}$ [@held2014applied]. 
+
+# `r ttt('Chọn hàm prior')` (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)
+
+Về mặt ý nghĩa hàm prior đại diện cho nguồn thông tin mà ta có thể biết trước khi ta quan sát từ tập dữ liệu. Về mặt thống kê học thì chọn hàm prior nghĩa là chọn một phân bố cho parameters mà ta muốn ước lượng, từ đó kết hợp thông tin này với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm prior và hàm likelihood. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm prior vì một số hàm prior sẽ gây khó khăn trong việc tính toán hàm posterior. Phần này ta xem xét cách để chọn một hàm prior phù hợp.
+
+## `r ttt('hàm prior conjugate')`
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+:::{.shad} 
+# References {-}
+:::

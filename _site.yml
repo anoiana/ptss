@@ -61,10 +61,10 @@ navbar:
       - text: "4. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số"
         href: "3DS-I-04_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html"
       # SEC. 2 ********SUY LUẬN BAYES (II) *********************************
-      # - text: '---'
-      # - text: 'II. SUY LUẬN BAYES'
-      # - text: "1. Kiểm định Bayes"
-      #   href: "3DS-II-01_kiem-dinh-bayes.html"
+      - text: '---'
+      - text: 'II. SUY LUẬN BAYES'
+      - text: "1. Giới thiệu Bayes"
+        href: "3DS-II-01_gioi-thieu-bayes.html"
       # SEC. 3 ********CÁC CHỦ ĐỀ RIÊNG (III) ***************
       - text: '---'
       - text: 'III. CÁC CHỦ ĐỀ RIÊNG'

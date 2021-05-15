@@ -141,16 +141,17 @@ a:hover {
 .blackbox {
   padding: 1em 0em 0.2em 0.2em;
   border: 2px solid #A8A8A8;
-  border-radius: 10px;
+  border-radius: 7px;
   background: #1B1C20 5px 0.3em/2.5em no-repeat;
   margin-bottom: 10px;
   color: #BDBFC2;
+  font-size: 17px;
 }
 
 .whitebox {
     padding: 1em 0em 0.2em 0.2em;
     border: 2px solid #1B1C20;
-    border-radius: 10px;
+    border-radius: 7px;
     margin-bottom: 10px;
     box-shadow: 10px 10px 5px grey;
     font-size: 17px;

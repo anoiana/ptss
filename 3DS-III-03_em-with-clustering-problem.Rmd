@@ -177,7 +177,7 @@ pred = reduce(gammak,cbind)%>%apply(1, which.max)
 # img_animated <- magick::image_animate(img_joined, fps = 1)
 # ## save to disk
 # magick::image_write(image = img_animated,
-#             path = "_supp/img/img1.gif")
+#             path = "img/img1.gif")
 # unlink("_supp/myfolder", recursive = TRUE)
 
 
