@@ -1,5 +1,5 @@
 if(!require(pacman)) install.packages("pacman");pacman::p_load(
- tidyverse, haven, magrittr, furrr,Hmisc, grid, ggplotify, forestplot, knitr, kableExtra, DT, network, sna, reactable, xaringan, bookdown,scriptName
+ tidyverse, magrittr, Hmisc, reactable
 )
 
 ##################################
@@ -19,7 +19,7 @@ lb = function(...){
                        def1[1] == "fig" ~ "Fig."
   )%>% paste0("*",.,"*")
 
- paste0(colorize(a, color = "#424242")," \\@ref(",def1[1],":",def1[2],")")%>%
+ paste0(colorize(a, color = "#C46ADD")," \\@ref(",def1[1],":",def1[2],")")%>%
   str_remove_all('`')
 }
 # function ----
@@ -65,6 +65,7 @@ my_text = function(x, font = "Arial", size = 19){
 }
 
 ################## square sign for complete of proof ####################
-proved = function(x = "$\\blacksquare$"){
-  sprintf("<p style='float:right;'>%s</p> </p>", x)
+proved = function(x = "$\\tiny\\blacksquare$", size = 19){
+  sprintf("<p style='float:right; font-size:%spx'>%s</p></p>", size,x)
 }
+

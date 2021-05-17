@@ -630,7 +630,7 @@ Trong đó
 \gamma(z_{ik}) = \frac{\pi_k\mathcal{N}(\boldsymbol{x}_i|\boldsymbol{\mu}_k,\boldsymbol{\Sigma}_k)}{\sum_{k=1}^K\pi_k\mathcal{N}(\boldsymbol{x}_i|\boldsymbol{\mu}_k,\boldsymbol{\Sigma}_k)}
 \tag{3.2}
 \]</span>
-<strong>Trong bước M</strong>, ta lấy đạo hàm <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(3.1)</a> theo biến <span class="math inline">\(\boldsymbol{\mu}_k\)</span>, <span class="math inline">\(\boldsymbol{\Sigma}_k\)</span> và <span class="math inline">\(\pi_k\)</span>, cho đạo hàm bằng 0, ta sẽ có
+<strong>Trong bước M</strong>, ta lấy đạo hàm <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(3.1)</a> theo biến <span class="math inline">\(\boldsymbol{\mu}_k\)</span>, <span class="math inline">\(\boldsymbol{\Sigma}_k\)</span> và <span class="math inline">\(\pi_k\)</span>, cho đạo hàm bằng 0, ta sẽ có
 <span class="math display" id="eq:eq3">\[
 \begin{aligned}
 \boldsymbol{\mu}_k &amp;= \frac{\sum_{i=1}^N\gamma(z_{ik})\boldsymbol{x}_i}{\sum_{i=1}^N\gamma(z_{ik})} \\
@@ -639,7 +639,7 @@ Trong đó
 \end{aligned} 
 \tag{3.3}
 \]</span></p>
-<p>Sử dụng <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(3.2)</a> và <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(3.3)</a> để viết <code>R code</code> như bên dưới</p>
+<p>Sử dụng <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(3.2)</a> và <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(3.3)</a> để viết <code>R code</code> như bên dưới</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">ncol</span>(dat) <span class="co"># number of dimensions</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat) <span class="co"># number of samples</span></span>
@@ -711,8 +711,8 @@ Figure 3.1: <em>Quá trình thay đổi biến target trong 30 iterations</em>
 </p>
 </div>
 <p>Phương pháp EM đã có package sẵn trong <code>R</code> để chạy với tốc độ khá nhanh, tuy nhiên với mục đích học và hiểu, trong bài này ta sẽ tự code thủ công.</p>
-<p>Như trong <span style="color: #424242; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig1">3.1</a> ta thấy rằng qua mỗi lần iteration, thì các observations lại thay đổi qua lại trong 3 cụm. Càng về cuối thì sự thay đổi này càng ít đi và đến cuối cùng thì dường như không còn thay đổi nữa.</p>
-<p>Sau 30 lần chạy, ta sẽ có kết quả được thể hiện như trong bảng confusion <span style="color: #424242; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">3.2</a> bên dưới</p>
+<p>Như trong <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig1">3.1</a> ta thấy rằng qua mỗi lần iteration, thì các observations lại thay đổi qua lại trong 3 cụm. Càng về cuối thì sự thay đổi này càng ít đi và đến cuối cùng thì dường như không còn thay đổi nữa.</p>
+<p>Sau 30 lần chạy, ta sẽ có kết quả được thể hiện như trong bảng confusion <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">3.2</a> bên dưới</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;_supp/confu1.RData&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> cvms<span class="sc">::</span><span class="fu">plot_confusion_matrix</span>(confu,<span class="at">target_col =</span> <span class="st">&quot;y&quot;</span>, <span class="at">prediction_col =</span> <span class="st">&quot;pred&quot;</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">counts_col =</span> <span class="st">&quot;n&quot;</span>)</span>
@@ -724,7 +724,7 @@ Figure 3.1: <em>Quá trình thay đổi biến target trong 30 iterations</em>
 Figure 3.2: <em>Bảng confusion thể hiện tỉ lệ dự đoán đúng và sai theo trong từng trường hợp.</em>
 </p>
 </div>
-<p>Như vậy tỉ lệ dự đoán chính xác lên đến 94.4444444% chính là tồng phần trăm thể hiện trên đường chéo của <span style="color: #424242; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">3.2</a>.</p>
+<p>Như vậy tỉ lệ dự đoán chính xác lên đến 94.4444444% chính là tồng phần trăm thể hiện trên đường chéo của <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">3.2</a>.</p>
 <!-- ----------------------------------------------------------------------------- -->
 <!-- # _References_ {-} -->
 </div>

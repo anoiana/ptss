@@ -572,7 +572,7 @@ div.tocify {
 \Bbb{P}(\theta|X) = \frac{\Bbb{P}(X|\theta)\Bbb{P}(\theta)}{\Bbb{P}(X)};
 \tag{1.1}
 \]</span>
-where <span class="math inline">\(\theta\)</span> is parameter of interest and <span class="math inline">\(X\)</span> represents for observed data. To understand <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> intuitively let us deem the following example</p>
+where <span class="math inline">\(\theta\)</span> is parameter of interest and <span class="math inline">\(X\)</span> represents for observed data. To understand <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> intuitively let us deem the following example</p>
 <div class="example">
 <p><span id="exm:exm1" class="example"><strong>Example 1.1  </strong></span>We have 2 coins A and B with the probability of getting a head is <span class="math inline">\(0.2\)</span> and <span class="math inline">\(0.7\)</span>, respectively. We randomly choose a coin, flip it <span class="math inline">\(5\)</span> times and save the result. We also know that coin A is selected with probability <span class="math inline">\(\theta = 0.5\)</span>. We are interested in probability of choosing coin A after observing data.</p>
 </div>
@@ -590,7 +590,7 @@ and
 \Bbb{P}(X=3|B) = {5 \choose 3}0.7^30.3^2 = 0.3087,
 \]</span>
 if coin B was selected.</p>
-<p>Applying <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> we calculate
+<p>Applying <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> we calculate
 <span class="math display" id="eq:eq2">\[
 \begin{aligned}
 \Bbb{P}(A|X=3) &amp;= \frac{\Bbb{P}(X=3|A)\Bbb{P}(A)}{\Bbb{P}(X=3|A)\Bbb{P}(A)+ \Bbb{P}(X=3|B)\Bbb{P}(B)} \\
@@ -599,7 +599,7 @@ if coin B was selected.</p>
 \end{aligned}
 \tag{1.2}
 \]</span></p>
-<p>Let us write a generic function to calculate <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(1.2)</a> and use the function to calculate when the number of observed Heads is <span class="math inline">\(x = {(0,1,2,3,4,5)}^{\top}\)</span></p>
+<p>Let us write a generic function to calculate <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(1.2)</a> and use the function to calculate when the number of observed Heads is <span class="math inline">\(x = {(0,1,2,3,4,5)}^{\top}\)</span></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(x){</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> p <span class="ot">=</span> <span class="fu">dbinom</span>(x,<span class="dv">5</span>,<span class="fl">0.2</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> p1 <span class="ot">=</span> <span class="fu">dbinom</span>(x,<span class="dv">5</span>,<span class="fl">0.7</span>)</span>

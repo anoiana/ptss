@@ -6,7 +6,9 @@ title: "`r totitle('giới thiệu bayes')`"
 output: 
   bookdown::html_document2:
     code_folding: hide
+    scroll_highlight: yes
     number_sections: false
+    toc_depth: 3
 bibliography: ["_supp/citation.bib"]
 link-citations: true
 ---
@@ -26,6 +28,8 @@ link-citations: true
 \def\indep{\perp\!\!\!\!\perp}
 \newcommand{\overeq}[2]{\stackrel{#1}{#2}}
 \def\epsilon{\varepsilon} 
+\def\logit{\text{logit}} 
+
 
 ::: {.right .shad}
 [tham khảo tại @held2014applied]
@@ -74,7 +78,7 @@ kết quả bằng `r dbinom(7,10,0.4)` và `r dbinom(7,10,0.7)`. Sử dụng `r
 $$
 \P(\Theta|X) = \frac{\P(X|\Theta = \theta)\P(\Theta=\theta)}{\P(X|\Theta = \theta)\P(\Theta=\theta)+\P(X|\Theta = 1-\theta)\P(\Theta=1-\theta)}
 $$
-kết quả bằng `r dbinom(7,10,0.4)/(dbinom(7,10,0.4)+dbinom(7,10,0.7))`, và đây là xác suất đồng xu I được chọn. `r proved('$\\diamond$')`
+kết quả bằng `r dbinom(7,10,0.4)/(dbinom(7,10,0.4)+dbinom(7,10,0.7))`, và đây là xác suất đồng xu I được chọn. `r proved()` 
 
 :::{.whitebox}
 Kết quả này rất hợp lý vì đồng xu I có xác suất mặt hình nhỏ hơn mặt chữ trong khi đồng xu II thì có xác suất mặt hình lớn hơn mặt chữ. Từ data $X$ ta thấy rằng ta thu đượt 7 mặt hình và 3 mặt chữ, tức là mặt hình nhiều hơn mặt chữ, vì thế trong điều kiện của $X = 7$ thì khả năng đồng xu số I đã được chọn là nhỏ hơn đồng xu II. 
@@ -183,7 +187,7 @@ knitr::include_graphics("img/img2.gif")
 
 Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối $(1-\pi)$ là $n$ chính là kích cỡ mẫu của tập dữ liệu,như vậy ta có thể suy ra rằng phần tử số của tĩ lệ khối $\pi$ là $(\alpha+\beta)$ chính là kích cỡ mẫu của hàm prior. 
 
-Ta cũng biết rằng $\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)$, hàm prior này có ý nghĩa là ta không hề có bất kỳ thông tin nào về $\theta$ đưo5c cho trước. Vì kích cỡ mẫu của hàm prior bấy giờ là $\alpha+\beta =2$, một success một failure. Khi đó kỳ vọng của hàm posterior là $(x+1)/(n+2)$ và yếu vị của hàm posterior chính là $\hat{\theta}_{MLE} = \bar{x}$ [@held2014applied]. `r proved('$\\diamond$')`
+Ta cũng biết rằng $\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)$, hàm prior này có ý nghĩa là ta không hề có bất kỳ thông tin nào về $\theta$ đưo5c cho trước. Vì kích cỡ mẫu của hàm prior bấy giờ là $\alpha+\beta =2$, một success một failure. Khi đó kỳ vọng của hàm posterior là $(x+1)/(n+2)$ và yếu vị của hàm posterior chính là $\hat{\theta}_{MLE} = \bar{x}$ [@held2014applied]. `r proved()`
 
 # `r ttt('Chọn hàm prior')` (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)
 
@@ -194,11 +198,11 @@ Về mặt ý nghĩa hàm prior đại diện cho nguồn thông tin (informatio
 Lựa chọn đầu tiên được gọi là *hàm prior conjugate*, là một hàm prior được chọn sao cho hàm posterior và hàm piror cùng thuộc một họ phân bố, nghĩa là nếu hàm prior là một phân bố $\mathcal{beta}$ thì hàm posterior cũng là một phân bố $\mathcal{Beta}$. Định nghĩa bằng ngôn ngữ toán học là 
 
 ::: {.definition #def1 name="Hàm prior conjugate"}
-Cho $L(\theta) = f(x|\theta)$ là hàm likelihood, $\mathscr{G}$ được gọi là một họ phân bố conjugate tương ứng với $L(\theta)$ nếu $f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x$. `r proved('$\\diamond$')`
+Cho $L(\theta) = f(x|\theta)$ là hàm likelihood, $\mathscr{G}$ được gọi là một họ phân bố conjugate tương ứng với $L(\theta)$ nếu $f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x$. `r proved()`
 :::
 
 ::: {.example #exm3}
-Ta xem lại trong `r lb(exm2)`, ta có $\theta \sim \mathcal{Beta}(\alpha,\beta)$ và $\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)$. Cả 2 phân bố đều thuộc họ phân bố $\mathcal{Beta}$ nên $\mathcal{Beta}(\alpha,\beta)$ trong trường hợp này là một hàm piror conjugate. `r proved('$\\diamond$')`
+Ta xem lại trong `r lb(exm2)`, ta có $\theta \sim \mathcal{Beta}(\alpha,\beta)$ và $\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)$. Cả 2 phân bố đều thuộc họ phân bố $\mathcal{Beta}$ nên $\mathcal{Beta}(\alpha,\beta)$ trong trường hợp này là một hàm piror conjugate. `r proved()`
 :::
 
 Thay vì xem xét tình trường hợp riêng lẽ, ta sẽ xem xét hàm prior conjugate thuộc họ phân bố _exponential_ là một họ phân bố của hầu hết các phân bố được sử dụng phổ biến trong phân tích hiện nay. Một phân bố được cho là thuộc họ exponential khi hàm mật độ xác suất (probability density function) của nó có thể viết dưới dạng
@@ -231,7 +235,7 @@ f(x|\theta) &= {n \choose x}\theta^{x}(1-\theta)^{n-x} \\
 &={n \choose x}(1-\theta)^n\exp\bigg[x\ln\Big(\frac{\theta}{1-\theta}\Big)\bigg]
 \end{align}
 $$
-như vậy $\phi(\theta)$ chính là logit$(\theta)$. 
+như vậy $\phi(\theta)$ chính là $\logit(\theta)$. 
 
 Với phân bố $\mathcal{Beta}$ ta có 
 $$
@@ -244,14 +248,14 @@ $$
 
 Như vậy nếu kết hợp với hàm likelihood ở trên ta sẽ có 
 $$
-f(\theta|x)  = {n \choose x}(1-\theta)^{n+\alpha+\beta-2}\exp\Big[(x+\alpha-1)logit(\theta)\Big],
+f(\theta|x)  = {n \choose x}(1-\theta)^{n+\alpha+\beta-2}\exp\Big[(x+\alpha-1)\logit(\theta)\Big],
 $$
 cũng là một phân bố thuộc họ exponential. Nếu ta bỏ đi phần ${n\choose x}$ vế phải ta sẽ có 
 $$
 (1-\theta)^{n+\alpha+\beta-2}\frac{\theta^{x+\alpha-1}}{(1-\theta)^{x+\alpha-1}} = 
 \theta^{x+\alpha-1}(1-\theta)^{\beta+n-x-1},
 $$
-ứng với phân bố $\mathcal{Beta}(x+\alpha,\beta+n-x)$ giống với kết quả của `r lb(eq7)`. `r proved('$\\diamond$')`
+ứng với phân bố $\mathcal{Beta}(x+\alpha,\beta+n-x)$ giống với kết quả của `r lb(eq7)`. `r proved()`
 :::
 
 
@@ -285,5 +289,6 @@ $$
 <!-- $$ -->
 <!-- 2y = 2ax = a(2x)  -->
 <!-- $$ -->
-<!-- Ta thấy rằng hằng số $a$ không ảnh hưởng lến mối quan hệ $(\times2)$ khi ta chuyển từ $x$ sang $y$. Như vậy khi ta có thể chỉ ra như trong phương trình trên thì được gọi là _tính bất biến (invariance)_. `r proved('$\\diamond$')` -->
+<!-- Ta thấy rằng hằng số $a$ không ảnh hưởng lến mối quan hệ $(\times2)$ khi ta chuyển từ $x$ sang $y$. Như vậy khi ta có thể chỉ ra như trong phương trình trên thì được gọi là _tính bất biến (invariance)_. `r proved()` -->
 <!-- :::: -->
+\

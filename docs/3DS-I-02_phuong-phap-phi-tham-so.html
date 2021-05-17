@@ -590,7 +590,7 @@ S(t) = \int_t^{\infty}f(s)ds.
 \lambda(t) = \lim_{h\to 0^+}\frac{\Bbb{P}(t \le T &lt;t+h|T\ge t)}{h},
 \tag{1}
 \]</span>
-gọi là tốc độ tức thời tại thời điểm mà sự kiện xảy ra (bệnh nhân tử vong), cho rằng bệnh nhân đó đã sống tới thời gian <span class="math inline">\(t\)</span>. Hàm nguy cơ có mối quan hệ với hàm mật độ và hàm sống sót. Từ <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> ta có
+gọi là tốc độ tức thời tại thời điểm mà sự kiện xảy ra (bệnh nhân tử vong), cho rằng bệnh nhân đó đã sống tới thời gian <span class="math inline">\(t\)</span>. Hàm nguy cơ có mối quan hệ với hàm mật độ và hàm sống sót. Từ <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> ta có
 <span class="math display">\[
 \lambda(t) = -\frac{f(t)}{S(t)} = -\frac{d\ln S(t)}{dt}.
 \]</span></p>
@@ -599,7 +599,7 @@ gọi là tốc độ tức thời tại thời điểm mà sự kiện xảy ra
 S(t) = \exp\bigg[-\int_0^t\lambda(s)ds\bigg] = \exp[-\Lambda(t)],
 \tag{2}
 \]</span>
-với <span class="math inline">\(\Lambda(t)\)</span> gọi là <span style="color: tomato; font-size: 18px;"><em>hàm nguy cơ tích lũy</em></span>. Nếu ta lấy đạo hàm hai vế của <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> ta được
+với <span class="math inline">\(\Lambda(t)\)</span> gọi là <span style="color: tomato; font-size: 18px;"><em>hàm nguy cơ tích lũy</em></span>. Nếu ta lấy đạo hàm hai vế của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> ta được
 <span class="math display" id="eq:eq3">\[
 f(t) = \lambda(t)\exp[-\Lambda(t)].
 \tag{3}
@@ -627,7 +627,7 @@ dưới điều kiện <span class="math inline">\(\Bbb{E}(T) &lt; \infty\)</spa
 &amp;= -\lim_{s \to \infty}sS(s) +   \int_t^{\infty} S(s)ds,
 \end{aligned}
 \]</span>
-như vậy nếu <span class="math inline">\(\lim_{s \to \infty} sS(s) = 0\)</span> thì ta được kết quả <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(4)</a>. Phần còn lại ta cần xem xét là vì sao <span class="math inline">\(\Bbb{E}(T) &lt; \infty \Rightarrow \lim_{t \to \infty} tS(t) = 0\)</span>.</p>
+như vậy nếu <span class="math inline">\(\lim_{s \to \infty} sS(s) = 0\)</span> thì ta được kết quả <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(4)</a>. Phần còn lại ta cần xem xét là vì sao <span class="math inline">\(\Bbb{E}(T) &lt; \infty \Rightarrow \lim_{t \to \infty} tS(t) = 0\)</span>.</p>
 <p>Ta xét <span class="math inline">\(\int_{t}^{\infty}sS(s)ds\)</span> tương đương với
 <span class="math display">\[
 \int_0^{\infty}(u+t)f(u+t)d(u+t) = \Bbb{E}(u+t) = \Bbb{E}(u) +t,
@@ -640,7 +640,7 @@ với <span class="math inline">\(u = s-t\)</span>. Như vậy nếu <span class
 \Bbb{E}(T) = r(0) = \int_0^{\infty}F(s)ds.
 \tag{5}
 \]</span>
-Từ <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(4)</a> ta có
+Từ <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(4)</a> ta có
 <span class="math display">\[
 \frac{1}{r(t)} = -\frac{d}{dt}\ln\int_t^{\infty}S(s)ds,
 \]</span>
@@ -668,7 +668,7 @@ Hàm nguy cơ là
 <span class="math display">\[
 \lambda_i = \Bbb{P}(T=a_i|T \ge a_i) = \frac{f(a_i)}{S(a^-_i)}, \quad i = 1,2,\dots
 \]</span>
-với <span class="math inline">\(S(a^-) = \lim_{t\to a^-}S(t)\)</span>, tương ứng với <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> và <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(3)</a> ta có
+với <span class="math inline">\(S(a^-) = \lim_{t\to a^-}S(t)\)</span>, tương ứng với <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> và <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(3)</a> ta có
 <span class="math display" id="eq:eq6">\[
 S(t) = \prod_{j:a_j \le t}(1-\lambda_j),
 \tag{6}
@@ -678,7 +678,7 @@ và
 f(a_i) = \lambda_i\prod_{j=1}^{i-1}(1-\lambda_j).
 \tag{7}
 \]</span>
-Ta có thể giải thích hai phương trình trên như sau: đối với <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a>, ta thấy rằng <span class="math inline">\(S(t)\)</span> chính là xác suất mà bệnh nhân tử vong sau mốc thời gian <span class="math inline">\(t\)</span>, nghĩa là <span class="math inline">\(\Bbb{P}(T&gt;t)\)</span>. Giả sử <span class="math inline">\(t = a_t\)</span>, ta có
+Ta có thể giải thích hai phương trình trên như sau: đối với <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a>, ta thấy rằng <span class="math inline">\(S(t)\)</span> chính là xác suất mà bệnh nhân tử vong sau mốc thời gian <span class="math inline">\(t\)</span>, nghĩa là <span class="math inline">\(\Bbb{P}(T&gt;t)\)</span>. Giả sử <span class="math inline">\(t = a_t\)</span>, ta có
 <span class="math display">\[
 \Bbb{P}(T&gt;a_t) = \Bbb{P}(T&gt;a_t|T&gt;a_{t-1})\Bbb{P}(T&gt;a_{t-1})
 \]</span>
@@ -694,7 +694,7 @@ ta biết rằng <span class="math inline">\(\Bbb{P}(T&gt;a_0) = \Bbb{P}(T&gt;0)
 <span class="math display">\[
 \Bbb{P}(T&gt;a_t) = \prod^t_{i=1}\Bbb{P}(T&gt;a_i|T&gt;a_{i-1}).
 \]</span>
-Mà ta có <span class="math inline">\(1-\lambda_i = \Bbb{P}(T&gt;a_i|T &gt; a_{i-1})\)</span>, nên ta suy ra <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a>. Bằng cách suy luận tương tự ta cũng có thể suy ra <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(7)</a>.</p>
+Mà ta có <span class="math inline">\(1-\lambda_i = \Bbb{P}(T&gt;a_i|T &gt; a_{i-1})\)</span>, nên ta suy ra <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a>. Bằng cách suy luận tương tự ta cũng có thể suy ra <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(7)</a>.</p>
 <p>Đối với cả hai biến liên tục hay rời rạc ta đều có thể suy luận như sau: gọi
 <span class="math display">\[
 d\Lambda(t) = \lambda(t)dt = \Lambda(t+dt^-)- \Lambda(t^-) = \Bbb{P}(t \le T &lt; t+dt|T \ge t),
@@ -729,7 +729,7 @@ d\Lambda(t) &amp;= \Bbb{P}(t \le T &lt; t+dt|T \ge t) \\
 &amp;= \lambda,
 \end{aligned}
 \]</span>
-vì thế ta suy ra <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a>.</p>
+vì thế ta suy ra <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a>.</p>
 </div>
 </div>
 <div id="ước-lượng-hàm-sống-sót" class="section level1">
@@ -805,7 +805,7 @@ suy ra
 như vậy , thay <span class="math inline">\(p_j = 1-\lambda_j\)</span> và <span class="math inline">\(4 \rightarrow k\)</span>, ta có thể thấy rằng <span class="math inline">\(\prod_{j=1}^k\prod_{l=1}^j(1-\lambda_l)^{d_j+m_j}\)</span> có thể viết thành <span class="math inline">\(\prod_{j=1}^k(1-\lambda_j)^{n_j}\)</span></p>
 </div>
 </div>
-<p>Dễ dàng nhận thấy <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq12">(10)</a> chính là hàm likelihood của phân bố binomial. và ta có thể dễ dàng xác định rằng
+<p>Dễ dàng nhận thấy <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq12">(10)</a> chính là hàm likelihood của phân bố binomial. và ta có thể dễ dàng xác định rằng
 <span class="math display">\[
 \widehat{\lambda}_{j_{MLE}} = \frac{d_j}{n_j}, \quad j = 1,\dots,k
 \]</span>
@@ -850,7 +850,7 @@ thế <span class="math inline">\(\lambda = \widehat{\lambda}_{MLE}\)</span> ta 
 &amp;= \frac{d}{n(n-d)}.
 \end{aligned}
 \]</span>
-Kết quả trên giống với kết quả trong <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(12)</a>.</p>
+Kết quả trên giống với kết quả trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(12)</a>.</p>
 <p>Tiếp theo, gọi <span class="math inline">\(X = \ln[\widehat{S}(t)]\)</span>, ta tiếp tục áp dụng phương pháp Delta để tính <span class="math inline">\(\Bbb{V}(e^X)\)</span>, ta có
 <span class="math display">\[
 \begin{aligned}
@@ -860,7 +860,7 @@ Kết quả trên giống với kết quả trong <span style="color: #424242; f
 &amp;= \widehat{S}^2(t)\sum_{j:t_j \le t}\frac{d_j}{n_j(n_j-d_j)},
 \end{aligned}
 \]</span>
-chính là <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(12)</a></p>
+chính là <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(12)</a></p>
 </div>
 </div>
 <p>Từ đây ta có thể xây dựng các <em>khoảng tin cậy (confidence interval-CI)</em> của từng mốc thời gian tử vong. Ta sẽ có khoảng tin cậy 95% của <span class="math inline">\(S(t)\)</span> chính là <span class="math inline">\(\widehat{S}(t) \pm \Phi(0.975)\widehat{V}[\widehat{S}(t)]^{1/2}\)</span>. Nhớ rằng tập giá trị của <span class="math inline">\(S(t)\)</span> chính là <span class="math inline">\([0,1]\)</span>, nêu nếu giá trị của khoảng tin cậy nằm ngoài tập giá trị này thì ta cần chọn giá trị 0 hoặc 1 thay thế. Ngoài ra một phương pháp nhằm tránh tình trạng này xảy ra chính là dùng một số hàm số one-to-one để biến đổi, tìm khoảng tin cậy của hàm số đó, rồi lấy hàm ngược lại của khoảng tin cậy này. Nghĩa là nếu ta cần tìm khoảng tin cậy của <span class="math inline">\(X\)</span>, ta sẽ tìm khoảng tin cậy của <span class="math inline">\(h(X)\)</span>, sau khi ta có khoảng tin cậy của <span class="math inline">\(h(X)\)</span> là <span class="math inline">\(a\)</span> và <span class="math inline">\(b\)</span>, ta sẽ suy ra khoảng tin cậy của <span class="math inline">\(X\)</span> chính là <span class="math inline">\(h^{-1}(a)\)</span> và <span class="math inline">\(h^{-1}(b)\)</span>. Hai trong số những hàm biến đổi được sử dụng phổ biến nhất là hàm logarit tự nhiên và hàm logarit tự nhiên nhân đôi hay còn gọi là hàm <em>log-log</em>.</p>

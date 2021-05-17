@@ -598,17 +598,17 @@ tương ứng với mỗi <span class="math inline">\(\lambda_k\)</span> ta có 
 L(\pi) =  \frac{\prod_{k=1}^6\lambda_k^{z_k}}{[1-(1-\pi)^6]^{\sum_{k=1}^6z_i}},
 \tag{2.3}
 \]</span>
-chú ý trong phần tử số của phương trình <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(2.3)</a>, ta đã bỏ đi trường hợp <span class="math inline">\(k=0\)</span> vì <span class="math inline">\(Z_0\)</span> không được cung cấp, và phần mẫu số chính là xác suất của các bệnh nhân có ít nhất một kết quả dương tính. Ta suy ra hàm log-likelihood như sau
+chú ý trong phần tử số của phương trình <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(2.3)</a>, ta đã bỏ đi trường hợp <span class="math inline">\(k=0\)</span> vì <span class="math inline">\(Z_0\)</span> không được cung cấp, và phần mẫu số chính là xác suất của các bệnh nhân có ít nhất một kết quả dương tính. Ta suy ra hàm log-likelihood như sau
 <span class="math display" id="eq:eq4">\[
 l(\pi) = \sum_{k=1}^6z_k\Big[\ln{6 \choose k}+ k\ln \pi + (6-k)\ln (1-\pi)\Big] - \sum_{k=1}^6z_i\ln[1-(1-\pi)^6]
 \tag{2.4}
 \]</span>
-ta thấy rằng hạng tử <span class="math inline">\(\ln{6 \choose k}\)</span> là hằng số theo biến <span class="math inline">\(\pi\)</span> nên ta có thể rút ngắn phương trình <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(2.4)</a> như sau
+ta thấy rằng hạng tử <span class="math inline">\(\ln{6 \choose k}\)</span> là hằng số theo biến <span class="math inline">\(\pi\)</span> nên ta có thể rút ngắn phương trình <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(2.4)</a> như sau
 <span class="math display" id="eq:eq5">\[
 l(\pi) = \sum_{k=1}^6z_k\Big[k\ln \pi + (6-k)\ln (1-\pi)\Big] - \sum_{k=1}^6z_i\ln[1-(1-\pi)^6]
 \tag{2.5}
 \]</span>
-Ta tiến hành tìm cực trị cho hàm likelihood trong <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq5">(2.5)</a> bằng phương pháp xấp xỉ như sau</p>
+Ta tiến hành tìm cực trị cho hàm likelihood trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq5">(2.5)</a> bằng phương pháp xấp xỉ như sau</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">37</span>,<span class="dv">22</span>,<span class="dv">25</span>,<span class="dv">29</span>,<span class="dv">34</span>,<span class="dv">49</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -648,7 +648,7 @@ chính là số bệnh nhân cần có để có <span class="math inline">\(n\)
 \Bbb{E}(Z_0) = n\frac{\lambda_0}{1-\lambda_0}.
 \tag{3.3}
 \]</span></p>
-<p>Tiếp theo trong bước M ta sẽ maximize <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(3.2)</a>, ta có đạo hàm theo biến <span class="math inline">\(\pi\)</span> của nó là
+<p>Tiếp theo trong bước M ta sẽ maximize <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(3.2)</a>, ta có đạo hàm theo biến <span class="math inline">\(\pi\)</span> của nó là
 <span class="math display">\[
 S(\pi) =\frac{ \sum_{k=0}^6k\frac{Z_k}{\pi} - 6\sum_{k=0}Z_k}{1-\pi},
 \]</span>
@@ -657,7 +657,7 @@ cho <span class="math inline">\(S(\pi) = 0\)</span> ta được
 \pi = \frac{\sum_{k=0}^6 kZ_k}{6\sum_{k=0}^6Z_k}.
 \tag{3.4}
 \]</span></p>
-<p>Sử dụng <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq8">(3.3)</a> và <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq9">(3.4)</a> để tính như sau</p>
+<p>Sử dụng <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq8">(3.3)</a> và <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq9">(3.4)</a> để tính như sau</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>z0 <span class="ot">=</span> <span class="dv">10</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="dv">37</span>,<span class="dv">22</span>,<span class="dv">25</span>,<span class="dv">29</span>,<span class="dv">34</span>,<span class="dv">49</span>)</span>

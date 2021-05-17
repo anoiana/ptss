@@ -172,6 +172,7 @@ a:hover {
 
 .brainstorm {
   background-image: url("img/brainstorm2.gif");
+  padding-top: 0.5em;
 }
 
 .right {
@@ -287,7 +288,7 @@ a.navbar-brand:hover {
 #TOC::before {
   content: "CONTENTS";
   font-weight: bold;
-  color: grey;
+  color: #283747;
   padding-left: 70px;
   font-family: Monaco;
 }
