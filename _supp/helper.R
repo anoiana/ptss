@@ -63,3 +63,8 @@ totitle = function(x, icon = "&#10001; "){
 my_text = function(x, font = "Arial", size = 19){
   sprintf("<p style='font-family:%s; font-size:%s px;'>%s</p>", font, size, x)
 }
+
+################## square sign for complete of proof ####################
+proved = function(x = "$\\blacksquare$"){
+  sprintf("<p style='float:right;'>%s</p> </p>", x)
+}

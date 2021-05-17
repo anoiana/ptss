@@ -482,11 +482,15 @@ X|\Theta = \theta \sim \mathcal{Bin}(n,p_1); \quad X|\Theta = 1-\theta \sim \mat
 \Bbb{P}(X|\Theta = \theta) = {10 \choose 7}0.4^{7}0.6^{3}, \quad 
 \Bbb{P}(X|\Theta = \theta) = {10 \choose 7}0.7^{7}0.3^{3}, 
 \]</span></p>
-<p>kết quả bằng 0.0424673 và 0.2668279. Sử dụng <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> ta có
+kết quả bằng 0.0424673 và 0.2668279. Sử dụng <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> ta có
 <span class="math display">\[
 \Bbb{P}(\Theta|X) = \frac{\Bbb{P}(X|\Theta = \theta)\Bbb{P}(\Theta=\theta)}{\Bbb{P}(X|\Theta = \theta)\Bbb{P}(\Theta=\theta)+\Bbb{P}(X|\Theta = 1-\theta)\Bbb{P}(\Theta=1-\theta)}
 \]</span>
-kết quả bằng 0.1373035, và đây là xác suất đồng xu I được chọn.</p>
+kết quả bằng 0.1373035, và đây là xác suất đồng xu I được chọn.
+<p style="float:right;">
+<span class="math inline">\(\diamond\)</span>
+</p>
+</p>
 <div class="whitebox">
 <p>Kết quả này rất hợp lý vì đồng xu I có xác suất mặt hình nhỏ hơn mặt chữ trong khi đồng xu II thì có xác suất mặt hình lớn hơn mặt chữ. Từ data <span class="math inline">\(X\)</span> ta thấy rằng ta thu đượt 7 mặt hình và 3 mặt chữ, tức là mặt hình nhiều hơn mặt chữ, vì thế trong điều kiện của <span class="math inline">\(X = 7\)</span> thì khả năng đồng xu số I đã được chọn là nhỏ hơn đồng xu II.</p>
 </div>
@@ -583,21 +587,107 @@ Figure 2: <em>phân bố posterior và phân bố prior biến thiên theo giá 
 </p>
 </div>
 <p>Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối <span class="math inline">\((1-\pi)\)</span> là <span class="math inline">\(n\)</span> chính là kích cỡ mẫu của tập dữ liệu,như vậy ta có thể suy ra rằng phần tử số của tĩ lệ khối <span class="math inline">\(\pi\)</span> là <span class="math inline">\((\alpha+\beta)\)</span> chính là kích cỡ mẫu của hàm prior.</p>
-<p>Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)\)</span>, hàm prior này có ý nghĩa là ta không hề có bất kỳ thông tin nào về <span class="math inline">\(\theta\)</span> đưo5c cho trước. Vì kích cỡ mẫu của hàm prior bấy giờ là <span class="math inline">\(\alpha+\beta =2\)</span>, một success một failure. Khi đó kỳ vọng của hàm posterior là <span class="math inline">\((x+1)/(n+2)\)</span> và yếu vị của hàm posterior chính là <span class="math inline">\(\widehat{\theta}_{MLE} = \overline{x}\)</span> <span class="citation">(<a href="#ref-held2014applied" role="doc-biblioref">Held and Sabanés Bové 2014</a>)</span>.</p>
+Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)\)</span>, hàm prior này có ý nghĩa là ta không hề có bất kỳ thông tin nào về <span class="math inline">\(\theta\)</span> đưo5c cho trước. Vì kích cỡ mẫu của hàm prior bấy giờ là <span class="math inline">\(\alpha+\beta =2\)</span>, một success một failure. Khi đó kỳ vọng của hàm posterior là <span class="math inline">\((x+1)/(n+2)\)</span> và yếu vị của hàm posterior chính là <span class="math inline">\(\widehat{\theta}_{MLE} = \overline{x}\)</span> <span class="citation">(<a href="#ref-held2014applied" role="doc-biblioref">Held and Sabanés Bové 2014</a>)</span>.
+<p style="float:right;">
+<span class="math inline">\(\diamond\)</span>
+</p>
+</p>
 </div>
 </div>
 <div id="chọn-hàm-prior-chọn-nguồn-thông-tin-trước-khi-tập-dữ-liệu-được-quan-sát" class="section level1">
 <h1>Chọn Hàm Prior (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)</h1>
-<p>Về mặt ý nghĩa hàm prior đại diện cho nguồn thông tin mà ta có thể biết trước khi ta quan sát từ tập dữ liệu. Về mặt thống kê học thì chọn hàm prior nghĩa là chọn một phân bố cho parameters mà ta muốn ước lượng, từ đó kết hợp thông tin này với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm prior và hàm likelihood. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm prior vì một số hàm prior sẽ gây khó khăn trong việc tính toán hàm posterior. Phần này ta xem xét cách để chọn một hàm prior phù hợp.</p>
+<p>Về mặt ý nghĩa hàm prior đại diện cho nguồn thông tin (information hay knowledge) mà ta có trước khi ta quan sát từ tập dữ liệu. Vì thế nó còn được hiểu nôm na là “ý trời” (what God says) bởi vì thông tin này không dựa vào evidence (ở đây là data mà ta có) nên nó là một thông tin mang tính chất chủ quan (subjective belief). Thực tế hơn thì đây chính là nguồn thông tin bên ngoài (external information) mà ta có thể tìm kiếm được từ kết quả của những nghiên cứu có tương tự đã được thực hiện trước đó. Về mặt thống kê học thì chọn hàm prior nghĩa là chọn một phân bố cho parameters mà ta muốn ước lượng trước khi ta có thể quan sát data, từ đó kết hợp thông tin này với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm prior và hàm likelihood. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm prior vì một số hàm prior sẽ gây khó khăn trong việc tính toán hàm posterior. Phần này ta xem xét cách để chọn một hàm prior phù hợp.</p>
 <div id="hàm-prior-conjugate" class="section level2">
 <h2>Hàm Prior Conjugate</h2>
+<p>Lựa chọn đầu tiên được gọi là <em>hàm prior conjugate</em>, là một hàm prior được chọn sao cho hàm posterior và hàm piror cùng thuộc một họ phân bố, nghĩa là nếu hàm prior là một phân bố <span class="math inline">\(\mathcal{beta}\)</span> thì hàm posterior cũng là một phân bố <span class="math inline">\(\mathcal{Beta}\)</span>. Định nghĩa bằng ngôn ngữ toán học là</p>
+<div class="definition">
+<span id="def:def1" class="definition"><strong>Definition 1  (Hàm prior conjugate) </strong></span>Cho <span class="math inline">\(L(\theta) = f(x|\theta)\)</span> là hàm likelihood, <span class="math inline">\(\mathscr{G}\)</span> được gọi là một họ phân bố conjugate tương ứng với <span class="math inline">\(L(\theta)\)</span> nếu <span class="math inline">\(f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x\)</span>.
+<p style="float:right;">
+<span class="math inline">\(\diamond\)</span>
+</p>
+</p>
+</div>
+<div class="example">
+<span id="exm:exm3" class="example"><strong>Example 3  </strong></span>Ta xem lại trong <span style="color: #424242; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2</a>, ta có <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span> và <span class="math inline">\(\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)\)</span>. Cả 2 phân bố đều thuộc họ phân bố <span class="math inline">\(\mathcal{Beta}\)</span> nên <span class="math inline">\(\mathcal{Beta}(\alpha,\beta)\)</span> trong trường hợp này là một hàm piror conjugate.
+<p style="float:right;">
+<span class="math inline">\(\diamond\)</span>
+</p>
+</p>
+</div>
+<p>Thay vì xem xét tình trường hợp riêng lẽ, ta sẽ xem xét hàm prior conjugate thuộc họ phân bố <em>exponential</em> là một họ phân bố của hầu hết các phân bố được sử dụng phổ biến trong phân tích hiện nay. Một phân bố được cho là thuộc họ exponential khi hàm mật độ xác suất (probability density function) của nó có thể viết dưới dạng
+<span class="math display" id="eq:eq9">\[
+f(x_i|\theta) = f(x_i)g(\theta)\exp\big\{{\phi(\theta)}^{\top} u(x_i)\big\} ,
+\tag{9}
+\]</span>
+trong <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq9">(9)</a> ta cần chú ý 4 thành phần, thứ nhất là <span class="math inline">\(f(x_i)\)</span> là một hàm số của tập dữ liệu, độc lập với <span class="math inline">\(\theta\)</span>, <span class="math inline">\(g(\theta)\)</span> một hàm số của parameter <span class="math inline">\(\theta\)</span> độc lập với dữ liệu <span class="math inline">\(x_i\)</span>. Hai thành phần quan trọng nhất chính là <span class="math inline">\(\phi(\theta)\)</span> và <span class="math inline">\(u(x_i)\)</span> trong khi cái đầu là một hàm số của riêng <span class="math inline">\(\theta\)</span> thì cái thứ hai là hàm số của riêng <span class="math inline">\(x_i\)</span>. Nếu ta lấy loragit tự nhiên ta sẽ được
+<span class="math display">\[
+f^*(x_i) + g^*(\theta) + {\phi(\theta)}^{\top}u(x_i),
+\]</span>
+ta thấy rằng hàm log-likelihood của <span class="math inline">\(\theta\)</span> phụ thuộc vào data <span class="math inline">\(x_i\)</span> thông qua hàm <span class="math inline">\(u(x_i)\)</span>, vì thế <span class="math inline">\(u(x_i)\)</span> được gọi là <em>sufficient statistic</em> của <span class="math inline">\(\theta\)</span>. Như vậy
+nếu như hàm phân bố prior của <span class="math inline">\(\theta\)</span> cũng thuộc họ exponential thì
+<span class="math display">\[
+f(\theta) \propto g(\theta)^{\eta}e^{{\phi(\theta)}^{\top}\xi},
+\]</span>
+thì hàm posterior sẽ có dạng
+<span class="math display">\[
+f(\theta|x_i) = g(\theta)^{1+\eta}e^{{\phi(\theta)}^{\top}(\xi+t(x_i))},
+\]</span>
+chỉ ra rằng hàm prior được chọn là một hàm prior conjugate. Ta có thể chứng minh rằng họ exponential là một họ của những phân bố có các hàm phân bố conjugate, bởi vì những phân bố có số sufficient statistic cố định với mọi <span class="math inline">\(n\)</span> (<span class="math inline">\(n\)</span> là số observations trong tập dữ liệu) đều thuộc họ exponential <span class="citation">(<a href="#ref-gelman2013" role="doc-biblioref">Gelman et al. 2013</a>)</span>.</p>
+<div class="example">
+<p><span id="exm:exm4" class="example"><strong>Example 4  </strong></span>Trong <span style="color: #424242; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2</a> ta có <span class="math inline">\(X|\theta \sim \mathcal{Bin}(n,\theta)\)</span> và <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span>. Ta có thể chỉ ra rằng cả 2 phân bố này đều thuộc họ exponential.</p>
+<p>Ta sẽ chứng minh Binomial là một phân bố thuộc họ exponential như sau,
+<span class="math display">\[
+\begin{align}
+f(x|\theta) &amp;= {n \choose x}\theta^{x}(1-\theta)^{n-x} \\
+&amp;={n \choose x}(1-\theta)^n\exp\bigg[x\ln\Big(\frac{\theta}{1-\theta}\Big)\bigg]
+\end{align}
+\]</span>
+như vậy <span class="math inline">\(\phi(\theta)\)</span> chính là logit<span class="math inline">\((\theta)\)</span>.</p>
+<p>Với phân bố <span class="math inline">\(\mathcal{Beta}\)</span> ta có
+<span class="math display">\[
+\begin{aligned}
+f(\theta) &amp;\propto \theta^{\alpha-1}(1-\theta)^{\beta-1} \\
+&amp;= \bigg(\frac{\theta}{1-\theta}\bigg)^{\alpha-1}(1-\theta)^{\beta+\alpha-2} \\
+&amp;= (1-\theta)^{\beta+\alpha-2}e^{(\alpha-1)\ln(\frac{\theta}{1-\theta})}.
+\end{aligned}
+\]</span></p>
+Như vậy nếu kết hợp với hàm likelihood ở trên ta sẽ có
+<span class="math display">\[
+f(\theta|x)  = {n \choose x}(1-\theta)^{n+\alpha+\beta-2}\exp\Big[(x+\alpha-1)logit(\theta)\Big],
+\]</span>
+cũng là một phân bố thuộc họ exponential. Nếu ta bỏ đi phần <span class="math inline">\({n\choose x}\)</span> vế phải ta sẽ có
+<span class="math display">\[
+(1-\theta)^{n+\alpha+\beta-2}\frac{\theta^{x+\alpha-1}}{(1-\theta)^{x+\alpha-1}} = 
+\theta^{x+\alpha-1}(1-\theta)^{\beta+n-x-1},
+\]</span>
+ứng với phân bố <span class="math inline">\(\mathcal{Beta}(x+\alpha,\beta+n-x)\)</span> giống với kết quả của <span style="color: #424242; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(7)</a>.
+<p style="float:right;">
+<span class="math inline">\(\diamond\)</span>
+</p>
+</p>
+</div>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 </div>
 <div id="references" class="section level1 unnumbered shad">
 <h1>References</h1>
 </div>
+<!-- backbox for invariance in maths -->
+<!-- :::: {.blackbox .brainstorm} -->
+<!-- ::: {.center} -->
+<!-- **Invariance** - tính bất biến trong toán học -->
+<!-- ::: -->
+<!-- Ví dụ ta biết khoảng cách từ A đến C gấp đôi khoảng cách từ A tới B. Nếu ta được biết rằng từ A tới B là 10cm thì ta sẽ suy ra từ A đến C là 20 cm. Nếu ta biết từ A tới B là 100mm thì ta suy ta từ A tới C là 200 mm. Dù ta tính trên đơn vị cm hay mm thì độ khác biệt "gấp đôi" hay ($\times2$) vẫn không thay đổi. Trong toán học khái niệm này được trình bày như sau: -->
+<!-- gọi $x$ là khoảng cách từ A đến B, và $y = ax$. Ta biết khoảng cách từ A đến C là $2y$, như vậy ta có  -->
+<!-- $$ -->
+<!-- 2y = 2ax = a(2x)  -->
+<!-- $$ -->
+<!-- Ta thấy rằng hằng số $a$ không ảnh hưởng lến mối quan hệ $(\times2)$ khi ta chuyển từ $x$ sang $y$. Như vậy khi ta có thể chỉ ra như trong phương trình trên thì được gọi là _tính bất biến (invariance)_. <p style='float:right;'>$\diamond$</p> </p> -->
+<!-- :::: -->
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-gelman2013" class="csl-entry">
+Gelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. <em>Bayesian Data Analysis</em>. CRC press.
+</div>
 <div id="ref-held2014applied" class="csl-entry">
 Held, Leonhard, and D Sabanés Bové. 2014. <span>“Applied Statistical Inference.”</span> <em>Springer, Berlin Heidelberg, Doi</em> 10 (978-3): 16.
 </div>

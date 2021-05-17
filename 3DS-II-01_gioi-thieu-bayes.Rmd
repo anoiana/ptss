@@ -26,7 +26,6 @@ link-citations: true
 \def\indep{\perp\!\!\!\!\perp}
 \newcommand{\overeq}[2]{\stackrel{#1}{#2}}
 \def\epsilon{\varepsilon} 
-\def\proved{\blacksquare\quad} 
 
 ::: {.right .shad}
 [tham khảo tại @held2014applied]
@@ -75,7 +74,7 @@ kết quả bằng `r dbinom(7,10,0.4)` và `r dbinom(7,10,0.7)`. Sử dụng `r
 $$
 \P(\Theta|X) = \frac{\P(X|\Theta = \theta)\P(\Theta=\theta)}{\P(X|\Theta = \theta)\P(\Theta=\theta)+\P(X|\Theta = 1-\theta)\P(\Theta=1-\theta)}
 $$
-kết quả bằng `r dbinom(7,10,0.4)/(dbinom(7,10,0.4)+dbinom(7,10,0.7))`, và đây là xác suất đồng xu I được chọn. 
+kết quả bằng `r dbinom(7,10,0.4)/(dbinom(7,10,0.4)+dbinom(7,10,0.7))`, và đây là xác suất đồng xu I được chọn. `r proved('$\\diamond$')`
 
 :::{.whitebox}
 Kết quả này rất hợp lý vì đồng xu I có xác suất mặt hình nhỏ hơn mặt chữ trong khi đồng xu II thì có xác suất mặt hình lớn hơn mặt chữ. Từ data $X$ ta thấy rằng ta thu đượt 7 mặt hình và 3 mặt chữ, tức là mặt hình nhiều hơn mặt chữ, vì thế trong điều kiện của $X = 7$ thì khả năng đồng xu số I đã được chọn là nhỏ hơn đồng xu II. 
@@ -184,14 +183,76 @@ knitr::include_graphics("img/img2.gif")
 
 Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối $(1-\pi)$ là $n$ chính là kích cỡ mẫu của tập dữ liệu,như vậy ta có thể suy ra rằng phần tử số của tĩ lệ khối $\pi$ là $(\alpha+\beta)$ chính là kích cỡ mẫu của hàm prior. 
 
-Ta cũng biết rằng $\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)$, hàm prior này có ý nghĩa là ta không hề có bất kỳ thông tin nào về $\theta$ đưo5c cho trước. Vì kích cỡ mẫu của hàm prior bấy giờ là $\alpha+\beta =2$, một success một failure. Khi đó kỳ vọng của hàm posterior là $(x+1)/(n+2)$ và yếu vị của hàm posterior chính là $\hat{\theta}_{MLE} = \bar{x}$ [@held2014applied]. 
+Ta cũng biết rằng $\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)$, hàm prior này có ý nghĩa là ta không hề có bất kỳ thông tin nào về $\theta$ đưo5c cho trước. Vì kích cỡ mẫu của hàm prior bấy giờ là $\alpha+\beta =2$, một success một failure. Khi đó kỳ vọng của hàm posterior là $(x+1)/(n+2)$ và yếu vị của hàm posterior chính là $\hat{\theta}_{MLE} = \bar{x}$ [@held2014applied]. `r proved('$\\diamond$')`
 
 # `r ttt('Chọn hàm prior')` (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)
 
-Về mặt ý nghĩa hàm prior đại diện cho nguồn thông tin mà ta có thể biết trước khi ta quan sát từ tập dữ liệu. Về mặt thống kê học thì chọn hàm prior nghĩa là chọn một phân bố cho parameters mà ta muốn ước lượng, từ đó kết hợp thông tin này với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm prior và hàm likelihood. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm prior vì một số hàm prior sẽ gây khó khăn trong việc tính toán hàm posterior. Phần này ta xem xét cách để chọn một hàm prior phù hợp.
+Về mặt ý nghĩa hàm prior đại diện cho nguồn thông tin (information hay knowledge) mà ta có trước khi ta quan sát từ tập dữ liệu. Vì thế nó còn được hiểu nôm na là "ý trời" (what God says) bởi vì thông tin này không dựa vào evidence (ở đây là data mà ta có) nên nó là một thông tin mang tính chất chủ quan (subjective belief). Thực tế hơn thì đây chính là nguồn thông tin bên ngoài (external information) mà ta có thể tìm kiếm được từ kết quả của những nghiên cứu có tương tự đã được thực hiện trước đó. Về mặt thống kê học thì chọn hàm prior nghĩa là chọn một phân bố cho parameters mà ta muốn ước lượng trước khi ta có thể quan sát data, từ đó kết hợp thông tin này với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm prior và hàm likelihood. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm prior vì một số hàm prior sẽ gây khó khăn trong việc tính toán hàm posterior. Phần này ta xem xét cách để chọn một hàm prior phù hợp.
 
 ## `r ttt('hàm prior conjugate')`
 
+Lựa chọn đầu tiên được gọi là *hàm prior conjugate*, là một hàm prior được chọn sao cho hàm posterior và hàm piror cùng thuộc một họ phân bố, nghĩa là nếu hàm prior là một phân bố $\mathcal{beta}$ thì hàm posterior cũng là một phân bố $\mathcal{Beta}$. Định nghĩa bằng ngôn ngữ toán học là 
+
+::: {.definition #def1 name="Hàm prior conjugate"}
+Cho $L(\theta) = f(x|\theta)$ là hàm likelihood, $\mathscr{G}$ được gọi là một họ phân bố conjugate tương ứng với $L(\theta)$ nếu $f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x$. `r proved('$\\diamond$')`
+:::
+
+::: {.example #exm3}
+Ta xem lại trong `r lb(exm2)`, ta có $\theta \sim \mathcal{Beta}(\alpha,\beta)$ và $\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)$. Cả 2 phân bố đều thuộc họ phân bố $\mathcal{Beta}$ nên $\mathcal{Beta}(\alpha,\beta)$ trong trường hợp này là một hàm piror conjugate. `r proved('$\\diamond$')`
+:::
+
+Thay vì xem xét tình trường hợp riêng lẽ, ta sẽ xem xét hàm prior conjugate thuộc họ phân bố _exponential_ là một họ phân bố của hầu hết các phân bố được sử dụng phổ biến trong phân tích hiện nay. Một phân bố được cho là thuộc họ exponential khi hàm mật độ xác suất (probability density function) của nó có thể viết dưới dạng
+$$
+f(x_i|\theta) = f(x_i)g(\theta)\exp\big\{\tp{\phi(\theta)} u(x_i)\big\} ,
+(\#eq:eq9)
+$$
+trong `r lb(eq9)` ta cần chú ý 4 thành phần, thứ nhất là $f(x_i)$ là một hàm số của tập dữ liệu, độc lập với $\theta$, $g(\theta)$ một hàm số của parameter $\theta$ độc lập với dữ liệu $x_i$. Hai thành phần quan trọng nhất chính là $\phi(\theta)$ và $u(x_i)$ trong khi cái đầu là một hàm số của riêng $\theta$ thì cái thứ hai là hàm số của riêng $x_i$. Nếu ta lấy loragit tự nhiên ta sẽ được
+$$
+f^*(x_i) + g^*(\theta) + \tp{\phi(\theta)}u(x_i),
+$$
+ta thấy rằng hàm log-likelihood của $\theta$ phụ thuộc vào data $x_i$ thông qua hàm $u(x_i)$, vì thế $u(x_i)$ được gọi là *sufficient statistic* của $\theta$. Như vậy 
+nếu như hàm phân bố prior của $\theta$ cũng thuộc họ exponential thì 
+$$
+f(\theta) \propto g(\theta)^{\eta}e^{\tp{\phi(\theta)}\xi},
+$$
+thì hàm posterior sẽ có dạng
+$$
+f(\theta|x_i) = g(\theta)^{1+\eta}e^{\tp{\phi(\theta)}(\xi+t(x_i))},
+$$
+chỉ ra rằng hàm prior được chọn là một hàm prior conjugate. Ta có thể chứng minh rằng họ exponential là một họ của những phân bố có các hàm phân bố conjugate, bởi vì những phân bố có số sufficient statistic cố định với mọi $n$ ($n$ là số observations trong tập dữ liệu) đều thuộc họ exponential [@gelman2013]. 
+
+::: {.example #exm4}
+Trong `r lb(exm2)` ta có $X|\theta \sim \mathcal{Bin}(n,\theta)$ và $\theta \sim \mathcal{Beta}(\alpha,\beta)$. Ta có thể chỉ ra rằng cả 2 phân bố này đều thuộc họ exponential. 
+
+Ta sẽ chứng minh Binomial là một phân bố thuộc họ exponential như sau, 
+$$
+\begin{align}
+f(x|\theta) &= {n \choose x}\theta^{x}(1-\theta)^{n-x} \\
+&={n \choose x}(1-\theta)^n\exp\bigg[x\ln\Big(\frac{\theta}{1-\theta}\Big)\bigg]
+\end{align}
+$$
+như vậy $\phi(\theta)$ chính là logit$(\theta)$. 
+
+Với phân bố $\mathcal{Beta}$ ta có 
+$$
+\begin{aligned}
+f(\theta) &\propto \theta^{\alpha-1}(1-\theta)^{\beta-1} \\
+&= \bigg(\frac{\theta}{1-\theta}\bigg)^{\alpha-1}(1-\theta)^{\beta+\alpha-2} \\
+&= (1-\theta)^{\beta+\alpha-2}e^{(\alpha-1)\ln(\frac{\theta}{1-\theta})}.
+\end{aligned}
+$$
+
+Như vậy nếu kết hợp với hàm likelihood ở trên ta sẽ có 
+$$
+f(\theta|x)  = {n \choose x}(1-\theta)^{n+\alpha+\beta-2}\exp\Big[(x+\alpha-1)logit(\theta)\Big],
+$$
+cũng là một phân bố thuộc họ exponential. Nếu ta bỏ đi phần ${n\choose x}$ vế phải ta sẽ có 
+$$
+(1-\theta)^{n+\alpha+\beta-2}\frac{\theta^{x+\alpha-1}}{(1-\theta)^{x+\alpha-1}} = 
+\theta^{x+\alpha-1}(1-\theta)^{\beta+n-x-1},
+$$
+ứng với phân bố $\mathcal{Beta}(x+\alpha,\beta+n-x)$ giống với kết quả của `r lb(eq7)`. `r proved('$\\diamond$')`
+:::
 
 
 
@@ -209,3 +270,20 @@ Về mặt ý nghĩa hàm prior đại diện cho nguồn thông tin mà ta có 
 :::{.shad} 
 # References {-}
 :::
+
+
+
+<!-- backbox for invariance in maths -->
+
+<!-- :::: {.blackbox .brainstorm} -->
+<!-- ::: {.center} -->
+<!-- **Invariance** - tính bất biến trong toán học -->
+<!-- ::: -->
+<!-- Ví dụ ta biết khoảng cách từ A đến C gấp đôi khoảng cách từ A tới B. Nếu ta được biết rằng từ A tới B là 10cm thì ta sẽ suy ra từ A đến C là 20 cm. Nếu ta biết từ A tới B là 100mm thì ta suy ta từ A tới C là 200 mm. Dù ta tính trên đơn vị cm hay mm thì độ khác biệt "gấp đôi" hay ($\times2$) vẫn không thay đổi. Trong toán học khái niệm này được trình bày như sau: -->
+
+<!-- gọi $x$ là khoảng cách từ A đến B, và $y = ax$. Ta biết khoảng cách từ A đến C là $2y$, như vậy ta có  -->
+<!-- $$ -->
+<!-- 2y = 2ax = a(2x)  -->
+<!-- $$ -->
+<!-- Ta thấy rằng hằng số $a$ không ảnh hưởng lến mối quan hệ $(\times2)$ khi ta chuyển từ $x$ sang $y$. Như vậy khi ta có thể chỉ ra như trong phương trình trên thì được gọi là _tính bất biến (invariance)_. `r proved('$\\diamond$')` -->
+<!-- :::: -->
