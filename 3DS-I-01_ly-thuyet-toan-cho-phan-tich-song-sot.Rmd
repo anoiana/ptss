@@ -233,7 +233,17 @@ $$
 
 ## `r ttt('quá trình ngẫu nhiên poisson')`
 
+Quá trình ngẫu nhiên poisson đồng nhất mô tả những sự kiện xảy ra hoàn toàn độc lập. Đại lượng được quan tâm là tốc độ xảy ra sự kiện, hay gọi là cường độ $\lambda$, trong đó $\lambda dt$ là xác suất **của một sự kiện xảy ra in khoảng thời gian $[t,t+dt)$.** Một vài đặc tính của nó là 
 
+1. Khoảng thời gian giữa những sự kiện thuộc phân bố exponential, nghĩa là $T \sim \mathcal{Exp}(\lambda)$.
+2. Số sự kiện xảy ra trong một khoảng thời gian $h$ thuộc phân bố $\mathcal{Poisson}$, nghĩa là nếu có $k$ sự kiện xảy ra thì xác suất là $(\lambda h)^ke^{-\lambda h}/k!.$
+3. Vì thế giá trị kỳ vọng và phương sai của số sự kiện xảy ra trong khoảng thời gian $h$ là $\lambda h$
+4. Số sự kiện xảy ra trong mỗi 2 khoảng thời gian không trùng lên nhau thì độc lập với nhau.
+
+Gọi $N(t)$ là số sự kiện xảy ra tính tới thời điểm $t$ nghĩa là $[0,t]$, ta có một quá trình
+$$
+M(t) = 
+$$
 
 
 
