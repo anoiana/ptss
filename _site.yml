@@ -51,15 +51,18 @@ navbar:
       icon: fa-bookmark
       menu:
       # SEC. 1 ***************PHÂN TÍCH SỐNG SÓT (I) *********************
-      - text: "I. PHÂN TÍCH SỐNG SÓT"
-      - text: "1. lý thuyết toán trong phân tích sống sót"
-        href: "3DS-I-01_ly-thuyet-toan-cho-phan-tich-song-sot.html"
+      - text: "I. PHÂN TÍCH SỐNG SÓT (1)"
+      - text: "1. Giới thiệu về phân tính sống sót"
+        # href:
       - text: "2. Phương pháp phi tham số"
         href: '3DS-I-02_phuong-phap-phi-tham-so.html'
       - text: "3. So sánh 2 mẫu với phương pháp phi tham số"
         href: "3DS-I-03_so-sanh-2-mau-phi-tham-so.html"
-      - text: "4. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số"
-        href: "3DS-I-04_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html"
+      - text: "I. PHÂN TÍCH SỐNG SÓT (2)"
+      - text: "1. Lý thuyết toán trong phân tích sống sót"
+        href: "3DS-I2-01_ly-thuyet-toan-cho-phan-tich-song-sot.html"
+      - text: "2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số"
+        href: "3DS-I2-02_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html"
       # SEC. 2 ********SUY LUẬN BAYES (II) *********************************
       - text: '---'
       - text: 'II. SUY LUẬN BAYES'

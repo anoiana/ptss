@@ -1,0 +1,355 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('lý thuyết toán cho phân tích sống sót')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+::: {.watermark} 
+_DRAFT_
+:::
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\H{\mathscr{H}}
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+\def\proved{\blacksquare\quad} 
+\def\Pois{\mathcal{Poisson}} 
+\def\Expo{\mathcal{Exponential}} 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+ttt = purrr::partial(totitle, icon="")
+```
+
+:::{.right .shad}
+[tham khảo: @aal2008]
+:::
+
+***
+
+<!-- ===================== START FROM HERE ========================== -->
+
+
+
+# `r ttt('Quá trình ngẫu nhiên của biến gian rời rạc')`
+
+## `r ttt('Đặc tính martingales')`
+
+Ta có $M = \{M_0,M_1,\dots\}$ là quá trình ngẫu nhiên trong cột thời gian rời rạc. $M$ là một có tính chất martingale khi 
+$$
+\E(M_n|M_0,M_1,\dots,M_{n-1}) = M_{n-1}, \quad n \ge 1
+(\#eq:eq1)
+$$
+Đặc tính này liên quan tới "fair game", nghĩa là dựa trên các thông tin ta có được sau khi quan sát $n-1$ trò chơi thì thông tin tăng lên mà ta kỳ vọng cho trò chơi tiếp theo sẽ không thay đổi. 
+
+Tạm gọi $\H_n$ là thông tin tích lũy đến thời điểm thứ $n$. Trong lý thuyết về tập hợp ta có thể xem $\{\H_n\}$ là một tập hợp, số lượng phần tử của tập hợp này sẽ tăng dần khi lần lượt đi qua các mốc thời gian (đi càng nhiều, chứng kiền càng nhiều, kiến thức càng nhiều). Ví dụ, ta ném 3 đồng xu thì ta biết trước có tất cả 8 trường hợp có thể xảy ra nhưng ta không biết cụ thể trường hợp nào, và ta cũng không biết trường hợp nào có nhiều khả năng hơn trường hợp nào. Nói cách khác tất cả các khả năng đều ngang bằng nhau, cũng có thể nói ta không có bất kỳ thông tin nào. 8 trường hợp đó là 
+$$
+M_0 = \{(HHH, HHT, HTH, HTT, THH,THT, TTH, TTT)\},
+$$
+ở giai đoạn đầu tiên này, ta không hề có bất kỳ thông tin gì ngoài việc ba đồng xu sẽ được ném lên. Tuy nhiên, sau khi 1 đồng xu được ném lên, ta biết rằng sẽ có 2 trường hợp có thể xảy ra, và ta sẽ có sự phân bố các phần tử như sau
+$$
+M_1 = \{(HHH, HHT, HTH, HTT), (THH,THT, TTH, TTT)\},
+$$
+sau khi đồng xu thứ 2 được ném ra, ta có sự phân bố như sau
+$$
+M_2 = \{(HHH, HHT),(HTH,HTT),(THH,THT), (TTH,TTT)\},
+$$
+cuối cùng sau khi đồng xu thứ 3 được ném ra ta sẽ biết được tất cả thông tin, và sự phân bố bây giờ là
+$$
+M_3 = \{(HHH), (HHT), (HTH), (HTT), (THH), (THT), (TTH), (TTT)\}.
+$$
+Sau mỗi một đồng xu được ném ra và quan sát ta lại có thêm thông tin, và sự phân nhóm của tập hợp ban đầu có sự thay đổi theo chiều hướng chi tiết hơn, cho đến khi cả 3 đồng xu được ném ra thì ta có đầy đủ thông tin để khẳng định kiểu hình của 3 đồng xu đó là gì. Một lưu ý ta cần nhớ là thông tin ta có sau mỗi một đồng xu được ném ra nhiều hơn và bao gồm các thông tin trước đó. Nghĩa là 
+$$
+\begin{aligned}
+&\H_0 = \{M_0, \emptyset\} \\
+&\H_1 = \{M_0, M_1, \emptyset\} \\
+&\H_2 = \{M_0, M_1, M_2, \emptyset\} \\
+&\H_3 = \{M_0, M_1, M_2, M_3, \emptyset\}
+\end{aligned}
+$$
+theo lý thuyết tập hợp ta có thể ký hiệu quá trình này là 
+$$
+\H_1 \subset \H_2 \subset \H_3.
+$$
+
+Như vậy ta nói rằng quá trình $M = \{M_0, M_1, M_2, \dots\}$ thích nghi với tiền sự (History) $\{\H_n\}$. Và theo đó mỗi một biến ngẫu nhiên $M_1, \dots, M_n$ có thể tính toán (nghĩa là có thể tính ra xác suất cho mỗi trường hợp cụ thể). Lấy một ví dụ cụ thể là 
+$$
+\begin{aligned}
+\H_1 = \begin{bmatrix}\color{red}{(HHH, HHT, HTH, HTT, THH,THT, TTH, TTT)} \\ 
+\color{blue}{(HHH, HHT, HTH, HTT)}, \color{blue}{(THH,THT, TTH, TTT)}\\ 
+\color{green}{\emptyset}\end{bmatrix}
+\end{aligned}
+$$
+Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có thể tính được xác suất của các trường hợp trong $\H_1$ bằng phương pháp đếm trong tập hợp mẹ $\Omega$ chứa 8 điểm giống nhau về các đặc tính định lượng. Nghĩa là mỗi 1 điểm đều có xác suất là $1/8$. Như vậy ta lần lượt tính được xác suất cả các trường hợp trên là (từ trên xuống, từ trái qua): $\{1, 1/2, 1/2,0\}$.
+
+::::{.blackbox .brainstorm}
+:::{.center}
+Tại sao ta cần nắm kiến thức trên?
+:::
+
+Liên hệ với phân tích sốt sót, ta thấy rằng cứ sau mỗi một bệnh nhân tử vong được ghi nhận, thì các giá trị của hàm sống sót, hàm nguy cơ,... đều thay đổi. Câu hỏi được đặc ra là liệu sau mỗi một ca tử vong ghi nhận được, thì ta có thể dự đoán gì về các ca tiếp theo? và liệu với các thông tin ta có cho tới thời điển hiện tại (tiền sự) thì sẽ trả lời được cho ta về điều gì trong những lần tới? 
+::::
+
+##  `r ttt('Đặc tính martingales của biến thời gian rời rạc')`
+
+Như vậy `r lb(eq1)` có thể được viết lại là 
+$$
+\E(M_m|\H_n) = M_n, \quad \forall m \le n.
+(\#eq:eq2)
+$$
+Quá trình $M = \{M_0, M_1, M_2,\dots\}$ là một martingale tương ứng với tiền sự $\{\H_n\}$ nếu 
+$$
+\E(M_n|\H_{n-1}) = M_{n-1}, \quad \forall n \ge 1,
+(\#eq:eq3)
+$$
+phương trình trên có thể suy rộng ra và khái quát như phương trình sau
+$$
+\E(M_n|\H_m) = M_m. \quad \forall n>m
+(\#eq:eq4)
+$$
+
+Như vậy nếu như $M_0 =0$ (tại thời gian $t_0$ không có ca tử vong nào xảy ra), ta có 
+$$
+\E(M_n) = \E[\E(M_n|\H_0)] = \E(M_0) = 0. 
+(\#eq:eq5)
+$$
+
+như vậy martingale  sẽ có kỳ vọng là 0, gọi là một _"mean zero martingale"_, tương tự chúng ta cũng sẽ có
+
+$$
+Cov(M_m,M_n-M_m) = 0, \quad \forall n > m
+$$
+nghĩa là martingale có _uncorrelated increments_. 
+
+Từ `r lb(eq3)` ta sẽ có 
+
+$$
+\E(M_n - M_{n-1}|\H_{n-1}) = 0, \quad \forall n > 1
+(\#eq:eq6)
+$$
+$\Delta M_n = M_n-M_{n-1}$ gọi là hiệu martingale (martingale differences). 
+
+## `r ttt('Sự thay đổi của quá trình ngẫu nhiên')`
+
+Có 2 sự thay đổi mà ta cần quan tâm, cái thứ nhất gọi là _quá trình thay đổi có thể dự đoán_ được ký hiệu là $\langle M \rangle$ và được định nghĩa là tổng của phương sai có điều kiện 
+$$
+\langle M \rangle_n = \sum_{i=1}^n \E\{(M_i-M_{i-1}^2|\H_{i-1}\} = \sum_{i=1}^n\V(\Delta M_i|\H_{i-1})
+(\#eq:eq7)
+$$
+biết rằng $\langle M \rangle_0 = 0$. quá trình thay đổi thứ hai gọi là _quá trình thay đổi tùy ý_, ký hiệu $[M]$ và được định nghĩa như sau
+$$
+[M]_n = \sum_{i=1}^n (M_i-M_{i-1})^2 = \sum_{i=1}^n (\Delta M_i)^2, \quad n \ge 0
+$$
+biết rằng $[M]_0 = 0$. Ta có thể chứng minh được rằng 
+
+$$
+M^2 - \langle M \rangle \text{ chính là martingale có kỳ vọng bằng 0}
+(\#eq:eq9)
+$$
+
+$$
+M^2 - [M] \text{ chính là martingale có kỳ vọng bằng 0}
+(\#eq:eq10)
+$$
+
+::::{.blackbox .brainstorm}
+:::{.center}
+Chứng minh `r lb(eq10)` như sau
+:::
+Với $M^2_n$, ta có thể ghi lại như sau
+$$
+\begin{aligned}
+&M_n^2 = (M_n - M_{n-1} + M_{n-1})^2 \\
+& [M]_n = \sum_{i=1}^{n-1}(M_i-M_{i-1})^2 + (M_n - M_{n-1})^2 = [M]_{n-1}+ (N_n-M_{n-1})^2
+\end{aligned}
+$$
+thus, 
+$$
+\begin{aligned}
+\E(M_n^2-[M]_n|\H_{n-1}) &= \E[2M_{n-1}(M_n-M_{n-1}) + M_{n-1}^2  - [M]_{n-1}|\H_{n-1}] \\
+&= M^2_{n-1} - [M]_{n-1}+2M_{n-1}\E(M_n-M_{n-1}|\H_{n-1}) \\
+&= M_{n-1}^2 - [M]_{n-1}
+\end{aligned}
+$$
+::::
+`r proved()`
+
+
+## `r ttt('Thời gian ngừng')`
+
+*stopping time* hay thời gian ngừng là khoảng thời gian phải có để một sự kiện nào đó xảy ra. Ta có thể định nghĩa thời gian ngừng như sau 
+$$
+M_{n}^T = M_{n \wedge T}, \quad [n \wedge T := \min(n,T)]
+(\#eq:eq11)
+$$
+nghĩa là nếu thời gian xem xét là $T = t$ thì tại các mốc thời gian trước $t$ sẽ chính là giá trị của mốc thời gian đó, còn các mốc thời gian sau $t$ sẽ luôn là $t$. Đối với thời gian ngừng trong `r lb(eq11)` ta có thể chỉ ra rằng nó cũng có tính chất martingale. Tuy nhiên ta sẽ xem xét trường hợp tổng quát trước rồi sẽ xem xét trường hợp đặc trưng sau. 
+
+Thông thường ta sẽ không chứng minh trực tiếp đặc tính martingale của thời gian ngừng mà sẽ thông qua một bước đổi biến. Gọi $X = \{X_i\}_{i=0,1,\dots}$ là một quá trình tổng quát với tiền sự $\{\H_n\}$, và $H = \{H_i\}_{i=0,1,\dots}$ là một quá trình có thể dự đoán *(predictable process)*, với già thuyết này thì $H_n$ sẽ có thể tính toán dựa trên tiền sự $\H_{n-1}$. Như vậy ta đổi biến $X$ thành biến $Z$ như sau 
+$$
+Z_n = H \bullet X = H_0X_0+H_1(X_1-X_0)+ \dots + H_{n-1}(X_{n-1}-X_{n-2})+ H_{n}(X_{n}-X_{n-1}),
+(\#eq:eq12)
+$$
+như vậy ta có thể chỉ ra rằng 
+$$
+\begin{aligned}
+\E(Z_n - Z_{n-1}|\H_{n-1}) &= \E[H_n(M_n-M_{n-1})|\H_{n-1}] \\
+&= H_n\E(M_n-M_{n-1}|\H_{n-1}) = 0,
+\end{aligned}
+$$
+ta kết luận rằng nếu $M$ là martingle thì $Z$ cũng như thế. Ngoài ra vì $Z_0 = H_0M_0 = 0$ nên $Z$ là martingale có kỳ vọng là 0. 
+
+Với $n$ lớn hơn $1$ ta sẽ có 
+$$
+Z_n = (H \bullet M)_n = \tp{\bf{H}}\Delta\bf{M}
+(\#eq:eq13)
+$$
+với $\bf{H} = \tp{(H_1,H_2,\dots,H_n)}$ và $\Delta\bf{M} = \tp{(\Delta M_1, \Delta M_2, \dots, \Delta M_n)}$ với $\Delta M_s = M_s - M_{s-1}$. Ta sẽ thấy ở các phần sau rằng nhờ các phương pháp đổi biến phù hợp các tích phân sẽ trở nên đơn giản hơn. Ta nhớ rằng ký hiệu $\langle . \rangle$ chính là đại lượng moment thứ hai có điều kiện (moment thứ hai tương đương với phương sai), nghĩa là $\langle M\rangle = \V(\Delta M|\H_{i-1})$, do đó ta có 
+$$
+\langle H \bullet M \rangle = H^2\bullet \langle M \rangle \quad and \quad [H\bullet M] = H^2\bullet[M]
+$$
+tổng quát hơn ta có
+$$
+\begin{align}
+&\langle H\bullet M\rangle_m = \sum_{s=1}^nH_s^2\Delta\langle M \rangle_s, && (a)  \\ &[H\bullet M]_n = \sum_{s=1}^nH_s^2\Delta[M]_s && (b)
+\end{align}
+(\#eq:eq1415)
+$$
+tham khảo @aal2008 cho phần chứng minh `r lb(eq1415)`.
+
+## `r ttt('phân tích Doob (Doob decomposition)')`
+
+Mục tiêu chính của *phân tích Doob* là giải thích sự thay đổi của một quá trình ngẫu nhiên như là một hàm số của biến tiền sự. Gọi $M = \{M_i\}_{i=0,1,\dots,n.}$ là một quá trình ngẫh nhiên bất kỳ, $X = \{X_i\}_{i=1,2,\dots,n.}$ là quá trình ngẫu nhiên thích nghi với tiền sự $\{\H_n\}$. Trong đó $M$ có tính chất sau
+$$
+\Delta M_n = M_n-M_{n-1} = X_n -\E(X_n|\H_{n-1})
+$$
+như vậy 
+$$
+X_n = \E(X_n|\H_{n-1}) + \Delta M_n,
+(\#eq:eq16)
+$$
+`r lb(eq16)` tương ứng với một mô hình thống kê bình thường $\bf{y} = \bf{\tp{\beta}X}+ \bf{\epsilon}$. Thật vậy, ta thấy rằng dữ kiện $\E(\bf{Y}) = \bf{\tp{\beta}X}$ tương đương với $X_n$ và $\E(X_n|\H_{n-1})$ trong `r lb(eq16)` và $\E(\bf{\epsilon}) = \bf{0}$ tương đương với $\E(\Delta M_n|\H_{n-1}) = 0$. Như vậy $X_n$ sẽ được hồi quy bằng theo một hàm số của $\H_{n-1}$. 
+
+# `r ttt('quá trình ngẫu nhiên với biến thời gian liên lục')`
+
+Phần này thật ra là giống như phần trên, tuy nhiên các ký hiệu cần phải thay đổi cho phù hợp với biến liên tục.
+
+
+## `r ttt('Martingales với biến thời gian liên tục')`
+
+Đối với một quá trình ngẫu nhiên ta sẽ ký hiệu là 
+$$
+X = \{X(t): t \in [0,\tau]\}
+$$
+thích nghi với tiền sự $\H_t$. Có nghĩa là tại thời điểm $t$ ta biết tất cả thông tin của $s$ với $s\le t$. Tất cả những giá trị của $X$ biến thiên theo thời gian $t$ gọi là *sample path*. Nếu sample path liên tục bên phải và tồn tại giới hạn trái thì ta gọi là _cadlag (continue à droite, limité à gauche)_. 
+
+Bởi vì $X_t$ thích nghi với $\H_t$ và thỏa mãn tính chất martingale nên
+$$
+\E[M(t)|\H_s] = M(s), \quad \forall s<t
+(\#eq:eq17)
+$$
+tương đương với
+$$
+\E(dM(t)|\H_{t^-}) = 0
+$$
+trong đó $dM(t)$ là sự tăng lên trong một khoảng thời gian vô cùn nhỏ là $[t,t+dt)$ và $\H_{t^-}$ là tiền sự ngay trước thời điểm $t$. 
+\
+
+
+
+
+
+
+
+
+
+## `r ttt('Tích phân trong quá trình ngẫu nhiên')`
+
+## `r ttt('quá trình ngẫu nhiên poisson')`
+
+Quá trình ngẫu nhiên poisson đồng nhất mô tả những sự kiện xảy ra hoàn toàn độc lập. Đại lượng được quan tâm là tốc độ xảy ra sự kiện, hay gọi là cường độ $\lambda$, trong đó $\lambda dt$ là xác suất **của một sự kiện xảy ra in khoảng thời gian $[t,t+dt)$.** Một vài đặc tính của nó là 
+
+1. Khoảng thời gian giữa những sự kiện thuộc phân bố $\Expo$, nghĩa là $T \sim \Expo(\lambda)$.
+2. Số sự kiện xảy ra trong một khoảng thời gian $h$ thuộc phân bố $\Pois$, nghĩa là nếu có $k$ sự kiện xảy ra thì xác suất là $(\lambda h)^ke^{-\lambda h}/k!.$
+3. Vì thế giá trị kỳ vọng và phương sai của số sự kiện xảy ra trong khoảng thời gian $h$ là $\lambda h$
+4. Số sự kiện xảy ra trong mỗi 2 khoảng thời gian không trùng lên nhau thì độc lập với nhau.
+
+Gọi $N(t)$ là số sự kiện xảy ra tính tới thời điểm $t$ nghĩa là $[0,t]$, ta có một quá trình
+$$
+M(t) = N(t) -\lambda t
+(\#eq:eq35)
+$$
+Ta thấy rằng $N(t)$ là số sự kiện xảy ra tính đến thời điểm $t$, thuộc phân bố $\Pois$ có tham số $\lambda t$, vì thế `r lb(eq35)` chính là quá trình ngẫu nhiên $\Pois$ đã được chuẩn hóa trung tâm về $0$. Lấy $\H_t$ là tiền sự trong khoảng thời gian $[0,t]$. Giả sử $t>s$, ta có
+$$
+\E[M(t)-M(s)|\H_s] \stackrel{\text{độclập}}{=} \E[M(t) - M(s)] = \E[N(t)-N(s)] -(t-s)\lambda = 0
+$$
+như vậy
+$$
+\E[M(t)|\H_s] = M(s).
+(\#eq:eq36)
+$$
+và $\lambda t$ là bổ chính của quá trình $\Pois$ . Bên cạnh đó bởi vì 
+$$
+\E[M^2(t)-\lambda t|\H_s] = M^2(s)-\lambda t
+$$
+ta có thể chứng minh được rằng $\lambda t$ cũng là một bổ chính của $M^2(t)$, vì thế 
+$$
+\langle M \rangle(t) = \lambda t
+(\#eq:eq38)
+$$
+
+## `r ttt('quá trình ngẫu nhiên đếm')`
+
+Một *quá trình đếm (counting process)* $N$ được định nghĩa là $\{N(t): t \in[0,\tau]\}$. $N$ là một quá trình liên tục phải với khoảng cách của mỗi bậc là $1$ tại thời điểm xảy ra sự kiện. Ta có thể minh họa bằng thời gian tái phát bệnh của một bệnh nhân như hình bên dưới
+
+```{r, fig.align='center', fig.cap="*thời gian tái phát bệnh của một bệnh nhân*"}
+x = data.frame(x0 = c(1,2,5),x1 = c(2,5,7), y0 = c(1,2,3),y1 = c(1,2,3))
+d = data.frame(x = c(1,2,2,5,5,7), y = c(1,1,2,2,3,3))
+
+plot(d, ylim = c(0,4), pch = c(NA,1,16,1,16,NA), xlab = "thời gian t", ylab = "số sự kiện xảy ra")
+segments(x$x0, y0 = x$y0, x1 = x$x1, y1 = x$y1)
+abline(v = c(2,5), lty = 2, col = "grey80")
+```
+
+Ta nói rằng quá trình đếm $N$ "thích nghi" với tiền sự $\{\H_t\}$ nghĩa là tại mỗi mốc thời gian $t$, ta đều có thể tính toán dựa vào tiền sự $\H_t$. Cường độ $\lambda(t)$ tại $t$ của một quá trình đếm là 
+$$
+\begin{align}
+\lambda(t)dt &= \P[dN(t)=1|\H_{t^-}] \\
+&= \E[dN(t)|\H_{t^-}]
+\end{align}
+(\#eq:eq39)
+$$
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+<!-- ====================== END ====================================== -->
+
+# *References* {.unnumbered}
