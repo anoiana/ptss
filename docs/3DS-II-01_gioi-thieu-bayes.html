@@ -462,6 +462,49 @@ div.tocify {
 <p><em>DRAFT</em></p>
 </div>
 <hr />
+<div class="right">
+<button data-toggle="collapse" data-target="#demo">
+Terminologies
+</button>
+</div>
+<div id="demo" class="collapse">
+<div class="whitebox">
+<table>
+<thead>
+<tr class="header">
+<th>English</th>
+<th>Vietnamese</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>likelihood</td>
+<td>hợp lý</td>
+</tr>
+<tr class="even">
+<td>prior</td>
+<td>tiên nghiệm</td>
+</tr>
+<tr class="odd">
+<td>posterior</td>
+<td>hậu nghiệm</td>
+</tr>
+<tr class="even">
+<td>parameter</td>
+<td>tham số</td>
+</tr>
+<tr class="odd">
+<td>conjugate</td>
+<td>liên hợp</td>
+</tr>
+<tr class="even">
+<td>improper</td>
+<td>phi chính</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="công-thức-bayes" class="section level1">
 <h1>Công Thức Bayes</h1>
 <p>Ta sẽ bắt đầu nội dung này bằng cách nhắc lại công thức <em>Bayes</em> được phát biểu như sau
@@ -473,7 +516,7 @@ div.tocify {
 <div class="example">
 <p><span id="exm:exm1" class="example"><strong>Example 1  </strong></span>Ta chọn ngẫu nhiên một trong hai đồng xu I và II với xác suất mặt hình lần lượt là <span class="math inline">\(p_1=0.4\)</span> và <span class="math inline">\(p_2=0.7\)</span>, rồi tung đầu xu đó <span class="math inline">\(n\)</span> lần. Sẽ cò 2 hành động ta cần xem xét, hành động thứ nhất là “chọn một trong hai đồng xu,” gọi xác suất đồng xu I được chọn là <span class="math inline">\(\theta = 0.5\)</span>, như vậy xác suất đồng xu II được chọn là <span class="math inline">\(1-\theta = 0.5\)</span>. Hành động thứ hai là tung đồng xu <span class="math inline">\(n\)</span> lần.Ta muốn xác định <span class="math inline">\(\theta\)</span> sau khi quan sát kết quả số mặt hình thu được sau khi tung đồng xu, nghĩa là <span class="math inline">\(\Bbb{P}(\Theta|X)\)</span>.</p>
 </div>
-<p>Trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm1">1</a> ta có thể thấy được rằng 2 hành động đều thuộc phân bố binomial, trong đó hành động chọn 1 trong 2 đồng xu là phân bố binomial với 2 parameters là <span class="math inline">\(n =1\)</span> và <span class="math inline">\(p = \theta\)</span>, như vậy ta có <span class="math inline">\(\Theta \sim \mathcal{Bin}(1,\theta)\)</span>. Hành động tung đồng xu <span class="math inline">\(n\)</span> lần cũng là một phân bố binomial có điều kiện. Nghĩa là tùy thuộc vào đồng xu được chọn mà ta sẽ có phân bố binomial với parameters khác nhau. Như vậy 2 phân bố binomial sẽ có dạng
+<p>Trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm1">1</a> ta có thể thấy được rằng 2 hành động đều thuộc phân bố binomial, trong đó hành động chọn 1 trong 2 đồng xu là phân bố binomial với 2 tham số là <span class="math inline">\(n =1\)</span> và <span class="math inline">\(p = \theta\)</span>, như vậy ta có <span class="math inline">\(\Theta \sim \mathcal{Bin}(1,\theta)\)</span>. Hành động tung đồng xu <span class="math inline">\(n\)</span> lần cũng là một phân bố binomial có điều kiện. Nghĩa là tùy thuộc vào đồng xu được chọn mà ta sẽ có phân bố binomial với tham số khác nhau. Như vậy 2 phân bố binomial sẽ có dạng
 <span class="math display">\[
 X|\Theta = \theta \sim \mathcal{Bin}(n,p_1); \quad X|\Theta = 1-\theta \sim \mathcal{Bin}(n,p_2)
 \]</span></p>
@@ -502,21 +545,21 @@ Figure 1: <em>Xác suất đồng xu I được chọn sau khi quan sát tập d
 </p>
 </div>
 </div>
-<div id="phân-bố-posterior" class="section level1">
-<h1>Phân Bố Posterior</h1>
+<div id="phân-bố-hậu-nghiệm-posterior" class="section level1">
+<h1>Phân Bố Hậu Nghiệm (Posterior)</h1>
 <p>Nếu như trong công thức <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> xác suất điều kiện được viết bằng hàm xác suất khối (probability mass function-PMF) với 2 sự kiện <span class="math inline">\(\Theta\)</span> và <span class="math inline">\(X\)</span>, thì đối với tập dữ liệu liên tục ta sẽ viết thành
 <span class="math display" id="eq:eq2">\[
 f(\theta|x) = \frac{f(x|\theta)f(\theta)}{f(x)} = 
 \frac{f(x|\theta)f(\theta)}{\int_{\Theta} f(x|\theta)f(\theta)d\theta}.
 \tag{2}
 \]</span>
-Phương trình trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> là dạng tổng quát của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> có thể đại diện cho cả phân bố liên tục và rời rạc (trong trường hợp rời rạc thì dấu tích phân <span class="math inline">\(\int\)</span> dưới mẫu đổi thành phép tổng <span class="math inline">\(\sum\)</span>). Và đây gọi là <em>phân bố posterior</em>. Ngoài ra, hàm <span class="math inline">\(f(x|\theta)\)</span> và <span class="math inline">\(f(\theta)\)</span> lần lượt là hàm <em>likelihood</em> và <em>hàm prior</em>. Một lưu ý nữa là phần tích phân dưới mẫu số của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> được tính trên tập xác định của <span class="math inline">\(\theta\)</span> nên kết quả độc lập với <span class="math inline">\(\theta\)</span>, vì vì thế ta có thể viết
+Phương trình trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> là dạng tổng quát của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> có thể đại diện cho cả phân bố liên tục và rời rạc (trong trường hợp rời rạc thì dấu tích phân <span class="math inline">\(\int\)</span> dưới mẫu đổi thành phép tổng <span class="math inline">\(\sum\)</span>). Và đây gọi là <em>phân bố hậu nghiệm</em>. Ngoài ra, hàm <span class="math inline">\(f(x|\theta)\)</span> và <span class="math inline">\(f(\theta)\)</span> lần lượt là hàm <em>hợp lý (likelihood)</em> và <em>hàm tiên nghiệm (prior)</em>. Một lưu ý nữa là phần tích phân dưới mẫu số của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> được tính trên tập xác định của <span class="math inline">\(\theta\)</span> nên kết quả độc lập với <span class="math inline">\(\theta\)</span>, vì vì thế ta có thể viết
 <span class="math display">\[
 f(\theta|x) \propto f(x|\theta)f(\theta)
 \]</span></p>
 <div id="ước-lượng-điểm" class="section level2">
 <h2>Ước Lượng Điểm</h2>
-<p>Một khi đã xác định được hàm phân bố posterior, ta có thể tính được ước lượng bayesian điểm (bayesian point estimate) chính là kỳ vọng (mean), trung vị (median) hay yếu vị (mode) của hàm posterior. Như vậy kỳ vọng của hàm posterior là
+<p>Một khi đã xác định được hàm phân bố hậu nghiệm, ta có thể tính được ước lượng bayesian điểm (bayesian point estimate) chính là kỳ vọng (mean), trung vị (median) hay yếu vị (mode) của hàm hậu nghiệm. Như vậy kỳ vọng của hàm hậu nghiệm là
 <span class="math display" id="eq:eq3">\[
 \Bbb{E}(\theta|x) = \int\theta f(\theta|x)d\theta,
 \tag{3}
@@ -534,7 +577,7 @@ Mod(\theta|x) = \arg\max_{\theta \in \Theta}f(\theta|x)
 </div>
 <div id="ước-lượng-khoảng" class="section level2">
 <h2>Ước Lượng Khoảng</h2>
-<p>Ngoài ra ta có thể xác định ước lượng khoảng dựa vào hàm posterior, được gọi là khoảng tin cậy (credible interval). Khoảng tin cậy được định nghĩa là <span class="math inline">\(L\)</span> và <span class="math inline">\(U\)</span> nếu
+<p>Ngoài ra ta có thể xác định ước lượng khoảng dựa vào hàm hậu nghiệm, được gọi là khoảng tin cậy (credible interval). Khoảng tin cậy được định nghĩa là <span class="math inline">\(L\)</span> và <span class="math inline">\(U\)</span> nếu
 <span class="math display" id="eq:eq6">\[
 \int_{L}^Uf(\theta|x)d\theta = 1-\alpha
 \tag{6}
@@ -544,7 +587,7 @@ Mod(\theta|x) = \arg\max_{\theta \in \Theta}f(\theta|x)
 <div class="center">
 <p>Lưu ý:</p>
 </div>
-<p>Khoảng tin cậy được lấy từ hàm posterior có ý nghĩa khác với khoảng tin cậy theo phương pháp frequentist thông thường. Với phương pháp frequentist, thì parameter <span class="math inline">\(\theta\)</span> không phải là một biến ngẫu nhiên mà là một giá trị cố định nhưng không được biết, nghĩa là nó không có xác suất hoặc là xác suất của nó chỉ là <span class="math inline">\(1\)</span> hoặc <span class="math inline">\(0\)</span>. Vì thế khoảng tin cậy của nó được giải thích là nếu ta lập lại thí nghiệm nhiều lần thì <span class="math inline">\((1-\alpha)100\%\)</span> trong số đó sẽ chứa giá trị đúng của <span class="math inline">\(\theta\)</span>. Trong khi theo trường phái Bayes thì <span class="math inline">\(\theta\)</span> là một biến ngẫu nhiên và phân bố của nó chính là phân phố posterior, nên ta có thể kết luận bằng khái niệm xác suất.</p>
+<p>Khoảng tin cậy được lấy từ hàm hậu nghiệm có ý nghĩa khác với khoảng tin cậy theo phương pháp frequentist thông thường. Với phương pháp frequentist, thì tham số <span class="math inline">\(\theta\)</span> không phải là một biến ngẫu nhiên mà là một giá trị cố định nhưng không được biết, nghĩa là nó không có xác suất hoặc là xác suất của nó chỉ là <span class="math inline">\(1\)</span> hoặc <span class="math inline">\(0\)</span>. Vì thế khoảng tin cậy của nó được giải thích là nếu ta lập lại thí nghiệm nhiều lần thì <span class="math inline">\((1-\alpha)100\%\)</span> trong số đó sẽ chứa giá trị đúng của <span class="math inline">\(\theta\)</span>. Trong khi theo trường phái Bayes thì <span class="math inline">\(\theta\)</span> là một biến ngẫu nhiên và phân bố của nó chính là phân phố hậu nghiệm, nên ta có thể kết luận bằng khái niệm xác suất.</p>
 </div>
 <div class="example">
 <p><span id="exm:exm2" class="example"><strong>Example 2  </strong></span>Ta có một đồng xu với xác suất mặt hình là <span class="math inline">\(\theta\)</span>, nhiệm vụ của ta là ước lượng giá trị <span class="math inline">\(\theta\)</span>. Để thực hiện, ta bắt đầu làm một thí nghiệm bằng cách tung đồng xu <span class="math inline">\(n\)</span> lần và xem xét số mặt hình thu được. Ví dụ ta biết rằng <span class="math inline">\(\theta\)</span> là một biến ngẫu nhiên thuộc phân bố <span class="math inline">\(\mathcal{Beta}\)</span>, ta có
@@ -579,60 +622,60 @@ Như vậy ta sẽ có
 \end{aligned}
 \tag{8}
 \]</span>
-Dựa vào <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq8">(8)</a> ta thấy rằng kỳ vọng của hàm posterior chính là trung bình cộng của kỳ vọng hàm prior và kỳ vọng hàm likelihood. Ta thấy rằng nếu <span class="math inline">\(n \to 0\)</span> thì <span class="math inline">\(\pi \to 1\)</span> và kỳ vọng của hàm posterior tiến gần đến kỳ vọng của hàm prior, còn nếu <span class="math inline">\(n \to \infty\)</span> thì kỳ vọng hàm posterior tương đương kỳ vọng hàm likelihood. Điều này thể hiện rõ trong <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">2</a>.</p>
+Dựa vào <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq8">(8)</a> ta thấy rằng kỳ vọng của hàm hậu nghiệm chính là trung bình cộng của kỳ vọng hàm tiên nghiệm và kỳ vọng hàm hợp lý. Ta thấy rằng nếu <span class="math inline">\(n \to 0\)</span> thì <span class="math inline">\(\pi \to 1\)</span> và kỳ vọng của hàm hậu nghiệm tiến gần đến kỳ vọng của hàm tiên nghiệm, còn nếu <span class="math inline">\(n \to \infty\)</span> thì kỳ vọng hàm hậu nghiệm tương đương kỳ vọng hàm hợp lý. Điều này thể hiện rõ trong <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">2</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:fig2"></span>
-<img src="img/img2.gif" alt="*phân bố posterior và phân bố prior biến thiên theo giá trị của n.*"  />
+<img src="img/img2.gif" alt="*phân bố hậu nghiệm và phân bố tiên nghiệm biến thiên theo giá trị của n.*"  />
 <p class="caption">
-Figure 2: <em>phân bố posterior và phân bố prior biến thiên theo giá trị của n.</em>
+Figure 2: <em>phân bố hậu nghiệm và phân bố tiên nghiệm biến thiên theo giá trị của n.</em>
 </p>
 </div>
-<p>Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối <span class="math inline">\((1-\pi)\)</span> là <span class="math inline">\(n\)</span> chính là kích cỡ mẫu của tập dữ liệu,như vậy ta có thể suy ra rằng phần tử số của tĩ lệ khối <span class="math inline">\(\pi\)</span> là <span class="math inline">\((\alpha+\beta)\)</span> chính là kích cỡ mẫu của hàm prior.</p>
-Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)\)</span>, hàm prior này có ý nghĩa là ta không hề có bất kỳ thông tin nào về <span class="math inline">\(\theta\)</span> đưo5c cho trước. Vì kích cỡ mẫu của hàm prior bấy giờ là <span class="math inline">\(\alpha+\beta =2\)</span>, một success một failure. Khi đó kỳ vọng của hàm posterior là <span class="math inline">\((x+1)/(n+2)\)</span> và yếu vị của hàm posterior chính là <span class="math inline">\(\widehat{\theta}_{MLE} = \overline{x}\)</span> <span class="citation">(<a href="#ref-held2014applied" role="doc-biblioref">Held and Sabanés Bové 2014</a>)</span>.
+<p>Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối <span class="math inline">\((1-\pi)\)</span> là <span class="math inline">\(n\)</span> chính là kích cỡ mẫu của tập dữ liệu,như vậy ta có thể suy ra rằng phần tử số của tĩ lệ khối <span class="math inline">\(\pi\)</span> là <span class="math inline">\((\alpha+\beta)\)</span> chính là kích cỡ mẫu của hàm tiên nghiệm.</p>
+Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)\)</span>, hàm tiên nghiệm này có ý nghĩa là ta không hề có bất kỳ thông tin nào về <span class="math inline">\(\theta\)</span> đưo5c cho trước. Vì kích cỡ mẫu của hàm tiên nghiệm bấy giờ là <span class="math inline">\(\alpha+\beta =2\)</span>, một success một failure. Khi đó kỳ vọng của hàm hậu nghiệm là <span class="math inline">\((x+1)/(n+2)\)</span> và yếu vị của hàm hậu nghiệm chính là <span class="math inline">\(\widehat{\theta}_{MLE} = \overline{x}\)</span> <span class="citation">(<a href="#ref-held2014applied" role="doc-biblioref">Held and Sabanés Bové 2014</a>)</span>.
 <p style="float:right; font-size:19px">
 <span class="math inline">\(\tiny\blacksquare\)</span>
 </p>
 </p>
 </div>
 </div>
-<div id="chọn-hàm-prior-chọn-nguồn-thông-tin-trước-khi-tập-dữ-liệu-được-quan-sát" class="section level1">
-<h1>Chọn Hàm Prior (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)</h1>
-<p>Về mặt ý nghĩa hàm prior đại diện cho nguồn thông tin (information hay knowledge) mà ta có trước khi ta quan sát từ tập dữ liệu. Vì thế nó còn được hiểu nôm na là “ý trời” (what God says) bởi vì thông tin này không dựa vào evidence (ở đây là data mà ta có) nên nó là một thông tin mang tính chất chủ quan (subjective belief). Thực tế hơn thì đây chính là nguồn thông tin bên ngoài (external information) mà ta có thể tìm kiếm được từ kết quả của những nghiên cứu có tương tự đã được thực hiện trước đó. Về mặt thống kê học thì chọn hàm prior nghĩa là chọn một phân bố cho parameters mà ta muốn ước lượng trước khi ta có thể quan sát data, từ đó kết hợp thông tin này với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm prior và hàm likelihood. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm prior vì một số hàm prior sẽ gây khó khăn trong việc tính toán hàm posterior. Phần này ta xem xét cách để chọn một hàm prior phù hợp.</p>
-<div id="hàm-prior-conjugate" class="section level2">
-<h2>Hàm Prior Conjugate</h2>
-<p>Lựa chọn đầu tiên được gọi là <em>hàm prior conjugate</em>, là một hàm prior được chọn sao cho hàm posterior và hàm piror cùng thuộc một họ phân bố, nghĩa là nếu hàm prior là một phân bố <span class="math inline">\(\mathcal{beta}\)</span> thì hàm posterior cũng là một phân bố <span class="math inline">\(\mathcal{Beta}\)</span>. Định nghĩa bằng ngôn ngữ toán học là</p>
+<div id="chọn-hàm-tiên-nghiệm-chọn-nguồn-thông-tin-trước-khi-tập-dữ-liệu-được-quan-sát" class="section level1">
+<h1>Chọn Hàm Tiên Nghiệm (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)</h1>
+<p>Về mặt ý nghĩa hàm tiên nghiệm đại diện cho nguồn thông tin (information hay knowledge) mà ta có trước khi ta quan sát từ tập dữ liệu. Vì thế nó còn được hiểu nôm na là “ý trời” (what God says) bởi vì thông tin này không dựa vào evidence (ở đây là data mà ta có) nên nó là một thông tin mang tính chất chủ quan (subjective belief). Thực tế hơn thì đây chính là nguồn thông tin bên ngoài (external information) mà ta có thể tìm kiếm được từ kết quả của những nghiên cứu có tương tự đã được thực hiện trước đó. Về mặt thống kê học thì chọn hàm tiên nghiệm nghĩa là chọn một phân bố cho tham số mà ta muốn ước lượng trước khi ta có thể quan sát data, từ đó kết hợp thông tin này với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm tiên nghiệm và hàm hợp lý. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm tiên nghiệm vì một số hàm tiên nghiệm sẽ gây khó khăn trong việc tính toán hàm hậu nghiệm. Phần này ta xem xét cách để chọn một hàm tiên nghiệm phù hợp.</p>
+<div id="hàm-tiên-nghiệm-liên-hợp-prior-conjugate" class="section level2">
+<h2>Hàm Tiên Nghiệm Liên Hợp (Prior Conjugate)</h2>
+<p>Lựa chọn đầu tiên được gọi là <em>hàm tiên nghiệm liên hợp</em>, là một hàm tiên nghiệm được chọn sao cho hàm hậu nghiệm và hàm piror cùng thuộc một họ phân bố, nghĩa là nếu hàm tiên nghiệm là một phân bố <span class="math inline">\(\mathcal{beta}\)</span> thì hàm hậu nghiệm cũng là một phân bố <span class="math inline">\(\mathcal{Beta}\)</span>. Định nghĩa bằng ngôn ngữ toán học là</p>
 <div class="definition">
-<span id="def:def1" class="definition"><strong>Definition 1  (Hàm prior conjugate) </strong></span>Cho <span class="math inline">\(L(\theta) = f(x|\theta)\)</span> là hàm likelihood, <span class="math inline">\(\mathscr{G}\)</span> được gọi là một họ phân bố conjugate tương ứng với <span class="math inline">\(L(\theta)\)</span> nếu <span class="math inline">\(f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x\)</span>.
+<span id="def:def1" class="definition"><strong>Definition 1  (Hàm tiên nghiệm liên hợp) </strong></span>Cho <span class="math inline">\(L(\theta) = f(x|\theta)\)</span> là hàm hợp lý, <span class="math inline">\(\mathscr{G}\)</span> được gọi là một họ phân bố liên hợp tương ứng với <span class="math inline">\(L(\theta)\)</span> nếu <span class="math inline">\(f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x\)</span>.
 <p style="float:right; font-size:19px">
 <span class="math inline">\(\tiny\blacksquare\)</span>
 </p>
 </p>
 </div>
 <div class="example">
-<span id="exm:exm3" class="example"><strong>Example 3  </strong></span>Ta xem lại trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2</a>, ta có <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span> và <span class="math inline">\(\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)\)</span>. Cả 2 phân bố đều thuộc họ phân bố <span class="math inline">\(\mathcal{Beta}\)</span> nên <span class="math inline">\(\mathcal{Beta}(\alpha,\beta)\)</span> trong trường hợp này là một hàm piror conjugate.
+<span id="exm:exm3" class="example"><strong>Example 3  </strong></span>Ta xem lại trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2</a>, ta có <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span> và <span class="math inline">\(\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)\)</span>. Cả 2 phân bố đều thuộc họ phân bố <span class="math inline">\(\mathcal{Beta}\)</span> nên <span class="math inline">\(\mathcal{Beta}(\alpha,\beta)\)</span> trong trường hợp này là một hàm tiên nghiệm liên hợp.
 <p style="float:right; font-size:19px">
 <span class="math inline">\(\tiny\blacksquare\)</span>
 </p>
 </p>
 </div>
-<p>Thay vì xem xét tình trường hợp riêng lẽ, ta sẽ xem xét hàm prior conjugate thuộc họ phân bố <em>exponential</em> là một họ phân bố của hầu hết các phân bố được sử dụng phổ biến trong phân tích hiện nay. Một phân bố được cho là thuộc họ exponential khi hàm mật độ xác suất (probability density function) của nó có thể viết dưới dạng
+<p>Thay vì xem xét tình trường hợp riêng lẽ, ta sẽ xem xét hàm tiên nghiệm liên hợp thuộc họ phân bố <em>exponential</em> là một họ phân bố của hầu hết các phân bố được sử dụng phổ biến trong phân tích hiện nay. Một phân bố được cho là thuộc họ exponential khi hàm mật độ xác suất (probability density function) của nó có thể viết dưới dạng
 <span class="math display" id="eq:eq9">\[
 f(x_i|\theta) = f(x_i)g(\theta)\exp\big\{{\phi(\theta)}^{\top} u(x_i)\big\} ,
 \tag{9}
 \]</span>
-trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq9">(9)</a> ta cần chú ý 4 thành phần, thứ nhất là <span class="math inline">\(f(x_i)\)</span> là một hàm số của tập dữ liệu, độc lập với <span class="math inline">\(\theta\)</span>, <span class="math inline">\(g(\theta)\)</span> một hàm số của parameter <span class="math inline">\(\theta\)</span> độc lập với dữ liệu <span class="math inline">\(x_i\)</span>. Hai thành phần quan trọng nhất chính là <span class="math inline">\(\phi(\theta)\)</span> và <span class="math inline">\(u(x_i)\)</span> trong khi cái đầu là một hàm số của riêng <span class="math inline">\(\theta\)</span> thì cái thứ hai là hàm số của riêng <span class="math inline">\(x_i\)</span>. Nếu ta lấy loragit tự nhiên ta sẽ được
+trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq9">(9)</a> ta cần chú ý 4 thành phần, thứ nhất là <span class="math inline">\(f(x_i)\)</span> là một hàm số của tập dữ liệu, độc lập với <span class="math inline">\(\theta\)</span>, <span class="math inline">\(g(\theta)\)</span> một hàm số của tham số <span class="math inline">\(\theta\)</span> độc lập với dữ liệu <span class="math inline">\(x_i\)</span>. Hai thành phần quan trọng nhất chính là <span class="math inline">\(\phi(\theta)\)</span> và <span class="math inline">\(u(x_i)\)</span> trong khi cái đầu là một hàm số của riêng <span class="math inline">\(\theta\)</span> thì cái thứ hai là hàm số của riêng <span class="math inline">\(x_i\)</span>. Nếu ta lấy loragit tự nhiên ta sẽ được
 <span class="math display">\[
 f^*(x_i) + g^*(\theta) + {\phi(\theta)}^{\top}u(x_i),
 \]</span>
-ta thấy rằng hàm log-likelihood của <span class="math inline">\(\theta\)</span> phụ thuộc vào data <span class="math inline">\(x_i\)</span> thông qua hàm <span class="math inline">\(u(x_i)\)</span>, vì thế <span class="math inline">\(u(x_i)\)</span> được gọi là <em>sufficient statistic</em> của <span class="math inline">\(\theta\)</span>. Như vậy
-nếu như hàm phân bố prior của <span class="math inline">\(\theta\)</span> cũng thuộc họ exponential thì
+ta thấy rằng logarit tự nhiên của hàm hợp lý của <span class="math inline">\(\theta\)</span> phụ thuộc vào data <span class="math inline">\(x_i\)</span> thông qua hàm <span class="math inline">\(u(x_i)\)</span>, vì thế <span class="math inline">\(u(x_i)\)</span> được gọi là <em>thống kê đủ (sufficient statistic)</em> của <span class="math inline">\(\theta\)</span>. Như vậy
+nếu như hàm phân bố tiên nghiệm của <span class="math inline">\(\theta\)</span> cũng thuộc họ exponential thì
 <span class="math display">\[
 f(\theta) \propto g(\theta)^{\eta}e^{{\phi(\theta)}^{\top}\xi},
 \]</span>
-thì hàm posterior sẽ có dạng
+thì hàm hậu nghiệm sẽ có dạng
 <span class="math display">\[
 f(\theta|x_i) = g(\theta)^{1+\eta}e^{{\phi(\theta)}^{\top}(\xi+t(x_i))},
 \]</span>
-chỉ ra rằng hàm prior được chọn là một hàm prior conjugate. Ta có thể chứng minh rằng họ exponential là một họ của những phân bố có các hàm phân bố conjugate, bởi vì những phân bố có số sufficient statistic cố định với mọi <span class="math inline">\(n\)</span> (<span class="math inline">\(n\)</span> là số observations trong tập dữ liệu) đều thuộc họ exponential <span class="citation">(<a href="#ref-gelman2013" role="doc-biblioref">Gelman et al. 2013</a>)</span>.</p>
+chỉ ra rằng hàm tiên nghiệm được chọn là một hàm tiên nghiệm liên hợp. Ta có thể chứng minh rằng họ exponential là một họ của những phân bố có các hàm phân bố liên hợp, bởi vì những phân bố có số thống kê đủ cố định với mọi <span class="math inline">\(n\)</span> (<span class="math inline">\(n\)</span> là số observations trong tập dữ liệu) đều thuộc họ exponential <span class="citation">(<a href="#ref-gelman2013" role="doc-biblioref">Gelman et al. 2013</a>)</span>.</p>
 <div class="example">
 <p><span id="exm:exm4" class="example"><strong>Example 4  </strong></span>Trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2</a> ta có <span class="math inline">\(X|\theta \sim \mathcal{Bin}(n,\theta)\)</span> và <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span>. Ta có thể chỉ ra rằng cả 2 phân bố này đều thuộc họ exponential.</p>
 <p>Ta sẽ chứng minh Binomial là một phân bố thuộc họ exponential như sau,
@@ -651,7 +694,7 @@ f(\theta) &amp;\propto \theta^{\alpha-1}(1-\theta)^{\beta-1} \\
 &amp;= (1-\theta)^{\beta+\alpha-2}e^{(\alpha-1)\ln(\frac{\theta}{1-\theta})}.
 \end{aligned}
 \]</span></p>
-Như vậy nếu kết hợp với hàm likelihood ở trên ta sẽ có
+Như vậy nếu kết hợp với hàm hợp lý ở trên ta sẽ có
 <span class="math display">\[
 f(\theta|x)  = {n \choose x}(1-\theta)^{n+\alpha+\beta-2}\exp\Big[(x+\alpha-1)\text{logit}(\theta)\Big],
 \]</span>
@@ -666,6 +709,23 @@ cũng là một phân bố thuộc họ exponential. Nếu ta bỏ đi phần <s
 </p>
 </p>
 </div>
+<p>Một dạng so sánh khá phổ biến trong thống kê đó là so sánh tỉ lệ giữa 2 quần thể khác nhau, ví dụ như ta muốn sao sánh tỉ lệ tư vong của 2 nhóm bệnh nhân đã sử dụng 2 phương pháp điều trị khác nhau. Ta sẽ xem xét trường hợp này trong ví dụ tiếp theo</p>
+<div class="example exm5">
+<p><span id="exm:unlabeled-div-1" class="example"><strong>Example 5  </strong></span>Ta có 2 biến ngẫu nhiên thuộc 2 phân bố binomial như sau
+<span class="math display">\[
+X_1 \sim \mathcal{Bin}(n_1,p_1), \quad X_2 \sim \mathcal{Bin}(n_2,p_2),
+\]</span>
+ta muốn so sánh <span class="math inline">\(p_1\)</span> và <span class="math inline">\(p_2\)</span>, <em>hệ số ảnh hưởng (effect size)</em> thường được sử dụng là <em>tỉ số odds (odds ratio)</em>:
+<span class="math display">\[
+\theta = \frac{p_1/(1-p_1)}{p_2/(1-p_2)},
+\]</span>
+thông qua hàm logarit tự nhiên, nghĩa là <span class="math inline">\(\Omega=\ln\theta\)</span>.</p>
+<p>Với một phân bố binomial ta biết rằng ước lượng hợp lý cực đại (maximum likelihood estimator - MLE) là <span class="math inline">\(x_i/n_i\)</span> với <span class="math inline">\(i \in \{1,2\}\)</span>.</p>
+</div>
+</div>
+<div id="hàm-tiên-nghiệm-phi-chính-improper-prior" class="section level2">
+<h2>Hàm Tiên Nghiệm Phi Chính (Improper Prior)</h2>
+<p>Lựa chọn thứ 2 cho hàm tiên nghiệm là <em>tiên nghiệm phi chính</em>.</p>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 </div>

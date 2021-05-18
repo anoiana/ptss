@@ -69,3 +69,14 @@ proved = function(x = "$\\tiny\\blacksquare$", size = 19){
   sprintf("<p style='float:right; font-size:%spx'>%s</p></p>", size,x)
 }
 
+
+############### collapse button ###############################
+
+collapsable_button = function(name = "button name"){
+  list(
+    initialize =
+      sprintf('<button data-toggle="collapse" data-target="#demo">%s</button>',name),
+    begin = '<div id="demo" class="collapse">',
+    end = '</div>'
+  )
+}

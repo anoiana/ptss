@@ -39,8 +39,6 @@ link-citations: true
 *DRAFT*
 :::
 
----
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 options("scipen"=100)
@@ -48,6 +46,24 @@ source("_supp/helper.R")
 library(tidyverse)
 ttt = purrr::partial(totitle, icon ="")
 ```
+
+***
+:::{.right}
+`r button1 = collapsable_button('Terminologies'); button1[[1]]`
+:::
+
+`r button1[[2]]`
+:::{.whitebox}
+| English | Vietnamese |
+|---------|------------|
+| likelihood | hợp lý |
+| prior | tiên nghiệm |
+| posterior | hậu nghiệm |
+| parameter | tham số |
+| conjugate | liên hợp |
+| improper | phi chính |
+:::
+`r button1[[3]]`
 
 # `r ttt('công thức bayes')`
 
@@ -63,7 +79,7 @@ với $\Theta$ và $X$ lần lượt là 2 sự kiện xảy ra trong một thí
 Ta chọn ngẫu nhiên một trong hai đồng xu I và II với xác suất mặt hình lần lượt là $p_1=0.4$ và $p_2=0.7$, rồi tung đầu xu đó $n$ lần. Sẽ cò 2 hành động ta cần xem xét, hành động thứ nhất là "chọn một trong hai đồng xu", gọi xác suất đồng xu I được chọn là $\theta = 0.5$, như vậy xác suất đồng xu II được chọn là $1-\theta = 0.5$. Hành động thứ hai là tung đồng xu $n$ lần.Ta muốn xác định $\theta$ sau khi quan sát kết quả số mặt hình thu được sau khi tung đồng xu, nghĩa là $\P(\Theta|X)$. 
 :::
 
-Trong `r lb(exm1)` ta có thể thấy được rằng 2 hành động đều thuộc phân bố binomial, trong đó hành động chọn 1 trong 2 đồng xu là phân bố binomial với 2 parameters là $n =1$ và $p = \theta$, như vậy ta có $\Theta \sim \mathcal{Bin}(1,\theta)$. Hành động tung đồng xu $n$ lần cũng là một phân bố binomial có điều kiện. Nghĩa là tùy thuộc vào đồng xu được chọn mà ta sẽ có phân bố binomial với parameters khác nhau. Như vậy 2 phân bố binomial sẽ có dạng
+Trong `r lb(exm1)` ta có thể thấy được rằng 2 hành động đều thuộc phân bố binomial, trong đó hành động chọn 1 trong 2 đồng xu là phân bố binomial với 2 tham số là $n =1$ và $p = \theta$, như vậy ta có $\Theta \sim \mathcal{Bin}(1,\theta)$. Hành động tung đồng xu $n$ lần cũng là một phân bố binomial có điều kiện. Nghĩa là tùy thuộc vào đồng xu được chọn mà ta sẽ có phân bố binomial với tham số khác nhau. Như vậy 2 phân bố binomial sẽ có dạng
 $$
 X|\Theta = \theta \sim \mathcal{Bin}(n,p_1); \quad X|\Theta = 1-\theta \sim \mathcal{Bin}(n,p_2)
 $$
@@ -96,7 +112,7 @@ ggplot(tibble(x = 0:10, y= thet), aes(x=x, y= y))+
   theme_bw()
 ```
 
-# `r ttt('phân bố posterior')`
+# `r ttt('phân bố hậu nghiệm (posterior)')`
 
 Nếu như trong công thức `r lb(eq1)` xác suất điều kiện được viết bằng hàm xác suất khối (probability mass function-PMF) với 2 sự kiện $\Theta$ và $X$, thì đối với tập dữ liệu liên tục ta sẽ viết thành
 $$
@@ -104,14 +120,14 @@ f(\theta|x) = \frac{f(x|\theta)f(\theta)}{f(x)} =
 \frac{f(x|\theta)f(\theta)}{\int_{\Theta} f(x|\theta)f(\theta)d\theta}.
 (\#eq:eq2)
 $$
-Phương trình trong `r lb(eq2)` là dạng tổng quát của `r lb(eq1)` có thể đại diện cho cả phân bố liên tục và rời rạc (trong trường hợp rời rạc thì dấu tích phân $\int$ dưới mẫu đổi thành phép tổng $\sum$). Và đây gọi là *phân bố posterior*. Ngoài ra, hàm $f(x|\theta)$ và $f(\theta)$ lần lượt là hàm *likelihood* và *hàm prior*. Một lưu ý nữa là phần tích phân dưới mẫu số của `r lb(eq2)` được tính trên tập xác định của $\theta$ nên kết quả độc lập với $\theta$, vì vì thế ta có thể viết
+Phương trình trong `r lb(eq2)` là dạng tổng quát của `r lb(eq1)` có thể đại diện cho cả phân bố liên tục và rời rạc (trong trường hợp rời rạc thì dấu tích phân $\int$ dưới mẫu đổi thành phép tổng $\sum$). Và đây gọi là *phân bố hậu nghiệm*. Ngoài ra, hàm $f(x|\theta)$ và $f(\theta)$ lần lượt là hàm *hợp lý (likelihood)* và *hàm tiên nghiệm (prior)*. Một lưu ý nữa là phần tích phân dưới mẫu số của `r lb(eq2)` được tính trên tập xác định của $\theta$ nên kết quả độc lập với $\theta$, vì vì thế ta có thể viết
 $$
 f(\theta|x) \propto f(x|\theta)f(\theta)
 $$
 
 ## `r ttt('ước lượng điểm')`
 
-Một khi đã xác định được hàm phân bố posterior, ta có thể tính được ước lượng bayesian điểm (bayesian point estimate) chính là  kỳ vọng (mean), trung vị (median) hay yếu vị (mode) của hàm posterior. Như vậy kỳ vọng của hàm posterior là
+Một khi đã xác định được hàm phân bố hậu nghiệm, ta có thể tính được ước lượng bayesian điểm (bayesian point estimate) chính là  kỳ vọng (mean), trung vị (median) hay yếu vị (mode) của hàm hậu nghiệm. Như vậy kỳ vọng của hàm hậu nghiệm là
 $$
 \E(\theta|x) = \int\theta f(\theta|x)d\theta,
 (\#eq:eq3)
@@ -129,7 +145,7 @@ $$
 
 ## `r ttt('ước lượng khoảng')`
 
-Ngoài ra ta có thể xác định ước lượng khoảng dựa vào hàm posterior, được gọi là khoảng tin cậy (credible interval). Khoảng tin cậy được định nghĩa là $L$ và $U$ nếu
+Ngoài ra ta có thể xác định ước lượng khoảng dựa vào hàm hậu nghiệm, được gọi là khoảng tin cậy (credible interval). Khoảng tin cậy được định nghĩa là $L$ và $U$ nếu
 $$
 \int_{L}^Uf(\theta|x)d\theta = 1-\alpha
 (\#eq:eq6)
@@ -141,7 +157,7 @@ Ta kết luận rằng $\theta \in (L,U)$ với xác suất là $(1-\alpha)100\%
 :::{.center}
 Lưu ý:
 :::
-Khoảng tin cậy được lấy từ hàm posterior có ý nghĩa khác với khoảng tin cậy theo phương pháp frequentist thông thường. Với phương pháp frequentist, thì parameter $\theta$ không phải là một biến ngẫu nhiên mà là một giá trị cố định nhưng không được biết, nghĩa là nó không có xác suất hoặc là xác suất của nó chỉ là $1$ hoặc $0$. Vì thế khoảng tin cậy của nó được giải thích là nếu ta lập lại thí nghiệm nhiều lần thì $(1-\alpha)100\%$ trong số đó sẽ chứa giá trị đúng của $\theta$. Trong khi theo trường phái Bayes thì $\theta$ là một biến ngẫu nhiên và phân bố của nó chính là phân phố posterior, nên ta có thể kết luận bằng khái niệm xác suất.
+Khoảng tin cậy được lấy từ hàm hậu nghiệm có ý nghĩa khác với khoảng tin cậy theo phương pháp frequentist thông thường. Với phương pháp frequentist, thì tham số $\theta$ không phải là một biến ngẫu nhiên mà là một giá trị cố định nhưng không được biết, nghĩa là nó không có xác suất hoặc là xác suất của nó chỉ là $1$ hoặc $0$. Vì thế khoảng tin cậy của nó được giải thích là nếu ta lập lại thí nghiệm nhiều lần thì $(1-\alpha)100\%$ trong số đó sẽ chứa giá trị đúng của $\theta$. Trong khi theo trường phái Bayes thì $\theta$ là một biến ngẫu nhiên và phân bố của nó chính là phân phố hậu nghiệm, nên ta có thể kết luận bằng khái niệm xác suất.
 ::::
 
 :::{.example #exm2}
@@ -179,51 +195,51 @@ $$
 \end{aligned}
 (\#eq:eq8)
 $$
-Dựa vào `r lb(eq8)` ta thấy rằng kỳ vọng của hàm posterior chính là trung bình cộng của kỳ vọng hàm prior và kỳ vọng hàm likelihood. Ta thấy rằng nếu $n \to 0$ thì $\pi \to 1$ và kỳ vọng của hàm posterior tiến gần đến kỳ vọng của hàm prior, còn nếu $n \to \infty$ thì kỳ vọng hàm posterior tương đương kỳ vọng hàm likelihood. Điều này thể hiện rõ trong `r lb(fig2)`.
+Dựa vào `r lb(eq8)` ta thấy rằng kỳ vọng của hàm hậu nghiệm chính là trung bình cộng của kỳ vọng hàm tiên nghiệm và kỳ vọng hàm hợp lý. Ta thấy rằng nếu $n \to 0$ thì $\pi \to 1$ và kỳ vọng của hàm hậu nghiệm tiến gần đến kỳ vọng của hàm tiên nghiệm, còn nếu $n \to \infty$ thì kỳ vọng hàm hậu nghiệm tương đương kỳ vọng hàm hợp lý. Điều này thể hiện rõ trong `r lb(fig2)`.
 
-```{r fig2, fig.align='center', fig.cap="*phân bố posterior và phân bố prior biến thiên theo giá trị của n.*"}
+```{r fig2, fig.align='center', fig.cap="*phân bố hậu nghiệm và phân bố tiên nghiệm biến thiên theo giá trị của n.*"}
 knitr::include_graphics("img/img2.gif")
 ```
 
-Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối $(1-\pi)$ là $n$ chính là kích cỡ mẫu của tập dữ liệu,như vậy ta có thể suy ra rằng phần tử số của tĩ lệ khối $\pi$ là $(\alpha+\beta)$ chính là kích cỡ mẫu của hàm prior. 
+Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối $(1-\pi)$ là $n$ chính là kích cỡ mẫu của tập dữ liệu,như vậy ta có thể suy ra rằng phần tử số của tĩ lệ khối $\pi$ là $(\alpha+\beta)$ chính là kích cỡ mẫu của hàm tiên nghiệm. 
 
-Ta cũng biết rằng $\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)$, hàm prior này có ý nghĩa là ta không hề có bất kỳ thông tin nào về $\theta$ đưo5c cho trước. Vì kích cỡ mẫu của hàm prior bấy giờ là $\alpha+\beta =2$, một success một failure. Khi đó kỳ vọng của hàm posterior là $(x+1)/(n+2)$ và yếu vị của hàm posterior chính là $\hat{\theta}_{MLE} = \bar{x}$ [@held2014applied]. `r proved()`
+Ta cũng biết rằng $\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)$, hàm tiên nghiệm này có ý nghĩa là ta không hề có bất kỳ thông tin nào về $\theta$ đưo5c cho trước. Vì kích cỡ mẫu của hàm tiên nghiệm bấy giờ là $\alpha+\beta =2$, một success một failure. Khi đó kỳ vọng của hàm hậu nghiệm là $(x+1)/(n+2)$ và yếu vị của hàm hậu nghiệm chính là $\hat{\theta}_{MLE} = \bar{x}$ [@held2014applied]. `r proved()`
 
-# `r ttt('Chọn hàm prior')` (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)
+# `r ttt('Chọn hàm tiên nghiệm')` (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)
 
-Về mặt ý nghĩa hàm prior đại diện cho nguồn thông tin (information hay knowledge) mà ta có trước khi ta quan sát từ tập dữ liệu. Vì thế nó còn được hiểu nôm na là "ý trời" (what God says) bởi vì thông tin này không dựa vào evidence (ở đây là data mà ta có) nên nó là một thông tin mang tính chất chủ quan (subjective belief). Thực tế hơn thì đây chính là nguồn thông tin bên ngoài (external information) mà ta có thể tìm kiếm được từ kết quả của những nghiên cứu có tương tự đã được thực hiện trước đó. Về mặt thống kê học thì chọn hàm prior nghĩa là chọn một phân bố cho parameters mà ta muốn ước lượng trước khi ta có thể quan sát data, từ đó kết hợp thông tin này với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm prior và hàm likelihood. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm prior vì một số hàm prior sẽ gây khó khăn trong việc tính toán hàm posterior. Phần này ta xem xét cách để chọn một hàm prior phù hợp.
+Về mặt ý nghĩa hàm tiên nghiệm đại diện cho nguồn thông tin (information hay knowledge) mà ta có trước khi ta quan sát từ tập dữ liệu. Vì thế nó còn được hiểu nôm na là "ý trời" (what God says) bởi vì thông tin này không dựa vào evidence (ở đây là data mà ta có) nên nó là một thông tin mang tính chất chủ quan (subjective belief). Thực tế hơn thì đây chính là nguồn thông tin bên ngoài (external information) mà ta có thể tìm kiếm được từ kết quả của những nghiên cứu có tương tự đã được thực hiện trước đó. Về mặt thống kê học thì chọn hàm tiên nghiệm nghĩa là chọn một phân bố cho tham số mà ta muốn ước lượng trước khi ta có thể quan sát data, từ đó kết hợp thông tin này với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm tiên nghiệm và hàm hợp lý. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm tiên nghiệm vì một số hàm tiên nghiệm sẽ gây khó khăn trong việc tính toán hàm hậu nghiệm. Phần này ta xem xét cách để chọn một hàm tiên nghiệm phù hợp.
 
-## `r ttt('hàm prior conjugate')`
+## `r ttt('hàm tiên nghiệm liên hợp (prior conjugate)')`
 
-Lựa chọn đầu tiên được gọi là *hàm prior conjugate*, là một hàm prior được chọn sao cho hàm posterior và hàm piror cùng thuộc một họ phân bố, nghĩa là nếu hàm prior là một phân bố $\mathcal{beta}$ thì hàm posterior cũng là một phân bố $\mathcal{Beta}$. Định nghĩa bằng ngôn ngữ toán học là 
+Lựa chọn đầu tiên được gọi là *hàm tiên nghiệm liên hợp*, là một hàm tiên nghiệm được chọn sao cho hàm hậu nghiệm và hàm piror cùng thuộc một họ phân bố, nghĩa là nếu hàm tiên nghiệm là một phân bố $\mathcal{beta}$ thì hàm hậu nghiệm cũng là một phân bố $\mathcal{Beta}$. Định nghĩa bằng ngôn ngữ toán học là 
 
-::: {.definition #def1 name="Hàm prior conjugate"}
-Cho $L(\theta) = f(x|\theta)$ là hàm likelihood, $\mathscr{G}$ được gọi là một họ phân bố conjugate tương ứng với $L(\theta)$ nếu $f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x$. `r proved()`
+::: {.definition #def1 name="Hàm tiên nghiệm liên hợp"}
+Cho $L(\theta) = f(x|\theta)$ là hàm hợp lý, $\mathscr{G}$ được gọi là một họ phân bố liên hợp tương ứng với $L(\theta)$ nếu $f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x$. `r proved()`
 :::
 
 ::: {.example #exm3}
-Ta xem lại trong `r lb(exm2)`, ta có $\theta \sim \mathcal{Beta}(\alpha,\beta)$ và $\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)$. Cả 2 phân bố đều thuộc họ phân bố $\mathcal{Beta}$ nên $\mathcal{Beta}(\alpha,\beta)$ trong trường hợp này là một hàm piror conjugate. `r proved()`
+Ta xem lại trong `r lb(exm2)`, ta có $\theta \sim \mathcal{Beta}(\alpha,\beta)$ và $\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)$. Cả 2 phân bố đều thuộc họ phân bố $\mathcal{Beta}$ nên $\mathcal{Beta}(\alpha,\beta)$ trong trường hợp này là một hàm tiên nghiệm liên hợp. `r proved()`
 :::
 
-Thay vì xem xét tình trường hợp riêng lẽ, ta sẽ xem xét hàm prior conjugate thuộc họ phân bố _exponential_ là một họ phân bố của hầu hết các phân bố được sử dụng phổ biến trong phân tích hiện nay. Một phân bố được cho là thuộc họ exponential khi hàm mật độ xác suất (probability density function) của nó có thể viết dưới dạng
+Thay vì xem xét tình trường hợp riêng lẽ, ta sẽ xem xét hàm tiên nghiệm liên hợp thuộc họ phân bố _exponential_ là một họ phân bố của hầu hết các phân bố được sử dụng phổ biến trong phân tích hiện nay. Một phân bố được cho là thuộc họ exponential khi hàm mật độ xác suất (probability density function) của nó có thể viết dưới dạng
 $$
 f(x_i|\theta) = f(x_i)g(\theta)\exp\big\{\tp{\phi(\theta)} u(x_i)\big\} ,
 (\#eq:eq9)
 $$
-trong `r lb(eq9)` ta cần chú ý 4 thành phần, thứ nhất là $f(x_i)$ là một hàm số của tập dữ liệu, độc lập với $\theta$, $g(\theta)$ một hàm số của parameter $\theta$ độc lập với dữ liệu $x_i$. Hai thành phần quan trọng nhất chính là $\phi(\theta)$ và $u(x_i)$ trong khi cái đầu là một hàm số của riêng $\theta$ thì cái thứ hai là hàm số của riêng $x_i$. Nếu ta lấy loragit tự nhiên ta sẽ được
+trong `r lb(eq9)` ta cần chú ý 4 thành phần, thứ nhất là $f(x_i)$ là một hàm số của tập dữ liệu, độc lập với $\theta$, $g(\theta)$ một hàm số của tham số $\theta$ độc lập với dữ liệu $x_i$. Hai thành phần quan trọng nhất chính là $\phi(\theta)$ và $u(x_i)$ trong khi cái đầu là một hàm số của riêng $\theta$ thì cái thứ hai là hàm số của riêng $x_i$. Nếu ta lấy loragit tự nhiên ta sẽ được
 $$
 f^*(x_i) + g^*(\theta) + \tp{\phi(\theta)}u(x_i),
 $$
-ta thấy rằng hàm log-likelihood của $\theta$ phụ thuộc vào data $x_i$ thông qua hàm $u(x_i)$, vì thế $u(x_i)$ được gọi là *sufficient statistic* của $\theta$. Như vậy 
-nếu như hàm phân bố prior của $\theta$ cũng thuộc họ exponential thì 
+ta thấy rằng logarit tự nhiên của hàm hợp lý của $\theta$ phụ thuộc vào data $x_i$ thông qua hàm $u(x_i)$, vì thế $u(x_i)$ được gọi là *thống kê đủ (sufficient statistic)* của $\theta$. Như vậy 
+nếu như hàm phân bố tiên nghiệm của $\theta$ cũng thuộc họ exponential thì 
 $$
 f(\theta) \propto g(\theta)^{\eta}e^{\tp{\phi(\theta)}\xi},
 $$
-thì hàm posterior sẽ có dạng
+thì hàm hậu nghiệm sẽ có dạng
 $$
 f(\theta|x_i) = g(\theta)^{1+\eta}e^{\tp{\phi(\theta)}(\xi+t(x_i))},
 $$
-chỉ ra rằng hàm prior được chọn là một hàm prior conjugate. Ta có thể chứng minh rằng họ exponential là một họ của những phân bố có các hàm phân bố conjugate, bởi vì những phân bố có số sufficient statistic cố định với mọi $n$ ($n$ là số observations trong tập dữ liệu) đều thuộc họ exponential [@gelman2013]. 
+chỉ ra rằng hàm tiên nghiệm được chọn là một hàm tiên nghiệm liên hợp. Ta có thể chứng minh rằng họ exponential là một họ của những phân bố có các hàm phân bố liên hợp, bởi vì những phân bố có số thống kê đủ cố định với mọi $n$ ($n$ là số observations trong tập dữ liệu) đều thuộc họ exponential [@gelman2013]. 
 
 ::: {.example #exm4}
 Trong `r lb(exm2)` ta có $X|\theta \sim \mathcal{Bin}(n,\theta)$ và $\theta \sim \mathcal{Beta}(\alpha,\beta)$. Ta có thể chỉ ra rằng cả 2 phân bố này đều thuộc họ exponential. 
@@ -246,7 +262,7 @@ f(\theta) &\propto \theta^{\alpha-1}(1-\theta)^{\beta-1} \\
 \end{aligned}
 $$
 
-Như vậy nếu kết hợp với hàm likelihood ở trên ta sẽ có 
+Như vậy nếu kết hợp với hàm hợp lý ở trên ta sẽ có 
 $$
 f(\theta|x)  = {n \choose x}(1-\theta)^{n+\alpha+\beta-2}\exp\Big[(x+\alpha-1)\logit(\theta)\Big],
 $$
@@ -258,9 +274,27 @@ $$
 ứng với phân bố $\mathcal{Beta}(x+\alpha,\beta+n-x)$ giống với kết quả của `r lb(eq7)`. `r proved()`
 :::
 
+Một dạng so sánh khá phổ biến trong thống kê đó là so sánh tỉ lệ giữa 2 quần thể khác nhau, ví dụ như ta muốn sao sánh tỉ lệ tư vong của 2 nhóm bệnh nhân đã sử dụng 2 phương pháp điều trị khác nhau. Ta sẽ xem xét trường hợp này trong ví dụ tiếp theo
+
+::: {.example .exm5}
+Ta có 2 biến ngẫu nhiên thuộc 2 phân bố binomial như sau
+$$
+X_1 \sim \mathcal{Bin}(n_1,p_1), \quad X_2 \sim \mathcal{Bin}(n_2,p_2),
+$$
+ta muốn so sánh $p_1$ và $p_2$, _hệ số ảnh hưởng (effect size)_ thường được sử dụng là *tỉ số odds (odds ratio)*:
+$$
+\theta = \frac{p_1/(1-p_1)}{p_2/(1-p_2)},
+$$
+thông qua hàm logarit tự nhiên, nghĩa là $\Omega=\ln\theta$.
+
+Với một phân bố binomial ta biết rằng ước lượng hợp lý cực đại (maximum likelihood estimator - MLE) là $x_i/n_i$ với $i \in \{1,2\}$.  
+
+:::
 
 
+## `r totitle('hàm tiên nghiệm phi chính (improper prior)','')`
 
+Lựa chọn thứ 2 cho hàm tiên nghiệm là *tiên nghiệm phi chính*. 
 
 
 
