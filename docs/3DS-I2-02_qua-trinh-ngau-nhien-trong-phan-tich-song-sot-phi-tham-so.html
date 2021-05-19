@@ -399,7 +399,9 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT (1)</li>
-    <li class="dropdown-header">1. Giới thiệu về phân tính sống sót</li>
+    <li>
+      <a href="3DS-I-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
+    </li>
     <li>
       <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
@@ -410,9 +412,7 @@ div.tocify {
     <li>
       <a href="3DS-I2-01_ly-thuyet-toan-cho-phan-tich-song-sot.html">1. Lý thuyết toán trong phân tích sống sót</a>
     </li>
-    <li>
-      <a href="3DS-I2-02_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html">2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</a>
-    </li>
+    <li class="dropdown-header">2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</li>
     <li class="divider"></li>
     <li class="dropdown-header">II. SUY LUẬN BAYES</li>
     <li>
@@ -464,7 +464,20 @@ div.tocify {
 <p><span class="citation">(Tham khảo tại chương 3, <a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing 2008</a>)</span></p>
 </div>
 <hr />
+<div id="ước-lượng-của-nelson-aalen" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Ước Lượng Của Nelson-Aalen</h1>
+<p>Ta cần nhắc lại một số khái niệm và ký hiệu sẽ được sử dụng trong phần này. Ta có <span class="math inline">\(N_i(t)\)</span> là số sự kiện xày ra của bệnh nhân <span class="math inline">\(i\)</span> trong khoảng thời gian <span class="math inline">\([0,t]\)</span>. Cường độ của <span class="math inline">\(N_i(t)\)</span> là <span class="math inline">\(\lambda_i(t) = \alpha(t)Y_i(t)\)</span> với <span class="math inline">\(\alpha(t)\)</span> là một hàm số không âm, <span class="math inline">\(Y_i(t)\)</span> là hàm chỉ tiêu bằng 1 nếu bệnh nhân <span class="math inline">\(i\)</span>th còn sống ngay trước thời điểm <span class="math inline">\(t\)</span>, và bằng 0 nếu đã được ghi nhận tử vong. Ta xem xét <span class="math inline">\(N(t) = \sum_{i=1}^nN_i(t)\)</span> là tổng số sự kiện xảy ra tinh tới thời điểm <span class="math inline">\(t\)</span>. và ta có
+<span class="math display" id="eq:eq2">\[
+\lambda(t) = \sum_{i=1}^n\lambda_i(t) = \alpha(t)Y(t),
+\tag{1.1}
+\]</span>
+với <span class="math inline">\(Y(t) = \sum_{i=1}^nY_i(t)\)</span> là số bệnh nhân còn sống ngay trước thời điểm <span class="math inline">\(t\)</span>.</p>
+<div id="tập-dữ-liệu-sống-sót" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Tập Dữ Liệu Sống Sót</h2>
+<p>Đối với dạng dữ liệu về sống sót thì mục tiêu của ta là xem xét thời gian xảy ra một sự kiện nào đó của những cá nhân trong một quần thể. Gọi <span class="math inline">\(\alpha(t)\)</span> là tốc độ nguy hiểm tức thời, ta sẽ có <span class="math inline">\(\alpha(t)dt\)</span> là xác suất mà sự kiện sẽ xảy ra trong khoảng thời gian <span class="math inline">\([t,t+dt)\)</span> biết rằng nó chưa xảy ra trước đó.</p>
 <!-- ----------------------------------------------------------------------------- -->
+</div>
+</div>
 <div id="references" class="section level1 unnumbered shad">
 <h1><em>References</em></h1>
 </div>

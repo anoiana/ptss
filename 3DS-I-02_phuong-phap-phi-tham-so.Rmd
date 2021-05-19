@@ -67,12 +67,12 @@ $$
 \lambda(t) = -\frac{f(t)}{S(t)} = -\frac{d\ln S(t)}{dt}.
 $$
 
-Đạo hàm hai vế ta có 
+Lấy tích phân hai vế cận từ $0$ đến $t$, ta có 
 $$
 S(t) = \exp\bigg[-\int_0^t\lambda(s)ds\bigg] = \exp[-\Lambda(t)],
 (\#eq:eq2)
 $$
-với $\Lambda(t)$ gọi là `r colorize("_hàm nguy cơ tích lũy_","tomato")`. Nếu ta lấy đạo hàm hai vế của `r lb(eq2)` ta được
+với $\Lambda(t)$ gọi là `r colorize("_hàm tốc độ rủi ro tích lũy_","tomato")`. Nếu ta lấy đạo hàm hai vế của `r lb(eq2)` ta được
 $$
 f(t) = \lambda(t)\exp[-\Lambda(t)].
 (\#eq:eq3)

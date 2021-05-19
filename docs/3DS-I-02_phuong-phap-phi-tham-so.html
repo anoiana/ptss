@@ -505,7 +505,9 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT (1)</li>
-    <li class="dropdown-header">1. Giới thiệu về phân tính sống sót</li>
+    <li>
+      <a href="3DS-I-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
+    </li>
     <li>
       <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
@@ -516,9 +518,7 @@ div.tocify {
     <li>
       <a href="3DS-I2-01_ly-thuyet-toan-cho-phan-tich-song-sot.html">1. Lý thuyết toán trong phân tích sống sót</a>
     </li>
-    <li>
-      <a href="3DS-I2-02_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html">2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</a>
-    </li>
+    <li class="dropdown-header">2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</li>
     <li class="divider"></li>
     <li class="dropdown-header">II. SUY LUẬN BAYES</li>
     <li>
@@ -596,12 +596,12 @@ gọi là tốc độ tức thời tại thời điểm mà sự kiện xảy ra
 <span class="math display">\[
 \lambda(t) = -\frac{f(t)}{S(t)} = -\frac{d\ln S(t)}{dt}.
 \]</span></p>
-<p>Đạo hàm hai vế ta có
+<p>Lấy tích phân hai vế cận từ <span class="math inline">\(0\)</span> đến <span class="math inline">\(t\)</span>, ta có
 <span class="math display" id="eq:eq2">\[
 S(t) = \exp\bigg[-\int_0^t\lambda(s)ds\bigg] = \exp[-\Lambda(t)],
 \tag{2}
 \]</span>
-với <span class="math inline">\(\Lambda(t)\)</span> gọi là <span style="color: tomato; font-size: 18px;"><em>hàm nguy cơ tích lũy</em></span>. Nếu ta lấy đạo hàm hai vế của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> ta được
+với <span class="math inline">\(\Lambda(t)\)</span> gọi là <span style="color: tomato; font-size: 18px;"><em>hàm tốc độ rủi ro tích lũy</em></span>. Nếu ta lấy đạo hàm hai vế của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> ta được
 <span class="math display" id="eq:eq3">\[
 f(t) = \lambda(t)\exp[-\Lambda(t)].
 \tag{3}
@@ -871,8 +871,8 @@ chính là <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a
 <h2>Ví dụ về ước lượng Kaplan-Meier</h2>
 <p>Ta xem xét ví dụ sau</p>
 <div class="figure"><span id="fig:unnamed-chunk-1"></span>
-<div id="htmlwidget-8aa28b287de1de2f42a8" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8aa28b287de1de2f42a8">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"resizable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ae14d724d7fdf92fc3fc" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ae14d724d7fdf92fc3fc">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"resizable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1: <em>Bảng số liệu minh họa</em>
 </p>
@@ -893,7 +893,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#xgeipncolk .gt_table {
+#gfeoaovgnw .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -918,7 +918,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#xgeipncolk .gt_heading {
+#gfeoaovgnw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -930,7 +930,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#xgeipncolk .gt_title {
+#gfeoaovgnw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -940,7 +940,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#xgeipncolk .gt_subtitle {
+#gfeoaovgnw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -950,13 +950,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#xgeipncolk .gt_bottom_border {
+#gfeoaovgnw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xgeipncolk .gt_col_headings {
+#gfeoaovgnw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -971,7 +971,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#xgeipncolk .gt_col_heading {
+#gfeoaovgnw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -991,7 +991,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#xgeipncolk .gt_column_spanner_outer {
+#gfeoaovgnw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1003,15 +1003,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#xgeipncolk .gt_column_spanner_outer:first-child {
+#gfeoaovgnw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xgeipncolk .gt_column_spanner_outer:last-child {
+#gfeoaovgnw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xgeipncolk .gt_column_spanner {
+#gfeoaovgnw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1023,7 +1023,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#xgeipncolk .gt_group_heading {
+#gfeoaovgnw .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1045,7 +1045,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#xgeipncolk .gt_empty_group_heading {
+#gfeoaovgnw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1060,15 +1060,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#xgeipncolk .gt_from_md > :first-child {
+#gfeoaovgnw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xgeipncolk .gt_from_md > :last-child {
+#gfeoaovgnw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xgeipncolk .gt_row {
+#gfeoaovgnw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1087,7 +1087,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#xgeipncolk .gt_stub {
+#gfeoaovgnw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1099,7 +1099,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#xgeipncolk .gt_summary_row {
+#gfeoaovgnw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1109,7 +1109,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#xgeipncolk .gt_first_summary_row {
+#gfeoaovgnw .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1119,7 +1119,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#xgeipncolk .gt_grand_summary_row {
+#gfeoaovgnw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1129,7 +1129,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#xgeipncolk .gt_first_grand_summary_row {
+#gfeoaovgnw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1139,11 +1139,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#xgeipncolk .gt_striped {
+#gfeoaovgnw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xgeipncolk .gt_table_body {
+#gfeoaovgnw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1152,7 +1152,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#xgeipncolk .gt_footnotes {
+#gfeoaovgnw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1166,13 +1166,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#xgeipncolk .gt_footnote {
+#gfeoaovgnw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#xgeipncolk .gt_sourcenotes {
+#gfeoaovgnw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1186,46 +1186,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#xgeipncolk .gt_sourcenote {
+#gfeoaovgnw .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#xgeipncolk .gt_left {
+#gfeoaovgnw .gt_left {
   text-align: left;
 }
 
-#xgeipncolk .gt_center {
+#gfeoaovgnw .gt_center {
   text-align: center;
 }
 
-#xgeipncolk .gt_right {
+#gfeoaovgnw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xgeipncolk .gt_font_normal {
+#gfeoaovgnw .gt_font_normal {
   font-weight: normal;
 }
 
-#xgeipncolk .gt_font_bold {
+#gfeoaovgnw .gt_font_bold {
   font-weight: bold;
 }
 
-#xgeipncolk .gt_font_italic {
+#gfeoaovgnw .gt_font_italic {
   font-style: italic;
 }
 
-#xgeipncolk .gt_super {
+#gfeoaovgnw .gt_super {
   font-size: 65%;
 }
 
-#xgeipncolk .gt_footnote_marks {
+#gfeoaovgnw .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="xgeipncolk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="gfeoaovgnw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1355,7 +1355,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#clibpcioux .gt_table {
+#tdlztwtjlr .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1380,7 +1380,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#clibpcioux .gt_heading {
+#tdlztwtjlr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1392,7 +1392,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#clibpcioux .gt_title {
+#tdlztwtjlr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1402,7 +1402,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#clibpcioux .gt_subtitle {
+#tdlztwtjlr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1412,13 +1412,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#clibpcioux .gt_bottom_border {
+#tdlztwtjlr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#clibpcioux .gt_col_headings {
+#tdlztwtjlr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1433,7 +1433,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#clibpcioux .gt_col_heading {
+#tdlztwtjlr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1453,7 +1453,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#clibpcioux .gt_column_spanner_outer {
+#tdlztwtjlr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1465,15 +1465,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#clibpcioux .gt_column_spanner_outer:first-child {
+#tdlztwtjlr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#clibpcioux .gt_column_spanner_outer:last-child {
+#tdlztwtjlr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#clibpcioux .gt_column_spanner {
+#tdlztwtjlr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1485,7 +1485,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#clibpcioux .gt_group_heading {
+#tdlztwtjlr .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1507,7 +1507,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#clibpcioux .gt_empty_group_heading {
+#tdlztwtjlr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1522,15 +1522,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#clibpcioux .gt_from_md > :first-child {
+#tdlztwtjlr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#clibpcioux .gt_from_md > :last-child {
+#tdlztwtjlr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#clibpcioux .gt_row {
+#tdlztwtjlr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1549,7 +1549,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#clibpcioux .gt_stub {
+#tdlztwtjlr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1561,7 +1561,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#clibpcioux .gt_summary_row {
+#tdlztwtjlr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1571,7 +1571,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#clibpcioux .gt_first_summary_row {
+#tdlztwtjlr .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1581,7 +1581,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#clibpcioux .gt_grand_summary_row {
+#tdlztwtjlr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1591,7 +1591,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#clibpcioux .gt_first_grand_summary_row {
+#tdlztwtjlr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1601,11 +1601,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#clibpcioux .gt_striped {
+#tdlztwtjlr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#clibpcioux .gt_table_body {
+#tdlztwtjlr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1614,7 +1614,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#clibpcioux .gt_footnotes {
+#tdlztwtjlr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1628,13 +1628,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#clibpcioux .gt_footnote {
+#tdlztwtjlr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#clibpcioux .gt_sourcenotes {
+#tdlztwtjlr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1648,46 +1648,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#clibpcioux .gt_sourcenote {
+#tdlztwtjlr .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#clibpcioux .gt_left {
+#tdlztwtjlr .gt_left {
   text-align: left;
 }
 
-#clibpcioux .gt_center {
+#tdlztwtjlr .gt_center {
   text-align: center;
 }
 
-#clibpcioux .gt_right {
+#tdlztwtjlr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#clibpcioux .gt_font_normal {
+#tdlztwtjlr .gt_font_normal {
   font-weight: normal;
 }
 
-#clibpcioux .gt_font_bold {
+#tdlztwtjlr .gt_font_bold {
   font-weight: bold;
 }
 
-#clibpcioux .gt_font_italic {
+#tdlztwtjlr .gt_font_italic {
   font-style: italic;
 }
 
-#clibpcioux .gt_super {
+#tdlztwtjlr .gt_super {
   font-size: 65%;
 }
 
-#clibpcioux .gt_footnote_marks {
+#tdlztwtjlr .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="clibpcioux" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="tdlztwtjlr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1805,7 +1805,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#exzpdbtdnk .gt_table {
+#igmhtugetd .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1830,7 +1830,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-left-color: #D3D3D3;
 }
 
-#exzpdbtdnk .gt_heading {
+#igmhtugetd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1842,7 +1842,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#exzpdbtdnk .gt_title {
+#igmhtugetd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1852,7 +1852,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-width: 0;
 }
 
-#exzpdbtdnk .gt_subtitle {
+#igmhtugetd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1862,13 +1862,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-width: 0;
 }
 
-#exzpdbtdnk .gt_bottom_border {
+#igmhtugetd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#exzpdbtdnk .gt_col_headings {
+#igmhtugetd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1883,7 +1883,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#exzpdbtdnk .gt_col_heading {
+#igmhtugetd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1903,7 +1903,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#exzpdbtdnk .gt_column_spanner_outer {
+#igmhtugetd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1915,15 +1915,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 4px;
 }
 
-#exzpdbtdnk .gt_column_spanner_outer:first-child {
+#igmhtugetd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#exzpdbtdnk .gt_column_spanner_outer:last-child {
+#igmhtugetd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#exzpdbtdnk .gt_column_spanner {
+#igmhtugetd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1935,7 +1935,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   width: 100%;
 }
 
-#exzpdbtdnk .gt_group_heading {
+#igmhtugetd .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1957,7 +1957,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#exzpdbtdnk .gt_empty_group_heading {
+#igmhtugetd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1972,15 +1972,15 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   vertical-align: middle;
 }
 
-#exzpdbtdnk .gt_from_md > :first-child {
+#igmhtugetd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#exzpdbtdnk .gt_from_md > :last-child {
+#igmhtugetd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#exzpdbtdnk .gt_row {
+#igmhtugetd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1999,7 +1999,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   overflow-x: hidden;
 }
 
-#exzpdbtdnk .gt_stub {
+#igmhtugetd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2011,7 +2011,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-left: 12px;
 }
 
-#exzpdbtdnk .gt_summary_row {
+#igmhtugetd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2021,7 +2021,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#exzpdbtdnk .gt_first_summary_row {
+#igmhtugetd .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2031,7 +2031,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#exzpdbtdnk .gt_grand_summary_row {
+#igmhtugetd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2041,7 +2041,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   padding-right: 5px;
 }
 
-#exzpdbtdnk .gt_first_grand_summary_row {
+#igmhtugetd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2051,11 +2051,11 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-top-color: #D3D3D3;
 }
 
-#exzpdbtdnk .gt_striped {
+#igmhtugetd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#exzpdbtdnk .gt_table_body {
+#igmhtugetd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2064,7 +2064,7 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-bottom-color: #D3D3D3;
 }
 
-#exzpdbtdnk .gt_footnotes {
+#igmhtugetd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2078,13 +2078,13 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#exzpdbtdnk .gt_footnote {
+#igmhtugetd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#exzpdbtdnk .gt_sourcenotes {
+#igmhtugetd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2098,46 +2098,46 @@ Figure 1: <em>Bảng số liệu minh họa</em>
   border-right-color: #D3D3D3;
 }
 
-#exzpdbtdnk .gt_sourcenote {
+#igmhtugetd .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#exzpdbtdnk .gt_left {
+#igmhtugetd .gt_left {
   text-align: left;
 }
 
-#exzpdbtdnk .gt_center {
+#igmhtugetd .gt_center {
   text-align: center;
 }
 
-#exzpdbtdnk .gt_right {
+#igmhtugetd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#exzpdbtdnk .gt_font_normal {
+#igmhtugetd .gt_font_normal {
   font-weight: normal;
 }
 
-#exzpdbtdnk .gt_font_bold {
+#igmhtugetd .gt_font_bold {
   font-weight: bold;
 }
 
-#exzpdbtdnk .gt_font_italic {
+#igmhtugetd .gt_font_italic {
   font-style: italic;
 }
 
-#exzpdbtdnk .gt_super {
+#igmhtugetd .gt_super {
   font-size: 65%;
 }
 
-#exzpdbtdnk .gt_footnote_marks {
+#igmhtugetd .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="exzpdbtdnk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="igmhtugetd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>

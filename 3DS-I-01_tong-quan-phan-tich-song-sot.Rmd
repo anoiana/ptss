@@ -1,0 +1,137 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: TRUE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('Quá trình ngẫu nhiên trong phân tích sống sót phi tham số')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+ttt = purrr::partial(totitle, icon = "")
+button = collapsable_button("Terminologies")
+```
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+::: {.right}
+`r button[[1]]`
+:::
+`r button[[2]]`
+::: {.whitebox}
+|English|Vietnamese|
+|---|---|
+|censored| thời gian bị thiếu|
+|survivor function|hàm sống sót|
+|hazard rate| tốc độ rủi ro|
+|counting process|quá trình đếm ngẫu nhiên|
+:::
+`r button[[3]]`
+
+# `r ttt('Nhắc lại các đại lượng quan trọng')`
+
+Ta xem xét tập dữ liệu sau
+
+```{r fig1, fig.align='center', fig.cap="*Dữ liệu thời gian tử vong của các bệnh nhân trong một nghiên cứu.*", eval=params$run_chunk}
+time_range = 1:15
+library(tidyverse)
+set.seed(222)
+d1 = dplyr::tibble(people = paste("người",c(paste0("0",1:9),paste0(10:20)) ) , 
+                   time = sample(time_range, 20, replace = T),
+                   status = sample(c("failure","censor"), 20, replace = TRUE, prob = c(0.7,0.3)))
+
+bind_cols(`names<-`(d1[1:10,],paste0(names(d1)," (1)")), `names<-`(d1[11:20,],paste0(names(d1)," (2)")))%>%
+  draw_table()
+```
+
+`r lb(fig1)` thể hiện thời gian tử vong của 20 bệnh nhân, trong đó đó 14 bệnh nhân được ghi nhận mốc thời gian mà họ tử vong, còn 6 bệnh nhân còn lại là thời gian bị thiếu (censored time), nghĩa là thời gian tử vong của những bệnh nhân này đều không được báo cáo, mà đó chỉ là thời gian cuối cùng ta biết được bệnh nhân đó vẫn còn sống. Ta có thể minh họa bằng biểu đồ sau
+
+```{r fig2, fig.align='center', fig.cap="*Biểu đồ thể hiện số liệu tử vong của các bệnh nhân.*", eval=params$run_chunk}
+d1%>%
+  arrange(time)%>%
+  mutate(people = factor(people, levels = d1$people[order(d1$time, decreasing = T)] ))%>%
+  ggplot(aes(x = people, y = time))+ 
+  geom_hline( yintercept = d1[d1$status=="failure",]$time, linetype = "solid", color = "grey90")+
+  geom_hline( yintercept = d1[d1$status=="censor",]$time, color = "grey90", linetype = "dashed")+
+  geom_point(mapping = aes(x = people, y = time, shape = status, color = status),cex = 2.5)+
+  scale_shape_manual(values=c(1,19))+
+  geom_segment(aes(x = people,xend = people, y = 0, yend = time,color = status))+
+  coord_flip()+
+  scale_y_continuous(breaks= time_range)+
+  theme_classic()
+```
+
+Đối với kiểu dữ kiện như trên ta có 2 đại lượng quan trọng cần ước lượng, một là hàm số sống sót (survivor function) $S(t)$ và tốc độ rủi ro (hazard rate) $\alpha(t)$ được định nghĩa như sau
+$$
+\begin{align}
+S(t) &= \P(T>t), \\
+\alpha(t) &= \lim_{\Delta t\to0}\frac{1}{\Delta t}\P(t \le T< t+ \Delta t|T \ge t)
+\end{align}
+(\#eq:eq11)
+$$
+$S(t)$ là xác suât mà thời gian tử vong của một bệnh nhân nào đó dài hơn mốc thời gian $t$, còn $\alpha(t)$ chính là tốc độ tức thời khi thời gian tử vong rơi vào một khoảng thời gian rất nhỏ giữa $t$ và $t+\Delta t$. Đối với $\alpha(t)$ ta có thể biến đổi như sau
+$$
+\alpha(t)\Delta t = \lim_{\Delta t \to 0}\P(t \le T< t+ \Delta t|T \ge t),
+(\#eq:eq12)
+$$
+chính là xác suất để thời gian tử vong T rơi vào khoảng $[t,t+\Delta t)$ **biết rằng** thời gian tử vong dài hơn $t$. 
+
+ước lượng $\alpha(t)$ không đơn giản, nên ta thường ước lượng hàm tích lũy của nó nghĩa là
+$$
+A(t) = \int_0^t\alpha(s)ds,
+(\#eq:eq13)
+$$
+được gọi là ước lượng của *Nelson-Aalen*. 
+
+Mối quan hệ giữa hàm sống sót và tốc độ rủi ro được biểu hiện thông qua đạo hàm cũa $\alpha(t)$, ta có
+$$
+\frac{dA(t)}{dt} = \alpha(t) = \lim_{\Delta t}\frac{S(t)-S(t+\Delta t)}{\Delta t S(t)} = -\frac{dS(t)/dt}{S(t)} = d\ln[S(t)]/dt,
+(\#eq:eq14)
+$$
+tiếp tục lấy tích phân của `r lb(eq14)` với cận $0$ tới $t$. Ta có
+$$
+\ln[S(t)]  = -\int_0^t\alpha(s)ds,
+$$
+và 
+$$
+S(t) = \exp\Big\{- \int_0^t\alpha(s)ds \Big\}
+(\#eq:eq15)
+$$
+
+# `r ttt('quá trình đếm ngẫu nhiên')`
+
+Tại mốc thời gian $t$, lấy $N(t)$ là số sự kiện xảy ra lên đến thời gian $t$
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::

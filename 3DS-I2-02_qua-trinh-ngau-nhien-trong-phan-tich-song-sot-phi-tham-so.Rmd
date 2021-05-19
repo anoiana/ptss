@@ -28,7 +28,7 @@ link-citations: true
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
-totitle = purrr::partial(totitle, icon = "")
+ttt = purrr::partial(totitle, icon = "")
 ```
 
 ::: {.watermark}
@@ -41,30 +41,24 @@ totitle = purrr::partial(totitle, icon = "")
 
 ---
 
-```{r fig1, fig.align='center', fig.cap="*Dữ liệu thời gian tử vong của các bệnh nhân trong một nghiên cứu.*", eval=params$run_chunk}
-time_range = 1:15
-library(tidyverse)
-set.seed(222)
-d1 = dplyr::tibble(people = paste("người",c(paste0("0",1:9),paste0(10:20)) ) , 
-                   time = sample(time_range, 20, replace = T),
-                   status = sample(c("failure","censor"), 20, replace = TRUE, prob = c(0.7,0.3)))
-draw_table(d1)
-```
+# `r ttt('ước lượng của Nelson-Aalen')`
 
-```{r fig2, fig.align='center', fig.cap="*Biểu đồ thể hiện số liệu tử vong của các bệnh nhân.*", eval=params$run_chunk}
-d1%>%
-  arrange(time)%>%
-  mutate(people = factor(people, levels = d1$people[order(d1$time, decreasing = T)] ))%>%
-  ggplot(aes(x = people, y = time))+ 
-  geom_hline( yintercept = d1[d1$status=="failure",]$time, linetype = "solid", color = "grey90")+
-  geom_hline( yintercept = d1[d1$status=="censor",]$time, color = "grey90", linetype = "dashed")+
-  geom_point(mapping = aes(x = people, y = time, shape = status, color = status),cex = 2.5)+
-  scale_shape_manual(values=c(1,19))+
-  geom_segment(aes(x = people,xend = people, y = 0, yend = time,color = status))+
-  coord_flip()+
-  scale_y_continuous(breaks= time_range)+
-  theme_classic()
-```
+Ta cần nhắc lại một số khái niệm và ký hiệu sẽ được sử dụng trong phần này. Ta có $N_i(t)$ là số sự kiện xày ra của bệnh nhân $i$ trong khoảng thời gian $[0,t]$. Cường độ của $N_i(t)$ là $\lambda_i(t) = \alpha(t)Y_i(t)$ với $\alpha(t)$ là một hàm số không âm, $Y_i(t)$ là hàm chỉ tiêu bằng 1 nếu bệnh nhân $i$th còn sống ngay trước thời điểm $t$, và bằng 0 nếu đã được ghi nhận tử vong. Ta xem xét $N(t) = \sum_{i=1}^nN_i(t)$ là tổng số sự kiện xảy ra tinh tới thời điểm $t$. và ta có
+$$
+\lambda(t) = \sum_{i=1}^n\lambda_i(t) = \alpha(t)Y(t),
+(\#eq:eq2)
+$$
+với $Y(t) = \sum_{i=1}^nY_i(t)$ là số bệnh nhân còn sống ngay trước thời điểm $t$.
+
+## `r ttt('tập dữ liệu sống sót')`
+
+Đối với dạng dữ liệu về sống sót thì mục tiêu của ta là xem xét thời gian xảy ra một sự kiện nào đó của những cá nhân trong một quần thể. Gọi $\alpha(t)$ là tốc độ nguy hiểm tức thời, ta sẽ có $\alpha(t)dt$ là xác suất mà sự kiện sẽ xảy ra trong khoảng thời gian $[t,t+dt)$ biết rằng nó chưa xảy ra trước đó. 
+
+
+
+
+
+
 
 
 

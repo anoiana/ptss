@@ -405,7 +405,9 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT (1)</li>
-    <li class="dropdown-header">1. Giới thiệu về phân tính sống sót</li>
+    <li>
+      <a href="3DS-I-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
+    </li>
     <li>
       <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
@@ -416,9 +418,7 @@ div.tocify {
     <li>
       <a href="3DS-I2-01_ly-thuyet-toan-cho-phan-tich-song-sot.html">1. Lý thuyết toán trong phân tích sống sót</a>
     </li>
-    <li>
-      <a href="3DS-I2-02_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html">2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</a>
-    </li>
+    <li class="dropdown-header">2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</li>
     <li class="divider"></li>
     <li class="dropdown-header">II. SUY LUẬN BAYES</li>
     <li>
@@ -496,8 +496,8 @@ xác suất tính ra là 0.1607526.</p>
 </div>
 <p><span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm1">1.1</a> chính là một trường hợp trong kiểm định log rank. Ví dụ ta có <span class="math inline">\(t_1 &lt; t_2, \dots, t_k\)</span> chính là mốc thời gian tử vong từ <span class="math inline">\(p\)</span> nhóm bệnh nhân. Trong đó, <span class="math inline">\(n_{ij}\)</span> chính là số bệnh nhân chưa được ghi nhận tử vong ngay trước thời điểm <span class="math inline">\(t_j\)</span> và ta có <span class="math inline">\(\sum_{i=1}^p n_{ij} = n_j\)</span> chính la tổng số bệnh nhân chưa tử vong ngay trước thời điểm <span class="math inline">\(t_j\)</span> của <span class="math inline">\(p\)</span> nhóm. Tương tự <span class="math inline">\(d_{ij}\)</span> chính là số bệnh nhân tử vong tại thời điểm <span class="math inline">\(t_j\)</span> của nhóm bệnh nhân <span class="math inline">\(i\)</span>, và <span class="math inline">\(\sum_{i=1}^pd_{ij} = d_j\)</span> là tổng số bệnh nhân tử vong tại <span class="math inline">\(t_j\)</span> của cả <span class="math inline">\(p\)</span> nhóm. Nếu <span class="math inline">\(p=2\)</span>, ta có thể tóm tắc kết quả như sau</p>
 <div class="figure" style="text-align: center"><span id="fig:fig1"></span>
-<div id="htmlwidget-ae14d724d7fdf92fc3fc" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ae14d724d7fdf92fc3fc">{"x":{"tag":{"name":"Reactable","attribs":{"data":{" ":["Số bệnh nhân tử vong tại $$t_j$$","Số bệnh nhân còn sống tại $$t_j$$","Số bệnh nhân ngay trước thời điểm $$t_j$$"],"Nhóm I":["$$d_{1j}$$","$$n_{1j} - d_{1j}$$","$$n_{1j}$$"],"Nhóm II":["$$d_{2j}$$","$$n_{2j} - d_{2j}$$","$$n_{2j}$$"],"Tổng cộng":["$$d_j$$","$$n_j-d_j$$","$$n_j$$"]},"columns":[{"accessor":" ","name":" ","type":"character","minWidth":250},{"accessor":"Nhóm I","name":"Nhóm I","type":"character"},{"accessor":"Nhóm II","name":"Nhóm II","type":"character"},{"accessor":"Tổng cộng","name":"Tổng cộng","type":"character","minWidth":150}],"resizable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"2c02fd812ef36a7fad7f56f194882aad","key":"2c02fd812ef36a7fad7f56f194882aad"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c1d33dc3ad0a976afd44" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c1d33dc3ad0a976afd44">{"x":{"tag":{"name":"Reactable","attribs":{"data":{" ":["Số bệnh nhân tử vong tại $$t_j$$","Số bệnh nhân còn sống tại $$t_j$$","Số bệnh nhân ngay trước thời điểm $$t_j$$"],"Nhóm I":["$$d_{1j}$$","$$n_{1j} - d_{1j}$$","$$n_{1j}$$"],"Nhóm II":["$$d_{2j}$$","$$n_{2j} - d_{2j}$$","$$n_{2j}$$"],"Tổng cộng":["$$d_j$$","$$n_j-d_j$$","$$n_j$$"]},"columns":[{"accessor":" ","name":" ","type":"character","minWidth":250},{"accessor":"Nhóm I","name":"Nhóm I","type":"character"},{"accessor":"Nhóm II","name":"Nhóm II","type":"character"},{"accessor":"Tổng cộng","name":"Tổng cộng","type":"character","minWidth":150}],"resizable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"2c02fd812ef36a7fad7f56f194882aad","key":"2c02fd812ef36a7fad7f56f194882aad"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1.1: <em>Bảng tóm tắt số bệnh nhân tử vong và còn sống tại <span class="math inline">\(t_j\)</span>.</em>
 </p>

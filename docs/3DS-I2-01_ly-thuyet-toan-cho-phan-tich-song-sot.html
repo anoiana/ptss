@@ -399,7 +399,9 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT (1)</li>
-    <li class="dropdown-header">1. Giới thiệu về phân tính sống sót</li>
+    <li>
+      <a href="3DS-I-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
+    </li>
     <li>
       <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
@@ -410,9 +412,7 @@ div.tocify {
     <li>
       <a href="3DS-I2-01_ly-thuyet-toan-cho-phan-tich-song-sot.html">1. Lý thuyết toán trong phân tích sống sót</a>
     </li>
-    <li>
-      <a href="3DS-I2-02_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html">2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</a>
-    </li>
+    <li class="dropdown-header">2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</li>
     <li class="divider"></li>
     <li class="dropdown-header">II. SUY LUẬN BAYES</li>
     <li>
@@ -460,6 +460,7 @@ div.tocify {
 <div class="watermark">
 <p><em>DRAFT</em></p>
 </div>
+<p><span class="math inline">\(\varnothing\)</span></p>
 <div class="right shad">
 <p><span class="citation">(tham khảo: <a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing 2008</a>)</span></p>
 </div>
@@ -494,10 +495,10 @@ M_3 = \{(HHH), (HHT), (HTH), (HTT), (THH), (THT), (TTH), (TTT)\}.
 Sau mỗi một đồng xu được ném ra và quan sát ta lại có thêm thông tin, và sự phân nhóm của tập hợp ban đầu có sự thay đổi theo chiều hướng chi tiết hơn, cho đến khi cả 3 đồng xu được ném ra thì ta có đầy đủ thông tin để khẳng định kiểu hình của 3 đồng xu đó là gì. Một lưu ý ta cần nhớ là thông tin ta có sau mỗi một đồng xu được ném ra nhiều hơn và bao gồm các thông tin trước đó. Nghĩa là
 <span class="math display">\[
 \begin{aligned}
-&amp;\mathscr{H}_0 = \{M_0, \emptyset\} \\
-&amp;\mathscr{H}_1 = \{M_0, M_1, \emptyset\} \\
-&amp;\mathscr{H}_2 = \{M_0, M_1, M_2, \emptyset\} \\
-&amp;\mathscr{H}_3 = \{M_0, M_1, M_2, M_3, \emptyset\}
+&amp;\mathscr{H}_0 = \{M_0, \varnothing\} \\
+&amp;\mathscr{H}_1 = \{M_0, M_1, \varnothing\} \\
+&amp;\mathscr{H}_2 = \{M_0, M_1, M_2, \varnothing\} \\
+&amp;\mathscr{H}_3 = \{M_0, M_1, M_2, M_3, \varnothing\}
 \end{aligned}
 \]</span>
 theo lý thuyết tập hợp ta có thể ký hiệu quá trình này là
@@ -509,7 +510,7 @@ theo lý thuyết tập hợp ta có thể ký hiệu quá trình này là
 \begin{aligned}
 \mathscr{H}_1 = \begin{bmatrix}\color{red}{(HHH, HHT, HTH, HTT, THH,THT, TTH, TTT)} \\ 
 \color{blue}{(HHH, HHT, HTH, HTT)}, \color{blue}{(THH,THT, TTH, TTT)}\\ 
-\color{green}{\emptyset}\end{bmatrix}
+\color{green}{\varnothing}\end{bmatrix}
 \end{aligned}
 \]</span>
 Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có thể tính được xác suất của các trường hợp trong <span class="math inline">\(\mathscr{H}_1\)</span> bằng phương pháp đếm trong tập hợp mẹ <span class="math inline">\(\Omega\)</span> chứa 8 điểm giống nhau về các đặc tính định lượng. Nghĩa là mỗi 1 điểm đều có xác suất là <span class="math inline">\(1/8\)</span>. Như vậy ta lần lượt tính được xác suất cả các trường hợp trên là (từ trên xuống, từ trái qua): <span class="math inline">\(\{1, 1/2, 1/2,0\}\)</span>.</p>
@@ -671,8 +672,15 @@ tương đương với
 <span class="math display">\[
 \Bbb{E}(dM(t)|\mathscr{H}_{t^-}) = 0
 \]</span>
-trong đó <span class="math inline">\(dM(t)\)</span> là sự tăng lên trong một khoảng thời gian vô cùn nhỏ là <span class="math inline">\([t,t+dt)\)</span> và <span class="math inline">\(\mathscr{H}_{t^-}\)</span> là tiền sự ngay trước thời điểm <span class="math inline">\(t\)</span>.<br />
-</p>
+trong đó <span class="math inline">\(dM(t)\)</span> là sự tăng lên trong một khoảng thời gian vô cùng nhỏ là <span class="math inline">\([t,t+dt)\)</span> và <span class="math inline">\(\mathscr{H}_{t^-}\)</span> là tiền sự ngay trước thời điểm <span class="math inline">\(t\)</span>.</p>
+<p>Tương tự trường hợp của biến rời rạc, ta cũng có thể chứng minh <span class="math inline">\(\Bbb{E}[M(t)] = 0\)</span>, tức là <span class="math inline">\(M(t)\)</span> là một martingale có kỳ vọng bằng 0. Ngoài ra, một số đặc tính tương tự như trong trường hợp rời rạc mà ta cần nhắc lại như sau</p>
+<ul>
+<li><em>Bất tương quan:</em>
+<span class="math display" id="eq:eq18">\[
+\mathbb{Cov}[M(t) - M(s), M(k) - M(l)] = 0,\quad 0 \le s &lt; t &lt; l &lt; k \le \tau
+\tag{2.2}
+\]</span></li>
+</ul>
 </div>
 <div id="tích-phân-trong-quá-trình-ngẫu-nhiên" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Tích Phân Trong Quá Trình Ngẫu Nhiên</h2>
@@ -689,16 +697,16 @@ trong đó <span class="math inline">\(dM(t)\)</span> là sự tăng lên trong 
 <p>Gọi <span class="math inline">\(N(t)\)</span> là số sự kiện xảy ra tính tới thời điểm <span class="math inline">\(t\)</span> nghĩa là <span class="math inline">\([0,t]\)</span>, ta có một quá trình
 <span class="math display" id="eq:eq35">\[
 M(t) = N(t) -\lambda t
-\tag{2.2}
+\tag{2.3}
 \]</span>
-Ta thấy rằng <span class="math inline">\(N(t)\)</span> là số sự kiện xảy ra tính đến thời điểm <span class="math inline">\(t\)</span>, thuộc phân bố <span class="math inline">\(\mathcal{Poisson}\)</span> có tham số <span class="math inline">\(\lambda t\)</span>, vì thế <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq35">(2.2)</a> chính là quá trình ngẫu nhiên <span class="math inline">\(\mathcal{Poisson}\)</span> đã được chuẩn hóa trung tâm về <span class="math inline">\(0\)</span>. Lấy <span class="math inline">\(\mathscr{H}_t\)</span> là tiền sự trong khoảng thời gian <span class="math inline">\([0,t]\)</span>. Giả sử <span class="math inline">\(t&gt;s\)</span>, ta có
+Ta thấy rằng <span class="math inline">\(N(t)\)</span> là số sự kiện xảy ra tính đến thời điểm <span class="math inline">\(t\)</span>, thuộc phân bố <span class="math inline">\(\mathcal{Poisson}\)</span> có tham số <span class="math inline">\(\lambda t\)</span>, vì thế <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq35">(2.3)</a> chính là quá trình ngẫu nhiên <span class="math inline">\(\mathcal{Poisson}\)</span> đã được chuẩn hóa trung tâm về <span class="math inline">\(0\)</span>. Lấy <span class="math inline">\(\mathscr{H}_t\)</span> là tiền sự trong khoảng thời gian <span class="math inline">\([0,t]\)</span>. Giả sử <span class="math inline">\(t&gt;s\)</span>, ta có
 <span class="math display">\[
 \Bbb{E}[M(t)-M(s)|\mathscr{H}_s] \stackrel{\text{độclập}}{=} \Bbb{E}[M(t) - M(s)] = \Bbb{E}[N(t)-N(s)] -(t-s)\lambda = 0
 \]</span>
 như vậy
 <span class="math display" id="eq:eq36">\[
 \Bbb{E}[M(t)|\mathscr{H}_s] = M(s).
-\tag{2.3}
+\tag{2.4}
 \]</span>
 và <span class="math inline">\(\lambda t\)</span> là bổ chính của quá trình <span class="math inline">\(\mathcal{Poisson}\)</span> . Bên cạnh đó bởi vì
 <span class="math display">\[
@@ -707,7 +715,7 @@ và <span class="math inline">\(\lambda t\)</span> là bổ chính của quá tr
 ta có thể chứng minh được rằng <span class="math inline">\(\lambda t\)</span> cũng là một bổ chính của <span class="math inline">\(M^2(t)\)</span>, vì thế
 <span class="math display" id="eq:eq38">\[
 \langle M \rangle(t) = \lambda t
-\tag{2.4}
+\tag{2.5}
 \]</span></p>
 </div>
 <div id="quá-trình-ngẫu-nhiên-đếm" class="section level2" number="2.4">
@@ -725,7 +733,7 @@ Figure 2.1: <em>thời gian tái phát bệnh của một bệnh nhân</em>
 \lambda(t)dt &amp;= \Bbb{P}[dN(t)=1|\mathscr{H}_{t^-}] \\
 &amp;= \Bbb{E}[dN(t)|\mathscr{H}_{t^-}]
 \end{align}
-\tag{2.5}
+\tag{2.6}
 \]</span></p>
 <!-- ====================== END ====================================== -->
 </div>
