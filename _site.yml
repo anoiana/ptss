@@ -31,9 +31,9 @@ navbar:
       icon: fa-bookmark
       menu:
       # SEC I *************************************************************
-      # - text: "I. SURVIVAL ANALYSIS"
-      # - text: "1. Non-parametric procedures for homogeneous population"
-      #   href: '2READ-1SUV-01_nonparametrics-homogeneous-pop.html'
+      - text: "I. SURVIVAL ANALYSIS"
+      - text: "1. Summary of nonparametric survival analysis"
+        href: '2READ-1SUV-01_summary-of-nonparametric-survival-analysis.html'
       # SEC II *************************************************************
       - text: "---"
       - text: "II. OTHER TOPICS"

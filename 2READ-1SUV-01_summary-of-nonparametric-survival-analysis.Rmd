@@ -1,0 +1,173 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('summary of nonparametric survival analysis')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+ttt = purrr::partial(totitle, icon = "")
+```
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+# Nelson-Aalen Estimator
+
+Let $\alpha(t)$ be hazard rate, then  $\alpha(t)dt$ is a conditional probability that an event will occur in $[t,t+dt)$ **given** it's not occurred ealier. 
+
+Counting process $N(t)$ that records the occurrences of event has intensity process of form
+$$
+\lambda(t) = \alpha(t)Y(t),
+(\#eq:eq11)
+$$
+where $\alpha(t)$ is hazard rate and $Y(t) = \sum_{i=1}^nY_i(t)$ is total of patient who are in risk by time $t$. 
+
+The *Cumulative hazard* is 
+$$
+A(t) = \int_0^t\alpha(s)ds,
+(\#eq:eq12)
+$$
+and its estimator that is known as the *Nelson-Aalen estimator* is
+$$
+\hat{A}(t) = \sum_{T_j<t}\frac{1}{Y(T_j)}
+(\#eq:eq13)
+$$
+
+:::: {.blackbox .brainstorm}
+::: {.center}
+The idea is
+:::
+partition the interval $[0,t]$ into $n$ smaller intervals, the typical interval is $[s,s+ds)$ with the length of $t/n$ (as $n \to \infty$, the length goes to zero). The cumulative hazard over each small interval is $\alpha(t)dt$ that is also the conditional probability of occurrence of the event in the interval given it's not occurred before $s$. When there is no patient at risk, $\alpha(t)dt=0$, and equal 1 vice versa. When there is one patient in the risk, we will divide 1 by the number of individuals at risk, $1/Y(T_j)$,  to obtain estimator of $\alpha(t)dt$.
+::::
+
+Variance of $\hat{A}(t)$ is 
+$$
+\hat{\sigma}^2(t) = \sum_{T_j<t}\frac{1}{Y(T_j)^2}
+(\#eq:eq14)
+$$
+
+CI will be obtained through exponential transformation, this is 
+$$
+\hat{A}(t)\exp\Big\{\pm\Phi^{-1}(1-\alpha/2)/\hat{A}(t)\Big\}
+(\#eq:eq15)
+$$
+another CI is available but the above CI is better with small sample. [@aal2008]
+
+# `r ttt('the multiplicative intensity model')`
+
+Recall intensity process of a counting process $N(t)$ is 
+$$
+\lambda(t) = \alpha(t)Y(t)
+(\#eq:eq21)
+$$
+
+Sometimes we have data that includes heterogeneous samples that are categorized by characteristics, such as age, sex, region, etc. Thus, individuals have different hazard rate $\alpha_i(t)$ defined as follows
+$$
+\alpha_i(t) = \alpha(t)\mu_i(t),
+(\#eq:eq22)
+$$
+where $\alpha(t)$ is relative mortality common to all individuals and $\mu_i(t)$ is a known mortality rate (hazard rate) at $t$ for each person. Thus, 
+$$
+\begin{align}
+\lambda(t) &= \sum_{i=1}^n \alpha_i(t)Y_i(t) \\
+&= \sum_{i=1}^n \alpha(t)\mu_i(t)Y_i(t) \\
+&= \alpha(t)\sum_{i=1}^n \mu_i(t)Y_i(t).
+\end{align}
+(\#eq:eq23)
+$$
+
+Hence, no longer is $Y(t) = \sum_{i=1}^nY_i(t)\mu_i(t)$ the number of individuals at risk, but rather the sum of the external rates for the individuals at risk. The Nelson-Aalen estimator of $A(t)$ is now 
+$$
+\hat{A}(t) = \sum_{T_j\le t}\frac{1}{\sum_{i=1}^nY_i(t)\mu_i(t)}.
+(\#eq:eq24)
+$$
+
+::: {.example}
+We have data of $n$ patients categorized by their sex in which $\mu_m(a)$ and $\mu_f(a)$ are respectively the mortality at age $a$. Thus, the hazard rate is 
+$$
+\alpha_i(t) = \alpha(t)\mu_{s_i}(a_i+t),
+(\#eq:eq25)
+$$
+where $\mu_{s_i}(a_i+t)$ is $\mu_i(t)$ in `r lb(eq22)`, so `r lb(eq24)` will be utilized to estimate the cumulative hazard. `r proved()`
+:::
+
+# `r ttt('handling of ties')`
+
+Two scenarios that can happen:
+
+1. ties occurs due to grouping or rounding.
+2. time is discrete and ties are real.
+
+**For the first scenario.** we modify `r lb(eq13)` to 
+$$
+\hat{A}(t) = \sum_{T_j \le t}\triangle\hat{A}(T_j),
+(\#eq:eq31)
+$$
+where $\triangle\hat{A}(t) = 1/Y(T_j)$ in which if $d_j > 1$
+$$
+\triangle\hat{A}(T_j) = \sum_{l=0}^{d_j-1}\frac{1}{Y(T_j)-l}.
+(\#eq:eq32)
+$$
+
+**For the second scenario.**  we obtain `r lb(eq31)` with 
+$$
+\triangle\hat{A}(T_j) = \frac{d_j}{Y(T_j)}.
+(\#eq:eq33)
+$$
+
+also, variance can be estimated as follows
+$$
+\hat{\sigma}^2(t) = \sum_{T_j\le t}\triangle\hat{\sigma}^2(T_j),
+(\#eq:eq34)
+$$
+where 
+$$
+\begin{align}
+\triangle\hat{\sigma}^2(T_j) &= \sum_{l=0}^{d_j-1}\frac{1}{[y(T_j)-l]^2}, \quad &&\text{if scenario 1} \\
+\triangle\hat{\sigma}^2(T_j) &= \frac{[Y(T_j)-d_j]d_j}{Y(T_j)^3}, \quad &&\text{if scenario 2}
+\end{align}
+(\#eq:eq35)
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::
