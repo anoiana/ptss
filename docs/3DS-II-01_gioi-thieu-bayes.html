@@ -507,6 +507,10 @@ Terminologies
 <td>improper</td>
 <td>phi chính</td>
 </tr>
+<tr class="odd">
+<td>invariance</td>
+<td>tính bất biến</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -649,12 +653,8 @@ Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mat
 <div id="hàm-tiên-nghiệm-liên-hợp-prior-conjugate" class="section level2">
 <h2>Hàm Tiên Nghiệm Liên Hợp (Prior Conjugate)</h2>
 <p>Lựa chọn đầu tiên được gọi là <em>hàm tiên nghiệm liên hợp</em>, là một hàm tiên nghiệm được chọn sao cho hàm hậu nghiệm và hàm piror cùng thuộc một họ phân bố, nghĩa là nếu hàm tiên nghiệm là một phân bố <span class="math inline">\(\mathcal{beta}\)</span> thì hàm hậu nghiệm cũng là một phân bố <span class="math inline">\(\mathcal{Beta}\)</span>. Định nghĩa bằng ngôn ngữ toán học là</p>
-<div class="definition">
-<span id="def:def1" class="definition"><strong>Definition 1  (Hàm tiên nghiệm liên hợp) </strong></span>Cho <span class="math inline">\(L(\theta) = f(x|\theta)\)</span> là hàm hợp lý, <span class="math inline">\(\mathscr{G}\)</span> được gọi là một họ phân bố liên hợp tương ứng với <span class="math inline">\(L(\theta)\)</span> nếu <span class="math inline">\(f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x\)</span>.
-<p style="float:right; font-size:19px">
-<span class="math inline">\(\tiny\blacksquare\)</span>
-</p>
-</p>
+<div class="definition" style="border: thin solid black; padding-left: 10px;">
+<p><span id="def:def1" class="definition"><strong>Definition 1  (Hàm tiên nghiệm liên hợp) </strong></span>Cho <span class="math inline">\(L(\theta) = f(x|\theta)\)</span> là hàm hợp lý, <span class="math inline">\(\mathscr{G}\)</span> được gọi là một họ phân bố liên hợp tương ứng với <span class="math inline">\(L(\theta)\)</span> nếu <span class="math inline">\(f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x\)</span>.</p>
 </div>
 <div class="example">
 <span id="exm:exm3" class="example"><strong>Example 3  </strong></span>Ta xem lại trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2</a>, ta có <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span> và <span class="math inline">\(\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)\)</span>. Cả 2 phân bố đều thuộc họ phân bố <span class="math inline">\(\mathcal{Beta}\)</span> nên <span class="math inline">\(\mathcal{Beta}(\alpha,\beta)\)</span> trong trường hợp này là một hàm tiên nghiệm liên hợp.
@@ -731,27 +731,81 @@ thông qua hàm logarit tự nhiên, nghĩa là <span class="math inline">\(\Ome
 </div>
 <div id="hàm-tiên-nghiệm-phi-chính-improper-prior" class="section level2">
 <h2>Hàm Tiên Nghiệm Phi Chính (Improper Prior)</h2>
-<p>Lựa chọn thứ 2 cho hàm tiên nghiệm là <em>tiên nghiệm phi chính</em>.</p>
+<p>Lựa chọn thứ 2 cho hàm tiên nghiệm là <em>tiên nghiệm phi chính</em>, được định nghĩa khi một phân bố có
+<span class="math display">\[
+\int_{\Theta}f(\theta)d\theta =  \infty, \text{ hoặc } \sum_{\Theta}f(\theta) = \infty
+\]</span>
+một ví dụ điển hình là tham số <span class="math inline">\(p\)</span> của một phân bố nhị thức thuộc phân bố <span class="math inline">\(\mathcal{Beta}\)</span> với cả hai tham số <span class="math inline">\(\alpha = \beta = 0\)</span>, nghĩa là <span class="math inline">\(p \sim \mathcal{Beta}(0,0)\)</span>.</p>
+</div>
+<div id="hàm-tiên-nghiệm-của-jeffrey" class="section level2">
+<h2>Hàm Tiên Nghiệm Của Jeffrey</h2>
+<p>Ta biết rằng tiên nghiệm phi chính được sử dụng trong trường hợp ta không có hoặc có rất ít thông tin về một đại lượng nào đó trước khi ta quan sát dữ liệu. Lựa chọn đầu tiên là tiên nghiệm phi chính với <span class="math inline">\(f_{\theta}(\theta) \propto 1\)</span>. Tuy nhiên lựa chọn này có thể phát sinh vấn đề trong một số trường hợp. Ví dụ ta có <span class="math inline">\(\eta = h(\theta)\)</span> với <span class="math inline">\(h(.)\)</span> là một hàm số one-to-one. Nếu ta chọn <span class="math inline">\(f_{\theta}(\theta) \propto 1\)</span> vì ta không có nhiều thông tin về <span class="math inline">\(\theta\)</span> trước khi quan sát tập dữ liệu, mà <span class="math inline">\(\eta\)</span> là một hàm số của <span class="math inline">\(\theta\)</span> vậy phân bố của <span class="math inline">\(\eta\)</span> cũng phải là một tiền nghiệm phi chính. Tuy nhiên, nếu ta đổi biến thì ta sẽ có phân bố của <span class="math inline">\(\eta\)</span> như sau
+<span class="math display">\[
+\begin{align}
+f_{\eta}(\eta) &amp;= f_{\theta}[h^{-1}(\eta)]\Big|\frac{dh^{-1}(\eta)}{d\eta}\Big| \\
+&amp;\propto \Big|\frac{dh^{-1}(\eta)}{d\eta}\Big|.
+\end{align}
+\]</span>
+Nếu <span class="math inline">\(h(.)\)</span> là một hàm số tuyến tính thì đạo hàm của <span class="math inline">\(h\)</span> sẽ độc lập với <span class="math inline">\(\eta\)</span> như vậy <span class="math inline">\(f_{\eta}(\eta)\)</span> cũng sẽ độc lập với <span class="math inline">\(\eta\)</span>. Tuy nhiên nếu <span class="math inline">\(h\)</span> là một hàm phi tuyến tính thì <span class="math inline">\(f_{\eta}(\eta)\)</span> sẽ phụ thuộc vào <span class="math inline">\(\eta\)</span>. Vì thế phân bố của <span class="math inline">\(\eta\)</span> không phải là tiền nghiệm phi chính. Nghĩa là nó sẽ không có tính <em>bất biến (invariance)</em>.</p>
+<p>Một ví dụ điển hình là nếu <span class="math inline">\(X \sim \mathcal{Bin}(n,\theta)\)</span> với <span class="math inline">\(f_{\theta}(\theta) \propto 1\)</span>. Trong phân tích ta thường mong muốn ước lượng giá trị odd <span class="math inline">\(\eta\)</span>, nghĩa là <span class="math inline">\(\eta = \theta/(1-\theta)\)</span>. Bằng phương pháp đổi biến ta có thể chỉ ra rằng
+<span class="math display">\[
+f_{\eta}(\eta) =\frac{e^{\eta}}{(1+e^{\eta})^2}, 
+\]</span>
+không phải là một tiên nghiệm phi chính.</p>
+<div class="definition" style="border: thin solid black; padding-left: 10px;">
+<p><span id="def:def2" class="definition"><strong>Definition 2  (tiên nghiệm của Jeffrey) </strong></span>Gọi <span class="math inline">\(X\)</span> là một phân bố ngẫu nhiên và <span class="math inline">\(f(X|\theta)\)</span> là hàm hợp lý. tiên nghiệm Jeffrey là
+<span class="math display">\[
+f(\theta) \propto \sqrt{I(\theta)},
+\]</span>
+với <span class="math inline">\(I(\theta)\)</span> là <em>Fisher information</em> of <span class="math inline">\(\theta\)</span>. Như vậy nếu <span class="math inline">\(\eta = h(\theta)\)</span>, như vậy
+<span class="math display">\[
+f(\eta) = \sqrt{I(\eta)}
+\]</span></p>
+</div>
+<p><em><strong>Proof:</strong></em></p>
+<span class="math display">\[
+\begin{align}
+f_{\eta}(\eta) &amp;= f_{\theta}(\theta)\bigg|\frac{dh^{-1}(\eta)}{d\eta}\bigg| \\
+&amp;= \sqrt{I(\theta)}\bigg|\frac{dh^{-1}(\eta)}{d\eta}\bigg| \\
+&amp;= \sqrt{I(\theta)\Big\{\frac{dh^{-1}(\eta)}{d\eta}\Big\}^2} \\
+&amp;= \sqrt{I(\eta)}
+\end{align}
+\]</span>
+<p style="float:right; font-size:19px">
+<span class="math inline">\(\tiny\blacksquare\)</span>
+</p>
+</p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>Chứng minh <em>Fisher information</em> khi đổi biến:</p>
+</div>
+<p>Ta có <span class="math inline">\(\theta = h(\eta)\)</span>, như vậy
+<span class="math display">\[
+\begin{align}
+I(\eta) &amp;= -\Bbb{E}\Big[\frac{d^2\ln f(X|\eta)}{d\eta^2}\Big] \\
+&amp;= -\Bbb{E}\frac{d}{d\eta}\Big[\frac{d\ln f(X|\theta)}{d\theta}\frac{d\theta}{d\eta}\Big] \\
+&amp;= -\Bbb{E}\Big[\frac{d^2\ln f(X|\theta)}{d\theta^2}\Big(\frac{d\theta}{d\eta}\Big)^2 + \frac{d\ln f(X|\theta)}{d\theta}\frac{d^2\theta}{d\eta^2}\Big] \\
+&amp;= \underbrace{-\Bbb{E}\Big[\frac{d^2\ln f(X|\theta)}{d\theta^2}\Big]}_{I(\theta)} \Big(\frac{d\theta}{d\eta}\Big)^2 - \underbrace{\Bbb{E}\Big[\frac{d\ln f(X|\theta)}{d\theta}\Big]}_{= 0}\frac{d^2\theta}{d\eta^2} \\
+&amp;= I(\theta)\Big[\frac{d\theta}{d\eta}\Big]^2
+\end{align}
+\]</span></p>
+<p><strong>Chứng minh <span class="math inline">\(\boldsymbol{\Bbb{E}\Big[\frac{d\ln f(X|\theta)}{d\theta}\Big] = 0}\)</span></strong>
+<span class="math display">\[
+\begin{align}
+\Bbb{E}\Big[\frac{d\ln f(X|\theta)}{d\theta}\Big] &amp;= \int_{\chi}\frac{df(X|\theta)}{d\theta}\frac{1}{f(X|\theta)}f(X|\theta)dx \\
+&amp;= \int_{\chi}\frac{df(X|\theta)}{d\theta}dx \\
+&amp;= \frac{d}{d\theta}\int_{\chi} f(X|\theta)dx \\
+&amp;= \frac{d}{d\theta}1 \\
+&amp;= 0
+\end{align}
+\]</span></p>
+</div>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 </div>
 <div id="references" class="section level1 unnumbered shad">
 <h1>References</h1>
 </div>
-<!-- backbox for invariance in maths -->
-<!-- :::: {.blackbox .brainstorm} -->
-<!-- ::: {.center} -->
-<!-- **Invariance** - tính bất biến trong toán học -->
-<!-- ::: -->
-<!-- Ví dụ ta biết khoảng cách từ A đến C gấp đôi khoảng cách từ A tới B. Nếu ta được biết rằng từ A tới B là 10cm thì ta sẽ suy ra từ A đến C là 20 cm. Nếu ta biết từ A tới B là 100mm thì ta suy ta từ A tới C là 200 mm. Dù ta tính trên đơn vị cm hay mm thì độ khác biệt "gấp đôi" hay ($\times2$) vẫn không thay đổi. Trong toán học khái niệm này được trình bày như sau: -->
-<!-- gọi $x$ là khoảng cách từ A đến B, và $y = ax$. Ta biết khoảng cách từ A đến C là $2y$, như vậy ta có  -->
-<!-- $$ -->
-<!-- 2y = 2ax = a(2x)  -->
-<!-- $$ -->
-<!-- Ta thấy rằng hằng số $a$ không ảnh hưởng lến mối quan hệ $(\times2)$ khi ta chuyển từ $x$ sang $y$. Như vậy khi ta có thể chỉ ra như trong phương trình trên thì được gọi là _tính bất biến (invariance)_. <p style='float:right; font-size:19px'>$\tiny\blacksquare$</p></p> -->
-<!-- :::: -->
-<p><br />
-</p>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-gelman2013" class="csl-entry">
 Gelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. <em>Bayesian Data Analysis</em>. CRC press.
