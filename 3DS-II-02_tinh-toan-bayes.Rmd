@@ -7,7 +7,7 @@ output:
   bookdown::html_document2:
     code_folding: hide
     scroll_highlight: yes
-    number_sections: false
+    number_sections: true
     toc_depth: 3
 bibliography: ["_supp/citation.bib"]
 link-citations: true
@@ -32,7 +32,7 @@ link-citations: true
 
 
 ::: {.right .shad}
-[tham khảo tại @held2014applied]
+[tham khảo tại @held2020]
 :::
 
 ::: {.watermark}
@@ -49,7 +49,15 @@ ttt = purrr::partial(totitle, icon ="")
 
 ***
 
+# `r ttt('các phương pháp tất định (deterministic methods)')`
 
+## `r ttt('cực đại hàm hậu nghiệm')`
+
+Ký hiệu là $\hat{\theta}_{MAP}$ được tính bằng cách maximize hàm hậu nghiệm $f(\theta|x)$, nghĩa là
+$$
+\hat{\theta}_{MAP} = \arg\max_{\theta\in \Theta}\ln[f(\theta|x)] = \arg\max_{\theta\in\Theta}\ln[f(x|\theta)f(\theta)]
+(\#eq:eq11)
+$$
 
 
 
