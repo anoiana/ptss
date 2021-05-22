@@ -13,20 +13,27 @@
 
 <title>Thuật Toán Expectation-Maximization (EM) (3/3)</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="img/fugu.png"/>
@@ -38,7 +45,6 @@
         </div>
 </div>
 
-
 <style type="text/css">
   code{white-space: pre-wrap;}
   span.smallcaps{font-variant: small-caps;}
@@ -49,21 +55,28 @@
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -83,7 +96,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -145,39 +158,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -188,10 +171,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -208,40 +187,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -269,7 +221,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -281,7 +233,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -292,10 +244,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -307,7 +272,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -436,13 +400,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -461,14 +425,14 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-bookmark"></span>
+    <span class="fas fa-bookmark"></span>
      
     Readings
      
@@ -496,7 +460,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-bookmark"></span>
+    <span class="fas fa-bookmark"></span>
      
     Đọc sách
      
@@ -544,11 +508,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -563,13 +527,15 @@ div.tocify {
 </div>
 
 
+
+
 <hr />
-<div id="đặt-vấn-đề" class="section level1" number="1">
+<div id="đặt-vấn-đề" class="section level1">
 <h1><span class="header-section-number">1</span> Đặt vấn đề</h1>
 <p>Ta lại tiếp tục xem xét một dạng bài thuộc nhóm phân cụm trong machine learning, và bài này sẽ được giải bằng phương pháp EM. Ta nhắc lại cấu trúc bài toán “hai đồng xu” trong bài số 1 lần trước. Trong bài toán “hai đồng xu” ta xem xét trường hợp khi ta phải chọn 2 đồng xu, mỗi đồng xu có xác suất mặt hình không giống nhau. Ta ngẫu nhiên chọn ra 1 đồng xu rồi tung đồng xu 5 lần, ta lập lại 2 bước trên 10 lần.Như vậy ta thấy rằng mỗi một đổng xu đại diện cho 1 nhóm, tạm gọi là A và B. khi một đồng xu được chọn và tung 5 lần, ta có một phân bố nhị thức với parameters của nó là <span class="math inline">\(5\)</span> và <span class="math inline">\(p_i\)</span>, với <span class="math inline">\(i \in \{A,B\}\)</span>. Nghĩa là ta có <span class="math inline">\(\Bbb{P}(X|A)\)</span> và <span class="math inline">\(\Bbb{P}(X|B)\)</span> đều là phân bố nhị thức, nghĩa là <span class="math inline">\(X|A \sim \mathcal{Bin}(5,p_A)\)</span> và <span class="math inline">\(X|B \sim \mathcal{Bin}(5,p_B)\)</span>. Ngoài ra, ta cũng được cung cấp một thông tin rằng đồng xu <span class="math inline">\(A\)</span> được chọn với xác suất là là <span class="math inline">\(\pi_A\)</span>, như vậy xác suất để đồng xu B được chọn là <span class="math inline">\(1-\pi_A\)</span>. Rõ ràng, hành động chọn đồng xu A hoặc B lại là một phân bố bernoulli với parameter của nó là <span class="math inline">\(\pi_A\)</span>, nghĩa là <span class="math inline">\(Z \sim \mathcal{Bin}(1,\pi_A)\)</span>. Với dạng bài này, ta gọi là phân bố hỗn hợp, vì nó kết hợp giữa 2 phân bố nhị thức bằng một phân bố bernoulli (bernoulli cũng là phân bố nhị thức với parameter <span class="math inline">\(n =1\)</span>).</p>
 <p>Lần này ta cũng xét một bài tương tự. Với một tập dữ liệu <span class="math inline">\(X\)</span> có chiều không gian <span class="math inline">\(n\times p\)</span> và một biến target <span class="math inline">\(y \in \{1,2,3\}^{n}\)</span>. Nếu giả định ban đầu mỗi một hàng trong tập dữ liệu <span class="math inline">\(X\)</span> thuộc một phân bố multivariate normal, và <span class="math inline">\(X\)</span> bao gồm các quan sát thuộc 3 phân bố multiviriate normal khác nhau, thì đây cũng là một dạng bài phân bố hỗn hợp. Nhưng lần này là 3 phân bố multivariate normal được kết hợp bằng một phân bố tam thức <span class="math inline">\(Z \sim Trinomial(n,p_1,p_2)\)</span>.</p>
 </div>
-<div id="data-giả-lập" class="section level1" number="2">
+<div id="data-giả-lập" class="section level1">
 <h1><span class="header-section-number">2</span> Data giả lập</h1>
 <p>Đầu tiên ta sẽ tạo một data có dạng như sau. Ta sẽ tạo ra một tập dữ liệu bao gồm 360 observations, với mỗi observation thuộc một trong ba phân bố binormal:
 <span class="math display">\[
@@ -580,28 +546,28 @@ div.tocify {
 \end{aligned}
 \]</span>
 vói <span class="math inline">\(Z \sim Trinomial(360,0.2,0.5)\)</span>, trong thực tế các giá trị này sẽ không được biết, và nhiệm vụ của ta là ước lượng những giá trị này.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">360</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">4.0</span>,<span class="fl">4.0</span>, <span class="fl">5.0</span>,<span class="fl">5.0</span>,<span class="fl">6.5</span>,<span class="fl">5.0</span>), <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">byrow=</span>T)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">=</span> purrr<span class="sc">::</span><span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="sc">~</span>mu[.,])</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sig<span class="ot">&lt;-</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map</span>(</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">list</span>(<span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">21</span>, .<span class="dv">21</span>,.<span class="dv">25</span>), </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(.<span class="dv">25</span>,<span class="sc">-</span>.<span class="dv">21</span>,<span class="sc">-</span>.<span class="dv">21</span>,.<span class="dv">25</span>),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">21</span>, .<span class="dv">21</span>,.<span class="dv">25</span>)),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a> matrix, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> T</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,n, <span class="at">replace =</span> T, <span class="at">prob =</span> p )</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>dat<span class="ot">&lt;-</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map</span>(y, <span class="sc">~</span>MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="dv">1</span>, <span class="at">mu =</span> mu[[.]], <span class="at">Sigma=</span>sig[[.]]))<span class="sc">%&gt;%</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a> <span class="fu">reduce</span>(rbind)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>color <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;black&quot;</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat, <span class="at">col =</span> color[y], <span class="at">xlab =</span> <span class="st">&quot;x1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;x2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(purrr)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>n =<span class="st"> </span><span class="dv">360</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>mu &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">4.0</span>,<span class="fl">4.0</span>, <span class="fl">5.0</span>,<span class="fl">5.0</span>,<span class="fl">6.5</span>,<span class="fl">5.0</span>), <span class="dt">ncol=</span><span class="dv">2</span>, <span class="dt">byrow=</span>T)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>mu =<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="op">~</span>mu[.,])</span>
+<span id="cb1-7"><a href="#cb1-7"></a>sig&lt;-</span>
+<span id="cb1-8"><a href="#cb1-8"></a>purrr<span class="op">::</span><span class="kw">map</span>(</span>
+<span id="cb1-9"><a href="#cb1-9"></a> <span class="kw">list</span>(<span class="kw">c</span>(.<span class="dv">25</span>, <span class="fl">.21</span>, <span class="fl">.21</span>,.<span class="dv">25</span>), </span>
+<span id="cb1-10"><a href="#cb1-10"></a>      <span class="kw">c</span>(.<span class="dv">25</span>,<span class="op">-</span>.<span class="dv">21</span>,<span class="op">-</span>.<span class="dv">21</span>,.<span class="dv">25</span>),</span>
+<span id="cb1-11"><a href="#cb1-11"></a>      <span class="kw">c</span>(.<span class="dv">25</span>, <span class="fl">.21</span>, <span class="fl">.21</span>,.<span class="dv">25</span>)),</span>
+<span id="cb1-12"><a href="#cb1-12"></a> matrix, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> T</span>
+<span id="cb1-13"><a href="#cb1-13"></a>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a>p =<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>,<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
+<span id="cb1-15"><a href="#cb1-15"></a>y =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,n, <span class="dt">replace =</span> T, <span class="dt">prob =</span> p )</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="kw">set.seed</span>(<span class="dv">111</span>)</span>
+<span id="cb1-18"><a href="#cb1-18"></a>dat&lt;-</span>
+<span id="cb1-19"><a href="#cb1-19"></a>purrr<span class="op">::</span><span class="kw">map</span>(y, <span class="op">~</span>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dv">1</span>, <span class="dt">mu =</span> mu[[.]], <span class="dt">Sigma=</span>sig[[.]]))<span class="op">%&gt;%</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="st"> </span><span class="kw">reduce</span>(rbind)</span>
+<span id="cb1-21"><a href="#cb1-21"></a>color =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;black&quot;</span>)</span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="kw">plot</span>(dat, <span class="dt">col =</span> color[y], <span class="dt">xlab =</span> <span class="st">&quot;x1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;x2&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
 <img src="3DS-III-03_em-with-clustering-problem_files/figure-html/unnamed-chunk-1-1.png" alt="*Dữ liệu X nếu thông tin từ Z được cung cấp*" width="672" />
 <p class="caption">
@@ -617,7 +583,7 @@ Figure 2.2: <em>Dữ liệu X khi thông tin của Z không được cung cấp.
 </div>
 <p>Mục tiêu của ta là sẽ đi phân cụm cho tập dữ liệu này.</p>
 </div>
-<div id="phân-cụm-bằng-phương-pháp-em" class="section level1" number="3">
+<div id="phân-cụm-bằng-phương-pháp-em" class="section level1">
 <h1><span class="header-section-number">3</span> Phân cụm bằng phương pháp EM</h1>
 <p>Mỗi một quan sát sẽ có xác suất là <span class="math inline">\(\pi_k\mathcal{N}(\boldsymbol{\mu}_k,\boldsymbol{\Sigma}_k)\)</span>, như vậy ta sẽ có phương trình likelihood là
 <span class="math display">\[
@@ -647,70 +613,70 @@ Trong đó
 \tag{3.3}
 \]</span></p>
 <p>Sử dụng <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(3.2)</a> và <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(3.3)</a> để viết <code>R code</code> như bên dưới</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">ncol</span>(dat) <span class="co"># number of dimensions</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat) <span class="co"># number of samples</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>K<span class="ot">=</span><span class="dv">3</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ranges <span class="ot">&lt;-</span> <span class="fu">apply</span>(dat, <span class="dv">2</span>, range) <span class="co"># the ranges for each dimension</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># initial values</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>pik <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span>K,K)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>muk <span class="ot">=</span> <span class="fu">apply</span>(ranges,<span class="dv">2</span>, <span class="cf">function</span>(i) <span class="fu">runif</span>(<span class="dv">3</span>,i[<span class="dv">1</span>],i[<span class="dv">2</span>]))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>muk <span class="ot">=</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) muk[i,])</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>Sigmas <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">nrow =</span> <span class="dv">2</span>))</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>iter_n <span class="ot">=</span> <span class="fu">expand.grid</span>(letters,letters)<span class="sc">%&gt;%</span> <span class="fu">apply</span>(<span class="dv">1</span>,purrr<span class="sc">::</span><span class="fu">lift_dv</span>(paste0))<span class="sc">%&gt;%</span> <span class="fu">sort</span>()</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(iter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>){</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># EM steps</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>gammak<span class="ot">&lt;-</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">pmap</span>(<span class="fu">list</span>(pik,muk,Sigmas), <span class="sc">~</span>{</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a> <span class="fu">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(i) ..<span class="dv">1</span><span class="sc">*</span><span class="fu">dmvnorm</span>(i,..<span class="dv">2</span>,..<span class="dv">3</span>) )</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>})<span class="sc">%&gt;%</span> purrr<span class="sc">::</span><span class="fu">pmap</span>(<span class="sc">~</span> <span class="fu">c</span>(...)<span class="sc">%&gt;%</span>{.<span class="sc">/</span><span class="fu">sum</span>(.)})<span class="sc">%&gt;%</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a> <span class="fu">reduce</span>(rbind)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># M step</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>pik<span class="ot">&lt;-</span><span class="fu">t</span>(gammak)<span class="sc">%*%</span><span class="fu">rep</span>(<span class="dv">1</span>,N)<span class="sc">/</span>N</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>muk <span class="ot">=</span> <span class="fu">apply</span>(gammak,<span class="dv">2</span>, <span class="cf">function</span>(i) <span class="fu">t</span>(dat)<span class="sc">%*%</span>i<span class="sc">/</span><span class="fu">sum</span>(i) )<span class="sc">%&gt;%</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a> {<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) .[,i] )}</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>gammak <span class="ot">=</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(gammak), <span class="cf">function</span>(i) gammak[,i] )</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>Sigmas<span class="ot">&lt;-</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap</span>(<span class="fu">list</span>(muk, gammak), <span class="sc">~</span>{</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a> m <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(j) (j<span class="sc">-</span>..<span class="dv">1</span>)))</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(m), <span class="cf">function</span>(i) m[i,]<span class="sc">%*%</span><span class="fu">t</span>(m[i,])<span class="sc">*</span>..<span class="dv">2</span>[i]<span class="sc">/</span><span class="fu">sum</span>(..<span class="dv">2</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">=</span> <span class="fu">reduce</span>(gammak,cbind)<span class="sc">%&gt;%</span><span class="fu">apply</span>(<span class="dv">1</span>, which.max)</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#create animated images</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>()  <span class="fu">plot</span>(dat, <span class="at">col =</span> pred, <span class="at">main =</span> <span class="fu">paste0</span>(iter))</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> ggplotify<span class="sc">::</span><span class="fu">as.ggplot</span>(f)</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;_supp/myfolder&quot;</span>)) <span class="fu">dir.create</span>(<span class="st">&quot;_supp/myfolder&quot;</span>)</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> f, <span class="at">filename =</span>  <span class="fu">paste0</span>(<span class="st">&quot;_supp/myfolder/&quot;</span>,iter_n[iter],<span class="st">&quot;.png&quot;</span>), <span class="at">device =</span> <span class="st">&quot;png&quot;</span>)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="do">## list file names and read in</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>imgs <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;_supp/myfolder&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>img_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(imgs, magick<span class="sc">::</span>image_read)</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="do">## join the images together</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>img_joined <span class="ot">&lt;-</span> magick<span class="sc">::</span><span class="fu">image_join</span>(img_list)</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="do">## animate at 2 frames per second</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>img_animated <span class="ot">&lt;-</span> magick<span class="sc">::</span><span class="fu">image_animate</span>(img_joined, <span class="at">fps =</span> <span class="dv">2</span>)</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="do">## save to disk</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>magick<span class="sc">::</span><span class="fu">image_write</span>(<span class="at">image =</span> img_animated,</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;img/img1.gif&quot;</span>)</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(<span class="st">&quot;_supp/myfolder&quot;</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">table</span>(pred))</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">table</span>(y))</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">names</span>(b2)<span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>(), <span class="fu">names</span>(b1)<span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>())</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">sapply</span>(y, <span class="cf">function</span>(i)  a[<span class="fu">match</span>(i,a[,<span class="dv">1</span>]),<span class="dv">2</span>])</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>confu <span class="ot">=</span> <span class="fu">table</span>(pred,y)<span class="sc">%&gt;%</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(confu, <span class="at">file =</span> <span class="st">&quot;_supp/confu1.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(mvtnorm)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>d &lt;-<span class="st"> </span><span class="kw">ncol</span>(dat) <span class="co"># number of dimensions</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>N &lt;-<span class="st"> </span><span class="kw">nrow</span>(dat) <span class="co"># number of samples</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>K=<span class="dv">3</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>ranges &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, range) <span class="co"># the ranges for each dimension</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># initial values</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>pik &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">/</span>K,K)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>muk =<span class="st"> </span><span class="kw">apply</span>(ranges,<span class="dv">2</span>, <span class="cf">function</span>(i) <span class="kw">runif</span>(<span class="dv">3</span>,i[<span class="dv">1</span>],i[<span class="dv">2</span>]))</span>
+<span id="cb2-9"><a href="#cb2-9"></a>muk =<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) muk[i,])</span>
+<span id="cb2-10"><a href="#cb2-10"></a>Sigmas &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">nrow =</span> <span class="dv">2</span>))</span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a>iter_n =<span class="st"> </span><span class="kw">expand.grid</span>(letters,letters)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">apply</span>(<span class="dv">1</span>,purrr<span class="op">::</span><span class="kw">lift_dv</span>(paste0))<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sort</span>()</span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="cf">for</span>(iter <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>){</span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co"># EM steps</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>gammak&lt;-</span>
+<span id="cb2-16"><a href="#cb2-16"></a>purrr<span class="op">::</span><span class="kw">pmap</span>(<span class="kw">list</span>(pik,muk,Sigmas), <span class="op">~</span>{</span>
+<span id="cb2-17"><a href="#cb2-17"></a> <span class="kw">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(i) ..<span class="dv">1</span><span class="op">*</span><span class="kw">dmvnorm</span>(i,..<span class="dv">2</span>,..<span class="dv">3</span>) )</span>
+<span id="cb2-18"><a href="#cb2-18"></a>})<span class="op">%&gt;%</span><span class="st"> </span>purrr<span class="op">::</span><span class="kw">pmap</span>(<span class="op">~</span><span class="st"> </span><span class="kw">c</span>(...)<span class="op">%&gt;%</span>{.<span class="op">/</span><span class="kw">sum</span>(.)})<span class="op">%&gt;%</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="st"> </span><span class="kw">reduce</span>(rbind)</span>
+<span id="cb2-20"><a href="#cb2-20"></a> </span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co"># M step</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>pik&lt;-<span class="kw">t</span>(gammak)<span class="op">%*%</span><span class="kw">rep</span>(<span class="dv">1</span>,N)<span class="op">/</span>N</span>
+<span id="cb2-23"><a href="#cb2-23"></a>muk =<span class="st"> </span><span class="kw">apply</span>(gammak,<span class="dv">2</span>, <span class="cf">function</span>(i) <span class="kw">t</span>(dat)<span class="op">%*%</span>i<span class="op">/</span><span class="kw">sum</span>(i) )<span class="op">%&gt;%</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="st"> </span>{<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) .[,i] )}</span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a>gammak =<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(gammak), <span class="cf">function</span>(i) gammak[,i] )</span>
+<span id="cb2-27"><a href="#cb2-27"></a></span>
+<span id="cb2-28"><a href="#cb2-28"></a>Sigmas&lt;-</span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="kw">pmap</span>(<span class="kw">list</span>(muk, gammak), <span class="op">~</span>{</span>
+<span id="cb2-30"><a href="#cb2-30"></a> m =<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(dat,<span class="dv">1</span>, <span class="cf">function</span>(j) (j<span class="op">-</span>..<span class="dv">1</span>)))</span>
+<span id="cb2-31"><a href="#cb2-31"></a> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(m), <span class="cf">function</span>(i) m[i,]<span class="op">%*%</span><span class="kw">t</span>(m[i,])<span class="op">*</span>..<span class="dv">2</span>[i]<span class="op">/</span><span class="kw">sum</span>(..<span class="dv">2</span>))<span class="op">%&gt;%</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="st">  </span><span class="kw">reduce</span>(<span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</span>
+<span id="cb2-33"><a href="#cb2-33"></a>})</span>
+<span id="cb2-34"><a href="#cb2-34"></a></span>
+<span id="cb2-35"><a href="#cb2-35"></a>pred =<span class="st"> </span><span class="kw">reduce</span>(gammak,cbind)<span class="op">%&gt;%</span><span class="kw">apply</span>(<span class="dv">1</span>, which.max)</span>
+<span id="cb2-36"><a href="#cb2-36"></a></span>
+<span id="cb2-37"><a href="#cb2-37"></a><span class="co">#create animated images</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a></span>
+<span id="cb2-39"><a href="#cb2-39"></a>f =<span class="st"> </span><span class="cf">function</span>()  <span class="kw">plot</span>(dat, <span class="dt">col =</span> pred, <span class="dt">main =</span> <span class="kw">paste0</span>(iter))</span>
+<span id="cb2-40"><a href="#cb2-40"></a>k =<span class="st"> </span>ggplotify<span class="op">::</span><span class="kw">as.ggplot</span>(f)</span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">dir.exists</span>(<span class="st">&quot;_supp/myfolder&quot;</span>)) <span class="kw">dir.create</span>(<span class="st">&quot;_supp/myfolder&quot;</span>)</span>
+<span id="cb2-42"><a href="#cb2-42"></a><span class="kw">ggsave</span>(<span class="dt">plot =</span> f, <span class="dt">filename =</span>  <span class="kw">paste0</span>(<span class="st">&quot;_supp/myfolder/&quot;</span>,iter_n[iter],<span class="st">&quot;.png&quot;</span>), <span class="dt">device =</span> <span class="st">&quot;png&quot;</span>)</span>
+<span id="cb2-43"><a href="#cb2-43"></a></span>
+<span id="cb2-44"><a href="#cb2-44"></a>}</span>
+<span id="cb2-45"><a href="#cb2-45"></a></span>
+<span id="cb2-46"><a href="#cb2-46"></a><span class="co">## list file names and read in</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a>imgs &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;_supp/myfolder&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb2-48"><a href="#cb2-48"></a>img_list &lt;-<span class="st"> </span><span class="kw">lapply</span>(imgs, magick<span class="op">::</span>image_read)</span>
+<span id="cb2-49"><a href="#cb2-49"></a><span class="co">## join the images together</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a>img_joined &lt;-<span class="st"> </span>magick<span class="op">::</span><span class="kw">image_join</span>(img_list)</span>
+<span id="cb2-51"><a href="#cb2-51"></a><span class="co">## animate at 2 frames per second</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a>img_animated &lt;-<span class="st"> </span>magick<span class="op">::</span><span class="kw">image_animate</span>(img_joined, <span class="dt">fps =</span> <span class="dv">2</span>)</span>
+<span id="cb2-53"><a href="#cb2-53"></a><span class="co">## save to disk</span></span>
+<span id="cb2-54"><a href="#cb2-54"></a>magick<span class="op">::</span><span class="kw">image_write</span>(<span class="dt">image =</span> img_animated,</span>
+<span id="cb2-55"><a href="#cb2-55"></a>            <span class="dt">path =</span> <span class="st">&quot;img/img1.gif&quot;</span>)</span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="kw">unlink</span>(<span class="st">&quot;_supp/myfolder&quot;</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb2-57"><a href="#cb2-57"></a></span>
+<span id="cb2-58"><a href="#cb2-58"></a></span>
+<span id="cb2-59"><a href="#cb2-59"></a>b1 =<span class="st"> </span><span class="kw">sort</span>(<span class="kw">table</span>(pred))</span>
+<span id="cb2-60"><a href="#cb2-60"></a>b2 =<span class="st"> </span><span class="kw">sort</span>(<span class="kw">table</span>(y))</span>
+<span id="cb2-61"><a href="#cb2-61"></a>a =<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">names</span>(b2)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>(), <span class="kw">names</span>(b1)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>())</span>
+<span id="cb2-62"><a href="#cb2-62"></a>y =<span class="st"> </span><span class="kw">sapply</span>(y, <span class="cf">function</span>(i)  a[<span class="kw">match</span>(i,a[,<span class="dv">1</span>]),<span class="dv">2</span>])</span>
+<span id="cb2-63"><a href="#cb2-63"></a>confu =<span class="st"> </span><span class="kw">table</span>(pred,y)<span class="op">%&gt;%</span><span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>()</span>
+<span id="cb2-64"><a href="#cb2-64"></a><span class="kw">save</span>(confu, <span class="dt">file =</span> <span class="st">&quot;_supp/confu1.RData&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:fig1"></span>
 <img src="img/img1.gif" alt="*Quá trình thay đổi biến target trong 30 iterations*"  />
 <p class="caption">
@@ -720,11 +686,11 @@ Figure 3.1: <em>Quá trình thay đổi biến target trong 30 iterations</em>
 <p>Phương pháp EM đã có package sẵn trong <code>R</code> để chạy với tốc độ khá nhanh, tuy nhiên với mục đích học và hiểu, trong bài này ta sẽ tự code thủ công.</p>
 <p>Như trong <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig1">3.1</a> ta thấy rằng qua mỗi lần iteration, thì các observations lại thay đổi qua lại trong 3 cụm. Càng về cuối thì sự thay đổi này càng ít đi và đến cuối cùng thì dường như không còn thay đổi nữa.</p>
 <p>Sau 30 lần chạy, ta sẽ có kết quả được thể hiện như trong bảng confusion <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">3.2</a> bên dưới</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;_supp/confu1.RData&quot;</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> cvms<span class="sc">::</span><span class="fu">plot_confusion_matrix</span>(confu,<span class="at">target_col =</span> <span class="st">&quot;y&quot;</span>, <span class="at">prediction_col =</span> <span class="st">&quot;pred&quot;</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">counts_col =</span> <span class="st">&quot;n&quot;</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">mutate</span>(a<span class="sc">$</span>data, <span class="at">g =</span> <span class="fu">ifelse</span>(Target<span class="sc">==</span>Prediction,<span class="dv">1</span>,<span class="dv">0</span>))<span class="sc">%&gt;%</span> <span class="fu">group_by</span>(g)<span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">s=</span><span class="fu">sum</span>(N))<span class="sc">%$%</span> <span class="st">`</span><span class="at">names&lt;-</span><span class="st">`</span>(s,g)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">load</span>(<span class="st">&quot;_supp/confu1.RData&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>a =<span class="st"> </span>cvms<span class="op">::</span><span class="kw">plot_confusion_matrix</span>(confu,<span class="dt">target_col =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">prediction_col =</span> <span class="st">&quot;pred&quot;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>                                                  <span class="dt">counts_col =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>r =<span class="st"> </span><span class="kw">mutate</span>(a<span class="op">$</span>data, <span class="dt">g =</span> <span class="kw">ifelse</span>(Target<span class="op">==</span>Prediction,<span class="dv">1</span>,<span class="dv">0</span>))<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(g)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">s=</span><span class="kw">sum</span>(N))<span class="op">%$%</span><span class="st"> `</span><span class="dt">names&lt;-</span><span class="st">`</span>(s,g)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>a</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:fig2"></span>
 <img src="3DS-III-03_em-with-clustering-problem_files/figure-html/fig2-1.png" alt="*Bảng confusion thể hiện tỉ lệ dự đoán đúng và sai theo trong từng trường hợp.*" width="672" />
 <p class="caption">
@@ -765,7 +731,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

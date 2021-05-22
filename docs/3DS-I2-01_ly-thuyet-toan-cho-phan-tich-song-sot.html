@@ -13,20 +13,27 @@
 
 <title>✑ Lý Thuyết Toán Cho Phân Tích Sống Sót</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="img/fugu.png"/>
@@ -37,7 +44,6 @@
             <div class="bottom-text"> </div>
         </div>
 </div>
-
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -51,32 +57,7 @@
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -87,10 +68,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -107,40 +84,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -168,7 +118,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -180,7 +130,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -191,10 +141,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -206,7 +169,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -335,13 +297,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -360,14 +322,14 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-bookmark"></span>
+    <span class="fas fa-bookmark"></span>
      
     Readings
      
@@ -395,7 +357,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-bookmark"></span>
+    <span class="fas fa-bookmark"></span>
      
     Đọc sách
      
@@ -443,11 +405,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -464,22 +426,24 @@ div.tocify {
 <div class="watermark">
 <p><em>DRAFT</em></p>
 </div>
+
+
 <p><span class="math inline">\(\varnothing\)</span></p>
 <div class="right shad">
-<p><span class="citation">(tham khảo: <a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing 2008</a>)</span></p>
+<p><span class="citation">(tham khảo: Aalen, Borgan, and Gjessing <a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></p>
 </div>
 <hr />
 <!-- ===================== START FROM HERE ========================== -->
-<div id="quá-trình-ngẫu-nhiên-của-biến-gian-rời-rạc" class="section level1" number="1">
+<div id="quá-trình-ngẫu-nhiên-của-biến-gian-rời-rạc" class="section level1">
 <h1><span class="header-section-number">1</span> Quá Trình Ngẫu Nhiên Của Biến Gian Rời Rạc</h1>
-<div id="đặc-tính-martingales" class="section level2" number="1.1">
+<div id="đặc-tính-martingales" class="section level2">
 <h2><span class="header-section-number">1.1</span> Đặc Tính Martingales</h2>
 <p>Ta có <span class="math inline">\(M = \{M_0,M_1,\dots\}\)</span> là quá trình ngẫu nhiên trong cột thời gian rời rạc. <span class="math inline">\(M\)</span> là một có tính chất martingale khi
 <span class="math display" id="eq:eq1">\[
 \Bbb{E}(M_n|M_0,M_1,\dots,M_{n-1}) = M_{n-1}, \quad n \ge 1
 \tag{1.1}
 \]</span>
-Đặc tính này liên quan tới “fair game,” nghĩa là dựa trên các thông tin ta có được sau khi quan sát <span class="math inline">\(n-1\)</span> trò chơi thì thông tin tăng lên mà ta kỳ vọng cho trò chơi tiếp theo sẽ không thay đổi.</p>
+Đặc tính này liên quan tới “fair game”, nghĩa là dựa trên các thông tin ta có được sau khi quan sát <span class="math inline">\(n-1\)</span> trò chơi thì thông tin tăng lên mà ta kỳ vọng cho trò chơi tiếp theo sẽ không thay đổi.</p>
 <p>Tạm gọi <span class="math inline">\(\mathscr{H}_n\)</span> là thông tin tích lũy đến thời điểm thứ <span class="math inline">\(n\)</span>. Trong lý thuyết về tập hợp ta có thể xem <span class="math inline">\(\{\mathscr{H}_n\}\)</span> là một tập hợp, số lượng phần tử của tập hợp này sẽ tăng dần khi lần lượt đi qua các mốc thời gian (đi càng nhiều, chứng kiền càng nhiều, kiến thức càng nhiều). Ví dụ, ta ném 3 đồng xu thì ta biết trước có tất cả 8 trường hợp có thể xảy ra nhưng ta không biết cụ thể trường hợp nào, và ta cũng không biết trường hợp nào có nhiều khả năng hơn trường hợp nào. Nói cách khác tất cả các khả năng đều ngang bằng nhau, cũng có thể nói ta không có bất kỳ thông tin nào. 8 trường hợp đó là
 <span class="math display">\[
 M_0 = \{(HHH, HHT, HTH, HTT, THH,THT, TTH, TTT)\},
@@ -525,7 +489,7 @@ Như vậy, sau khi quan sát đồng xu đầu tiên được ném ra, ta có t
 <p>Liên hệ với phân tích sốt sót, ta thấy rằng cứ sau mỗi một bệnh nhân tử vong được ghi nhận, thì các giá trị của hàm sống sót, hàm nguy cơ,… đều thay đổi. Câu hỏi được đặc ra là liệu sau mỗi một ca tử vong ghi nhận được, thì ta có thể dự đoán gì về các ca tiếp theo? và liệu với các thông tin ta có cho tới thời điển hiện tại (tiền sự) thì sẽ trả lời được cho ta về điều gì trong những lần tới?</p>
 </div>
 </div>
-<div id="đặc-tính-martingales-của-biến-thời-gian-rời-rạc" class="section level2" number="1.2">
+<div id="đặc-tính-martingales-của-biến-thời-gian-rời-rạc" class="section level2">
 <h2><span class="header-section-number">1.2</span> Đặc Tính Martingales Của Biến Thời Gian Rời Rạc</h2>
 <p>Như vậy <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> có thể được viết lại là
 <span class="math display" id="eq:eq2">\[
@@ -559,7 +523,7 @@ nghĩa là martingale có <em>uncorrelated increments</em>.</p>
 \]</span>
 <span class="math inline">\(\Delta M_n = M_n-M_{n-1}\)</span> gọi là hiệu martingale (martingale differences).</p>
 </div>
-<div id="sự-thay-đổi-của-quá-trình-ngẫu-nhiên" class="section level2" number="1.3">
+<div id="sự-thay-đổi-của-quá-trình-ngẫu-nhiên" class="section level2">
 <h2><span class="header-section-number">1.3</span> Sự Thay Đổi Của Quá Trình Ngẫu Nhiên</h2>
 <p>Có 2 sự thay đổi mà ta cần quan tâm, cái thứ nhất gọi là <em>quá trình thay đổi có thể dự đoán</em> được ký hiệu là <span class="math inline">\(\langle M \rangle\)</span> và được định nghĩa là tổng của phương sai có điều kiện
 <span class="math display" id="eq:eq7">\[
@@ -604,7 +568,7 @@ thus,
 </p>
 </p>
 </div>
-<div id="thời-gian-ngừng" class="section level2" number="1.4">
+<div id="thời-gian-ngừng" class="section level2">
 <h2><span class="header-section-number">1.4</span> Thời Gian Ngừng</h2>
 <p><em>stopping time</em> hay thời gian ngừng là khoảng thời gian phải có để một sự kiện nào đó xảy ra. Ta có thể định nghĩa thời gian ngừng như sau
 <span class="math display" id="eq:eq11">\[
@@ -641,9 +605,9 @@ tổng quát hơn ta có
 \end{align}
 \tag{1.13}
 \]</span>
-tham khảo <span class="citation"><a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing</a> (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span> cho phần chứng minh <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1415">(1.13)</a>.</p>
+tham khảo <span class="citation">Aalen, Borgan, and Gjessing (<a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span> cho phần chứng minh <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1415">(1.13)</a>.</p>
 </div>
-<div id="phân-tích-doob-doob-decomposition" class="section level2" number="1.5">
+<div id="phân-tích-doob-doob-decomposition" class="section level2">
 <h2><span class="header-section-number">1.5</span> Phân Tích Doob (Doob Decomposition)</h2>
 <p>Mục tiêu chính của <em>phân tích Doob</em> là giải thích sự thay đổi của một quá trình ngẫu nhiên như là một hàm số của biến tiền sự. Gọi <span class="math inline">\(M = \{M_i\}_{i=0,1,\dots,n.}\)</span> là một quá trình ngẫh nhiên bất kỳ, <span class="math inline">\(X = \{X_i\}_{i=1,2,\dots,n.}\)</span> là quá trình ngẫu nhiên thích nghi với tiền sự <span class="math inline">\(\{\mathscr{H}_n\}\)</span>. Trong đó <span class="math inline">\(M\)</span> có tính chất sau
 <span class="math display">\[
@@ -657,10 +621,10 @@ X_n = \Bbb{E}(X_n|\mathscr{H}_{n-1}) + \Delta M_n,
 <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq16">(1.14)</a> tương ứng với một mô hình thống kê bình thường <span class="math inline">\(\boldsymbol{y} = \boldsymbol{{\beta}^{\top}X}+ \boldsymbol{\varepsilon}\)</span>. Thật vậy, ta thấy rằng dữ kiện <span class="math inline">\(\Bbb{E}(\boldsymbol{Y}) = \boldsymbol{{\beta}^{\top}X}\)</span> tương đương với <span class="math inline">\(X_n\)</span> và <span class="math inline">\(\Bbb{E}(X_n|\mathscr{H}_{n-1})\)</span> trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq16">(1.14)</a> và <span class="math inline">\(\Bbb{E}(\boldsymbol{\varepsilon}) = \boldsymbol{0}\)</span> tương đương với <span class="math inline">\(\Bbb{E}(\Delta M_n|\mathscr{H}_{n-1}) = 0\)</span>. Như vậy <span class="math inline">\(X_n\)</span> sẽ được hồi quy bằng theo một hàm số của <span class="math inline">\(\mathscr{H}_{n-1}\)</span>.</p>
 </div>
 </div>
-<div id="quá-trình-ngẫu-nhiên-với-biến-thời-gian-liên-lục" class="section level1" number="2">
+<div id="quá-trình-ngẫu-nhiên-với-biến-thời-gian-liên-lục" class="section level1">
 <h1><span class="header-section-number">2</span> Quá Trình Ngẫu Nhiên Với Biến Thời Gian Liên Lục</h1>
 <p>Phần này thật ra là giống như phần trên, tuy nhiên các ký hiệu cần phải thay đổi cho phù hợp với biến liên tục.</p>
-<div id="martingales-với-biến-thời-gian-liên-tục" class="section level2" number="2.1">
+<div id="martingales-với-biến-thời-gian-liên-tục" class="section level2">
 <h2><span class="header-section-number">2.1</span> Martingales Với Biến Thời Gian Liên Tục</h2>
 <p>Đối với một quá trình ngẫu nhiên ta sẽ ký hiệu là
 <span class="math display">\[
@@ -686,10 +650,10 @@ trong đó <span class="math inline">\(dM(t)\)</span> là sự tăng lên trong 
 \]</span></li>
 </ul>
 </div>
-<div id="tích-phân-trong-quá-trình-ngẫu-nhiên" class="section level2" number="2.2">
+<div id="tích-phân-trong-quá-trình-ngẫu-nhiên" class="section level2">
 <h2><span class="header-section-number">2.2</span> Tích Phân Trong Quá Trình Ngẫu Nhiên</h2>
 </div>
-<div id="quá-trình-ngẫu-nhiên-poisson" class="section level2" number="2.3">
+<div id="quá-trình-ngẫu-nhiên-poisson" class="section level2">
 <h2><span class="header-section-number">2.3</span> Quá Trình Ngẫu Nhiên Poisson</h2>
 <p>Quá trình ngẫu nhiên poisson đồng nhất mô tả những sự kiện xảy ra hoàn toàn độc lập. Đại lượng được quan tâm là tốc độ xảy ra sự kiện, hay gọi là cường độ <span class="math inline">\(\lambda\)</span>, trong đó <span class="math inline">\(\lambda dt\)</span> là xác suất <strong>của một sự kiện xảy ra in khoảng thời gian <span class="math inline">\([t,t+dt)\)</span>.</strong> Một vài đặc tính của nó là</p>
 <ol style="list-style-type: decimal">
@@ -722,7 +686,7 @@ ta có thể chứng minh được rằng <span class="math inline">\(\lambda t\
 \tag{2.5}
 \]</span></p>
 </div>
-<div id="quá-trình-ngẫu-nhiên-đếm" class="section level2" number="2.4">
+<div id="quá-trình-ngẫu-nhiên-đếm" class="section level2">
 <h2><span class="header-section-number">2.4</span> Quá Trình Ngẫu Nhiên Đếm</h2>
 <p>Một <em>quá trình đếm (counting process)</em> <span class="math inline">\(N\)</span> được định nghĩa là <span class="math inline">\(\{N(t): t \in[0,\tau]\}\)</span>. <span class="math inline">\(N\)</span> là một quá trình liên tục phải với khoảng cách của mỗi bậc là <span class="math inline">\(1\)</span> tại thời điểm xảy ra sự kiện. Ta có thể minh họa bằng thời gian tái phát bệnh của một bệnh nhân như hình bên dưới</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
@@ -744,9 +708,9 @@ Figure 2.1: <em>thời gian tái phát bệnh của một bệnh nhân</em>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1><em>References</em></h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-aal2008" class="csl-entry">
-Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.
+<div id="refs" class="references">
+<div id="ref-aal2008">
+<p>Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.</p>
 </div>
 </div>
 </div>
@@ -780,7 +744,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
