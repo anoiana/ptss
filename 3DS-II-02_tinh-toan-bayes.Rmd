@@ -1,0 +1,67 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('giới thiệu bayes')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    scroll_highlight: yes
+    number_sections: false
+    toc_depth: 3
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+\newcommand{\scr}[1]{\mathscr{#1}}
+
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+\def\logit{\text{logit}} 
+
+
+::: {.right .shad}
+[tham khảo tại @held2014applied]
+:::
+
+::: {.watermark}
+*DRAFT*
+:::
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options("scipen"=100)
+source("_supp/helper.R")
+library(tidyverse)
+ttt = purrr::partial(totitle, icon ="")
+```
+
+***
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+:::{.shad} 
+# References {-}
+:::
+
+
+
+
+

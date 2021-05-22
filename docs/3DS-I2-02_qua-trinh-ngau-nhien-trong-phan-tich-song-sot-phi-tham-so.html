@@ -13,27 +13,20 @@
 
 <title>✑ Quá Trình Ngẫu Nhiên Trong Phân Tích Sống Sót Phi Tham Số</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="img/fugu.png"/>
@@ -44,6 +37,7 @@
             <div class="bottom-text"> </div>
         </div>
 </div>
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -57,7 +51,32 @@
 
 
 
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -68,6 +87,10 @@
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -84,13 +107,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -118,7 +168,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -130,7 +180,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -141,23 +191,10 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.tab('show');
+  menuAnchor.parent().addClass('active');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
 });
 </script>
 
@@ -169,6 +206,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -297,13 +335,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -322,14 +360,14 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-bookmark"></span>
+    <span class="fa fa-bookmark"></span>
      
     Readings
      
@@ -357,7 +395,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-bookmark"></span>
+    <span class="fa fa-bookmark"></span>
      
     Đọc sách
      
@@ -384,6 +422,10 @@ div.tocify {
     <li>
       <a href="3DS-II-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes</a>
     </li>
+    <li>
+      <a href="3DS-II-02_tinh-toan-bayes.html">2. Các phương pháp tính toán với Bayes</a>
+    </li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES (2)</li>
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
     <li>
@@ -405,11 +447,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -423,16 +465,14 @@ div.tocify {
 </div>
 
 
-
-
 <div class="watermark">
 <p><em>DRAFT</em></p>
 </div>
 <div class="right shad">
-<p><span class="citation">(Tham khảo tại chương 3, Aalen, Borgan, and Gjessing <a href="#ref-aal2008" role="doc-biblioref">2008</a>)</span></p>
+<p><span class="citation">(Tham khảo tại chương 3, <a href="#ref-aal2008" role="doc-biblioref">Aalen, Borgan, and Gjessing 2008</a>)</span></p>
 </div>
 <hr />
-<div id="ước-lượng-của-nelson-aalen" class="section level1">
+<div id="ước-lượng-của-nelson-aalen" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Ước Lượng Của Nelson-Aalen</h1>
 <p>Ta cần nhắc lại một số khái niệm và ký hiệu sẽ được sử dụng trong phần này. Ta có <span class="math inline">\(N_i(t)\)</span> là số sự kiện xày ra của bệnh nhân <span class="math inline">\(i\)</span> trong khoảng thời gian <span class="math inline">\([0,t]\)</span>. Cường độ của <span class="math inline">\(N_i(t)\)</span> là <span class="math inline">\(\lambda_i(t) = \alpha(t)Y_i(t)\)</span> với <span class="math inline">\(\alpha(t)\)</span> là một hàm số không âm, <span class="math inline">\(Y_i(t)\)</span> là hàm chỉ tiêu bằng 1 nếu bệnh nhân <span class="math inline">\(i\)</span>th còn sống ngay trước thời điểm <span class="math inline">\(t\)</span>, và bằng 0 nếu đã được ghi nhận tử vong. Ta xem xét <span class="math inline">\(N(t) = \sum_{i=1}^nN_i(t)\)</span> là tổng số sự kiện xảy ra tinh tới thời điểm <span class="math inline">\(t\)</span>. và ta có
 <span class="math display" id="eq:eq2">\[
@@ -440,18 +480,18 @@ div.tocify {
 \tag{1.1}
 \]</span>
 với <span class="math inline">\(Y(t) = \sum_{i=1}^nY_i(t)\)</span> là số bệnh nhân còn sống ngay trước thời điểm <span class="math inline">\(t\)</span>.</p>
-<div id="tập-dữ-liệu-sống-sót" class="section level2">
+<div id="tập-dữ-liệu-sống-sót" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Tập Dữ Liệu Sống Sót</h2>
 <p>Đối với dạng dữ liệu về sống sót thì mục tiêu của ta là xem xét thời gian xảy ra một sự kiện nào đó của những cá nhân trong một quần thể. Gọi <span class="math inline">\(\alpha(t)\)</span> là tốc độ nguy hiểm tức thời, ta sẽ có <span class="math inline">\(\alpha(t)dt\)</span> là xác suất mà sự kiện sẽ xảy ra trong khoảng thời gian <span class="math inline">\([t,t+dt)\)</span> biết rằng nó chưa xảy ra trước đó.</p>
 <!-- ----------------------------------------------------------------------------- -->
-<div class="shad">
-<h1 id="references" class="unnumbered"><em>References</em></h1>
-</div>
-<div id="refs" class="references">
-<div id="ref-aal2008">
-<p>Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.</p>
 </div>
 </div>
+<div id="references" class="section level1 unnumbered shad">
+<h1><em>References</em></h1>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-aal2008" class="csl-entry">
+Aalen, Odd, Ornulf Borgan, and Hakon Gjessing. 2008. <em>Survival and Event History Analysis: A Process Point of View</em>. Springer Science &amp; Business Media.
 </div>
 </div>
 
@@ -484,7 +524,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>

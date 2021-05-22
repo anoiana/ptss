@@ -58,7 +58,7 @@ navbar:
         href: '3DS-I-02_phuong-phap-phi-tham-so.html'
       - text: "3. So sánh 2 mẫu với phương pháp phi tham số"
         href: "3DS-I-03_so-sanh-2-mau-phi-tham-so.html"
-      - text: "I. PHÂN TÍCH SỐNG SÓT (2)"
+      - text: "I. PHÂN TÍCH SỐNG SÓT (2)" #---------------------------------
       - text: "1. Lý thuyết toán trong phân tích sống sót"
         href: "3DS-I2-01_ly-thuyet-toan-cho-phan-tich-song-sot.html"
       - text: "2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số"
@@ -68,6 +68,11 @@ navbar:
       - text: 'II. SUY LUẬN BAYES'
       - text: "1. Giới thiệu Bayes"
         href: "3DS-II-01_gioi-thieu-bayes.html"
+      - text: "2. Các phương pháp tính toán với Bayes"
+        href: "3DS-II-02_tinh-toan-bayes.html"
+      - text: 'II. SUY LUẬN BAYES (2)'
+      # - text: "1. Giới thiệu Bayes"
+        # href: "3DS-II2-01_bayes-prediction.html"
       # SEC. 3 ********CÁC CHỦ ĐỀ RIÊNG (III) ***************
       - text: '---'
       - text: 'III. CÁC CHỦ ĐỀ RIÊNG'
