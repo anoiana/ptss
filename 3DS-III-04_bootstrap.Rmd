@@ -1,0 +1,79 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('phương pháp bootstrap')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+ttt = purrr::partial(totitle, icon = "")
+dat = dplyr::tibble(`treatment` = c(94,38,23,197,99,16,141,NA,NA),
+                    `control` = c(52,10,40,104,51,27,146,30,46)
+                    )
+```
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+# `r ttt('giới thiệu')`
+
+Ta xem xét một ví dụ được sử dụng trong @efr1994 như sau 
+
+::: {.example #exm11}
+Trong `r lb(tab11)` là thời gian tử vong của hai nhóm chuột được sử dụng bằng 2 phương pháp điều trị. Để so sánh hiệu quả của 2 phương pháp điều trị, thông thường ta sẽ tính kỳ vọng thời gian tử vong của 2 nhóm rồi tính khoảng tin cậy của hiệu 2 giá trị kỳ vọng tương ứng với 2 nhóm điều trị. Như vậy ta có $D = \hat{y}_1 - \hat{y}_2=$ `r purrr::map_dbl(dat,mean, na.rm = T)%>%compose(diff,rev)()` và khoảng tin cậy là [`r t.test(dat$treatment,dat$control)$conf.int[1:2]`]. Với khoảng tin cậy này ta sẽ kết luận rằng không có bằng chứng để kết luận có sự khác biệt trong 2 phương pháp điều trị trên. Tuy nhiên, kết quả này có thật sự đáng tin cậy hay không khi 2 mẫu được sử dụng đều có kích cở nhỏ hơn 10? Và làm sao để có thể kiểm chứng độ tin cậy này? Phương pháp bootstrap thường được sử dụng cho những mẫu nhỏ. 
+:::
+
+```{r}
+kableExtra::kbl(dat, caption = "Thời gian tử vong của 2 nhóm chuột sử dụng treatment và control.", label = "tab11", align = "cc")%>%
+  kableExtra::kable_styling(bootstrap_options = "striped")
+```
+
+# `r ttt('lý thuyết về bootstrap')`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::

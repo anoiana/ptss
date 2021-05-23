@@ -5,9 +5,13 @@ if(!require(pacman)) install.packages("pacman");pacman::p_load(
 ##################################
 ##################################
 # functions ----------------------
+colorize <- function(x, color= "#F5B7B1",size = "18"){
+  size = paste0(size,"px")
+  sprintf("<span style='color: %s; font-size: %s;'>%s</span>", color, size, x)
+}
 # label ----
 lb = function(...){
- def1 =paste0(ensyms(...))
+ def1 =paste0(rlang::ensyms(...))
  if(length(def1)==1) def1 = c(stringr::str_extract(def1,"[a-z]+"),def1)
 
   a = dplyr::case_when(def1[1] == "def"~ "Def.",
@@ -16,20 +20,18 @@ lb = function(...){
                        def1[1] == "exr" ~ "Exercise",
                        def1[1] == "lem" ~ "Lemma",
                        def1[1] == "eq" ~ "Eq.",
-                       def1[1] == "fig" ~ "Fig."
+                       def1[1] == "fig" ~ "Fig.",
+                       def1[1] == "tab"~"Table"
   )%>% paste0("*",.,"*")
 
  paste0(colorize(a, color = "#C46ADD")," \\@ref(",def1[1],":",def1[2],")")%>%
   str_remove_all('`')
 }
-# function ----
-colorize <- function(x, color= "#F5B7B1",size = "18"){
- size = paste0(size,"px")
- sprintf("<span style='color: %s; font-size: %s;'>%s</span>", color, size, x)
-}
+
 # table ---
 draw_table = purrr::partial(reactable::reactable,bordered = TRUE, striped = TRUE,
                             highlight = TRUE, fullWidth = FALSE, resizable = TRUE)
+
 # print from right side
 rs = function(x) paste0("<P align=right> ",x," </P>")
 

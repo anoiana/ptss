@@ -437,6 +437,9 @@ div.tocify {
     <li>
       <a href="3DS-III-03_em-with-clustering-problem.html">3. Thuật toán Expectation-Maximization (EM) [3/3]</a>
     </li>
+    <li>
+      <a href="3DS-III-04_bootstrap.html">4. Bootstrap</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -466,7 +469,7 @@ div.tocify {
 
 
 <div class="right shad">
-<p><span class="citation">(tham khảo tại <a href="#ref-held2014applied" role="doc-biblioref">Held and Sabanés Bové 2014</a>)</span></p>
+<p><span class="citation">(tham khảo tại <a href="#ref-held2020" role="doc-biblioref">Held and Bové 2020</a>)</span></p>
 </div>
 <div class="watermark">
 <p><em>DRAFT</em></p>
@@ -644,7 +647,7 @@ Figure 2.1: <em>phân bố hậu nghiệm và phân bố tiên nghiệm biến t
 </p>
 </div>
 <p>Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối <span class="math inline">\((1-\pi)\)</span> là <span class="math inline">\(n\)</span> chính là kích cỡ mẫu của tập dữ liệu, như vậy ta có thể suy ra rằng phần tử số của tỉ lệ khối <span class="math inline">\(\pi\)</span> là <span class="math inline">\((\alpha+\beta)\)</span> chính là kích cỡ mẫu của hàm tiên nghiệm.</p>
-Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)\)</span>, hàm tiên nghiệm này mang ý nghĩa là ta không hề có bất kỳ thông tin nào về <span class="math inline">\(\theta\)</span> trước khi ta quan sát tập dữ liệu. Vì kích cỡ mẫu của hàm tiên nghiệm bấy giờ là <span class="math inline">\(\alpha+\beta =2\)</span>, 1 success và 1 failure. Khi đó kỳ vọng của hàm hậu nghiệm là <span class="math inline">\((x+1)/(n+2)\)</span> và yếu vị của hàm hậu nghiệm chính là <span class="math inline">\(\widehat{\theta}_{MLE} = \overline{x}\)</span> <span class="citation">(<a href="#ref-held2014applied" role="doc-biblioref">Held and Sabanés Bové 2014</a>)</span>.
+Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)\)</span>, hàm tiên nghiệm này mang ý nghĩa là ta không hề có bất kỳ thông tin nào về <span class="math inline">\(\theta\)</span> trước khi ta quan sát tập dữ liệu. Vì kích cỡ mẫu của hàm tiên nghiệm bấy giờ là <span class="math inline">\(\alpha+\beta =2\)</span>, 1 success và 1 failure. Khi đó kỳ vọng của hàm hậu nghiệm là <span class="math inline">\((x+1)/(n+2)\)</span> và yếu vị của hàm hậu nghiệm chính là <span class="math inline">\(\widehat{\theta}_{MLE} = \overline{x}\)</span> <span class="citation">(<a href="#ref-held2020" role="doc-biblioref">Held and Bové 2020</a>)</span>.
 <p style="float:right; font-size:19px">
 <span class="math inline">\(\tiny\blacksquare\)</span>
 </p>
@@ -875,7 +878,7 @@ Khi Fisher information không phụ thuộc trên tham số cần tìm có nghĩ
 \mu|\boldsymbol{x} \sim \mathcal{N}(\overline{x}, \frac{\sigma^2}{n})
 \]</span></p>
 </div>
-<p>Theo <span class="citation"><a href="#ref-kne2015" role="doc-biblioref">Kneib</a> (<a href="#ref-kne2015" role="doc-biblioref">2015</a>)</span> thì ước lượng điểm khi sử dụng tiên nghiệm Jeffrey thường sẽ rất gần với ước lượng MLE.</p>
+<p>Theo <span class="citation"><a href="#ref-held2020" role="doc-biblioref">Held and Bové</a> (<a href="#ref-held2020" role="doc-biblioref">2020</a>)</span> thì ước lượng điểm khi sử dụng tiên nghiệm Jeffrey thường sẽ rất gần với ước lượng MLE.</p>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 </div>
@@ -886,11 +889,8 @@ Khi Fisher information không phụ thuộc trên tham số cần tìm có nghĩ
 <div id="ref-gelman2013" class="csl-entry">
 Gelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. <em>Bayesian Data Analysis</em>. CRC press.
 </div>
-<div id="ref-held2014applied" class="csl-entry">
-Held, Leonhard, and D Sabanés Bové. 2014. <span>“Applied Statistical Inference.”</span> <em>Springer, Berlin Heidelberg, Doi</em> 10 (978-3): 16.
-</div>
-<div id="ref-kne2015" class="csl-entry">
-Kneib, Thomas. 2015. <span>“Applied Statistical Inference: Likelihood and Bayes. L. Held and d. Saban<span>é</span>s Bov<span>é</span> (2014). Heidelberg: Springer. 376 Pages, ISBN: 3642378862.”</span> Wiley Online Library.
+<div id="ref-held2020" class="csl-entry">
+Held, Leonhard, and Daniel Sabanés Bové. 2020. <em>Likelihood and Bayesian Inference: With Applications in Biology and Medicine</em>. Springer Nature.
 </div>
 </div>
 

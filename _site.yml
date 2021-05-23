@@ -82,5 +82,7 @@ navbar:
         href: "3DS-III-02_mle-va-em.html"
       - text: "3. Thuật toán Expectation-Maximization (EM) [3/3]"
         href: "3DS-III-03_em-with-clustering-problem.html"
+      - text: "4. Bootstrap"
+        href: "3DS-III-04_bootstrap.html"
 #------------------------------------------------ ---------------------------------
 

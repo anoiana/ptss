@@ -32,7 +32,7 @@ link-citations: true
 
 
 ::: {.right .shad}
-[tham khảo tại @held2014applied]
+[tham khảo tại @held2020]
 :::
 
 ::: {.watermark}
@@ -204,7 +204,7 @@ knitr::include_graphics("img/img2.gif")
 
 Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối $(1-\pi)$ là $n$ chính là kích cỡ mẫu của tập dữ liệu, như vậy ta có thể suy ra rằng phần tử số của tỉ lệ khối $\pi$ là $(\alpha+\beta)$ chính là kích cỡ mẫu của hàm tiên nghiệm. 
 
-Ta cũng biết rằng $\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)$, hàm tiên nghiệm này mang ý nghĩa là ta không hề có bất kỳ thông tin nào về $\theta$ trước khi ta quan sát tập dữ liệu. Vì kích cỡ mẫu của hàm tiên nghiệm bấy giờ là $\alpha+\beta =2$, 1 success và 1 failure. Khi đó kỳ vọng của hàm hậu nghiệm là $(x+1)/(n+2)$ và yếu vị của hàm hậu nghiệm chính là $\hat{\theta}_{MLE} = \bar{x}$ [@held2014applied]. `r proved()`
+Ta cũng biết rằng $\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)$, hàm tiên nghiệm này mang ý nghĩa là ta không hề có bất kỳ thông tin nào về $\theta$ trước khi ta quan sát tập dữ liệu. Vì kích cỡ mẫu của hàm tiên nghiệm bấy giờ là $\alpha+\beta =2$, 1 success và 1 failure. Khi đó kỳ vọng của hàm hậu nghiệm là $(x+1)/(n+2)$ và yếu vị của hàm hậu nghiệm chính là $\hat{\theta}_{MLE} = \bar{x}$ [@held2020]. `r proved()`
 
 # `r ttt('Chọn hàm tiên nghiệm')` (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)
 
@@ -407,7 +407,7 @@ $$
 $$
 :::
 
-Theo @kne2015 thì ước lượng điểm khi sử dụng tiên nghiệm Jeffrey thường sẽ rất gần với ước lượng MLE.  
+Theo @held2020 thì ước lượng điểm khi sử dụng tiên nghiệm Jeffrey thường sẽ rất gần với ước lượng MLE.  
 
 
 
