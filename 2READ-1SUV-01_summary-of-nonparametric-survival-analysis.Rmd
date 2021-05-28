@@ -155,7 +155,20 @@ $$
 (\#eq:eq35)
 $$
 
+# The Kaplan-Meier estimator
 
+## point and interval estimators
+
+$N(t)$ is the number of occurrences of the event in $[0,t]$, $Y(t)$ is the number of individuals at risk "just before" time $t$. Also $T_1 < T_2<\dots$ is the ordered times when an occurrence of the event is observed. 
+
+Let us partition $[0,t]$ into $K$ small threshold of time, namely $0 = t_0 < t_1 < \dots < t_K =t$. Thus, 
+$$
+S(t) = \prod_{k=1}^KS(t_k|t_{k-1}),
+(\#eq:eq41)
+$$
+where $S(v|u) =S(v)/S(u), \quad \forall v>u$. 
+
+To this point, once again we assume there is no tied event times, so the value of $K$ is chosen such that there is at most 1 event occurring in each small interval. Thus, if no event is observed in $(t_{k-1},t_k]$
 
 
 
