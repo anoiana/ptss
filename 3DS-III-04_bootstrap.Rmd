@@ -55,6 +55,29 @@ kableExtra::kbl(dat, caption = "Thời gian tử vong của 2 nhóm chuột sử
 
 # `r ttt('lý thuyết về bootstrap')`
 
+Ví dụ ta có tập dữ liệu $X_1,X_2,\dots,X_n \stackrel{iid}{\sim} F$ và $\hat{F}_n$ là ước lượng của $F$. Chúng ta sẽ ước lượng $\theta = T(F)$ bằng $T(\hat{F})$, như vậy bootstrap có thể được sử dụng để đưa ra suy luận về $\hat{\theta} - \theta$. Để làm điều này ta sử dụng $\hat{F}$ để tính ước lượng của $\hat{\theta}$ ký hiệu là $\hat{\theta}^*$. Và ý nghĩa của bootstrap được hình thành bằng mối quan hệ xấp xỉ như sau 
+$$
+\hat{\theta} - \theta \approx \hat{\theta}^* - \hat{\theta},
+(\#eq:eq21)
+$$
+nghĩa là hai biến ngẫu nhiên $(\hat{\theta} - \theta)$ và $(\hat{\theta}^* - \hat{\theta})$ xấp xỉ nhau. Từ `r lb(eq21)` ta suy ra rằng 
+$$
+Bias_{F}(\hat{\theta}) = \E_F(\hat{\theta} -\theta) \approx \E_{\hat{F}}(\hat{\theta}^* - \hat{\theta})
+(\#eq:eq22)
+$$
+và
+$$
+\V_F(\hat{\theta} -\theta) \approx \V_{\hat{F}}(\hat{\theta}^* - \hat{\theta})
+(\#eq:eq23)
+$$
+và bởi vì $\hat{F}$ là giá trị đã biết, nên ta có thể tìm thấy những đặc tính của $\hat{\theta} -\theta$. Mối quan hệ giữa các biến ngẫu nhiên này được ninh họa trong `r lb(fig21)`
+
+
+```{r fig21, fig.align='center', fig.cap="*Mối quan hệ giữa gữa thế giới thực và thế giới bootstrap*"}
+knitr::include_graphics("img/bootworld.png")
+```
+
+
 
 
 

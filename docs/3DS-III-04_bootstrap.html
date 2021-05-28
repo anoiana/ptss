@@ -572,6 +572,28 @@ NA
 </div>
 <div id="lý-thuyết-về-bootstrap" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Lý Thuyết Về Bootstrap</h1>
+<p>Ví dụ ta có tập dữ liệu <span class="math inline">\(X_1,X_2,\dots,X_n \stackrel{iid}{\sim} F\)</span> và <span class="math inline">\(\widehat{F}_n\)</span> là ước lượng của <span class="math inline">\(F\)</span>. Chúng ta sẽ ước lượng <span class="math inline">\(\theta = T(F)\)</span> bằng <span class="math inline">\(T(\widehat{F})\)</span>, như vậy bootstrap có thể được sử dụng để đưa ra suy luận về <span class="math inline">\(\widehat{\theta} - \theta\)</span>. Để làm điều này ta sử dụng <span class="math inline">\(\widehat{F}\)</span> để tính ước lượng của <span class="math inline">\(\widehat{\theta}\)</span> ký hiệu là <span class="math inline">\(\widehat{\theta}^*\)</span>. Và ý nghĩa của bootstrap được hình thành bằng mối quan hệ xấp xỉ như sau
+<span class="math display" id="eq:eq21">\[
+\widehat{\theta} - \theta \approx \widehat{\theta}^* - \widehat{\theta},
+\tag{2.1}
+\]</span>
+nghĩa là hai biến ngẫu nhiên <span class="math inline">\((\widehat{\theta} - \theta)\)</span> và <span class="math inline">\((\widehat{\theta}^* - \widehat{\theta})\)</span> xấp xỉ nhau. Từ <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq21">(2.1)</a> ta suy ra rằng
+<span class="math display" id="eq:eq22">\[
+Bias_{F}(\widehat{\theta}) = \Bbb{E}_F(\widehat{\theta} -\theta) \approx \Bbb{E}_{\widehat{F}}(\widehat{\theta}^* - \widehat{\theta})
+\tag{2.2}
+\]</span>
+và
+<span class="math display" id="eq:eq23">\[
+\Bbb{V}_F(\widehat{\theta} -\theta) \approx \Bbb{V}_{\widehat{F}}(\widehat{\theta}^* - \widehat{\theta})
+\tag{2.3}
+\]</span>
+và bởi vì <span class="math inline">\(\widehat{F}\)</span> là giá trị đã biết, nên ta có thể tìm thấy những đặc tính của <span class="math inline">\(\widehat{\theta} -\theta\)</span>. Mối quan hệ giữa các biến ngẫu nhiên này được ninh họa trong <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig21">2.1</a></p>
+<div class="figure" style="text-align: center"><span id="fig:fig21"></span>
+<img src="img/bootworld.png" alt="*Mối quan hệ giữa gữa thế giới thực và thế giới bootstrap*" width="639" />
+<p class="caption">
+Figure 2.1: <em>Mối quan hệ giữa gữa thế giới thực và thế giới bootstrap</em>
+</p>
+</div>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 <div id="references" class="section level1 unnumbered shad">
