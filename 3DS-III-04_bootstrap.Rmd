@@ -70,10 +70,10 @@ $$
 \V_F(\hat{\theta} -\theta) \approx \V_{\hat{F}}(\hat{\theta}^* - \hat{\theta})
 (\#eq:eq23)
 $$
-và bởi vì $\hat{F}$ là giá trị đã biết, nên ta có thể tìm thấy những đặc tính của $\hat{\theta} -\theta$. Mối quan hệ giữa các biến ngẫu nhiên này được ninh họa trong `r lb(fig21)`
+và bởi vì $\hat{F}$ là giá trị đã biết, nên ta có thể tìm thấy những đặc tính của $\hat{\theta} -\theta$. Mối quan hệ giữa các biến ngẫu nhiên này được minh họa trong `r lb(fig21)`
 
 
-```{r fig21, fig.align='center', fig.cap="*Mối quan hệ giữa gữa thế giới thực và thế giới bootstrap*"}
+```{r fig21, fig.align='center', fig.cap="*Mối quan hệ giữa gữa không gian thực và không gian bootstrap*"}
 knitr::include_graphics("img/bootworld.png")
 ```
 
