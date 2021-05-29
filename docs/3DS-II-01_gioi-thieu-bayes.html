@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>✑ Giới Thiệu Bayes</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="img/fugu.png"/>
+
+<div class="hero-image">
+        <div class="image-text">
+          <div class="top-text"> </div>
+            <div class="bottom-text"> </div>
+        </div>
+</div>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANOIANA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Readings
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">I. SURVIVAL ANALYSIS</li>
+    <li>
+      <a href="2READ-1SUV-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">II. OTHER TOPICS</li>
+    <li>
+      <a href="2READ-2OTHER-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
+    </li>
+    <li>
+      <a href="2READ-2OTHER-02_proof-of-maic.html">2. Why does optimization of MAIC method turn out to be fitting logistic model?</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">III. BAYESIAN ANALYSIS</li>
+    <li>
+      <a href="2READ-3BAY-01_intro-to-bayes.html">1. Introduction to Bayesian analysis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Đọc sách
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT (1)</li>
+    <li>
+      <a href="3DS-I-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
+    </li>
+    <li>
+      <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
+    </li>
+    <li>
+      <a href="3DS-I-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
+    </li>
+    <li>
+      <a href="3DS-I-01b_ly-thuyet-toan-cho-phan-tich-song-sot.html">1b. Lý thuyết toán trong phân tích sống sót</a>
+    </li>
+    <li class="dropdown-header">2b. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES</li>
+    <li>
+      <a href="3DS-II-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes</a>
+    </li>
+    <li>
+      <a href="3DS-II-02_tinh-toan-bayes.html">2. Các phương pháp tính toán với Bayes</a>
+    </li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES (2)</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
+    <li>
+      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) [1/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-02_mle-va-em.html">2. Thuật toán Expectation-Maximization (EM) [2/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-03_em-with-clustering-problem.html">3. Thuật toán Expectation-Maximization (EM) [3/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">✑ Giới Thiệu Bayes</h1>
+<h4 class="date">📅 2021-05-15</h4>
+
+</div>
+
+
+<div class="right shad">
+<p><span class="citation">(tham khảo tại <a href="#ref-held2020" role="doc-biblioref">Held and Bové 2020</a>)</span></p>
+</div>
+<div class="watermark">
+<p><em>DRAFT</em></p>
+</div>
+<hr />
+<div class="right">
+<button data-toggle="collapse" data-target="#demo">
+Terminologies
+</button>
+</div>
+<div id="demo" class="collapse">
+<div class="whitebox">
+<table>
+<thead>
+<tr class="header">
+<th>English</th>
+<th>Vietnamese</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>likelihood</td>
+<td>hợp lý</td>
+</tr>
+<tr class="even">
+<td>prior</td>
+<td>tiên nghiệm</td>
+</tr>
+<tr class="odd">
+<td>posterior</td>
+<td>hậu nghiệm</td>
+</tr>
+<tr class="even">
+<td>parameter</td>
+<td>tham số</td>
+</tr>
+<tr class="odd">
+<td>conjugate</td>
+<td>liên hợp</td>
+</tr>
+<tr class="even">
+<td>improper</td>
+<td>phi chính</td>
+</tr>
+<tr class="odd">
+<td>invariance</td>
+<td>tính bất biến</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="công-thức-bayes" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Công Thức Bayes</h1>
+<p>Ta sẽ bắt đầu nội dung này bằng cách nhắc lại công thức <em>Bayes</em> được phát biểu như sau
+<span class="math display" id="eq:eq1">\[
+\Bbb{P}(\Theta|X) = \frac{\Bbb{P}(X|\Theta)\Bbb{P}(\Theta)}{\Bbb{P}(X)},
+\tag{1.1}
+\]</span></p>
+<p>với <span class="math inline">\(\Theta\)</span> và <span class="math inline">\(X\)</span> lần lượt là 2 sự kiện xảy ra trong một thí nghiệm.</p>
+<div class="example">
+<p><span id="exm:exm1" class="example"><strong>Example 1.1  </strong></span>Ta chọn ngẫu nhiên một trong hai đồng xu I và II với xác suất mặt hình lần lượt là <span class="math inline">\(p_1=0.4\)</span> và <span class="math inline">\(p_2=0.7\)</span>, rồi tung đầu xu đó <span class="math inline">\(n\)</span> lần. Sẽ cò 2 hành động ta cần xem xét, hành động thứ nhất là “chọn một trong hai đồng xu,” gọi xác suất đồng xu I được chọn là <span class="math inline">\(\theta = 0.5\)</span>, như vậy xác suất đồng xu II được chọn là <span class="math inline">\(1-\theta = 0.5\)</span>. Hành động thứ hai là tung đồng xu <span class="math inline">\(n\)</span> lần.Ta muốn xác định <span class="math inline">\(\theta\)</span> sau khi quan sát kết quả số mặt hình thu được sau khi tung đồng xu, nghĩa là <span class="math inline">\(\Bbb{P}(\Theta|X)\)</span>.</p>
+</div>
+<p>Trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm1">1.1</a> ta có thể thấy được rằng 2 hành động đều thuộc phân bố binomial, trong đó hành động chọn 1 trong 2 đồng xu là phân bố binomial với 2 tham số là <span class="math inline">\(n =1\)</span> và <span class="math inline">\(p = \theta\)</span>, như vậy ta có <span class="math inline">\(\Theta \sim \mathcal{Bin}(1,\theta)\)</span>. Hành động tung đồng xu <span class="math inline">\(n\)</span> lần cũng là một phân bố binomial có điều kiện. Nghĩa là tùy thuộc vào đồng xu được chọn mà ta sẽ có phân bố binomial với tham số khác nhau. Như vậy 2 phân bố binomial sẽ có dạng
+<span class="math display">\[
+X|\Theta = \theta \sim \mathcal{Bin}(n,p_1); \quad X|\Theta = 1-\theta \sim \mathcal{Bin}(n,p_2)
+\]</span></p>
+<p>Để đơn giản ta sẽ xem xét trường hợp khi <span class="math inline">\(n=10\)</span>. Như vậy nếu như sau 10 lần tung đồng xu ta thu được 7 mặt hình và 3 mặt chữ. Ta sẽ tính được xác suất này cho từng đồng xu như sau
+<span class="math display">\[
+\Bbb{P}(X|\Theta = \theta) = {10 \choose 7}0.4^{7}0.6^{3}, \quad 
+\Bbb{P}(X|\Theta = \theta) = {10 \choose 7}0.7^{7}0.3^{3}, 
+\]</span></p>
+kết quả bằng 0.0424673 và 0.2668279. Sử dụng <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> ta có
+<span class="math display">\[
+\Bbb{P}(\Theta|X) = \frac{\Bbb{P}(X|\Theta = \theta)\Bbb{P}(\Theta=\theta)}{\Bbb{P}(X|\Theta = \theta)\Bbb{P}(\Theta=\theta)+\Bbb{P}(X|\Theta = 1-\theta)\Bbb{P}(\Theta=1-\theta)}
+\]</span>
+kết quả bằng 0.1373035, và đây là xác suất đồng xu I được chọn.
+<p style="float:right; font-size:18px">
+<span class="math inline">\(\blacksquare\)</span>
+</p>
+</p>
+<div class="whitebox">
+<p>Kết quả này rất hợp lý vì đồng xu I có xác suất mặt hình nhỏ hơn mặt chữ trong khi đồng xu II thì có xác suất mặt hình lớn hơn mặt chữ. Từ data <span class="math inline">\(X\)</span> ta thấy rằng ta thu đượt 7 mặt hình và 3 mặt chữ, tức là mặt hình nhiều hơn mặt chữ, vì thế trong điều kiện của <span class="math inline">\(X = 7\)</span> thì khả năng đồng xu số I đã được chọn là nhỏ hơn đồng xu II.</p>
+</div>
+<p>Nếu ta tung đầu xu lên 10 lần, và tùy vào số mặt hình thu được, xác suất đồng xu I được chọn cũng thay đổi. Ta có thể vẽ biểu đồ sau đề thấy sự biến thiên của xác suất đồng xu I được chọn</p>
+<div class="figure" style="text-align: center"><span id="fig:fig1"></span>
+<img src="3DS-II-01_gioi-thieu-bayes_files/figure-html/fig1-1.png" alt="*Xác suất đồng xu I được chọn sau khi quan sát tập dữ liệu X.*" width="672" />
+<p class="caption">
+Figure 1.1: <em>Xác suất đồng xu I được chọn sau khi quan sát tập dữ liệu X.</em>
+</p>
+</div>
+</div>
+<div id="phân-bố-hậu-nghiệm-posterior" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Phân Bố Hậu Nghiệm (Posterior)</h1>
+<p>Nếu như trong công thức <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> xác suất điều kiện được viết bằng hàm xác suất khối (probability mass function-PMF) với 2 sự kiện <span class="math inline">\(\Theta\)</span> và <span class="math inline">\(X\)</span>, thì đối với tập dữ liệu liên tục ta sẽ viết thành
+<span class="math display" id="eq:eq2">\[
+f(\theta|x) = \frac{f(x|\theta)f(\theta)}{f(x)} = 
+\frac{f(x|\theta)f(\theta)}{\int_{\Theta} f(x|\theta)f(\theta)d\theta}.
+\tag{2.1}
+\]</span>
+Phương trình <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2.1)</a> là dạng tổng quát của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> có thể đại diện cho cả phân bố liên tục và rời rạc (trong trường hợp rời rạc thì dấu tích phân <span class="math inline">\(\int\)</span> dưới mẫu đổi thành phép tổng <span class="math inline">\(\sum\)</span>). Và đây gọi là <em>phân bố hậu nghiệm</em>. Ngoài ra, hàm <span class="math inline">\(f(x|\theta)\)</span> và <span class="math inline">\(f(\theta)\)</span> lần lượt là hàm <em>hợp lý (likelihood)</em> và <em>hàm tiên nghiệm (prior)</em>. Một lưu ý nữa là phần tích phân dưới mẫu số của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2.1)</a> được tính trên tập xác định của <span class="math inline">\(\theta\)</span> nên kết quả độc lập với <span class="math inline">\(\theta\)</span>, và vì thế ta có thể viết thành
+<span class="math display">\[
+f(\theta|x) \propto f(x|\theta)f(\theta)
+\]</span></p>
+<div id="ước-lượng-điểm" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Ước Lượng Điểm</h2>
+<p>Một khi đã xác định được hàm phân bố hậu nghiệm, ta có thể tính được ước lượng điểm theo Bayes (bayesian point estimate) bao gồm kỳ vọng (mean), trung vị (median) hay yếu vị (mode) của hàm hậu nghiệm. Kỳ vọng của hàm hậu nghiệm là
+<span class="math display" id="eq:eq3">\[
+\Bbb{E}(\theta|x) = \int\theta f(\theta|x)d\theta,
+\tag{2.2}
+\]</span>
+trung vị là
+<span class="math display" id="eq:eq4">\[
+Med(\theta|x) = \bigg\{m : \int_{-\infty}^mf(\theta|x)d\theta = 0.5 \land \int_m^{\infty}f(\theta|x)d\theta =0.5 \bigg\} 
+\tag{2.3}
+\]</span>
+và yếu vị là
+<span class="math display" id="eq:eq5">\[
+Mod(\theta|x) = \arg\max_{\theta \in \Theta}f(\theta|x)
+\tag{2.4}
+\]</span></p>
+</div>
+<div id="ước-lượng-khoảng" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Ước Lượng Khoảng</h2>
+<p>Ngoài ra ta có thể xác định ước lượng khoảng dựa vào hàm hậu nghiệm, được gọi là khoảng tin cậy (credible interval). Khoảng tin cậy được định nghĩa là <span class="math inline">\(L\)</span> và <span class="math inline">\(U\)</span> nếu
+<span class="math display" id="eq:eq6">\[
+\int_{L}^Uf(\theta|x)d\theta = 1-\alpha
+\tag{2.5}
+\]</span></p>
+<p>Ta kết luận rằng <span class="math inline">\(\theta \in (L,U)\)</span> với xác suất là <span class="math inline">\((1-\alpha)100\%\)</span>.</p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>Lưu ý:</p>
+</div>
+<p>Khoảng tin cậy được lấy từ hàm hậu nghiệm có ý nghĩa khác với khoảng tin cậy theo phương pháp frequentist thông thường. Với phương pháp frequentist, thì tham số <span class="math inline">\(\theta\)</span> không phải là một biến ngẫu nhiên mà là một giá trị cố định nhưng không được biết, nghĩa là nó không có xác suất hoặc là xác suất của nó chỉ là <span class="math inline">\(1\)</span> hoặc <span class="math inline">\(0\)</span>. Vì thế khoảng tin cậy của nó được giải thích là nếu ta lập lại thí nghiệm nhiều lần thì <span class="math inline">\((1-\alpha)100\%\)</span> trong số đó sẽ chứa giá trị đúng của <span class="math inline">\(\theta\)</span>. Trong khi theo trường phái Bayes thì <span class="math inline">\(\theta\)</span> là một biến ngẫu nhiên và phân bố của nó chính là phân phố hậu nghiệm, nên ta có thể kết luận bằng khái niệm xác suất.</p>
+</div>
+<div class="example">
+<p><span id="exm:exm2" class="example"><strong>Example 2.1  </strong></span>Ta có một đồng xu với xác suất mặt hình là <span class="math inline">\(\theta\)</span>, nhiệm vụ của ta là ước lượng giá trị <span class="math inline">\(\theta\)</span>. Để thực hiện, ta bắt đầu làm một thí nghiệm bằng cách tung đồng xu <span class="math inline">\(n\)</span> lần và xem xét số mặt hình thu được. Ví dụ ta biết rằng <span class="math inline">\(\theta\)</span> là một biến ngẫu nhiên thuộc phân bố <span class="math inline">\(\mathcal{Beta}\)</span>, ta có
+<span class="math display">\[
+\theta \sim \mathcal{Beta}(\alpha,\beta) \\
+f(\theta) = {n\choose x}\theta^x(1-\theta)^{n-x}
+\]</span>
+và
+<span class="math display">\[
+X|\theta \sim \mathcal{Bin}(n,\theta)\\
+f(x|\theta) = \frac{1}{\mathcal{B}(\alpha,\beta)}\theta^{\alpha-1}(1-\alpha)^{\beta-1}
+\]</span>
+Như vậy ta có thể suy ra rằng
+<span class="math display">\[
+\begin{aligned}
+f(\theta|x) &amp;\propto f(x|\theta)f(\theta) \\
+&amp;= \theta^x(1-\theta)^{n-x}\theta^{\alpha-1}(1-\theta)^{\beta-1}\\
+&amp;= \theta^{\alpha+x-1}(1-\theta)^{\beta+n-x-1}
+\end{aligned}
+\]</span>
+Như vậy ta sẽ có
+<span class="math display" id="eq:eq7">\[
+\theta|x \sim \mathcal{Beta}(\alpha+x,\beta+n-x)
+\tag{2.6}
+\]</span></p>
+</div>
+<p>Từ kết quả của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(2.6)</a> ta có thể tính được kỳ vọng của <span class="math inline">\(\theta|x\)</span></p>
+<p><span class="math display" id="eq:eq8">\[
+\begin{aligned}
+\Bbb{E}(\theta|x) &amp;= \frac{\alpha+x}{\alpha+\beta+n} \\
+&amp;= \underbrace{\frac{\alpha+\beta}{\alpha+\beta+n}}_{\text{tỉ lệ khối }\pi}\underbrace{\frac{\alpha}{\alpha+\beta}}_{\Bbb{E}(\theta)}+\underbrace{\frac{n}{\alpha+\beta+n}}_{\text{tỉ lệ khối }1-\pi}\underbrace{\frac{x}{n}}_{\Bbb{E}(X)}
+\end{aligned}
+\tag{2.7}
+\]</span>
+Dựa vào <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq8">(2.7)</a> ta thấy rằng kỳ vọng của hàm hậu nghiệm chính là trung bình cộng của kỳ vọng hàm tiên nghiệm và kỳ vọng hàm hợp lý. Ta thấy rằng nếu <span class="math inline">\(n \to 0\)</span> thì <span class="math inline">\(\pi \to 1\)</span> và kỳ vọng của hàm hậu nghiệm tiến gần đến kỳ vọng của hàm tiên nghiệm, còn nếu <span class="math inline">\(n \to \infty\)</span> thì kỳ vọng hàm hậu nghiệm tương đương kỳ vọng hàm hợp lý. Điều này thể hiện rõ trong <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">2.1</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig2"></span>
+<img src="img/img2.gif" alt="*phân bố hậu nghiệm và phân bố tiên nghiệm biến thiên theo giá trị của n.*"  />
+<p class="caption">
+Figure 2.1: <em>phân bố hậu nghiệm và phân bố tiên nghiệm biến thiên theo giá trị của n.</em>
+</p>
+</div>
+<p>Bên cạnh đó ta cũng thấy rằng phần tử số của tỉ lệ khối <span class="math inline">\((1-\pi)\)</span> là <span class="math inline">\(n\)</span> chính là kích cỡ mẫu của tập dữ liệu, như vậy ta có thể suy ra rằng phần tử số của tỉ lệ khối <span class="math inline">\(\pi\)</span> là <span class="math inline">\((\alpha+\beta)\)</span> chính là kích cỡ mẫu của hàm tiên nghiệm.</p>
+Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mathcal{Unif}(0,1)\)</span>, hàm tiên nghiệm này mang ý nghĩa là ta không hề có bất kỳ thông tin nào về <span class="math inline">\(\theta\)</span> trước khi ta quan sát tập dữ liệu. Vì kích cỡ mẫu của hàm tiên nghiệm bấy giờ là <span class="math inline">\(\alpha+\beta =2\)</span>, 1 success và 1 failure. Khi đó kỳ vọng của hàm hậu nghiệm là <span class="math inline">\((x+1)/(n+2)\)</span> và yếu vị của hàm hậu nghiệm chính là <span class="math inline">\(\widehat{\theta}_{MLE} = \overline{x}\)</span> <span class="citation">(<a href="#ref-held2020" role="doc-biblioref">Held and Bové 2020</a>)</span>.
+<p style="float:right; font-size:18px">
+<span class="math inline">\(\blacksquare\)</span>
+</p>
+</p>
+</div>
+</div>
+<div id="chọn-hàm-tiên-nghiệm-chọn-nguồn-thông-tin-trước-khi-tập-dữ-liệu-được-quan-sát" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Chọn Hàm Tiên Nghiệm (chọn nguồn thông tin trước khi tập dữ liệu được quan sát)</h1>
+<p>Về mặt ý nghĩa hàm tiên nghiệm đại diện cho nguồn thông tin (information hay knowledge) mà ta có trước khi ta quan sát từ tập dữ liệu. Vì thế nó còn được hiểu nôm na là “ý trời” (what God says) bởi vì thông tin này không dựa vào evidence (ở đây là data mà ta có) nên nó là một thông tin mang tính chất chủ quan (subjective belief). Thực tế hơn thì đây chính là nguồn thông tin bên ngoài (external information) mà ta có thể tìm kiếm được từ kết quả của những nghiên cứu tương tự đã được thực hiện trước đó. Về mặt thống kê học thì chọn hàm tiên nghiệm nghĩa là chọn một phân bố cho tham số mà ta muốn ước lượng trước khi ta có thể quan sát data, từ đó kết hợp với thông tin được chứa đựng trong tập dữ liệu để cho ra một giá trị ước lượng mang thông tin của cả hàm tiên nghiệm và hàm hợp lý. Tuy nhiên không phải bất kỳ phân bố nào cũng có thể chọn để làm hàm tiên nghiệm vì một số hàm tiên nghiệm sẽ gây khó khăn trong việc tính toán hàm hậu nghiệm. Phần này ta xem xét cách để chọn một hàm tiên nghiệm phù hợp.</p>
+<div id="hàm-tiên-nghiệm-liên-hợp-prior-conjugate" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Hàm Tiên Nghiệm Liên Hợp (Prior Conjugate)</h2>
+<p>Lựa chọn đầu tiên được gọi là <em>hàm tiên nghiệm liên hợp</em>, là một hàm tiên nghiệm được chọn sao cho hàm hậu nghiệm và hàm piror cùng thuộc một họ phân bố, nghĩa là nếu hàm tiên nghiệm là một phân bố <span class="math inline">\(\mathcal{Beta}\)</span> thì hàm hậu nghiệm cũng là một phân bố <span class="math inline">\(\mathcal{Beta}\)</span>. Định nghĩa bằng ngôn ngữ toán học là</p>
+<div class="definition" style="border: thin solid black; padding-left: 10px;">
+<p><span id="def:def1" class="definition"><strong>Definition 3.1  (Hàm tiên nghiệm liên hợp) </strong></span>Cho <span class="math inline">\(L(\theta) = f(x|\theta)\)</span> là hàm hợp lý, <span class="math inline">\(\mathscr{G}\)</span> được gọi là một họ phân bố liên hợp tương ứng với <span class="math inline">\(L(\theta)\)</span> nếu <span class="math inline">\(f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x\)</span>.</p>
+</div>
+<div class="example">
+<span id="exm:exm3" class="example"><strong>Example 3.1  </strong></span>Ta xem lại trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2.1</a>, ta có <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span> và <span class="math inline">\(\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)\)</span>. Cả 2 phân bố đều thuộc họ phân bố <span class="math inline">\(\mathcal{Beta}\)</span> nên <span class="math inline">\(\mathcal{Beta}(\alpha,\beta)\)</span> trong trường hợp này là một hàm tiên nghiệm liên hợp.
+<p style="float:right; font-size:18px">
+<span class="math inline">\(\blacksquare\)</span>
+</p>
+</p>
+</div>
+<p>Thay vì xem xét tình trường hợp riêng lẽ, ta sẽ xem xét hàm tiên nghiệm liên hợp thuộc họ phân bố <em>exponential</em> là một họ phân bố của hầu hết các phân bố được sử dụng phổ biến trong phân tích hiện nay. Một phân bố được cho là thuộc họ exponential khi hàm mật độ xác suất (probability density function) của nó có thể viết dưới dạng
+<span class="math display" id="eq:eq9">\[
+f(x_i|\theta) = f(x_i)g(\theta)\exp\big\{{\phi(\theta)}^{\top} u(x_i)\big\} ,
+\tag{3.1}
+\]</span>
+trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq9">(3.1)</a> ta cần chú ý 4 thành phần, thứ nhất là <span class="math inline">\(f(x_i)\)</span> là một hàm số của tập dữ liệu, độc lập với <span class="math inline">\(\theta\)</span>, <span class="math inline">\(g(\theta)\)</span> một hàm số của tham số <span class="math inline">\(\theta\)</span> độc lập với dữ liệu <span class="math inline">\(x_i\)</span>. Hai thành phần quan trọng nhất chính là <span class="math inline">\(\phi(\theta)\)</span> và <span class="math inline">\(u(x_i)\)</span> trong khi cái đầu là một hàm số của riêng <span class="math inline">\(\theta\)</span> thì cái thứ hai là hàm số của riêng <span class="math inline">\(x_i\)</span>. Nếu ta lấy loragit tự nhiên ta sẽ được
+<span class="math display">\[
+f^*(x_i) + g^*(\theta) + {\phi(\theta)}^{\top}u(x_i),
+\]</span>
+ta thấy rằng logarit tự nhiên của hàm hợp lý của <span class="math inline">\(\theta\)</span> phụ thuộc vào data <span class="math inline">\(x_i\)</span> thông qua hàm <span class="math inline">\(u(x_i)\)</span>, vì thế <span class="math inline">\(u(x_i)\)</span> được gọi là <em>thống kê đủ (sufficient statistic)</em> của <span class="math inline">\(\theta\)</span>. Như vậy
+nếu như hàm phân bố tiên nghiệm của <span class="math inline">\(\theta\)</span> cũng thuộc họ exponential thì
+<span class="math display">\[
+f(\theta) \propto g(\theta)^{\eta}e^{{\phi(\theta)}^{\top}\xi},
+\]</span>
+thì hàm hậu nghiệm sẽ có dạng
+<span class="math display">\[
+f(\theta|x_i) = g(\theta)^{1+\eta}e^{{\phi(\theta)}^{\top}(\xi+t(x_i))},
+\]</span>
+chỉ ra rằng hàm tiên nghiệm được chọn là một hàm tiên nghiệm liên hợp. Ta có thể chứng minh rằng họ exponential là một họ của những phân bố có các hàm phân bố liên hợp, bởi vì những phân bố có số thống kê đủ cố định với mọi <span class="math inline">\(n\)</span> (<span class="math inline">\(n\)</span> là số observations trong tập dữ liệu) đều thuộc họ exponential <span class="citation">(<a href="#ref-gelman2013" role="doc-biblioref">Gelman et al. 2013</a>)</span>.</p>
+<div class="example">
+<p><span id="exm:exm4" class="example"><strong>Example 3.2  </strong></span>Trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2.1</a> ta có <span class="math inline">\(X|\theta \sim \mathcal{Bin}(n,\theta)\)</span> và <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span>. Ta có thể chỉ ra rằng cả 2 phân bố này đều thuộc họ exponential.</p>
+<p>Ta sẽ chứng minh Binomial là một phân bố thuộc họ exponential như sau,
+<span class="math display">\[
+\begin{align}
+f(x|\theta) &amp;= {n \choose x}\theta^{x}(1-\theta)^{n-x} \\
+&amp;={n \choose x}(1-\theta)^n\exp\bigg[x\ln\Big(\frac{\theta}{1-\theta}\Big)\bigg]
+\end{align}
+\]</span>
+như vậy <span class="math inline">\(\phi(\theta)\)</span> chính là <span class="math inline">\(\text{logit}(\theta)\)</span>.</p>
+<p>Với phân bố <span class="math inline">\(\mathcal{Beta}\)</span> ta có
+<span class="math display">\[
+\begin{aligned}
+f(\theta) &amp;\propto \theta^{\alpha-1}(1-\theta)^{\beta-1} \\
+&amp;= \bigg(\frac{\theta}{1-\theta}\bigg)^{\alpha-1}(1-\theta)^{\beta+\alpha-2} \\
+&amp;= (1-\theta)^{\beta+\alpha-2}e^{(\alpha-1)\ln(\frac{\theta}{1-\theta})}.
+\end{aligned}
+\]</span></p>
+Như vậy nếu kết hợp với hàm hợp lý ở trên ta sẽ có
+<span class="math display">\[
+f(\theta|x)  = {n \choose x}(1-\theta)^{n+\alpha+\beta-2}\exp\Big[(x+\alpha-1)\text{logit}(\theta)\Big],
+\]</span>
+cũng là một phân bố thuộc họ exponential. Nếu ta bỏ đi phần <span class="math inline">\({n\choose x}\)</span> vế phải ta sẽ có
+<span class="math display">\[
+(1-\theta)^{n+\alpha+\beta-2}\frac{\theta^{x+\alpha-1}}{(1-\theta)^{x+\alpha-1}} = 
+\theta^{x+\alpha-1}(1-\theta)^{\beta+n-x-1},
+\]</span>
+ứng với phân bố <span class="math inline">\(\mathcal{Beta}(x+\alpha,\beta+n-x)\)</span> giống với kết quả của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(2.6)</a>.
+<p style="float:right; font-size:18px">
+<span class="math inline">\(\blacksquare\)</span>
+</p>
+</p>
+</div>
+<p>Một dạng so sánh khá phổ biến trong thống kê đó là so sánh tỉ lệ giữa 2 quần thể khác nhau, ví dụ như ta muốn so sánh tỉ lệ tử vong của 2 nhóm bệnh nhân đã sử dụng 2 phương pháp điều trị khác nhau. Ta sẽ xem xét trường hợp này trong ví dụ tiếp theo</p>
+<div class="example exm5">
+<p><span id="exm:unlabeled-div-1" class="example"><strong>Example 3.3  </strong></span>Ta có 2 biến ngẫu nhiên thuộc 2 phân bố binomial như sau
+<span class="math display">\[
+X_1 \sim \mathcal{Bin}(n_1,p_1), \quad X_2 \sim \mathcal{Bin}(n_2,p_2),
+\]</span>
+ta muốn so sánh <span class="math inline">\(p_1\)</span> và <span class="math inline">\(p_2\)</span>, <em>hệ số ảnh hưởng (effect size)</em> thường được sử dụng là <em>tỉ số odds (odds ratio)</em>:
+<span class="math display">\[
+\theta = \frac{p_1/(1-p_1)}{p_2/(1-p_2)},
+\]</span>
+thông qua hàm logarit tự nhiên, nghĩa là <span class="math inline">\(\Omega=\ln\theta\)</span>.</p>
+<p>Với một phân bố binomial ta biết rằng ước lượng hợp lý cực đại (maximum likelihood estimator - MLE) là <span class="math inline">\(x_i/n_i\)</span> với <span class="math inline">\(i \in \{1,2\}\)</span>. Như vậy ta sẽ có <span class="math inline">\(\widehat{\Omega}_{MLE} = \ln\frac{x_1(n_2-x_2)}{x_2(n_1-x_1)}\)</span>. Nếu như ta chọn phân bố tiên nghiệm của <span class="math inline">\(\Omega\)</span> thuộc phân bố chẩn với kỳ vọng bằng 0 và phương sai thật lớn. Ta sẽ có phân bố hậu nghiệm là
+<span class="math display">\[
+\Omega|\widehat{\Omega}_{MLE} \sim \mathcal{N}(\widehat{\Omega}_{MLE},\sigma^2)
+\]</span>
+Khi đó cả 3 ước lượng điểm là kỳ vọng, trung vị và yếu vị đều bằng nhau và bằng ước lượng tính theo hàm hợp lý cực đại. Với lựa chọn hàm tiên nghiệm là phân bố chuẩn với phương sai là một số lớn tiến về vô cùng, sẽ tương đương với chọn phân bố tiên nghiệm thuộc hàm uniform, nghĩa là <span class="math inline">\(f(\Omega) \propto 1\)</span>. Khi đó hàm tiên nghiệm được chọn gọi là tiên nghiệm phi chính, ta sẽ xem xét ở phần sau.</p>
+<p>Đối với ví dụ này, xét trên phương diện ứng dụng thực tế thì rất hiếm xảy ra. bởi vì với lựa chọn tiên nghiệm phi chính thì xác suất của tỉ số odd giữa 0.5 và 2 cũng sẽ bằng với xác suất của tỉ số odd giữa 11000 và 44000, bởi vì cả hai đều cho ra <span class="math inline">\(\ln(4)\)</span>. Và với một hệ số ảnh hưởng lớn như thế là điều không thể xảy ra trong thực tế.</p>
+</div>
+<p>Với lựa chọn tiên nghiệm liên hợp ta có một vài kết quả như sau</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>hàm hợp lý</th>
+<th>hàm tiên nghiệm liên hợp</th>
+<th>hàm hậu nghiệm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(X|\pi\sim\mathcal{Bin}(n,\pi)\)</span></td>
+<td><span class="math inline">\(\pi\sim\mathcal{Be}(\alpha,\beta)\)</span></td>
+<td><span class="math inline">\(\pi|x\sim\mathcal{Be}(\alpha+x,\beta+n-x)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X|\pi\sim\mathcal{Geo}(\pi)\)</span></td>
+<td><span class="math inline">\(\pi\sim\mathcal{Be}(\alpha,\beta)\)</span></td>
+<td><span class="math inline">\(\pi|x\sim\mathcal{Be}(\alpha+1,\beta+x-1)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(X|\lambda\sim\mathcal{Po}(e.\lambda)\)</span></td>
+<td><span class="math inline">\(\lambda\sim\mathcal{Gam}(\alpha,\beta)\)</span></td>
+<td><span class="math inline">\(\lambda|x\sim\mathcal{Gam}(\alpha+x,\beta+e)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X|\lambda\sim\mathcal{Exp}(\lambda)\)</span></td>
+<td><span class="math inline">\(\lambda\sim\mathcal{Gam}(\alpha,\beta)\)</span></td>
+<td><span class="math inline">\(\lambda|x\sim\mathcal{Gam}(\alpha+1,\beta+x)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(X|\mu\sim\mathcal{N}(\mu,\sigma^2)\)</span>,<span class="math inline">\(\sigma^2\)</span> is known</td>
+<td><span class="math inline">\(\mu\sim\mathcal{N}(\eta,\tau^2)\)</span></td>
+<td><span class="math inline">\(\mu|x\sim\mathcal{N}\Big[\big(\frac{1}{\sigma^2}+\frac{1}{\tau^2}\big)^{-1}\big(\frac{x}{\sigma^2}+\frac{\eta}{\tau^2}\big),\big(\frac{1}{\sigma^2}+\frac{1}{\tau^2}\big)^{-1}\Big]\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X|\sigma^2\sim\mathcal{N}(\mu,\sigma^2)\)</span>, <span class="math inline">\(\mu\)</span> is known</td>
+<td><span class="math inline">\(\sigma^2 \sim\mathcal{IG}(\alpha,\beta)\)</span></td>
+<td><span class="math inline">\(\sigma^2|x\sim\mathcal{IG}[\alpha+1/2,\beta+(1/2)(x-\mu)^2]\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="hàm-tiên-nghiệm-phi-chính-improper-prior" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Hàm Tiên Nghiệm Phi Chính (Improper Prior)</h2>
+<p>Lựa chọn thứ 2 cho hàm tiên nghiệm là <em>tiên nghiệm phi chính</em>, được định nghĩa khi một phân bố có
+<span class="math display">\[
+\int_{\Theta}f(\theta)d\theta =  \infty, \text{ hoặc } \sum_{\Theta}f(\theta) = \infty
+\]</span>
+một ví dụ điển hình là tham số <span class="math inline">\(p\)</span> của một phân bố nhị thức thuộc phân bố <span class="math inline">\(\mathcal{Beta}\)</span> với cả hai tham số <span class="math inline">\(\alpha = \beta = 0\)</span>, nghĩa là <span class="math inline">\(p \sim \mathcal{Beta}(0,0)\)</span>.</p>
+</div>
+<div id="hàm-tiên-nghiệm-của-jeffrey" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Hàm Tiên Nghiệm Của Jeffrey</h2>
+<p>Ta biết rằng tiên nghiệm phi chính được sử dụng trong trường hợp ta không có hoặc có rất ít thông tin về một đại lượng nào đó trước khi ta quan sát dữ liệu. Lựa chọn đầu tiên là tiên nghiệm phi chính với <span class="math inline">\(f_{\theta}(\theta) \propto 1\)</span>. Tuy nhiên lựa chọn này có thể phát sinh vấn đề trong một số trường hợp. Ví dụ ta có <span class="math inline">\(\eta = h(\theta)\)</span> với <span class="math inline">\(h(.)\)</span> là một hàm số one-to-one. Nếu ta chọn <span class="math inline">\(f_{\theta}(\theta) \propto 1\)</span> vì ta không có nhiều thông tin về <span class="math inline">\(\theta\)</span> trước khi quan sát tập dữ liệu, mà <span class="math inline">\(\eta\)</span> là một hàm số của <span class="math inline">\(\theta\)</span> vậy phân bố của <span class="math inline">\(\eta\)</span> cũng phải là một tiền nghiệm phi chính. Tuy nhiên, nếu ta đổi biến thì ta sẽ có phân bố của <span class="math inline">\(\eta\)</span> như sau
+<span class="math display">\[
+\begin{align}
+f_{\eta}(\eta) &amp;= f_{\theta}[h^{-1}(\eta)]\Big|\frac{dh^{-1}(\eta)}{d\eta}\Big| \\
+&amp;\propto \Big|\frac{dh^{-1}(\eta)}{d\eta}\Big|.
+\end{align}
+\]</span>
+Nếu <span class="math inline">\(h(.)\)</span> là một hàm số tuyến tính thì đạo hàm của <span class="math inline">\(h\)</span> sẽ độc lập với <span class="math inline">\(\eta\)</span> như vậy <span class="math inline">\(f_{\eta}(\eta)\)</span> cũng sẽ độc lập với <span class="math inline">\(\eta\)</span>. Tuy nhiên nếu <span class="math inline">\(h\)</span> là một hàm phi tuyến tính thì <span class="math inline">\(f_{\eta}(\eta)\)</span> sẽ phụ thuộc vào <span class="math inline">\(\eta\)</span>. Vì thế phân bố của <span class="math inline">\(\eta\)</span> không phải là tiền nghiệm phi chính. Nghĩa là nó sẽ không có tính <em>bất biến (invariance)</em>.</p>
+<p>Một ví dụ điển hình là nếu <span class="math inline">\(X \sim \mathcal{Bin}(n,\theta)\)</span> với <span class="math inline">\(f_{\theta}(\theta) \propto 1\)</span>. Trong phân tích ta thường mong muốn ước lượng giá trị odd <span class="math inline">\(\eta\)</span>, nghĩa là <span class="math inline">\(\eta = \theta/(1-\theta)\)</span>. Bằng phương pháp đổi biến ta có thể chỉ ra rằng
+<span class="math display">\[
+f_{\eta}(\eta) =\frac{e^{\eta}}{(1+e^{\eta})^2}, 
+\]</span>
+không phải là một tiên nghiệm phi chính.</p>
+<div class="definition" style="border: thin solid black; padding-left: 10px;">
+<p><span id="def:def2" class="definition"><strong>Definition 3.2  (tiên nghiệm của Jeffrey) </strong></span>Gọi <span class="math inline">\(X\)</span> là một phân bố ngẫu nhiên và <span class="math inline">\(f(X|\theta)\)</span> là hàm hợp lý. tiên nghiệm Jeffrey là
+<span class="math display">\[
+f(\theta) \propto \sqrt{I(\theta)},
+\]</span>
+với <span class="math inline">\(I(\theta)\)</span> là <em>Fisher information</em> of <span class="math inline">\(\theta\)</span>. Như vậy nếu <span class="math inline">\(\eta = h(\theta)\)</span>, như vậy
+<span class="math display">\[
+f(\eta) = \sqrt{I(\eta)}
+\]</span></p>
+</div>
+<p><em><strong>Proof:</strong></em></p>
+<span class="math display">\[
+\begin{align}
+f_{\eta}(\eta) &amp;= f_{\theta}(\theta)\bigg|\frac{dh^{-1}(\eta)}{d\eta}\bigg| \\
+&amp;= \sqrt{I(\theta)}\bigg|\frac{dh^{-1}(\eta)}{d\eta}\bigg| \\
+&amp;= \sqrt{I(\theta)\Big\{\frac{dh^{-1}(\eta)}{d\eta}\Big\}^2} \\
+&amp;= \sqrt{I(\eta)}
+\end{align}
+\]</span>
+<p style="float:right; font-size:18px">
+<span class="math inline">\(\blacksquare\)</span>
+</p>
+</p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>Chứng minh <em>Fisher information</em> khi đổi biến:</p>
+</div>
+<p>Ta có <span class="math inline">\(\theta = h(\eta)\)</span>, như vậy
+<span class="math display">\[
+\begin{align}
+I(\eta) &amp;= -\Bbb{E}\Big[\frac{d^2\ln f(X|\eta)}{d\eta^2}\Big] \\
+&amp;= -\Bbb{E}\frac{d}{d\eta}\Big[\frac{d\ln f(X|\theta)}{d\theta}\frac{d\theta}{d\eta}\Big] \\
+&amp;= -\Bbb{E}\Big[\frac{d^2\ln f(X|\theta)}{d\theta^2}\Big(\frac{d\theta}{d\eta}\Big)^2 + \frac{d\ln f(X|\theta)}{d\theta}\frac{d^2\theta}{d\eta^2}\Big] \\
+&amp;= \underbrace{-\Bbb{E}\Big[\frac{d^2\ln f(X|\theta)}{d\theta^2}\Big]}_{I(\theta)} \Big(\frac{d\theta}{d\eta}\Big)^2 - \underbrace{\Bbb{E}\Big[\frac{d\ln f(X|\theta)}{d\theta}\Big]}_{= 0}\frac{d^2\theta}{d\eta^2} \\
+&amp;= I(\theta)\Big[\frac{d\theta}{d\eta}\Big]^2
+\end{align}
+\]</span></p>
+<p><strong>Chứng minh <span class="math inline">\(\boldsymbol{\Bbb{E}\Big[\frac{d\ln f(X|\theta)}{d\theta}\Big] = 0}\)</span></strong>
+<span class="math display">\[
+\begin{align}
+\Bbb{E}\Big[\frac{d\ln f(X|\theta)}{d\theta}\Big] &amp;= \int_{\chi}\frac{df(X|\theta)}{d\theta}\frac{1}{f(X|\theta)}f(X|\theta)dx \\
+&amp;= \int_{\chi}\frac{df(X|\theta)}{d\theta}dx \\
+&amp;= \frac{d}{d\theta}\int_{\chi} f(X|\theta)dx \\
+&amp;= \frac{d}{d\theta}1 \\
+&amp;= 0
+\end{align}
+\]</span></p>
+</div>
+<p>Ta sẽ minh họa bằng trường hợp của một phân bố normal như sau</p>
+<div class="example">
+<p><span id="exm:exm6" class="example"><strong>Example 3.4  </strong></span>Gọi <span class="math inline">\(\boldsymbol{X} = {(X_1,X_2,\dots, X_n)}^{\top}\)</span> là một mẫu ngẫu nhiên thuộc phân bố chuẩn <span class="math inline">\(\mathcal{N}(\mu,\sigma^2)\)</span> trong đó <span class="math inline">\(\mu\)</span> là tham số cần tìm và giả sử <span class="math inline">\(\sigma\)</span> là tham số đã biết. Như vậy ta sẽ logarit tự nhiên của hàm hợp lý như sau
+<span class="math display">\[
+l(\mu) = -\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2,
+\]</span>
+đạo hàm bậc 2 của hàm hợp lý trên là
+<span class="math display">\[
+l&#39;&#39;(\mu) = -\frac{n}{\sigma^2}
+\]</span>
+như vậy Fisher information là
+<span class="math display">\[
+\mathbb{I}(\mu) = \frac{n}{\sigma^2} \perp\!\!\!\!\perp\mu.
+\]</span>
+Khi Fisher information không phụ thuộc trên tham số cần tìm có nghĩa thông tin chứa trong tập dữ liệu là như nhau với bất kỳ giá trị nào của tham số <span class="math inline">\(\mu\)</span>. Điều này hoàn toàn hợp lý nếu ta chọn phân bố tiên nghiệm của <span class="math inline">\(\mu\)</span> là uniform, bởi vì trong phân bố uniform thì tỉ khối của các giá trị của biến ngẫu nhiên là như nhau. Nói cách khác ta chọn <span class="math inline">\(\mu \sim \mathcal{Unif}(0,1)\)</span>, hay <span class="math inline">\(f(\mu) \propto 1\)</span>. Lựa chọn này tương đương với phân bố chuẩn với tham số <span class="math inline">\(\sigma \to \infty\)</span>. Như vậy ta sẽ có phân bố hậu nghiệm của <span class="math inline">\(\mu\)</span> là
+<span class="math display">\[
+\mu|\boldsymbol{x} \sim \mathcal{N}(\overline{x}, \frac{\sigma^2}{n})
+\]</span></p>
+</div>
+<p>Theo <span class="citation"><a href="#ref-held2020" role="doc-biblioref">Held and Bové</a> (<a href="#ref-held2020" role="doc-biblioref">2020</a>)</span> thì ước lượng điểm khi sử dụng tiên nghiệm Jeffrey thường sẽ rất gần với ước lượng MLE.</p>
+<!-- ----------------------------------------------------------------------------- -->
+</div>
+</div>
+<div id="references" class="section level1 unnumbered shad">
+<h1>References</h1>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-gelman2013" class="csl-entry">
+Gelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. <em>Bayesian Data Analysis</em>. CRC press.
+</div>
+<div id="ref-held2020" class="csl-entry">
+Held, Leonhard, and Daniel Sabanés Bové. 2020. <em>Likelihood and Bayesian Inference: With Applications in Biology and Medicine</em>. Springer Nature.
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>✑ Phương Pháp Phi Tham Số</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-16.12.0/react.min.js"></script>
+<script src="site_libs/react-16.12.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="img/fugu.png"/>
+
+<div class="hero-image">
+        <div class="image-text">
+          <div class="top-text"> </div>
+            <div class="bottom-text"> </div>
+        </div>
+</div>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANOIANA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Readings
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">I. SURVIVAL ANALYSIS</li>
+    <li>
+      <a href="2READ-1SUV-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">II. OTHER TOPICS</li>
+    <li>
+      <a href="2READ-2OTHER-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
+    </li>
+    <li>
+      <a href="2READ-2OTHER-02_proof-of-maic.html">2. Why does optimization of MAIC method turn out to be fitting logistic model?</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">III. BAYESIAN ANALYSIS</li>
+    <li>
+      <a href="2READ-3BAY-01_intro-to-bayes.html">1. Introduction to Bayesian analysis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Đọc sách
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT (1)</li>
+    <li>
+      <a href="3DS-I-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
+    </li>
+    <li>
+      <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
+    </li>
+    <li>
+      <a href="3DS-I-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
+    </li>
+    <li>
+      <a href="3DS-I-01b_ly-thuyet-toan-cho-phan-tich-song-sot.html">1b. Lý thuyết toán trong phân tích sống sót</a>
+    </li>
+    <li class="dropdown-header">2b. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES</li>
+    <li>
+      <a href="3DS-II-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes</a>
+    </li>
+    <li>
+      <a href="3DS-II-02_tinh-toan-bayes.html">2. Các phương pháp tính toán với Bayes</a>
+    </li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES (2)</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
+    <li>
+      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) [1/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-02_mle-va-em.html">2. Thuật toán Expectation-Maximization (EM) [2/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-03_em-with-clustering-problem.html">3. Thuật toán Expectation-Maximization (EM) [3/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">✑ Phương Pháp Phi Tham Số</h1>
+<h4 class="date">📅 2021-05-07</h4>
+
+</div>
+
+
+<hr />
+<p><em>tham khảo tại <span class="citation"><a href="#ref-col2015" role="doc-biblioref">Collett</a> (<a href="#ref-col2015" role="doc-biblioref">2015</a>)</span> và <span class="citation"><a href="#ref-kal2002" role="doc-biblioref">Kalbfleisch and Prentice</a> (<a href="#ref-kal2002" role="doc-biblioref">2011</a>)</span></em></p>
+<div id="ý-nghĩa-toán-học-của-các-hàm-số-được-sử-dụng-trong-phân-tích-sống-sót" class="section level1">
+<h1>Ý nghĩa toán học của các hàm số được sử dụng trong phân tích sống sót</h1>
+<p>Gọi <span class="math inline">\(T\)</span> là một biến ngẫu nhiên không âm đại diện cho khoảng thời gian tính tới khi bệnh nhân tử vong. Có ba phương pháp để xác định phân bố xác suất của <span class="math inline">\(T\)</span>, đó là thông qua <em>hàm tồn tại, hàm mật độ xác suất</em> và <em>hàm nguy cơ</em>.</p>
+<p><span style="color: tomato; font-size: 18px;"><em>Hàm tồn tại</em></span> được định nghĩa dưới phân bố rời rạc và liên tục bởi xác suất của <span class="math inline">\(T\)</span> lớn hơn giá trị <span class="math inline">\(t\)</span> trong tập xác định của T
+<span class="math display">\[
+H(t) = \Bbb{P}(T&gt;t), \quad 0&lt;t&lt; \infty
+\]</span>
+dễ dàng nhận thấy <span class="math inline">\(H(t)\)</span> có mối quan hệ với hàm phân bố tích lũy <span class="math inline">\(F(t) = \Bbb{P}(T \le t)\)</span>, ta có <span class="math inline">\(H(t) = 1 - F(t)\)</span>. Vì thế <span class="math inline">\(H(t)\)</span> là một hàm không tăng, có giới hạn phải của <span class="math inline">\(t\)</span> với <span class="math inline">\(F(0) = 1\)</span> và <span class="math inline">\(\lim_{t\to \infty}F(t)=0\)</span>.</p>
+<div id="biến-thời-gian-liên-tục" class="section level2">
+<h2>Biến thời gian liên tục</h2>
+<p>Hàm mật độ xác suất (PDF) của <span class="math inline">\(T\)</span> là
+<span class="math display">\[
+f(t) = -\frac{dF(t)}{dt}
+\]</span>
+với TXĐ của T là <span class="math inline">\([0,\infty)\)</span>. để dễ dàng, ta hãy nhớ rằng hàm <span class="math inline">\(f(t)\)</span> chính là mật độ của xác suất giữa <span class="math inline">\(t\)</span> và <span class="math inline">\(t+h\)</span> với <span class="math inline">\(h \to 0\)</span>. Ta có thể ký hiệu như sau
+<span class="math display">\[
+f(t)h \approx \Bbb{P}(t \le T &lt; t+h) = S(t) - S(t+h) 
+\]</span>
+với <span class="math inline">\(f(t) \ge 0\)</span>, <span class="math inline">\(\int_0^{\infty}f(t)dt = 1\)</span>, và
+<span class="math display">\[
+S(t) = \int_t^{\infty}f(s)ds.
+\]</span></p>
+<p><span style="color: tomato; font-size: 18px;"><em>Hàm nguy cơ</em></span> được định nghĩa như sau
+<span class="math display" id="eq:eq1">\[
+\lambda(t) = \lim_{h\to 0^+}\frac{\Bbb{P}(t \le T &lt;t+h|T\ge t)}{h},
+\tag{1}
+\]</span>
+gọi là tốc độ tức thời tại thời điểm mà sự kiện xảy ra (bệnh nhân tử vong), cho rằng bệnh nhân đó đã sống tới thời gian <span class="math inline">\(t\)</span>. Hàm nguy cơ có mối quan hệ với hàm mật độ và hàm sống sót. Từ <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> ta có
+<span class="math display">\[
+\lambda(t) = -\frac{f(t)}{S(t)} = -\frac{d\ln S(t)}{dt}.
+\]</span></p>
+<p>Lấy tích phân hai vế cận từ <span class="math inline">\(0\)</span> đến <span class="math inline">\(t\)</span>, ta có
+<span class="math display" id="eq:eq2">\[
+S(t) = \exp\bigg[-\int_0^t\lambda(s)ds\bigg] = \exp[-\Lambda(t)],
+\tag{2}
+\]</span>
+với <span class="math inline">\(\Lambda(t)\)</span> gọi là <span style="color: tomato; font-size: 18px;"><em>hàm tốc độ rủi ro tích lũy</em></span>. Nếu ta lấy đạo hàm hai vế của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> ta được
+<span class="math display" id="eq:eq3">\[
+f(t) = \lambda(t)\exp[-\Lambda(t)].
+\tag{3}
+\]</span></p>
+<p>Ngoài ra có một đại lượng cũng được sử dụng nhiều trong phân tích là <span style="color: tomato; font-size: 18px;"><em>expected residual life</em></span> tại thời điểm <span class="math inline">\(t\)</span>,
+<span class="math display">\[
+r(t) = \Bbb{E}(T-t|T \ge t),
+\]</span>
+đại lượng này giải thích thời gian kỳ vọng còn lại của bệnh nhân biết rằng bệnh nhân vẫn chưa tử vọng tại thời điểm <span class="math inline">\(t\)</span>. Ta có thể biến đổi sau
+<span class="math display">\[
+r(t) = \frac{\int_t^{\infty}(s-t)f(s)ds}{S(t)},
+\]</span>
+công thức trên có thể chứng minh thành
+<span class="math display" id="eq:eq4">\[
+r(t) = \frac{\int_t^{\infty}S(s)ds}{S(t)},
+\tag{4}
+\]</span>
+dưới điều kiện <span class="math inline">\(\Bbb{E}(T) &lt; \infty\)</span>, nghĩa là nếu <span class="math inline">\(\Bbb{E}(T) &lt; \infty \Rightarrow \lim_{t \to \infty}tF(t) =0\)</span>.</p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>Ta xét <span class="math inline">\(\int_t^{\infty}(s-t)f(s)ds\)</span> tương đương với
+<span class="math display">\[
+\begin{aligned}
+&amp;= -(s-t)S(s)\bigg|_t^{\infty} + \int_t^{\infty} S(s)ds \\
+&amp;= -\lim_{s \to \infty}sS(s) +   \int_t^{\infty} S(s)ds,
+\end{aligned}
+\]</span>
+như vậy nếu <span class="math inline">\(\lim_{s \to \infty} sS(s) = 0\)</span> thì ta được kết quả <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(4)</a>. Phần còn lại ta cần xem xét là vì sao <span class="math inline">\(\Bbb{E}(T) &lt; \infty \Rightarrow \lim_{t \to \infty} tS(t) = 0\)</span>.</p>
+<p>Ta xét <span class="math inline">\(\int_{t}^{\infty}sS(s)ds\)</span> tương đương với
+<span class="math display">\[
+\int_0^{\infty}(u+t)f(u+t)d(u+t) = \Bbb{E}(u+t) = \Bbb{E}(u) +t,
+\]</span>
+với <span class="math inline">\(u = s-t\)</span>. Như vậy nếu <span class="math inline">\(\Bbb{E}(U) &lt; \infty\)</span> thì <span class="math inline">\(\int_{t}^{\infty}sS(s)ds &lt; \infty\)</span>, ta thấy rằng tích phân này chỉ xác định khi <span class="math inline">\(\lim_{s \to \infty} sS(s) &lt; \infty\)</span>. Giới hạn này là dạng <span class="math inline">\(\infty.0\)</span>, như vậy nó sẽ bằng 0 nếu tốc độ của <span class="math inline">\(S(s)\)</span> nhanh hơn tốc độ của <span class="math inline">\(s\)</span> khi <span class="math inline">\(s \to \infty\)</span>. Ta có thể viết giải thích này dưới công thức toán học là <span class="math inline">\(S(s) = o(1/s)\)</span>.</p>
+</div>
+</div>
+<p>Nếu <span class="math inline">\(t = 0\)</span> ta có
+<span class="math display" id="eq:eq5">\[
+\Bbb{E}(T) = r(0) = \int_0^{\infty}F(s)ds.
+\tag{5}
+\]</span>
+Từ <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(4)</a> ta có
+<span class="math display">\[
+\frac{1}{r(t)} = -\frac{d}{dt}\ln\int_t^{\infty}S(s)ds,
+\]</span>
+lấy tích phân hai vế cận từ <span class="math inline">\(0 \rightarrow t\)</span>, ta được
+<span class="math display">\[
+\int_0^t\frac{ds}{r(s)} = -\ln\int_t^{\infty}S(s)ds+\ln r(0),
+\]</span>
+cuối cùng thu được
+<span class="math display">\[
+S(t) = \frac{r(0)}{r(t)}\exp\bigg[-\int^t_0\frac{du}{r(u)}\bigg]
+\]</span>
+chính là hàm số sống sót.</p>
+</div>
+<div id="biến-thời-gian-rời-rạc" class="section level2">
+<h2>Biến thời gian rời rạc</h2>
+<p>Nếu <span class="math inline">\(T\)</span> là cột thời gian rời rạc tại các giá trị <span class="math inline">\(\{a_i\}_{i=1,2,\dots}\)</span> và ta có hàm khối xác suất (probability mass function-PMF) là
+<span class="math display">\[
+f(a_i)=\Bbb{P}(T=a_i), \quad i = 1,2,\dots
+\]</span>
+<span style="color: tomato; font-size: 18px;">hàm sống sót</span> là
+<span class="math display">\[
+S(t) = \sum_{j:a_j&gt;t}f(x_j).
+\]</span>
+Hàm nguy cơ là
+<span class="math display">\[
+\lambda_i = \Bbb{P}(T=a_i|T \ge a_i) = \frac{f(a_i)}{S(a^-_i)}, \quad i = 1,2,\dots
+\]</span>
+với <span class="math inline">\(S(a^-) = \lim_{t\to a^-}S(t)\)</span>, tương ứng với <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> và <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(3)</a> ta có
+<span class="math display" id="eq:eq6">\[
+S(t) = \prod_{j:a_j \le t}(1-\lambda_j),
+\tag{6}
+\]</span>
+và
+<span class="math display" id="eq:eq7">\[
+f(a_i) = \lambda_i\prod_{j=1}^{i-1}(1-\lambda_j).
+\tag{7}
+\]</span>
+Ta có thể giải thích hai phương trình trên như sau: đối với <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a>, ta thấy rằng <span class="math inline">\(S(t)\)</span> chính là xác suất mà bệnh nhân tử vong sau mốc thời gian <span class="math inline">\(t\)</span>, nghĩa là <span class="math inline">\(\Bbb{P}(T&gt;t)\)</span>. Giả sử <span class="math inline">\(t = a_t\)</span>, ta có
+<span class="math display">\[
+\Bbb{P}(T&gt;a_t) = \Bbb{P}(T&gt;a_t|T&gt;a_{t-1})\Bbb{P}(T&gt;a_{t-1})
+\]</span>
+ta lại có <span class="math inline">\(\Bbb{P}(T&gt;a_{t-1}) = \Bbb{P}(T &gt; a_{t-1}|T&gt;a_{t-2})\)</span>, như vậy
+<span class="math display">\[
+\Bbb{P}(T&gt;a_t) = \Bbb{P}(T&gt;a_t|T&gt;a_{t-1})\Bbb{P}(T &gt; a_{t-1}|T&gt;a_{t-2})
+\]</span>
+biến đổi theo cách này ta sẽ có
+<span class="math display">\[
+\Bbb{P}(T&gt;a_t) = \Bbb{P}(T&gt;a_t|T&gt;a_{t-1})\Bbb{P}(T &gt; a_{t-1}|T&gt;a_{t-2})\dots\Bbb{P}(T&gt;a_1|T&gt;a_0)\Bbb{P}(T&gt;a_0)
+\]</span>
+ta biết rằng <span class="math inline">\(\Bbb{P}(T&gt;a_0) = \Bbb{P}(T&gt;0) = 1\)</span>, nên
+<span class="math display">\[
+\Bbb{P}(T&gt;a_t) = \prod^t_{i=1}\Bbb{P}(T&gt;a_i|T&gt;a_{i-1}).
+\]</span>
+Mà ta có <span class="math inline">\(1-\lambda_i = \Bbb{P}(T&gt;a_i|T &gt; a_{i-1})\)</span>, nên ta suy ra <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a>. Bằng cách suy luận tương tự ta cũng có thể suy ra <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(7)</a>.</p>
+<p>Đối với cả hai biến liên tục hay rời rạc ta đều có thể suy luận như sau: gọi
+<span class="math display">\[
+d\Lambda(t) = \lambda(t)dt = \Lambda(t+dt^-)- \Lambda(t^-) = \Bbb{P}(t \le T &lt; t+dt|T \ge t),
+\]</span>
+ta có
+<span class="math display">\[
+S(t) = \lim_{r \to \infty}\prod_{k=1}^r[1 - d\Lambda(u_k)] = \lim_{r \to \infty}\prod_{k=1}^r\big\{1 - [\Lambda(u_k) -\Lambda(u_{k-1})]\big\},
+\]</span>
+trong đó <span class="math inline">\(0 = u_0&lt;u_1&lt;\dots&lt;u_r=t\)</span>. Như vậy khi <span class="math inline">\(r \to \infty\)</span> thì <span class="math inline">\((u_i-u_{i-1}) \to 0\)</span>. Đối với trường hợp biến thời gian liên tục ta có thể chứng minh rằng
+<span class="math display">\[
+S(t) = \lim_{r \to \infty}\prod^r_{k =0}[1-d\Lambda(u_{k})] = \exp\bigg[-\int_0^t\lambda(u)du\bigg].
+\]</span></p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>Lấy logarit tự nhiên của 2 vế ta có
+<span class="math display">\[
+\lim_{r \to \infty}\sum_{k=0}^r\ln[1-d\Lambda(u_k)] = -\int_0^t\lambda(u)du
+\]</span>
+ta có <span class="math inline">\(\lim_{x\to 0}\ln(1-x) = -x\)</span>, nghĩa là <span class="math inline">\(\ln(1-x\Delta x) = -x\Delta x + o(\Delta x)\)</span>. Tương tự ta có <span class="math inline">\(\ln[1-\lambda(u)\Delta u] = \lambda(u)\Delta u + o(\Delta u)\)</span>, nếu lấy tổng ta sẽ có
+<span class="math display">\[
+\sum_{k=0}^{\infty}\ln[1-\lambda(u_k)\Delta u_k] = -\sum_{k=0}^{\infty}\lambda(u_k)\Delta u_k + o(\Delta u_k),
+\]</span>
+chính là xấp xỉ của tích phân Riemann <span class="math inline">\(\int_0^t \lambda(u)du\)</span>.</p>
+</div>
+</div>
+<p>Đối với biến thời gian rời rạc thì
+<span class="math display">\[
+\begin{aligned}
+d\Lambda(t) &amp;= \Bbb{P}(t \le T &lt; t+dt|T \ge t) \\
+&amp;= \Bbb{P}(t \le T \le t|T \ge t) \\
+&amp;= \Bbb{P}(T = t|T \ge t) \\
+&amp;= \lambda,
+\end{aligned}
+\]</span>
+vì thế ta suy ra <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a>.</p>
+</div>
+</div>
+<div id="ước-lượng-hàm-sống-sót" class="section level1">
+<h1>Ước lượng hàm sống sót</h1>
+<div id="ước-lượng-kaplan-meier" class="section level2">
+<h2>Ước lượng Kaplan-Meier</h2>
+<p>Ta có <span style="color: tomato; font-size: 18px;"><em>hàm phân bố cực</em></span> (empirical distribution function- EDF) có dạng<br />
+<span class="math display">\[
+F_n(x) = \frac{\text{Số bệnh nhân có giá trị}\le x}{n},
+\]</span>
+chính là ước lượng của CDF <span class="math inline">\(\Bbb{P}(X \le x)\)</span>.</p>
+<p>Trong phân tích sống sót, rất thường xuyên hàm EDF được sử dụng để thể hiện thời gian sống sót của các bệnh nhân. Trong trường hợp không có censor xảy ra thì hàm tồn tại sẽ được biểu diễn thông qua CDF, nghĩa là <span class="math inline">\(S(t) = 1 - F(t)\)</span>, và là một hàm bậc thang giảm dần, với mỗi bậc giảm 1 đơn vị. Tuy nhiên trong thực thế censor gần như tồn tại trong tất cả các dữ liệu sống sót vì thế ta cần một phương pháp để ước lượng CDF.</p>
+<p>Để dễ hình dung ta hãy xem xét các khoảng thời gian <span class="math inline">\([t_j,t_{j+1})\)</span> với <span class="math inline">\(j = 0,\dots,k\)</span>, có tất cả <span class="math inline">\(d_j\)</span> bệnh nhân tử vong và <span class="math inline">\(m_j\)</span> bệnh nhân là censor tại các mốc thời gian <span class="math inline">\(t_{j1}, t_{j2},\dots,t_{jm_j}\)</span>. Ta cũng lấy <span class="math inline">\(n_j = (d_j+m_j)+\dots+(d_k+m_k)\)</span> chính là tổng số bệnh nhân có nguy cơ ngay trước mốc thời gian <span class="math inline">\(t_{j+1}\)</span>. Xác suất tử vong tại thời điểm <span class="math inline">\(t_j\)</span> sẽ là
+<span class="math display">\[
+\Bbb{P}(T=t_j) = S(t_j^-)-S(t_j).
+\]</span></p>
+<p>Ta cũng giả sử rằng thời gian censor tại <span class="math inline">\(t_{jl}\)</span> là
+<span class="math display">\[
+\Bbb{P}(T&gt;t_{jl}) = S(t_{jl}).
+\]</span>
+Như vậy, mỗi mốc thời gian censor <span class="math inline">\(t_{jl}\)</span> chỉ cung cấp thông tin rằng một bệnh nhân nào đó vẫn chưa tử vong tới thời điểm <span class="math inline">\(t_{jl}\)</span>. Như vậy giả thuyết độc lập của censoring là hợp lý. Ta có thể suy ra hàm likelihood là
+<span class="math display">\[
+L = \prod_{j=1}^k\bigg\{\Big[S(t_j^-)-S(t_j)\Big]^{d_j}\prod_{l=1}^{m_j}S(t_{jl})\bigg\},
+\]</span>
+đây chính là một hàm số của EDF và đạt cực đại khi <span class="math inline">\(\widehat{S} = \arg\max L\)</span>.</p>
+<p>Ở đây ta thấy rằng <span class="math inline">\(\widehat{S}(t)\)</span> là một hàm số không liên tục tại các mốc thời gian tử vong mà ta quan sát được. Hơn nữa <span class="math inline">\(t_{jl} &gt; t_j\)</span>, nên <span class="math inline">\(S(t_{jl})\)</span> đạt cực đại tại <span class="math inline">\(S(j)\)</span>. Vì thế <span class="math inline">\(\widehat{S}_{MLE}(t)\)</span> được xác định thông qua các <span class="math inline">\(\{\widehat{\lambda}_i\}_{i=1,\dots,k}\)</span> tại <span class="math inline">\(\{t_i\}_{i=1,\dots,k}\)</span>. Dựa vào kết quả từ phần trước ta có
+<span class="math display" id="eq:eq10">\[
+\widehat{S}(t_j) = \prod_{l=1}^j(1-\widehat{\lambda}_l)
+\tag{8}
+\]</span>
+và
+<span class="math display" id="eq:eq11">\[
+\widehat{S}(t_j^-) = \prod_{l=1}^{j-1}(1-\widehat{\lambda}_l),
+\tag{9}
+\]</span>
+như vậy các <span class="math inline">\(\widehat{\lambda}_l\)</span> được chọn để hàm số sau đạt cực đại
+<span class="math display">\[
+\prod_{j=1}^k\bigg[\lambda_j^{d_j}\prod_{l=1}^{j-1}(1-\lambda_l)^{d_j}\prod_{l=1}^j(1-\lambda_l)^{m_j} \bigg]
+\]</span>
+ta có thể rút gọn công thức trên như sau
+<span class="math display">\[
+\prod_{j=1}^k\bigg[\frac{\lambda_j^{d_j}}{(1-\lambda_j)^{d_j}}\prod_{l=1}^j(1-\lambda_l)^{d_j+m_j} \bigg].
+\]</span></p>
+<p>Ta xét <span class="math inline">\(\prod_{j=1}^k\prod_{l=1}^j(1-\lambda_l)^{d_j+m_j}\)</span>, phần này có thể chỉ ra rằng tương đương với <span class="math inline">\(\prod_{j=1}^k(1-\lambda_j)^{n_j}\)</span>. Như vậy phương trình trên sẽ tương đương với
+<span class="math display" id="eq:eq12">\[
+\prod_{j=1}^k\bigg[\frac{\lambda_j}{(1-\lambda_j)}\bigg]^{d_j}(1-\lambda_j)^{n_j}
+\tag{10}
+\]</span></p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>Ta khai triển <span class="math inline">\(\prod_{j=1}^k\prod_{l=1}^j(1-\lambda_l)^{d_j+m_j}\)</span> với <span class="math inline">\(k=4\)</span>, để đơn giản tạm ký hiệu <span class="math inline">\((1-\lambda_l) = p_l\)</span>, ta sẽ được</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;j =1: \quad p_1^{d_1+m_1} \\
+&amp;j =2: \quad (p_1p_2)^{d_2+m_2} \\
+&amp;j=3: \quad (p_1p_2p_3)^{d_3+m_3} \\
+&amp;j=4: \quad (p_1p_2p_3p_4)^{d_4+m_4}
+\end{aligned}
+\]</span>
+ta có thể viết lại như sau
+<span class="math display">\[
+\begin{aligned}
+&amp;p_1^{d_1+m_1+d_2+m_2+d_3+m_3+d_4+m_4} &amp;&amp;= p_1^{n_1} \\
+&amp;p_2^{d_2+m_2+d_3+m_3+d_4+m_4} &amp;&amp;=  p_2^{n_2} \\
+&amp;p_3^{d_3+m_3+d_4+m_4} &amp;&amp;= p_3^{n_3} \\
+&amp;p_4^{d_4+m_4} &amp;&amp;= p_4^{n_4}
+\end{aligned}
+\]</span>
+suy ra
+<span class="math display">\[
+\prod_{j=1}^4\prod_{l=1}^j(p_l)^{d_j+m_j} =\prod_{j=1}^4p_j^{n_j}
+\]</span>
+như vậy , thay <span class="math inline">\(p_j = 1-\lambda_j\)</span> và <span class="math inline">\(4 \rightarrow k\)</span>, ta có thể thấy rằng <span class="math inline">\(\prod_{j=1}^k\prod_{l=1}^j(1-\lambda_l)^{d_j+m_j}\)</span> có thể viết thành <span class="math inline">\(\prod_{j=1}^k(1-\lambda_j)^{n_j}\)</span></p>
+</div>
+</div>
+<p>Dễ dàng nhận thấy <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq12">(10)</a> chính là hàm likelihood của phân bố binomial. và ta có thể dễ dàng xác định rằng
+<span class="math display">\[
+\widehat{\lambda}_{j_{MLE}} = \frac{d_j}{n_j}, \quad j = 1,\dots,k
+\]</span>
+như vậy ta dễ dàng tìm được ước lượng Kaplan-Meier của hàm sống sót là
+<span class="math display" id="eq:eq13">\[
+\widehat{S}(t) = \prod_{j:t_j\le t}\frac{n_j-d_j}{n_j}
+\tag{11}
+\]</span></p>
+<p>Như vậy dựa vào công thức trên ta có thể tính ra và vẽ đồ thị Kaplan-Meier. Lưu ý là cái mốc thời gian xem xét chính là các mốc thời gian bệnh nhân tử vong, các mốc thời gian censor sẽ không được xem xét. Sau khi tính ra được ước lượng của hàm sống sót tại các mốc thời gian tử vong và vẽ biểu đồ KM, ta đã hoàn thành phần thống kê mô tả. Để tiến đến phân thống kê suy luận ta cần hiểu về phân bố của các ước lượng dưới cái nhìn tiệm cận hay mẫu lớn (asymptotic hay large-sample).</p>
+<p>Ta có
+<span class="math display">\[
+\ln\widehat{S}(t) = \sum_{j:t_j \le t} \ln(1-\widehat{\lambda}_j),
+\]</span>
+Ta sử dụng phương pháp Delta để tìm phương sai của <span class="math inline">\(\ln\widehat{S}(t)\)</span>, ta có
+<span class="math display">\[
+\widehat{\Bbb{V}}[\ln\widehat{S}(t)] = \sum_{j:t_j \le t}(1-\widehat{\lambda}_j)^{-2}\widehat{\Bbb{V}}(1-\widehat{\lambda}_j) =  \sum_{j:t_j \le t}\frac{d_j}{n_j(n_j-d_j)}. 
+\]</span></p>
+<p>Từ đó ta có thể tính được phương sai của <span class="math inline">\(\widehat{S}(t)\)</span> là
+<span class="math display" id="eq:eq14">\[
+\widehat{\Bbb{V}}[\widehat{S}(t)] = \widehat{S}^2(t)\sum_{j:t_j \le t}\frac{d_j}{n_j(n_j-d_j)}.
+\tag{12}
+\]</span></p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>Đầu tiên ta thấy rằng <span class="math inline">\(\lambda\)</span> đóng vai trò như một tham số xác suất trong phân bố binomial, nghĩa là <span class="math inline">\(d \sim \mathcal{Bin}(n,\lambda)\)</span>. Ta sẽ có <span class="math inline">\(\widehat{\lambda}_{MLE} = d/n\)</span>, như vậy
+<span class="math display">\[
+\Bbb{V}[1-\widehat{\lambda}_{MLE}] = \frac{n\lambda(1-\lambda)}{n^2} = \frac{\lambda(1-\lambda)}{n}
+\]</span>
+thế <span class="math inline">\(\lambda = \widehat{\lambda}_{MLE}\)</span> ta được
+<span class="math display">\[
+\Bbb{V}[1-\widehat{\lambda}_{MLE}] = \frac{d(n-d)}{n^3}
+\]</span></p>
+<p>Tiếp theo ta áp dụng phương pháp Delta để tìm phương sai của một hàm số <span class="math inline">\(h(1-\lambda)\)</span>. Phương pháp này chính là khai triển một hàm số bằng phương pháp Taylor tạo thành một phương trình tuyến tính để tính xấp xỉ, rồi lấy phương sai của hai hệ thức đầu tiên. Nghĩa là ta sẽ có kết quả tổng quát sau
+<span class="math display">\[
+\Bbb{V}[g(X)] \approx \bigg\{\frac{dg(X)}{dX}\bigg\}^2\Bbb{V}(X).
+\]</span></p>
+<p>ta cần tính <span class="math inline">\(\Bbb{V}\big[\ln(1-\widehat{\lambda}_{MLE})\big]\)</span>, áp dụng công thức trên ta có
+<span class="math display">\[
+\begin{aligned}
+\Bbb{V}\big[\ln(1-\widehat{\lambda}_{MLE})\big] &amp;= (1-\widehat{\lambda})^{-2}{\Bbb{V}}(1-\widehat{\lambda}) \\
+&amp;= \frac{n^2}{(n-d)^2}\frac{d(n-d)}{n^3} \\
+&amp;= \frac{d}{n(n-d)}.
+\end{aligned}
+\]</span>
+Kết quả trên giống với kết quả trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(12)</a>.</p>
+<p>Tiếp theo, gọi <span class="math inline">\(X = \ln[\widehat{S}(t)]\)</span>, ta tiếp tục áp dụng phương pháp Delta để tính <span class="math inline">\(\Bbb{V}(e^X)\)</span>, ta có
+<span class="math display">\[
+\begin{aligned}
+\Bbb{V}(e^X) &amp;=  (e^X)^2\Bbb{V}(X)\\
+&amp;=\Bbb{V}[\widehat{S}(t)] \\
+&amp;=  \widehat{S}^2(t)\Bbb{V}\big\{\ln[\widehat{S}(t)]\big\}\\
+&amp;= \widehat{S}^2(t)\sum_{j:t_j \le t}\frac{d_j}{n_j(n_j-d_j)},
+\end{aligned}
+\]</span>
+chính là <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(12)</a></p>
+</div>
+</div>
+<p>Từ đây ta có thể xây dựng các <em>khoảng tin cậy (confidence interval-CI)</em> của từng mốc thời gian tử vong. Ta sẽ có khoảng tin cậy 95% của <span class="math inline">\(S(t)\)</span> chính là <span class="math inline">\(\widehat{S}(t) \pm \Phi(0.975)\widehat{V}[\widehat{S}(t)]^{1/2}\)</span>. Nhớ rằng tập giá trị của <span class="math inline">\(S(t)\)</span> chính là <span class="math inline">\([0,1]\)</span>, nêu nếu giá trị của khoảng tin cậy nằm ngoài tập giá trị này thì ta cần chọn giá trị 0 hoặc 1 thay thế. Ngoài ra một phương pháp nhằm tránh tình trạng này xảy ra chính là dùng một số hàm số one-to-one để biến đổi, tìm khoảng tin cậy của hàm số đó, rồi lấy hàm ngược lại của khoảng tin cậy này. Nghĩa là nếu ta cần tìm khoảng tin cậy của <span class="math inline">\(X\)</span>, ta sẽ tìm khoảng tin cậy của <span class="math inline">\(h(X)\)</span>, sau khi ta có khoảng tin cậy của <span class="math inline">\(h(X)\)</span> là <span class="math inline">\(a\)</span> và <span class="math inline">\(b\)</span>, ta sẽ suy ra khoảng tin cậy của <span class="math inline">\(X\)</span> chính là <span class="math inline">\(h^{-1}(a)\)</span> và <span class="math inline">\(h^{-1}(b)\)</span>. Hai trong số những hàm biến đổi được sử dụng phổ biến nhất là hàm logarit tự nhiên và hàm logarit tự nhiên nhân đôi hay còn gọi là hàm <em>log-log</em>.</p>
+</div>
+<div id="ví-dụ-về-ước-lượng-kaplan-meier" class="section level2">
+<h2>Ví dụ về ước lượng Kaplan-Meier</h2>
+<p>Ta xem xét ví dụ sau</p>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<div id="htmlwidget-ae14d724d7fdf92fc3fc" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ae14d724d7fdf92fc3fc">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"time":[10,13,18,19,23,30,36,38,54,56,59,75,93,97,104,107,107,107],"status":[1,0,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,0]},"columns":[{"accessor":"time","name":"time","type":"numeric"},{"accessor":"status","name":"status","type":"numeric"}],"resizable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"0833ca2b3c6a253e86dc495af9c7e305","key":"0833ca2b3c6a253e86dc495af9c7e305"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1: <em>Bảng số liệu minh họa</em>
+</p>
+</div>
+<p>Ta sẽ lần lượt tính các ước lượng và khoảng tin cậy của hàm sống sót như sau</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>time_int <span class="ot">=</span> <span class="fu">which</span>(dt<span class="sc">$</span>status<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>nj <span class="ot">=</span> <span class="fu">map_dbl</span>(time_int, <span class="cf">function</span>(i)  <span class="fu">nrow</span>(dt[i<span class="sc">:</span><span class="fu">nrow</span>(dt),]))<span class="sc">%&gt;%</span> <span class="fu">c</span>(<span class="fu">nrow</span>(dt),.)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dj <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(time_int))<span class="sc">%&gt;%</span> <span class="fu">c</span>(<span class="dv">0</span>,.)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">time_int =</span> <span class="fu">c</span>(<span class="dv">0</span>, dt<span class="sc">$</span>time[time_int])<span class="sc">%&gt;%</span> <span class="fu">paste0</span>(.,<span class="st">&quot;-&quot;</span>), <span class="at">dj =</span> dj, <span class="at">nj =</span> nj)<span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> (nj<span class="sc">-</span>dj)<span class="sc">/</span>nj)<span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">St =</span> <span class="fu">cumprod</span>(prob)<span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">4</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se =</span> <span class="fu">sqrt</span>(St<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">cumsum</span>(dj<span class="sc">/</span>(nj<span class="sc">*</span>(nj<span class="sc">-</span>dj)))) )<span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower  =</span> St <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>se, <span class="at">upper  =</span> St <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>se )<span class="sc">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower =</span> <span class="fu">ifelse</span>(lower <span class="sc">&lt;</span><span class="dv">0</span>,<span class="dv">0</span>,lower), <span class="at">upper =</span> <span class="fu">ifelse</span>(upper <span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,upper))<span class="sc">%&gt;%</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(is.numeric, round,<span class="at">digits=</span><span class="dv">3</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(result)</span></code></pre></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#gfeoaovgnw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gfeoaovgnw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gfeoaovgnw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gfeoaovgnw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gfeoaovgnw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfeoaovgnw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gfeoaovgnw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gfeoaovgnw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gfeoaovgnw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gfeoaovgnw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gfeoaovgnw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gfeoaovgnw .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gfeoaovgnw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gfeoaovgnw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gfeoaovgnw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gfeoaovgnw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gfeoaovgnw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#gfeoaovgnw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfeoaovgnw .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#gfeoaovgnw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfeoaovgnw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gfeoaovgnw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gfeoaovgnw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfeoaovgnw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gfeoaovgnw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#gfeoaovgnw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gfeoaovgnw .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#gfeoaovgnw .gt_left {
+  text-align: left;
+}
+
+#gfeoaovgnw .gt_center {
+  text-align: center;
+}
+
+#gfeoaovgnw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gfeoaovgnw .gt_font_normal {
+  font-weight: normal;
+}
+
+#gfeoaovgnw .gt_font_bold {
+  font-weight: bold;
+}
+
+#gfeoaovgnw .gt_font_italic {
+  font-style: italic;
+}
+
+#gfeoaovgnw .gt_super {
+  font-size: 65%;
+}
+
+#gfeoaovgnw .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="gfeoaovgnw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">time_int</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">dj</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">nj</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">prob</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">St</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">se</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">lower</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">upper</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">0-</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">18</td>
+      <td class="gt_row gt_right">1.000</td>
+      <td class="gt_row gt_right">1.000</td>
+      <td class="gt_row gt_right">0.000</td>
+      <td class="gt_row gt_right">1.000</td>
+      <td class="gt_row gt_right">1.000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">10-</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">18</td>
+      <td class="gt_row gt_right">0.944</td>
+      <td class="gt_row gt_right">0.944</td>
+      <td class="gt_row gt_right">0.054</td>
+      <td class="gt_row gt_right">0.839</td>
+      <td class="gt_row gt_right">1.000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">19-</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">15</td>
+      <td class="gt_row gt_right">0.933</td>
+      <td class="gt_row gt_right">0.881</td>
+      <td class="gt_row gt_right">0.079</td>
+      <td class="gt_row gt_right">0.727</td>
+      <td class="gt_row gt_right">1.000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">30-</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">13</td>
+      <td class="gt_row gt_right">0.923</td>
+      <td class="gt_row gt_right">0.814</td>
+      <td class="gt_row gt_right">0.098</td>
+      <td class="gt_row gt_right">0.622</td>
+      <td class="gt_row gt_right">1.000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">36-</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">12</td>
+      <td class="gt_row gt_right">0.917</td>
+      <td class="gt_row gt_right">0.746</td>
+      <td class="gt_row gt_right">0.111</td>
+      <td class="gt_row gt_right">0.529</td>
+      <td class="gt_row gt_right">0.963</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">59-</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">8</td>
+      <td class="gt_row gt_right">0.875</td>
+      <td class="gt_row gt_right">0.653</td>
+      <td class="gt_row gt_right">0.130</td>
+      <td class="gt_row gt_right">0.397</td>
+      <td class="gt_row gt_right">0.908</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">75-</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">7</td>
+      <td class="gt_row gt_right">0.857</td>
+      <td class="gt_row gt_right">0.559</td>
+      <td class="gt_row gt_right">0.141</td>
+      <td class="gt_row gt_right">0.283</td>
+      <td class="gt_row gt_right">0.836</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">93-</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">6</td>
+      <td class="gt_row gt_right">0.833</td>
+      <td class="gt_row gt_right">0.466</td>
+      <td class="gt_row gt_right">0.145</td>
+      <td class="gt_row gt_right">0.182</td>
+      <td class="gt_row gt_right">0.751</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">97-</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">5</td>
+      <td class="gt_row gt_right">0.800</td>
+      <td class="gt_row gt_right">0.373</td>
+      <td class="gt_row gt_right">0.143</td>
+      <td class="gt_row gt_right">0.093</td>
+      <td class="gt_row gt_right">0.653</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">107-</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">3</td>
+      <td class="gt_row gt_right">0.667</td>
+      <td class="gt_row gt_right">0.249</td>
+      <td class="gt_row gt_right">0.139</td>
+      <td class="gt_row gt_right">0.000</td>
+      <td class="gt_row gt_right">0.521</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<p>Ta dùng package <code>survival</code> để tính</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> survival<span class="sc">::</span><span class="fu">survfit</span>(<span class="fu">Surv</span>(time,status)<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> dt, <span class="at">conf.type =</span> <span class="st">&quot;plain&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(out)<span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(conf.low, <span class="at">.before =</span> <span class="st">&quot;conf.high&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(is.numeric, round,<span class="at">digits =</span> <span class="dv">4</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,  <span class="dv">10</span>,  <span class="dv">19</span>,  <span class="dv">30</span>,  <span class="dv">36</span>,  <span class="dv">59</span>,  <span class="dv">75</span>,  <span class="dv">93</span>,  <span class="dv">97</span>, <span class="dv">107</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#tdlztwtjlr .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#tdlztwtjlr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tdlztwtjlr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tdlztwtjlr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#tdlztwtjlr .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tdlztwtjlr .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tdlztwtjlr .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#tdlztwtjlr .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tdlztwtjlr .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#tdlztwtjlr .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#tdlztwtjlr .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#tdlztwtjlr .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tdlztwtjlr .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tdlztwtjlr .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#tdlztwtjlr .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#tdlztwtjlr .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#tdlztwtjlr .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#tdlztwtjlr .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tdlztwtjlr .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#tdlztwtjlr .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tdlztwtjlr .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#tdlztwtjlr .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#tdlztwtjlr .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tdlztwtjlr .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tdlztwtjlr .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#tdlztwtjlr .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tdlztwtjlr .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#tdlztwtjlr .gt_left {
+  text-align: left;
+}
+
+#tdlztwtjlr .gt_center {
+  text-align: center;
+}
+
+#tdlztwtjlr .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#tdlztwtjlr .gt_font_normal {
+  font-weight: normal;
+}
+
+#tdlztwtjlr .gt_font_bold {
+  font-weight: bold;
+}
+
+#tdlztwtjlr .gt_font_italic {
+  font-style: italic;
+}
+
+#tdlztwtjlr .gt_super {
+  font-size: 65%;
+}
+
+#tdlztwtjlr .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="tdlztwtjlr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">time</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n.risk</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n.event</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n.censor</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">estimate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">std.error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">conf.low</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">conf.high</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_right">10</td>
+      <td class="gt_row gt_right">18</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">0.9444</td>
+      <td class="gt_row gt_right">0.0572</td>
+      <td class="gt_row gt_right">0.8386</td>
+      <td class="gt_row gt_right">1.0000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">19</td>
+      <td class="gt_row gt_right">15</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">0.8815</td>
+      <td class="gt_row gt_right">0.0896</td>
+      <td class="gt_row gt_right">0.7267</td>
+      <td class="gt_row gt_right">1.0000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">30</td>
+      <td class="gt_row gt_right">13</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">0.8137</td>
+      <td class="gt_row gt_right">0.1202</td>
+      <td class="gt_row gt_right">0.6220</td>
+      <td class="gt_row gt_right">1.0000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">36</td>
+      <td class="gt_row gt_right">12</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">0.7459</td>
+      <td class="gt_row gt_right">0.1484</td>
+      <td class="gt_row gt_right">0.5290</td>
+      <td class="gt_row gt_right">0.9628</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">59</td>
+      <td class="gt_row gt_right">8</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">0.6526</td>
+      <td class="gt_row gt_right">0.1997</td>
+      <td class="gt_row gt_right">0.3972</td>
+      <td class="gt_row gt_right">0.9081</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">75</td>
+      <td class="gt_row gt_right">7</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">0.5594</td>
+      <td class="gt_row gt_right">0.2524</td>
+      <td class="gt_row gt_right">0.2827</td>
+      <td class="gt_row gt_right">0.8361</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">93</td>
+      <td class="gt_row gt_right">6</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">0.4662</td>
+      <td class="gt_row gt_right">0.3115</td>
+      <td class="gt_row gt_right">0.1816</td>
+      <td class="gt_row gt_right">0.7508</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">97</td>
+      <td class="gt_row gt_right">5</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">0.3729</td>
+      <td class="gt_row gt_right">0.3834</td>
+      <td class="gt_row gt_right">0.0927</td>
+      <td class="gt_row gt_right">0.6532</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">107</td>
+      <td class="gt_row gt_right">3</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">2</td>
+      <td class="gt_row gt_right">0.2486</td>
+      <td class="gt_row gt_right">0.5601</td>
+      <td class="gt_row gt_right">0.0000</td>
+      <td class="gt_row gt_right">0.5215</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<p>Như vậy ta thu được hai kết quả như nhau. Ngoài ra package <code>survival</code> còn hổ trợ nhiều công cụ dành riêng cho phân tích sống sót. Đầu tiên là biểu đồ KM</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggsurvplot</span>(out, <span class="at">risk.table =</span> <span class="cn">TRUE</span>, <span class="at">data =</span> dt)</span></code></pre></div>
+<p><img src="3DS-I-02_phuong-phap-phi-tham-so_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Tiếp theo là kết quả của trung vị</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(out)<span class="sc">%&gt;%</span> gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#igmhtugetd .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#igmhtugetd .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#igmhtugetd .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#igmhtugetd .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#igmhtugetd .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#igmhtugetd .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#igmhtugetd .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#igmhtugetd .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#igmhtugetd .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#igmhtugetd .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#igmhtugetd .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#igmhtugetd .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#igmhtugetd .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#igmhtugetd .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#igmhtugetd .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#igmhtugetd .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#igmhtugetd .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#igmhtugetd .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#igmhtugetd .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#igmhtugetd .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#igmhtugetd .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#igmhtugetd .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#igmhtugetd .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#igmhtugetd .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#igmhtugetd .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#igmhtugetd .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#igmhtugetd .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#igmhtugetd .gt_left {
+  text-align: left;
+}
+
+#igmhtugetd .gt_center {
+  text-align: center;
+}
+
+#igmhtugetd .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#igmhtugetd .gt_font_normal {
+  font-weight: normal;
+}
+
+#igmhtugetd .gt_font_bold {
+  font-weight: bold;
+}
+
+#igmhtugetd .gt_font_italic {
+  font-style: italic;
+}
+
+#igmhtugetd .gt_super {
+  font-size: 65%;
+}
+
+#igmhtugetd .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="igmhtugetd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">records</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n.max</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n.start</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">events</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmean.std.error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">median</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">conf.low</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">conf.high</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">nobs</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_right">18</td>
+      <td class="gt_row gt_right">18</td>
+      <td class="gt_row gt_right">18</td>
+      <td class="gt_row gt_right">9</td>
+      <td class="gt_row gt_right">76.33875</td>
+      <td class="gt_row gt_right">8.893595</td>
+      <td class="gt_row gt_right">93</td>
+      <td class="gt_row gt_right">59</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_center">18</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<div class="blackbox">
+<p>Mình có viết một hàm để tính toán tất cả các giá trị cần thiết, biểu đồ, và sẽ tự động tạo ra một file excel với format đã được điều chỉnh. Mình cũng share ở đây</p>
+<p>Mình sẽ thử chạy hàm trên với dữ liệu <code>cancer</code> trong package <code>survival</code> như sau</p>
+<p>kếu quả thu được là file excel như sau</p>
+<p><img src="img/excel.png" width="866" /></p>
+</div>
+</div>
+</div>
+<div id="so-sánh-các-biểu-đồ-sống-sót" class="section level1">
+<h1>So sánh các biểu đồ sống sót</h1>
+<p>Trong các ứng dụng về clinial trial ta thường hay so sánh hiệu quả của hai đến nhiều phương pháp điều trị với nhau. Dưới góc nhìn của thống kê thì đây là bài toán so sánh CDF của hai quần thể khác nhau. Trong phần này ta sẽ bàn về các phương pháp kiểm định thường được sử dụng trong phân tích sống sốt. Ta vẫn tiếp tục xem xét các quần thể đồng nhất, nghĩa là ta bỏ qua các biến phân nhóm, ví dụ như tuổi, giới tính, cân nặng… tất cả những đặc tính khác nhau này của từng bệnh nhân đều không được xem xét.</p>
+<div id="so-sánh-hiệu-quả-của-hai-phương-pháp-điều-trị" class="section level2">
+<h2>So sánh hiệu quả của hai phương pháp điều trị</h2>
+<p>Có nhiều kiểm định được sử dụng để so sánh thời gian sống sót của hai hay nhiều quần thể. Tuy nhiên dưới <em>giả định proportional</em> thì <em>kiểm định log-rank</em> được chứng minh là hiệu quả hơn các kiểm định còn lại.</p>
+<p>Để tiến hành kiểm định log-rank ta sẽ xem xét</p>
+<!-- ----------------------------------------------------------------------------- -->
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1><em>References</em></h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-col2015" class="csl-entry">
+Collett, David. 2015. <em>Modelling Survival Data in Medical Research</em>. CRC press.
+</div>
+<div id="ref-kal2002" class="csl-entry">
+Kalbfleisch, John D, and Ross L Prentice. 2011. <em>The Statistical Analysis of Failure Time Data</em>. Vol. 360. John Wiley &amp; Sons.
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

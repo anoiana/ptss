@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>✑ Quá Trình Ngẫu Nhiên Trong Phân Tích Sống Sót Phi Tham Số</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-16.12.0/react.min.js"></script>
+<script src="site_libs/react-16.12.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="img/fugu.png"/>
+
+<div class="hero-image">
+        <div class="image-text">
+          <div class="top-text"> </div>
+            <div class="bottom-text"> </div>
+        </div>
+</div>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANOIANA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Readings
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">I. SURVIVAL ANALYSIS</li>
+    <li>
+      <a href="2READ-1SUV-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">II. OTHER TOPICS</li>
+    <li>
+      <a href="2READ-2OTHER-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum</a>
+    </li>
+    <li>
+      <a href="2READ-2OTHER-02_proof-of-maic.html">2. Why does optimization of MAIC method turn out to be fitting logistic model?</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">III. BAYESIAN ANALYSIS</li>
+    <li>
+      <a href="2READ-3BAY-01_intro-to-bayes.html">1. Introduction to Bayesian analysis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Đọc sách
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT (1)</li>
+    <li>
+      <a href="3DS-I-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
+    </li>
+    <li>
+      <a href="3DS-I-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
+    </li>
+    <li>
+      <a href="3DS-I-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
+    </li>
+    <li>
+      <a href="3DS-I-01b_ly-thuyet-toan-cho-phan-tich-song-sot.html">1b. Lý thuyết toán trong phân tích sống sót</a>
+    </li>
+    <li class="dropdown-header">2b. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES</li>
+    <li>
+      <a href="3DS-II-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes</a>
+    </li>
+    <li>
+      <a href="3DS-II-02_tinh-toan-bayes.html">2. Các phương pháp tính toán với Bayes</a>
+    </li>
+    <li class="dropdown-header">II. SUY LUẬN BAYES (2)</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
+    <li>
+      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) [1/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-02_mle-va-em.html">2. Thuật toán Expectation-Maximization (EM) [2/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-03_em-with-clustering-problem.html">3. Thuật toán Expectation-Maximization (EM) [3/3]</a>
+    </li>
+    <li>
+      <a href="3DS-III-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">✑ Quá Trình Ngẫu Nhiên Trong Phân Tích Sống Sót Phi Tham Số</h1>
+<h4 class="date">📅 2021-05-19</h4>
+
+</div>
+
+
+<div class="watermark">
+<p><em>DRAFT</em></p>
+</div>
+<hr />
+<div class="right">
+<button data-toggle="collapse" data-target="#demo">
+Terminologies
+</button>
+</div>
+<div id="demo" class="collapse">
+<div class="whitebox">
+<table>
+<thead>
+<tr class="header">
+<th>English</th>
+<th>Vietnamese</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>censored</td>
+<td>thời gian bị thiếu</td>
+</tr>
+<tr class="even">
+<td>survivor function</td>
+<td>hàm sống sót</td>
+</tr>
+<tr class="odd">
+<td>hazard rate</td>
+<td>tốc độ rủi ro</td>
+</tr>
+<tr class="even">
+<td>counting process</td>
+<td>quá trình đếm ngẫu nhiên</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="nhắc-lại-các-đại-lượng-quan-trọng" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Nhắc Lại Các Đại Lượng Quan Trọng</h1>
+<p>Ta xem xét tập dữ liệu sau</p>
+<div class="figure" style="text-align: center"><span id="fig:fig1"></span>
+<div id="htmlwidget-8aa28b287de1de2f42a8" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8aa28b287de1de2f42a8">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"people (1)":["người 01","người 02","người 03","người 04","người 05","người 06","người 07","người 08","người 09","người 10"],"time (1)":[13,14,15,2,7,8,6,10,4,9],"status (1)":["censor","failure","failure","failure","failure","censor","censor","failure","failure","censor"],"people (2)":["người 11","người 12","người 13","người 14","người 15","người 16","người 17","người 18","người 19","người 20"],"time (2)":[10,9,2,1,8,14,10,7,9,12],"status (2)":["failure","failure","failure","failure","failure","censor","failure","failure","failure","censor"]},"columns":[{"accessor":"people (1)","name":"people (1)","type":"character"},{"accessor":"time (1)","name":"time (1)","type":"numeric"},{"accessor":"status (1)","name":"status (1)","type":"character"},{"accessor":"people (2)","name":"people (2)","type":"character"},{"accessor":"time (2)","name":"time (2)","type":"numeric"},{"accessor":"status (2)","name":"status (2)","type":"character"}],"resizable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"striped":true,"inline":true,"dataKey":"9f8361b489555013a3e95863a301d7db","key":"9f8361b489555013a3e95863a301d7db"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1.1: <em>Dữ liệu thời gian tử vong của các bệnh nhân trong một nghiên cứu.</em>
+</p>
+</div>
+<p><span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig1">1.1</a> thể hiện thời gian tử vong của 20 bệnh nhân, trong đó đó 14 bệnh nhân được ghi nhận mốc thời gian mà họ tử vong, còn 6 bệnh nhân còn lại là thời gian bị thiếu (censored time), nghĩa là thời gian tử vong của những bệnh nhân này đều không được báo cáo, mà đó chỉ là thời gian cuối cùng ta biết được bệnh nhân đó vẫn còn sống. Ta có thể minh họa bằng biểu đồ sau</p>
+<div class="figure" style="text-align: center"><span id="fig:fig2"></span>
+<img src="3DS-I-01_tong-quan-phan-tich-song-sot_files/figure-html/fig2-1.png" alt="*Biểu đồ thể hiện số liệu tử vong của các bệnh nhân.*" width="672" />
+<p class="caption">
+Figure 1.2: <em>Biểu đồ thể hiện số liệu tử vong của các bệnh nhân.</em>
+</p>
+</div>
+<p>Đối với kiểu dữ kiện như trên ta có 2 đại lượng quan trọng cần ước lượng, một là hàm số sống sót (survivor function) <span class="math inline">\(S(t)\)</span> và tốc độ rủi ro (hazard rate) <span class="math inline">\(\alpha(t)\)</span> được định nghĩa như sau
+<span class="math display" id="eq:eq11">\[
+\begin{align}
+S(t) &amp;= \Bbb{P}(T&gt;t), \\
+\alpha(t) &amp;= \lim_{\Delta t\to0}\frac{1}{\Delta t}\Bbb{P}(t \le T&lt; t+ \Delta t|T \ge t)
+\end{align}
+\tag{1.1}
+\]</span>
+<span class="math inline">\(S(t)\)</span> là xác suât mà thời gian tử vong của một bệnh nhân nào đó dài hơn mốc thời gian <span class="math inline">\(t\)</span>, còn <span class="math inline">\(\alpha(t)\)</span> chính là tốc độ tức thời khi thời gian tử vong rơi vào một khoảng thời gian rất nhỏ giữa <span class="math inline">\(t\)</span> và <span class="math inline">\(t+\Delta t\)</span>. Đối với <span class="math inline">\(\alpha(t)\)</span> ta có thể biến đổi như sau
+<span class="math display" id="eq:eq12">\[
+\alpha(t)\Delta t = \lim_{\Delta t \to 0}\Bbb{P}(t \le T&lt; t+ \Delta t|T \ge t),
+\tag{1.2}
+\]</span>
+chính là xác suất để thời gian tử vong T rơi vào khoảng <span class="math inline">\([t,t+\Delta t)\)</span> <strong>biết rằng</strong> thời gian tử vong dài hơn <span class="math inline">\(t\)</span>.</p>
+<p>ước lượng <span class="math inline">\(\alpha(t)\)</span> không đơn giản, nên ta thường ước lượng hàm tích lũy của nó nghĩa là
+<span class="math display" id="eq:eq13">\[
+A(t) = \int_0^t\alpha(s)ds,
+\tag{1.3}
+\]</span>
+được gọi là ước lượng của <em>Nelson-Aalen</em>.</p>
+<p>Mối quan hệ giữa hàm sống sót và tốc độ rủi ro được biểu hiện thông qua đạo hàm cũa <span class="math inline">\(\alpha(t)\)</span>, ta có
+<span class="math display" id="eq:eq14">\[
+\frac{dA(t)}{dt} = \alpha(t) = \lim_{\Delta t}\frac{S(t)-S(t+\Delta t)}{\Delta t S(t)} = -\frac{dS(t)/dt}{S(t)} = d\ln[S(t)]/dt,
+\tag{1.4}
+\]</span>
+tiếp tục lấy tích phân của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(1.4)</a> với cận <span class="math inline">\(0\)</span> tới <span class="math inline">\(t\)</span>. Ta có
+<span class="math display">\[
+\ln[S(t)]  = -\int_0^t\alpha(s)ds,
+\]</span>
+và
+<span class="math display" id="eq:eq15">\[
+S(t) = \exp\Big\{- \int_0^t\alpha(s)ds \Big\}
+\tag{1.5}
+\]</span></p>
+</div>
+<div id="quá-trình-đếm-ngẫu-nhiên" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Quá Trình Đếm Ngẫu Nhiên</h1>
+<p>Tại mốc thời gian <span class="math inline">\(t\)</span>, lấy <span class="math inline">\(N(t)\)</span> là số sự kiện xảy ra lên đến thời gian <span class="math inline">\(t\)</span></p>
+<!-- ----------------------------------------------------------------------------- -->
+</div>
+<div id="references" class="section level1 unnumbered shad">
+<h1><em>References</em></h1>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
