@@ -28,7 +28,7 @@ link-citations: true
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
-library(tidyverse); library(gganimate)
+library(tidyverse); library(gganimate); library(magrittr)
 ttt = purrr::partial(totitle, icon = "")
 ```
 
@@ -260,7 +260,7 @@ kableExtra::kbl(dat, align = "cc", caption = "*tập dữ liệu minh họa*")%>
 dựa vào tập dữ liệu `r lb(tab41)` ta tính được bảng contingency là 
 
 ```{r, echo=params$run_chunk}
-table(dat[,-1])
+ftable(dat[,-1])
 p0 = 112/(112+26)
 p1 = 53/(53+37)
 or = round(p1*(1-p0)/p0/(1-p1),2)
@@ -296,6 +296,81 @@ ci2 = sprintf("(%s, %s)",ci2[1],ci2[2])
 
 như vậy  $95\%CI(OR) =$ `r ci2`, trùng với kết quả đã tính trước đó. 
 
+Thông thường sử dụng mô hình logistic để tính các ước lượng điểm và ước lượng khoảng được sử dụng nhiều bởi vì hàm `glm` hổ trợ nhiều cách ước lượng khác nhau. Ví dụ trong casual inference, thường đòi hỏi tính propensity score (PS) để cân bằng các confounders, trước bước model fitting. Khi đã có được PS ta sẽ sử dụng nó như argument `weight` trong hàm `glm`. Hay trong phương pháp MAIC, sau bước adjustment, ta sẽ có một vector *weight* bảo đảm đại lượng weighted mean của các baseline characteristics trong individual patient data (IPD) bằng với cái trị số trung bình của các baseline characteristics trong summary level data (SLD). Khi fitting model sử dụng `glm` ta sẽ nhập các giá trị *weight* này vào argument `weight`. 
+
+Bên cạnh đó ta có thể sử dụng hàm `vcovHC` trong package `sandwich` để tính *robust sandwich variance*. Ta hãy xem xét tập dữ liệu `r lb(tab41)` nhưng lần này có thêm biến tuổi như hình bên dưới
+
+```{r tab43}
+dat2 = select(survival::cancer,status,sex, age)%>%
+  transmute(y = status-1, x = sex-1, age = age)%>%
+  mutate(id = 1:n(), .before = 1)
+
+kableExtra::kbl(dat2, align = "cc", caption = "*tập dữ liệu có thêm biến tuổi.*")%>%
+  kableExtra::kable_styling("striped", position = "center", full_width = F)%>%
+  kableExtra::scroll_box(height = "400px", extra_css = ("border: none;"))
+```
+
+giá trị kỳ vọng của biến tuổi là `r mean(dat2$age)`. Sử dụng phương pháp MAIC ta dễ dàng tính được *weight* cho mỗi bệnh nhân sao cho giá trị weighted mean của biến tuổi là $65$.  Như vậy ta có 
+
+```{r tab44}
+GetWt = function(ipd, sld, col_name = NULL){
+  
+  ipd2 = switch(is.null(col_name)+1, ipd[,col_name], stop("what are variables adjusted?"))%>% 
+    as.matrix()%>%
+    `colnames<-`(col_name)
+  
+  sld2 = sld[col_name]
+  
+  m = sweep(ipd2,2,sld2,"-")
+  
+  obj_func = function(a,x) sum(exp(x%*%a))
+  grad = function(a,x) t(x)%*%exp(x%*%a)
+  
+  opt = optim(par = rep(0,ncol(m)), fn = obj_func, gr = grad, x = m ,method = "BFGS")
+  
+  wt = exp(m%*%opt$par)%>%c()
+  p = wt/sum(wt)
+  wt_stat =  apply(ipd2,2,weighted.mean, w = wt)
+  wt_rs = p*nrow(ipd) 
+  ess = round(sum(wt)^2/sum(wt^2),0)
+  list("wt" = wt, "wt_rs" = wt_rs,  "ess" = ess, "wt_stat" = wt_stat )
+}
+out = GetWt(dat2, sld = c(age=65),"age")
+dat2%<>% mutate(wt = out$wt)
+
+kableExtra::kbl(dat2, align = "cc", caption = "*tập dữ liệu có thêm weights*")%>%
+  kableExtra::kable_styling("striped", position = "center", full_width = F)%>%
+  kableExtra::scroll_box(height = "400px", extra_css = ("border: none;"))
+```
+
+với các giá trị weights vừa tính được ta có weighted mean của tuổi là 
+
+```{r, echo=params$run_chunk}
+weighted.mean(dat2$age,dat2$wt)
+```
+
+Ta sẽ fitting mô hình logistic sử dụng argument `weights`
+
+```{r tab45, echo=params$run_chunk}
+fit_ml = glm(y~x, data = dat2, family = binomial(), weights = wt)
+
+kableExtra::kbl(broom::tidy(fit_ml), align = "cc", caption = "*kết quả khi fit logistic model với weights*")%>% kableExtra::kable_styling("striped", position = "center", full_width = F)
+```
+
+Ta tính *robust sandwich variance* như sau 
+
+```{r, echo=params$run_chunk}
+(cov_mat = sandwich::vcovHC(fit_ml))
+```
+
+như vậy độ lệch cuẩn sẽ là sẽ là `r sqrt(cov_mat[2,2])`.
+
+Mình tìm được một bài viết giải thích ý nghĩa của các hệ số ảnh hưởng của thầy Tuấn, các bạn có thể tham khảo tại [link này](http://bomonnoiydhue.edu.vn/upload/file/lstk14_oddratio.pdf).
+
+
+
+
+
 
 
 
@@ -315,7 +390,3 @@ như vậy  $95\%CI(OR) =$ `r ci2`, trùng với kết quả đã tính trước
 
 
 <!-- ----------------------------------------------------------------------------- -->
-
-::: {.shad}
-# _References_ {-}
-:::
