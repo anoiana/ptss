@@ -70,18 +70,20 @@ xác suất  tính ra là `r ncol(combn(10,4))*ncol(combn(12,8))/ncol(combn(22,1
 
 `r lb(exm1)` chính là một trường hợp trong kiểm định log rank. Ví dụ ta có $t_1 < t_2, \dots, t_k$ chính là mốc thời gian tử vong từ $p$ nhóm bệnh nhân. Trong đó, $n_{ij}$ chính là số bệnh nhân chưa được ghi nhận tử vong ngay trước thời điểm $t_j$ và ta có $\sum_{i=1}^p n_{ij} = n_j$ chính la tổng số bệnh nhân chưa tử vong ngay trước thời điểm $t_j$ của $p$ nhóm. Tương tự $d_{ij}$ chính là số bệnh nhân tử vong tại thời điểm $t_j$ của nhóm bệnh nhân $i$, và $\sum_{i=1}^pd_{ij} = d_j$ là tổng số bệnh nhân tử vong tại $t_j$ của cả $p$ nhóm. Nếu $p=2$, ta có thể tóm tắc kết quả như sau 
 
-```{r fig1, fig.align='center', fig.cap="*Bảng tóm tắt số bệnh nhân tử vong và còn sống tại $t_j$.*"}
+```{r tab1}
 d<-
 tibble::tibble(
- " " = c("Số bệnh nhân tử vong tại $$t_j$$",
-         "Số bệnh nhân còn sống tại $$t_j$$",
-          "Số bệnh nhân ngay trước thời điểm $$t_j$$"),
- "Nhóm I" = c("$$d_{1j}$$","$$n_{1j} - d_{1j}$$","$$n_{1j}$$"),
- "Nhóm II" = c("$$d_{2j}$$","$$n_{2j} - d_{2j}$$","$$n_{2j}$$"),
- "Tổng cộng" = c("$$d_j$$","$$n_j-d_j$$","$$n_j$$")
+ " " = c("Số bệnh nhân tử vong tại $t_j$",
+         "Số bệnh nhân còn sống tại $t_j$",
+          "Số bệnh nhân ngay trước thời điểm $t_j$"),
+ "Nhóm I" = c("$d_{1j}$","$n_{1j} - d_{1j}$","$n_{1j}$"),
+ "Nhóm II" = c("$d_{2j}$","$n_{2j} - d_{2j}$","$n_{2j}$"),
+ "Tổng cộng" = c("$d_j$","$n_j-d_j$","$n_j$")
                )
-draw_table(d,columns = list(
-    ` ` = colDef(minWidth = 250),`Tổng cộng`= colDef(minWidth = 150)))
+
+kableExtra::kbl(d, caption = "*Bảng tóm tắt số bệnh nhân tử vong và còn sống tại $t_j$.*")%>%
+  kableExtra::kable_styling("striped")
+
 ```
 
 Như vậy tại thời điểm $t_j$ ta có một phân bố hypergeometric, và dựa vào `r lb(eq2)` ta tính được kỳ vọng, phương sai và hiệp phương sai của hai nhóm bệnh nhân $i$ và $l$:  

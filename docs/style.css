@@ -156,7 +156,7 @@ a:hover {
 
 .whitebox {
     padding: 1em 0em 0.2em 0.2em;
-    border: 2px solid #1B1C20;
+    border: thin solid #1B1C20;
     border-radius: 7px;
     margin-bottom: 10px;
     box-shadow: 10px 10px 5px grey;

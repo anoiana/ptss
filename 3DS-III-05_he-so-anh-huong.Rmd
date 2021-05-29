@@ -1,0 +1,321 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: TRUE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('hệ số ảnh hưởng và ý nghĩa của hệ số trong mô hình logistic')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse); library(gganimate)
+ttt = purrr::partial(totitle, icon = "")
+```
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+# `r ttt('kích cỡ ảnh hưởng')`
+
+Trong bài này ta sẽ ôn lại một vài hệ số ảnh hưởng được sử dụng khá phổ biến trong thống kê, đặc biệt là các dạng dữ liệu mà biến phụ thuộc là một biến phân loại (hay rời rạc). 
+
+Ta xem xét bảng contingency sau
+
+```{r tab11}
+tab1 = dplyr::tibble(`nhóm` = c("treatment", "control"), `phơi nhiễm` = c("$a$","$c$"),
+                     `không phơi nhiễm` = c("$b$","$d$"), `tổng cộng` = c("$a+b$","$c+d$")
+                     )
+kableExtra::kbl(tab1, caption = "bảng contingency thể hiện tổng số bệnh nhân phơi nhiễm và không phơi nhiễm của 2 nhóm điều tri.", align = "lccc")%>%
+  kableExtra::kable_styling("striped", full_width = F)
+```
+
+Các hệ số $a,b,c$ and $d$ trong `r lb(tab11)` lần lượt là số bệnh nhân phơi nhiễm là không phơi nhiểm của 2 nhóm điều trị. với các giá trị này ta dễ dàng ước lượng xác suất phơi nhiễm của 2 nhóm điều trị lần lượt là 
+$$
+\hat{p}_1 = \frac{a}{a+b}, \quad \hat{p}_0 = \frac{c}{c+d}
+(\#eq:eq11)
+$$
+
+Từ 2 hệ số $\hat{p}_0$ và $\hat{p}_1$ của `r lb(eq11)` ta có 3 đại lượng cần xem xét là _relative risk, risk ratio_ và *odd ratio*, được định nghĩa như sau 
+
+**Risk difference:**
+$$
+\hat{RD} = \hat{p}_1-\hat{p}_0 
+(\#eq:eq12)
+$$
+
+**Relative risk:**
+$$
+\hat{RR} = \frac{\hat{p}_1}{\hat{p}_0}
+(\#eq:eq13)
+$$
+
+**Odd ratio:**
+$$
+\hat{OR} = \frac{\hat{p}_1/(1-\hat{p}_1)}{\hat{p}_0/(1-\hat{p}_0)}
+(\#eq:eq14)
+$$
+
+Với *Risk difference* ta dể dàng giải thích là độ khác nhau của 2 xác suất phơi nhiễm của 2 nhóm điều trị. Mặc dù đại lượng này có ý nghĩa khá đơn giản nhưng lại không được sử dụng nhiều như 2 đại lượng còn lại vì nó không bảo đảm các tính chất phân bố khi kích cỡ mẫu tiến về vô cùng (asymptotic theory). *Relative risk* thể hiện tỉ lệ khác nhau của 2 xác suất phơi nhiễm của 2 nhóm điều trị, đại lượng này được sử dụng khá nhiều nhưng cũng không phổ biến như tỉ số odd.
+
+Đầu tiên ta xem xét $\hat{p}/(1-\hat{p})$ với $i \in \{0,1\}$, đây là một số dương, khi số bệnh nhân phơi nhiễm cao hơn số bệnh nhân không phơi nhiễm thì đại lượng này lớn hơn 1 và sẽ nhỏ hơn 1 trong trường hợp ngược lại. Như vậy odd ratio chính là đại lượng đánh giả tỉ lệ khác biệt của 2 nhóm điều trị thông qua số odd. Nghĩa là ta đánh giá mức độ khác  nhau của 2 nhóm điều trị thông qua tỉ lệ lệch nhau giữa số bệnh nhân phơi nhiễm và không phơi nhiễm. 
+
+# `r ttt('xác định phương sai của các kích cỡ ảnh hưởng')`
+
+Để tính khoảng tin cậy của các kích cỡ ảnh hường ta cần phải ước lượng phương sai của chúng. 
+
+## `r ttt('Risk difference')`
+
+Ta sẽ có 
+$$
+\V(\hat{RD}) = \V(\hat{p}_1) + \V(\hat{p}_0),
+$$
+ta sẽ xem xét $\V(\hat{p}_1)$ như sau
+$$
+\V(\hat{p}_1) = \V\bigg(\frac{a}{a+b}\bigg) \approx \V\bigg(\frac{X}{n_1}\bigg)
+$$
+với $X \sim \mathcal{Bin}(n_1,p_1)$, như vậy
+$$
+\begin{align}
+\V(\hat{p}_1) &= \frac{1}{n_1^2}\V(X) \\
+&= \frac{1}{n_1^2}n_1p_1(1-p_1) \\
+&= \frac{p_1(1-p_1)}{n_1}
+\end{align}
+$$
+như vậy
+$$
+\hat{\V}(\hat{p}_1) = \frac{\hat{p}_1(1-\hat{p}_1)}{n_1}.
+$$
+
+Tương tự với $\V(\hat{p}_0)$, ta cũng có thể suy ra
+$$
+\hat{\V}(\hat{p}_0) = \frac{\hat{p}_0(1-\hat{p}_0)}{n_0}.
+$$
+
+Cuối củng ta có
+$$
+\begin{align}
+\hat{\V}(\hat{RD}) &= \frac{\hat{p}_0(1-\hat{p}_0)}{n_0} + \frac{\hat{p}_1(1-\hat{p}_1)}{n_1} \\
+&= \frac{c}{c+d}.\frac{d}{c+d}\frac{1}{c+d}+\frac{a}{a+b}.\frac{b}{a+b}.\frac{1}{a+b}\\
+&= \frac{cd}{(c+d)^3}+\frac{ab}{(a+b)^3}
+\end{align}
+(\#eq:eq21)
+$$
+
+Ta suy ra khoảng tin cậy là 
+
+::: {.whitebox}
+$$
+(1-\alpha)\%CI(RD) = \hat{RD} \pm \Phi^{-1}(1-\alpha/2)\sqrt{\hat{\V}(\hat{RD})}
+(\#eq:eq22)
+$$
+:::
+
+## `r ttt('relative risk')`
+
+Đối với đại lượng này ta không thể tính phương sai trực tiếp mà phải thông qua hàm logarit tự nhiên. Ta có
+$$
+\V(\ln\hat{RR}) = \V(\ln\hat{p}_1)+\V(\ln\hat{p}_0),
+$$
+
+áp dụng phương pháp *delta* để tính $\V(\ln\hat{p}_1)$, ta có $d\ln\hat{p}_1/d\hat{p}_1 = 1/\hat{p}_1$, như vậy
+$$
+\begin{align}
+\hat{\V}(\ln\hat{p}_1) &= \frac{1}{\hat{p}_1^2}\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} \\
+&= \frac{1-\hat{p}_1}{\hat{p}_1n_1} \\
+&= \frac{a+b}{a(a+b)} - \frac{1}{a+b} \\
+&= \frac{1}{a} - \frac{1}{a+b},
+\end{align}
+$$
+tương tự ta có
+$$
+\hat{\V}(\ln\hat{p}_0) = \frac{1}{c} - \frac{1}{c+d},
+$$
+như vậy
+$$
+\hat{\V}(\ln\hat{RR}) = \frac{1}{a} - \frac{1}{a+b} + \frac{1}{c} - \frac{1}{c+d}
+$$
+
+Thay vì áp dụng phương pháp *delta* để tính $\hat{\V}(\hat{RR})$, ta sẽ tính khoảng tin cậy của $\ln(RR)$ và lấy logarit tự nhiên của 2 cận của khoảng tin cậy ta sẽ được khoảng tin cậy của $RR$, nghĩa là
+$$
+(1-\alpha)\%CI[\ln(RR)] = \ln\hat{RR} \pm \Phi^{-1}(1-\alpha/2)\sqrt{\frac{1}{a} - \frac{1}{a+b} + \frac{1}{c} - \frac{1}{c+d}}
+$$
+ta suy ra
+
+:::{.whitebox}
+$$
+(1-\alpha)\%CI(RR) = \exp\bigg\{\ln\hat{RR} \pm \Phi^{-1}(1-\alpha/2)\sqrt{\frac{1}{a} - \frac{1}{a+b} + \frac{1}{c} - \frac{1}{c+d}}\bigg\}
+(\#eq:eq23)
+$$
+:::
+
+## `r ttt('odd ratio')`
+
+Ta có 
+$$
+\hat{\V}(\ln\hat{OR}) = \hat{\V}[\ln\hat{p}_1- (\ln(1-\hat{p}_1)] + \hat{\V}[\ln\hat{p}_0 - \ln(1-\hat{p}_0)],
+$$
+ta tiếp tục sử dụng phương pháp *delta* để lần lượt tính $\ln\hat{p}_1+\ln(1-\hat{p}_1)$ và $\ln(1-\hat{p}_0) +\ln\hat{p}_0$. Ta có
+$$
+\frac{d\ln\hat{p}_1/(1-\hat{p}_1)}{d\hat{p}_1} = \frac{1}{\hat{p}_1}+\frac{1}{1-\hat{p}_1} = \frac{1}{\hat{p}_1(1-\hat{p}_1)}
+$$
+như vậy
+$$
+\begin{align}
+ \hat{\V}[\ln\hat{p}_1- (\ln(1-\hat{p}_1)] 
+ &= \frac{1}{\hat{p}_1^2(1-\hat{p}_1)^2}\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}\\
+ &= \frac{1}{\hat{p}_1(1-\hat{p}_1)n_1} \\
+ &= \frac{(a+b)^2}{ab(a+b)} \\
+ &= \frac{a+b}{ab} \\
+ &= \frac{1}{b}+\frac{1}{a}
+\end{align}
+$$
+tương tự ta sẽ có 
+$$
+\hat{\V}[\ln\hat{p}_0- (\ln(1-\hat{p}_0)]  = \frac{1}{d}+\frac{1}{c},
+$$
+như vậy
+
+$$
+\hat{\V}(\ln\hat{OR}) = \frac{1}{b}+\frac{1}{a} +  \frac{1}{d}+\frac{1}{c}.
+$$
+
+Ta tính được khoảng tin cậy của $\ln(OR)$, và suy ra khoảng tin cậy của $OR$ là
+
+:::{.whitebox}
+$$
+(1-\alpha)\%CI(OR) = \exp\bigg\{\ln\hat{OR}\pm \Phi^{-1}(1-\alpha/2)\sqrt{ \frac{1}{b}+\frac{1}{a} +  \frac{1}{d}+\frac{1}{c}}  \bigg\}
+(\#eq:eq24)
+$$
+:::
+
+# `r ttt('tính odd ratio thông qua mô hình logistic')`
+
+Mô hình logistic sẽ có dạng
+$$
+logit(p) = \ln\Big(\frac{p}{1-p}\Big) = \tp{\bf{\beta}}\bf{X}.
+(\#eq:eq31)
+$$
+
+Nếu ta lấy $\bf{\beta} = \tp{(\beta_0,\beta_1)}$ thì `r lb(eq31)` sẽ trở thành
+$$
+logit(p) = \beta_0+\beta_1x
+$$
+Tiếp tục giả sử rằng $x$ là một biến binary, ta thấy rằng  nếu $x=0$ thì
+$$
+logit(p_0) = \beta_0,
+$$
+và nếu $x=1$ thì
+$$
+logit(p_1) = \beta_0+\beta_1
+$$
+và 
+$$
+logit(p_1)-logit(p_0) = \ln\Big(\frac{p_1/(1-p_1)}{p_0/(1-p_0)}\Big) = \beta_1,
+$$
+như vậy
+$$
+OR = e^{\beta_1}.
+(\#eq:eq32)
+$$
+
+`r lb(eq32)` thể hiện mối quan hệ giữa OR và hệ số $\beta_1$. Như vậy nếu ta fit logistic model và ước lượng được khoảng tin cậy của $\beta_1$ thì ta cũng sẽ suy ra được khoảng tin cậy của $OR$. 
+
+# `r ttt('Minh họa')` 
+
+Ta xem xét tập dữ liệu sau
+
+```{r tab41, fig.align='center'}
+dat = select(survival::cancer,status,sex)%>%
+  transmute(y = status-1, x = sex-1)%>%
+  mutate(id = 1:n(), .before = 1)
+
+kableExtra::kbl(dat, align = "cc", caption = "*tập dữ liệu minh họa*")%>%
+  kableExtra::kable_styling("striped", position = "center", full_width = F)%>%
+  kableExtra::scroll_box(height = "400px", extra_css = ("border: none;"))
+```
+
+dựa vào tập dữ liệu `r lb(tab41)` ta tính được bảng contingency là 
+
+```{r, echo=params$run_chunk}
+table(dat[,-1])
+p0 = 112/(112+26)
+p1 = 53/(53+37)
+or = round(p1*(1-p0)/p0/(1-p1),2)
+```
+
+như vậy ta sẽ có $p_0 =$ `r p0` và $p_1=$ `r p1`. Dựa vào `r lb(eq14)` ta ước lượng được $\hat{OR}=$ `r or`.
+
+```{r echo=params$run_chunk}
+ci = exp(log(or)+c(-1,1)*qnorm(0.975)*sqrt(sum(1/table(dat[,-1]))))%>%
+  round(2)
+ci = sprintf("(%s, %s)",ci[1],ci[2])
+```
+
+Và sử dụng `r lb(eq24)` để tính khoảng tin cậy là $95\%CI(OR)=$ `r ci`.
+
+Ngoài ra ta cũng có thể sử dụng hàm `glm` trong `R` để ước lượng khoảng tin cậy của $OR$ như sau 
+
+```{r, echo=params$run_chunk}
+out = glm(y~x, data = dat, family = binomial())%>%
+  broom::tidy()
+
+kableExtra::kbl(out, align = "cc", caption = "*kết quả khi fit logistic model*")%>%
+  kableExtra::kable_styling("striped", position = "center", full_width = F)
+```
+
+ta tính được $\hat{\beta}_1=$ `r out$estimate[2]` như vậy $\hat{OR} =$ `r exp(out$estimate[2])`. Ta tính khoảng tin cậy như sau
+
+```{r echo=params$run_chunk}
+ci2 = exp(out$estimate[2] + c(-1,1)*qnorm(.975)*out$std.error[2])%>%
+  round(2)
+ci2 = sprintf("(%s, %s)",ci2[1],ci2[2])
+```
+
+như vậy  $95\%CI(OR) =$ `r ci2`, trùng với kết quả đã tính trước đó. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::

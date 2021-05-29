@@ -58,11 +58,10 @@ navbar:
         href: '3DS-I-02_phuong-phap-phi-tham-so.html'
       - text: "3. So sánh 2 mẫu với phương pháp phi tham số"
         href: "3DS-I-03_so-sanh-2-mau-phi-tham-so.html"
-      - text: "I. PHÂN TÍCH SỐNG SÓT (2)" #---------------------------------
-      - text: "1. Lý thuyết toán trong phân tích sống sót"
-        href: "3DS-I2-01_ly-thuyet-toan-cho-phan-tich-song-sot.html"
-      - text: "2. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số"
-        # href: "3DS-I2-02_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html"
+      - text: "1b. Lý thuyết toán trong phân tích sống sót"
+        href: "3DS-I-01b_ly-thuyet-toan-cho-phan-tich-song-sot.html"
+      - text: "2b. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số"
+        # href: "3DS-I-02b_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html"
       # SEC. 2 ********SUY LUẬN BAYES (II) *********************************
       - text: '---'
       - text: 'II. SUY LUẬN BAYES'
@@ -82,7 +81,9 @@ navbar:
         href: "3DS-III-02_mle-va-em.html"
       - text: "3. Thuật toán Expectation-Maximization (EM) [3/3]"
         href: "3DS-III-03_em-with-clustering-problem.html"
-      - text: "4. Bootstrap"
-        href: "3DS-III-04_bootstrap.html"
+      # - text: "4. Bootstrap"
+      #   href: "3DS-III-04_bootstrap.html"
+      - text: "5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics"
+        href: "3DS-III-05_he-so-anh-huong.html"
 #------------------------------------------------ ---------------------------------
 
