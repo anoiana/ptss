@@ -65,25 +65,24 @@ navbar:
       # SEC. 2 ********SUY LUẬN BAYES (II) *********************************
       - text: '---'
       - text: 'II. SUY LUẬN BAYES'
-      - text: "1. Giới thiệu Bayes"
+      - text: "1. Giới thiệu Bayes."
         href: "3DS-II-01_gioi-thieu-bayes.html"
       - text: "2. Các phương pháp tính toán với Bayes"
         href: "3DS-II-02_tinh-toan-bayes.html"
-      - text: 'II. SUY LUẬN BAYES (2)'
-      # - text: "1. Giới thiệu Bayes"
-        # href: "3DS-II2-01_bayes-prediction.html"
+      - text: "3. Dự đoán Bayes"
+      #  href: "3DS-II-03_bayes-prediction.html"
       # SEC. 3 ********CÁC CHỦ ĐỀ RIÊNG (III) ***************
       - text: '---'
       - text: 'III. CÁC CHỦ ĐỀ RIÊNG'
-      - text: "1. Thuật toán Expectation-Maximization (EM) [1/3]"
+      - text: "1. Thuật toán Expectation-Maximization (EM) [1/3]."
         href: "3DS-III-01_em-algorithm.html"
-      - text: "2. Thuật toán Expectation-Maximization (EM) [2/3]"
+      - text: "2. Thuật toán Expectation-Maximization (EM) [2/3]."
         href: "3DS-III-02_mle-va-em.html"
-      - text: "3. Thuật toán Expectation-Maximization (EM) [3/3]"
+      - text: "3. Thuật toán Expectation-Maximization (EM) [3/3]."
         href: "3DS-III-03_em-with-clustering-problem.html"
       # - text: "4. Bootstrap"
       #   href: "3DS-III-04_bootstrap.html"
-      - text: "5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics"
+      - text: "5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics."
         href: "3DS-III-05_he-so-anh-huong.html"
 #------------------------------------------------ ---------------------------------
 

@@ -135,4 +135,24 @@ and hence $B_n$ is an increasing sequence, so it has a limit. What we need is to
 $$
 \bigcup_{i=1}^{10}B_i = \bigcup_{n=1}^{10}\bigcap_{i=n}^{10}A_i,
 $$
-which has a general form in `r lb(eq2)`. The case of supremum can be explained with an analogous manner. 
+which has a general form in `r lb(eq2)`. The case of supremum can be explained with an analogous manner. To this end, we have
+
+$$
+\begin{aligned}
+&B_1 = \bigcup_{i=1}^{10}A_i \\
+&B_2 = \bigcup_{i=2}^{10}A_i \\
+&\quad \dots \\
+&B_9 = A_9 \cup A_{10} \\
+&B_{10} = A_{10}
+\end{aligned}
+$$
+and then 
+$$
+B_1 \ge B_2 \ge \dots \ge B_{10}
+$$
+
+hence $B_n$ is an decreasing sequence and it has a limit. With an analogous manner, we can obtain the smallest set that is 
+$$
+\bigcap_{i=1}^{10}B_i = \bigcap_{n=1}^{10}\bigcup_{i=n}^{10}A_i.
+$$
+which is second equation in `r lb(eq2)`.

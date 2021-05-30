@@ -419,25 +419,25 @@ div.tocify {
     <li class="divider"></li>
     <li class="dropdown-header">II. SUY LUẬN BAYES</li>
     <li>
-      <a href="3DS-II-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes</a>
+      <a href="3DS-II-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes.</a>
     </li>
     <li>
       <a href="3DS-II-02_tinh-toan-bayes.html">2. Các phương pháp tính toán với Bayes</a>
     </li>
-    <li class="dropdown-header">II. SUY LUẬN BAYES (2)</li>
+    <li class="dropdown-header">3. Dự đoán Bayes</li>
     <li class="divider"></li>
     <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
     <li>
-      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) [1/3]</a>
+      <a href="3DS-III-01_em-algorithm.html">1. Thuật toán Expectation-Maximization (EM) [1/3].</a>
     </li>
     <li>
-      <a href="3DS-III-02_mle-va-em.html">2. Thuật toán Expectation-Maximization (EM) [2/3]</a>
+      <a href="3DS-III-02_mle-va-em.html">2. Thuật toán Expectation-Maximization (EM) [2/3].</a>
     </li>
     <li>
-      <a href="3DS-III-03_em-with-clustering-problem.html">3. Thuật toán Expectation-Maximization (EM) [3/3]</a>
+      <a href="3DS-III-03_em-with-clustering-problem.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
     </li>
     <li>
-      <a href="3DS-III-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics</a>
+      <a href="3DS-III-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
     </li>
   </ul>
 </li>
@@ -556,7 +556,25 @@ and hence <span class="math inline">\(B_n\)</span> is an increasing sequence, so
 <span class="math display">\[
 \bigcup_{i=1}^{10}B_i = \bigcup_{n=1}^{10}\bigcap_{i=n}^{10}A_i,
 \]</span>
-which has a general form in <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a>. The case of supremum can be explained with an analogous manner.</p>
+which has a general form in <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a>. The case of supremum can be explained with an analogous manner. To this end, we have</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;B_1 = \bigcup_{i=1}^{10}A_i \\
+&amp;B_2 = \bigcup_{i=2}^{10}A_i \\
+&amp;\quad \dots \\
+&amp;B_9 = A_9 \cup A_{10} \\
+&amp;B_{10} = A_{10}
+\end{aligned}
+\]</span>
+and then
+<span class="math display">\[
+B_1 \ge B_2 \ge \dots \ge B_{10}
+\]</span></p>
+<p>hence <span class="math inline">\(B_n\)</span> is an decreasing sequence and it has a limit. With an analogous manner, we can obtain the smallest set that is
+<span class="math display">\[
+\bigcap_{i=1}^{10}B_i = \bigcap_{n=1}^{10}\bigcup_{i=n}^{10}A_i.
+\]</span>
+which is second equation in <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a>.</p>
 </div>
 
 
