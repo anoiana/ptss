@@ -32,8 +32,8 @@ navbar:
       menu:
       # SEC I *************************************************************
       - text: "I. SURVIVAL ANALYSIS"
-      - text: "1. Summary of nonparametric survival analysis"
-        href: '2READ-1SUV-01_summary-of-nonparametric-survival-analysis.html'
+      - text: "2. failure time models"
+        href: '2READ-1SUV-02_failure-time-models.html'
       # SEC II *************************************************************
       - text: "---"
       - text: "II. OTHER TOPICS"
@@ -41,6 +41,8 @@ navbar:
         href: '2READ-2OTHER-01_lim-inf-lim-sup.html'
       - text: "2. Why does optimization of MAIC method turn out to be fitting logistic model?"
         href: "2READ-2OTHER-02_proof-of-maic.html"
+      - text: "3. Construction of confidence intervals with 2x2 tables"
+        href: "2READ-2OTHER-03_ci-2x2-tables.html"
       # SEC III *************************************************************
       - text: "---"
       - text: "III. BAYESIAN ANALYSIS"

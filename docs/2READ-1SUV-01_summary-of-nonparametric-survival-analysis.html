@@ -376,7 +376,7 @@ div.tocify {
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">I. SURVIVAL ANALYSIS</li>
     <li>
-      <a href="2READ-1SUV-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
+      <a href="2READ-1SUV-02_failure-time-models.html">2. failure time models</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">II. OTHER TOPICS</li>
@@ -385,6 +385,9 @@ div.tocify {
     </li>
     <li>
       <a href="2READ-2OTHER-02_proof-of-maic.html">2. Why does optimization of MAIC method turn out to be fitting logistic model?</a>
+    </li>
+    <li>
+      <a href="2READ-2OTHER-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">III. BAYESIAN ANALYSIS</li>
@@ -584,9 +587,9 @@ where
 \]</span></p>
 </div>
 <div id="the-kaplan-meier-estimator" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> The Kaplan-Meier estimator</h1>
+<h1><span class="header-section-number">4</span> The Kaplan-Meier Estimator</h1>
 <div id="point-and-interval-estimators" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> point and interval estimators</h2>
+<h2><span class="header-section-number">4.1</span> Point and Interval Estimators</h2>
 <p><span class="math inline">\(N(t)\)</span> is the number of occurrences of the event in <span class="math inline">\([0,t]\)</span>, <span class="math inline">\(Y(t)\)</span> is the number of individuals at risk “just before” time <span class="math inline">\(t\)</span>. Also <span class="math inline">\(T_1 &lt; T_2&lt;\dots\)</span> is the ordered times when an occurrence of the event is observed.</p>
 <p>Let us partition <span class="math inline">\([0,t]\)</span> into <span class="math inline">\(K\)</span> small threshold of time, namely <span class="math inline">\(0 = t_0 &lt; t_1 &lt; \dots &lt; t_K =t\)</span>. Thus,
 <span class="math display" id="eq:eq41">\[
@@ -594,7 +597,24 @@ S(t) = \prod_{k=1}^KS(t_k|t_{k-1}),
 \tag{4.1}
 \]</span>
 where <span class="math inline">\(S(v|u) =S(v)/S(u), \quad \forall v&gt;u\)</span>.</p>
-<p>To this point, once again we assume there is no tied event times, so the value of <span class="math inline">\(K\)</span> is chosen such that there is at most 1 event occurring in each small interval. Thus, if no event is observed in <span class="math inline">\((t_{k-1},t_k]\)</span></p>
+<p>To this point, once again we assume there is no tied event times, so the value of <span class="math inline">\(K\)</span> is chosen such that there is at most 1 event occurring in each small interval. Thus, if no event is observed (i.e. no death is observed) in <span class="math inline">\((t_{k-1},t_k]\)</span>, <span class="math inline">\(S(t_k|t_{k-1})\)</span> is 1. If an event is observed, then <span class="math inline">\(S(t_k|t_{k-1})\)</span> is <span class="math inline">\(1-1/Y(t_{k-1}) = 1- 1/Y(T_j)\)</span>. Thus, referring to <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq41">(4.1)</a> we have
+<span class="math display" id="eq:eq42">\[
+\widehat{S}(t) = \prod_{T_j \le t}\Big[1-\frac{1}{Y(T_j)} \Big],
+\tag{4.2}
+\]</span>
+that is <em>Kaplan-Meier estimator</em> whose variance is estimated as follows
+<span class="math display" id="eq:eq43">\[
+\widehat{\tau}^2(t) = \widehat{S}^2(t)\sum_{T_j \le t}\frac{1}{Y^2(T_j)}.
+\tag{4.3}
+\]</span>
+and hence confidence interval can be obtained by 2 ways in which the second one is used more often than the first one since it approximates to normal distribution
+<span class="math display" id="eq:eq44">\[
+\begin{align}
+&amp;\widehat{S}(t) \pm \Phi^{-1}(1-\alpha/2)\widehat{\tau}(t), \quad \text{and} \\
+&amp;\widehat{S}(t)^{\exp\big[\pm \Phi^{-1}(1-\alpha/2)\frac{\widehat{\tau}(t)}{\widehat{S}(t)\ln\widehat{S}(t)} \big]}
+\end{align}
+\tag{4.4}
+\]</span></p>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 </div>

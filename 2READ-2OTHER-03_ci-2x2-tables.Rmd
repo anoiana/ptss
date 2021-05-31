@@ -1,0 +1,95 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('construction of confidence interval for effect sizes with')` $2\\times 2$ `r totitle('table','')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+ttt = purrr::partial(totitle, icon = "")
+```
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+Let us deem the following table 
+
+```{r tab11}
+tab_2t2 = tibble(
+  ` ` = c("Group 1","Group 2", "Total"),
+  Success = c("$n_{11}$","$n_{21}$","$n_{+1}$"),
+  Failure = c("$n_{12}$","$n_{22}$","$n_{+2}$"),
+  Total = c("$n_{1+}$","$n_{2+}$","N")
+)
+kableExtra::kbl(tab_2t2, caption = "$2\\times 2$ table")%>%
+  kableExtra::kable_styling("striped")%>%
+  kableExtra::footnote(
+    general = "$\\mathbf{n} = \\{n_{11},n_{12},n_{21},n_{22}\\}$: the observed table. ",
+    footnote_as_chunk = T
+    )
+```
+
+The aim is to compare proportion of success between 2 groups. To do so, three effect sizes that are *risk difference, relative risk* and *odd ratio* will respectively be considered. 
+
+# `r ttt('risk difference')`
+
+Let $\pi_1$ and $\pi_2$ are proportion of success event of group 1 and group 2 and their estimators are
+$$
+\hat{\pi}_1 = \frac{n_{11}}{n_{1+}}, \text{ and} \quad \hat{\pi}_2 = \frac{n_{21}}{n_{2+}}.
+(\#eq:eq11)
+$$
+Also, 
+$$
+\Delta = \pi_1-\pi_2
+(\#eq:eq12)
+$$
+is difference between proprotion of group 1 and group 2 and its estimator is $\hat{\Delta} = \hat{\pi}_1-\hat{\pi}_2$.
+
+Suppose we have data with 1 explanatory variable $\bf{x} \in \{0,1\}^n$ that indicates whether an individual patient is treated, $x_j=1$ if patient $j$ is treated and $x_j=0$ otherwise. response variable $\bf{y} \in \{0,1\}^n$ indicating efficacy of each patients, so $y_j=1$ if patient $j$ is recovered and $y_j=0$ otherwise.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::

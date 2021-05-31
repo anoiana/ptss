@@ -155,9 +155,9 @@ $$
 (\#eq:eq35)
 $$
 
-# The Kaplan-Meier estimator
+# `r ttt('The Kaplan-Meier estimator')`
 
-## point and interval estimators
+## `r ttt('point and interval estimators')`
 
 $N(t)$ is the number of occurrences of the event in $[0,t]$, $Y(t)$ is the number of individuals at risk "just before" time $t$. Also $T_1 < T_2<\dots$ is the ordered times when an occurrence of the event is observed. 
 
@@ -168,7 +168,27 @@ S(t) = \prod_{k=1}^KS(t_k|t_{k-1}),
 $$
 where $S(v|u) =S(v)/S(u), \quad \forall v>u$. 
 
-To this point, once again we assume there is no tied event times, so the value of $K$ is chosen such that there is at most 1 event occurring in each small interval. Thus, if no event is observed in $(t_{k-1},t_k]$
+To this point, once again we assume there is no tied event times, so the value of $K$ is chosen such that there is at most 1 event occurring in each small interval. Thus, if no event is observed (i.e. no death is observed) in $(t_{k-1},t_k]$, $S(t_k|t_{k-1})$ is 1. If an event is observed, then $S(t_k|t_{k-1})$ is $1-1/Y(t_{k-1}) = 1- 1/Y(T_j)$. Thus, referring to `r lb(eq41)` we have
+$$
+\hat{S}(t) = \prod_{T_j \le t}\Big[1-\frac{1}{Y(T_j)} \Big],
+(\#eq:eq42)
+$$
+that is *Kaplan-Meier estimator* whose variance is estimated as follows 
+$$
+\hat{\tau}^2(t) = \hat{S}^2(t)\sum_{T_j \le t}\frac{1}{Y^2(T_j)}.
+(\#eq:eq43)
+$$
+and hence confidence interval can be obtained by 2 ways in which the second one is used more often than the first one since it approximates to normal distribution
+$$
+\begin{align}
+&\hat{S}(t) \pm \Phi^{-1}(1-\alpha/2)\hat{\tau}(t), \quad \text{and} \\
+&\hat{S}(t)^{\exp\big[\pm \Phi^{-1}(1-\alpha/2)\frac{\hat{\tau}(t)}{\hat{S}(t)\ln\hat{S}(t)} \big]}
+\end{align}
+(\#eq:eq44)
+$$
+
+
+
 
 
 
