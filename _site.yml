@@ -26,65 +26,56 @@ navbar:
     #- text: "About"
     #  href: about.html
     #  icon: fa-comment-dots
-#-------------------------TAB 2: READING (2READ)  ----------------------------------------
+#-------------------------TAB 1: english  (T01)  ----------------------------------------
     - text: "Readings"
       icon: fa-bookmark
       menu:
-      # SEC I *************************************************************
+      # SEC I (S01) --------------------------------------------------------
       - text: "I. SURVIVAL ANALYSIS"
-      - text: "2. failure time models"
-        href: '2READ-1SUV-02_failure-time-models.html'
-      # SEC II *************************************************************
+      - text: "1. Summary of nonparametric survival analysis"
+        href: 'T01S01-01_summary-of-nonparametric-survival-analysis.html'
+      # SEC II (S02) -----------------------------------------------------
       - text: "---"
       - text: "II. OTHER TOPICS"
-      - text: "1. Limit of Supremum and Infimum"
-        href: '2READ-2OTHER-01_lim-inf-lim-sup.html'
-      - text: "2. Why does optimization of MAIC method turn out to be fitting logistic model?"
-        href: "2READ-2OTHER-02_proof-of-maic.html"
+      - text: "1. Limit of Supremum and Infimum."
+        href: 'T01S02-01_lim-inf-lim-sup.html'
+      - text: "2. MAIC Proof."
+        href: "T01S02-02_proof-of-maic.html"
       - text: "3. Construction of confidence intervals with 2x2 tables"
-        href: "2READ-2OTHER-03_ci-2x2-tables.html"
-      # SEC III *************************************************************
-      - text: "---"
-      - text: "III. BAYESIAN ANALYSIS"
-      - text: "1. Introduction to Bayesian analysis"
-        href: '2READ-3BAY-01_intro-to-bayes.html'
-#-------------------------TAB 3: DOC SACH (3DS) ---------------------------------------
+        href: "T01S02-03_ci-2x2-tables.html"
+#-------------------------TAB 3: DOC SACH (T02) ---------------------------------------
     - text: "Đọc sách"
       icon: fa-bookmark
       menu:
-      # SEC. 1 ***************PHÂN TÍCH SỐNG SÓT (I) *********************
+      # SEC. 1 (S01) phân tích sống sót -------------------------------------
       - text: "I. PHÂN TÍCH SỐNG SÓT (1)"
       - text: "1. Giới thiệu về phân tính sống sót"
-        href: "3DS-I-01_tong-quan-phan-tich-song-sot.html"
+        href: "T02S01-01_tong-quan-phan-tich-song-sot.html"
       - text: "2. Phương pháp phi tham số"
-        href: '3DS-I-02_phuong-phap-phi-tham-so.html'
+        href: 'T02S01-02_phuong-phap-phi-tham-so.html'
       - text: "3. So sánh 2 mẫu với phương pháp phi tham số"
-        href: "3DS-I-03_so-sanh-2-mau-phi-tham-so.html"
-      - text: "1b. Lý thuyết toán trong phân tích sống sót"
-        href: "3DS-I-01b_ly-thuyet-toan-cho-phan-tich-song-sot.html"
-      - text: "2b. Quá trình ngẫu nhiên trong phân tích sống sót phi tham số"
-        # href: "3DS-I-02b_qua-trinh-ngau-nhien-trong-phan-tich-song-sot-phi-tham-so.html"
-      # SEC. 2 ********SUY LUẬN BAYES (II) *********************************
+        href: "T02S01-03_so-sanh-2-mau-phi-tham-so.html"
+      - text: "4. Lý thuyết toán trong phân tích sống sót"
+        href: "T02S01-04_ly-thuyet-toan-cho-phan-tich-song-sot.html"
+      # SEC. 2 (S02) suy luận Bayes -----------------------------------------
       - text: '---'
       - text: 'II. SUY LUẬN BAYES'
       - text: "1. Giới thiệu Bayes."
-        href: "3DS-II-01_gioi-thieu-bayes.html"
+        href: "T02S02-01_gioi-thieu-bayes.html"
       - text: "2. Các phương pháp tính toán với Bayes"
-        href: "3DS-II-02_tinh-toan-bayes.html"
-      - text: "3. Dự đoán Bayes"
-      #  href: "3DS-II-03_bayes-prediction.html"
-      # SEC. 3 ********CÁC CHỦ ĐỀ RIÊNG (III) ***************
+        href: "T02S02-02_tinh-toan-bayes.html"
+      # SEC. 3 (S03) các chủ đề riêng --------------------------------------
       - text: '---'
       - text: 'III. CÁC CHỦ ĐỀ RIÊNG'
       - text: "1. Thuật toán Expectation-Maximization (EM) [1/3]."
-        href: "3DS-III-01_em-algorithm.html"
+        href: "T02S03-01_em-algorithm-1.html"
       - text: "2. Thuật toán Expectation-Maximization (EM) [2/3]."
-        href: "3DS-III-02_mle-va-em.html"
+        href: "T01S03-02_em-algorithm-2.html"
       - text: "3. Thuật toán Expectation-Maximization (EM) [3/3]."
-        href: "3DS-III-03_em-with-clustering-problem.html"
-      # - text: "4. Bootstrap"
-      #   href: "3DS-III-04_bootstrap.html"
+        href: "T02S03-03_em-algorithm-3.html"
+      - text: "4. Bootstrap"
+        href: "T02S03-04_bootstrap.html"
       - text: "5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics."
-        href: "3DS-III-05_he-so-anh-huong.html"
+        href: "T02S03-05_he-so-anh-huong.html"
 #------------------------------------------------ ---------------------------------
 
