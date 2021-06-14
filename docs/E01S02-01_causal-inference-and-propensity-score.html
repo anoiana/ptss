@@ -557,6 +557,24 @@ Then, <span class="math inline">\(\Bbb{P}(\boldsymbol{W}|\boldsymbol{X}, \boldsy
 <span class="math display">\[
 e(x) = \frac{1}{N_x}\sum_{i:X_i=x}q(X_i,Y_i(0),Y_i(1)).
 \]</span></p>
+<div class="definition">
+<p><span id="def:def32" class="definition"><strong>Definition 3.2  (Probability Assignment) </strong></span>An assignment mechanism <span class="math inline">\(\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1))\)</span> is strictly between 0 and 1:
+<span class="math display">\[
+0 &lt; \Bbb{P}_i(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) &lt; 1, \quad \forall i=1,\dots,N.
+\]</span></p>
+</div>
+<p>and the third property is</p>
+<div class="definition">
+<p><span id="def:def33" class="definition"><strong>Definition 3.3  (Unconfounded Assignment) </strong></span>An assignment mechanism is unconfounded if
+<span class="math display">\[
+\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) = \Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}^*(0),\boldsymbol{Y}^*(1))
+\]</span>
+<span class="math inline">\(\forall \boldsymbol{W}, \boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1), \boldsymbol{Y}^*(0) \text{ and } \boldsymbol{Y}^*(1)\)</span>. In other words, assignment mechanism is independent of potential outcomes.</p>
+</div>
+<p>Both <em>unconfoundedness</em> and <em>individualistic</em> assignment plays an important role.</p>
+</div>
+<div id="randomized-experiments" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Randomized Experiments</h1>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 <div id="references" class="section level1 unnumbered shad">

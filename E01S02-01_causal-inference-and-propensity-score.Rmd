@@ -120,6 +120,27 @@ $$
 e(x) = \frac{1}{N_x}\sum_{i:X_i=x}q(X_i,Y_i(0),Y_i(1)).
 $$
 
+::: {.definition #def32 name="Probability Assignment"}
+An assignment mechanism $\P(\bf{W}|\bf{X},\bf{Y}(0),\bf{Y}(1))$ is strictly between 0 and 1:
+$$
+0 < \P_i(\bf{W}|\bf{X},\bf{Y}(0),\bf{Y}(1)) < 1, \quad \forall i=1,\dots,N.
+$$
+:::
+
+and the third property is 
+
+::: {.definition #def33 name="Unconfounded Assignment"}
+An assignment mechanism is unconfounded if
+$$
+\P(\bf{W}|\bf{X},\bf{Y}(0),\bf{Y}(1)) = \P(\bf{W}|\bf{X},\bf{Y}^*(0),\bf{Y}^*(1))
+$$
+$\forall \bf{W}, \bf{X}, \bf{Y}(0), \bf{Y}(1), \bf{Y}^*(0) \text{ and } \bf{Y}^*(1)$. In other words, assignment mechanism is independent of potential outcomes. 
+:::
+
+Both *unconfoundedness* and *individualistic* assignment plays an important role.
+
+# `r ttt('randomized experiments')`
+
 
 
 
