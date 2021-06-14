@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Giới Thiệu Bayes</title>
+<title>✑ Causal Inference and Propensity Score</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -365,29 +365,25 @@ div.tocify {
     Home
   </a>
 </li>
-<li class="dropdown">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bookmark"></span>
      
-    Readings
+    Individual Topics
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">I. SURVIVAL ANALYSIS</li>
     <li>
-      <a href="T01S01-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
+      <a href="E01S01-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">II. OTHER TOPICS</li>
+    <li class="dropdown-header">II. OBSERVATIONAL STUDIES</li>
     <li>
-      <a href="T01S02-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum.</a>
-    </li>
-    <li>
-      <a href="T01S02-02_proof-of-maic.html">2. MAIC Proof.</a>
-    </li>
-    <li>
-      <a href="T01S02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
+      <a href="E01S02-01_causal-inference-and-propensity-score">Causal inference and propensity score</a>
     </li>
   </ul>
 </li>
@@ -395,54 +391,80 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bookmark"></span>
      
-    Đọc sách
+    Mixed Topics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="E02-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum.</a>
+    </li>
+    <li>
+      <a href="E02-02_proof-of-maic.html">2. MAIC Proof.</a>
+    </li>
+    <li>
+      <a href="E02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Theo Chủ Đề
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT (1)</li>
     <li>
-      <a href="T02S01-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
+      <a href="V01S01-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
     </li>
     <li>
-      <a href="T02S01-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
+      <a href="V01S01-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
     <li>
-      <a href="T02S01-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
+      <a href="V01S01-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
     </li>
     <li>
-      <a href="T02S01-04_ly-thuyet-toan-cho-phan-tich-song-sot.html">4. Lý thuyết toán trong phân tích sống sót</a>
+      <a href="V01S01-04_ly-thuyet-toan-cho-phan-tich-song-sot.html">4. Lý thuyết toán trong phân tích sống sót</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">II. SUY LUẬN BAYES</li>
     <li>
-      <a href="T02S02-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes.</a>
+      <a href="V01S02-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes.</a>
     </li>
     <li>
-      <a href="T02S02-02_tinh-toan-bayes.html">2. Các phương pháp tính toán với Bayes</a>
-    </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
-    <li>
-      <a href="T02S03-01_em-algorithm-1.html">1. Thuật toán Expectation-Maximization (EM) [1/3].</a>
-    </li>
-    <li>
-      <a href="T01S03-02_em-algorithm-2.html">2. Thuật toán Expectation-Maximization (EM) [2/3].</a>
-    </li>
-    <li>
-      <a href="T02S03-03_em-algorithm-3.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
-    </li>
-    <li>
-      <a href="T02S03-04_bootstrap.html">4. Bootstrap</a>
-    </li>
-    <li>
-      <a href="T02S03-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
+      <a href="V01S02-02_tinh-toan-bayes.html">2. Các phương pháp tính toán với Bayes</a>
     </li>
   </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Chủ Đề Riêng
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="V02-01_em-algorithm-1.html">1. Thuật toán Expectation-Maximization (EM) [1/3].</a>
+    </li>
+    <li>
+      <a href="V02-02_em-algorithm-2.html">2. Thuật toán Expectation-Maximization (EM) [2/3].</a>
+    </li>
+    <li>
+      <a href="V02-03_em-algorithm-3.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
+    </li>
+    <li>
+      <a href="V02-04_bootstrap.html">4. Bootstrap</a>
+    </li>
+    <li>
+      <a href="V02-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
+    </li>
+  </ul>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -460,37 +482,89 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">✑ Giới Thiệu Bayes</h1>
+<h1 class="title toc-ignore">✑ Causal Inference and Propensity Score</h1>
 <h4 class="date">📅 2021-06-13</h4>
 
 </div>
 
 
 <div class="right shad">
-<p><span class="citation">(tham khảo tại <a href="#ref-rei2019" role="doc-biblioref">Reich and Ghosh 2019</a>)</span></p>
+<p><span class="citation">(refer to <a href="#ref-imb2015" role="doc-biblioref">Imbens and Rubin 2015</a>)</span></p>
 </div>
 <div class="watermark">
 <p><em>DRAFT</em></p>
 </div>
 <hr />
-<div id="các-phương-pháp-tất-định-deterministic-methods" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Các Phương Pháp Tất Định (Deterministic Methods)</h1>
-<div id="cực-đại-hàm-hậu-nghiệm" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Cực Đại Hàm Hậu Nghiệm</h2>
-<p>Ký hiệu là <span class="math inline">\(\widehat{\theta}_{MAP}\)</span> được tính bằng cách maximize hàm hậu nghiệm <span class="math inline">\(f(\theta|x)\)</span>, nghĩa là
+<div id="notation" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Notation</h1>
+<p>A population of <span class="math inline">\(N\)</span> subjects indexed by <span class="math inline">\(i = 1,2,\dots,N\)</span>. Subject <span class="math inline">\(i\)</span> is characterized by <span class="math inline">\(K\)</span>-vector of covariates denoted by <span class="math inline">\(X_i\)</span>, this is, <span class="math inline">\(X_i \in \mathbb{R}^{K\times 1}\)</span> and <span class="math inline">\(\boldsymbol{X} \in \mathbb{R}^{N\times K}\)</span>.</p>
+<p>Also subject <span class="math inline">\(i\)</span> has a pair of potential outcomes <span class="math inline">\(Y_i(0)\)</span> and <span class="math inline">\(Y_i(1)\)</span> denoting the outcome values under treatment and control arm, respectively. <span class="math inline">\(W_i \in \{0,1\}\)</span> denotes treatment assignment of subject <span class="math inline">\(i\)</span> where <span class="math inline">\(W_i = 0\)</span> if subject <span class="math inline">\(i\)</span> is not treated and <span class="math inline">\(W_i=1\)</span> otherwise. Thus, <span class="math inline">\(N_c = \sum_{i=1}^N(1-W_i)\)</span> and <span class="math inline">\(N_t = \sum_{i=1}^NW_i\)</span> are the number of subject assigned to the control and active treatment respectively. Potential outcomes <span class="math inline">\(Y_i(W_i)\)</span> has two possibilities
 <span class="math display" id="eq:eq11">\[
-\widehat{\theta}_{MAP} = \arg\max_{\theta\in \Theta}\ln[f(\theta|x)] = \arg\max_{\theta\in\Theta}\ln[f(x|\theta)f(\theta)]
+Y^{obs}_i = Y_i(W_i) = \cases{Y_i(0), \quad \text{if } W_i=0 \\
+Y_i(1), \quad \text{if }W_i =1}
 \tag{1.1}
+\]</span>
+and
+<span class="math display" id="eq:eq12">\[
+Y^{mis}_i = Y_i(1-W_i) = \cases{
+Y_i(1), \quad \text{if } W_i = 0 \\
+Y_i(0), \quad \text{if } W_i = 1
+}
+\tag{1.2}
+\]</span>
+Thus, we can see that causal inference problem is fundamentally a missing data problem.</p>
+</div>
+<div id="assignment-probabilities" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Assignment Probabilities</h1>
+<p>There are <span class="math inline">\(N\)</span> subjects, each subject can be assign to active treatment or control group, so <span class="math inline">\(\boldsymbol{W}\)</span> has <span class="math inline">\(2^N\)</span> possibilities.</p>
+<div class="definition">
+<p><span id="def:def21" class="definition"><strong>Definition 2.1  (Assignment Mechanism) </strong></span>is probability that <span class="math inline">\(N\)</span> subjects are assigned to <span class="math inline">\(\boldsymbol{W}\)</span> given potential outcome <span class="math inline">\(\boldsymbol{Y}(0)\)</span>, <span class="math inline">\(\boldsymbol{Y}(1)\)</span> and covariates <span class="math inline">\(\boldsymbol{X}\)</span>, denoted by <span class="math inline">\(\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1))\)</span> that is satisfying
+<span class="math display">\[
+\sum_{\boldsymbol{W} \in \{0,1\}^N}\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) =1, \quad \forall \boldsymbol{X}, \boldsymbol{Y}(0) \text{ and } \boldsymbol{Y}(1).
+\]</span></p>
+</div>
+<p>Note that <span class="math inline">\(\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1))\)</span> is probability of all <span class="math inline">\(N\)</span> subjects rather than probability of a specific subject.</p>
+<div class="definition">
+<p><span id="def:def22" class="definition"><strong>Definition 2.2  (Unit assignment probability) </strong></span>The unit-level assignment probability for unit <span class="math inline">\(i\)</span> is
+<span class="math display">\[
+\Bbb{P}_i(\boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1)) = \sum_{\boldsymbol{W}:W_i =1}\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1))
+\]</span></p>
+</div>
+<p>Another function of interest is average of unit-level assignment probability for sub-population with a common value of covariates i.e. <span class="math inline">\(X_i = x\)</span>. This function is called <em>propensity score</em> at <span class="math inline">\(x\)</span>. Thus</p>
+<div class="definition">
+<p><span id="def:def23" class="definition"><strong>Definition 2.3  (Propensity Score (PS)) </strong></span>The PS at <span class="math inline">\(x\)</span> is
+<span class="math display">\[
+e(x) = \frac{1}{N(x)}\sum_{i:X_i=x}\Bbb{P}_i(\boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1)),
+\]</span>
+where <span class="math inline">\(N(x) = \sum_{i=1}^N{\large\unicode{x1D7D9}}(X_i =x)\)</span></p>
+</div>
+</div>
+<div id="assignment-restrictions" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Assignment Restrictions</h1>
+<p>We shall deem 3 general properties that restrict dependence of the unit-level assignment probabilities on covariates and potential outcomes. The first property is called <em>individualistic assignment</em> that restrict dependence of treatment assignment for subject <span class="math inline">\(i\)</span> on the outcomes and assignments for other subjects.</p>
+<div class="definition">
+<p><span id="def:def31" class="definition"><strong>Definition 3.1  (Individualistic Assignment) </strong></span>The joint probability of covariates <span class="math inline">\(\boldsymbol{X}\)</span> and potential outcomes <span class="math inline">\(\boldsymbol{Y}(0)\)</span> &amp; <span class="math inline">\(\boldsymbol{Y}(1)\)</span> of subject <span class="math inline">\(i\)</span> is only dependent of covariates and potential outcome of that subject, so
+<span class="math display">\[
+\Bbb{P}_i(\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) = q(X_i,Y_i(0),Y_i(1)), \quad \forall i = 1,\dots,N.
+\]</span>
+and hence
+<span class="math display">\[
+\Bbb{P}(\boldsymbol{W}|\boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1)) = c\prod_{i=1}^Nq(X_i,Y_i(0),Y_i(1))^{W_i}[1 -q(X_i,Y_i(0),Y_i(1))]^{1-W_i}
+\]</span>
+Then, <span class="math inline">\(\Bbb{P}(\boldsymbol{W}|\boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1))\)</span> is individualistic.</p>
+</div>
+<p>Given individualistic assignment the equation in <span style="color: #C46ADD; font-size: 18px;"><em>Def.</em></span> <a href="#def:def23">2.3</a> can by rewritten as follows
+<span class="math display">\[
+e(x) = \frac{1}{N_x}\sum_{i:X_i=x}q(X_i,Y_i(0),Y_i(1)).
 \]</span></p>
 <!-- ----------------------------------------------------------------------------- -->
-</div>
 </div>
 <div id="references" class="section level1 unnumbered shad">
 <h1>References</h1>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-rei2019" class="csl-entry">
-Reich, Brian J, and Sujit K Ghosh. 2019. <em>Bayesian Statistical Methods</em>. CRC Press.
+<div id="ref-imb2015" class="csl-entry">
+Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in Statistics, Social, and Biomedical Sciences</em>. Cambridge University Press.
 </div>
 </div>
 

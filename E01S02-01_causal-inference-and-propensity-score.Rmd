@@ -1,0 +1,139 @@
+---
+params:
+  update_date: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('causal inference and propensity score')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    scroll_highlight: yes
+    number_sections: true
+    toc_depth: 3
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+\newcommand{\scr}[1]{\mathscr{#1}}
+
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+\def\logit{\text{logit}} 
+
+
+::: {.right .shad}
+[refer to @imb2015]
+:::
+
+::: {.watermark}
+*DRAFT*
+:::
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options("scipen"=100)
+source("_supp/helper.R")
+library(tidyverse)
+ttt = purrr::partial(totitle, icon ="")
+```
+
+***
+
+# Notation
+
+A population of $N$ subjects indexed by $i = 1,2,\dots,N$. Subject $i$ is characterized by $K$-vector of covariates denoted by $X_i$, this is, $X_i \in \mathbb{R}^{K\times 1}$ and $\bf{X} \in \mathbb{R}^{N\times K}$. 
+
+Also subject $i$ has a pair of potential outcomes $Y_i(0)$ and $Y_i(1)$ denoting the outcome values under treatment and control arm, respectively. $W_i \in \{0,1\}$ denotes treatment assignment of subject $i$ where $W_i = 0$ if subject $i$ is not treated and $W_i=1$ otherwise. Thus, $N_c = \sum_{i=1}^N(1-W_i)$ and $N_t = \sum_{i=1}^NW_i$ are the number of subject assigned to the control and active treatment respectively. Potential outcomes $Y_i(W_i)$ has two possibilities 
+$$
+Y^{obs}_i = Y_i(W_i) = \cases{Y_i(0), \quad \text{if } W_i=0 \\
+Y_i(1), \quad \text{if }W_i =1}
+(\#eq:eq11)
+$$
+and
+$$
+Y^{mis}_i = Y_i(1-W_i) = \cases{
+Y_i(1), \quad \text{if } W_i = 0 \\
+Y_i(0), \quad \text{if } W_i = 1
+}
+(\#eq:eq12)
+$$
+Thus, we can see that causal inference problem is fundamentally a missing data problem. 
+
+# `r ttt('assignment probabilities')`
+
+There are $N$ subjects, each subject can be assign to active treatment or control group, so $\bf{W}$ has $2^N$ possibilities.
+
+::: {.definition #def21 name="Assignment Mechanism"}
+is probability that $N$ subjects are assigned to $\bf{W}$ given potential outcome $\bf{Y}(0)$, $\bf{Y}(1)$ and covariates $\bf{X}$, denoted by $\P(\bf{W}|\bf{X},\bf{Y}(0),\bf{Y}(1))$ that is satisfying 
+$$
+\sum_{\bf{W} \in \{0,1\}^N}\P(\bf{W}|\bf{X},\bf{Y}(0),\bf{Y}(1)) =1, \quad \forall \bf{X}, \bf{Y}(0) \text{ and } \bf{Y}(1).
+$$ 
+:::
+
+Note that $\P(\bf{W}|\bf{X},\bf{Y}(0),\bf{Y}(1))$ is probability of all $N$ subjects rather than probability of a specific subject.
+
+::: {.definition #def22 name="Unit assignment probability"}
+The unit-level assignment probability for unit $i$ is 
+$$
+\P_i(\bf{X}, \bf{Y}(0), \bf{Y}(1)) = \sum_{\bf{W}:W_i =1}\P(\bf{W}|\bf{X},\bf{Y}(0),\bf{Y}(1))
+$$
+:::
+
+Another function of interest is average of unit-level assignment probability for sub-population with a common value of covariates i.e. $X_i = x$. This function is called *propensity score* at $x$. Thus
+
+::: {.definition #def23 name="Propensity Score (PS)"}
+The PS at $x$ is 
+$$
+e(x) = \frac{1}{N(x)}\sum_{i:X_i=x}\P_i(\bf{X}, \bf{Y}(0), \bf{Y}(1)),
+$$
+where $N(x) = \sum_{i=1}^N\I(X_i =x)$
+:::
+
+# `r ttt('assignment restrictions')`
+
+We shall deem 3 general properties that restrict dependence of the unit-level assignment probabilities on covariates and potential outcomes. The first property is called *individualistic assignment* that restrict dependence of treatment assignment for subject $i$ on the outcomes and assignments for other subjects.
+
+::: {.definition #def31 name="Individualistic Assignment"}
+The joint probability of covariates $\bf{X}$ and potential outcomes $\bf{Y}(0)$ & $\bf{Y}(1)$ of subject $i$ is only dependent of covariates and potential outcome of that subject, so 
+$$
+\P_i(\bf{X},\bf{Y}(0),\bf{Y}(1)) = q(X_i,Y_i(0),Y_i(1)), \quad \forall i = 1,\dots,N.
+$$
+and hence
+$$
+\P(\bf{W}|\bf{X}, \bf{Y}(0), \bf{Y}(1)) = c\prod_{i=1}^Nq(X_i,Y_i(0),Y_i(1))^{W_i}[1 -q(X_i,Y_i(0),Y_i(1))]^{1-W_i}
+$$
+Then, $\P(\bf{W}|\bf{X}, \bf{Y}(0), \bf{Y}(1))$ is individualistic. 
+:::
+
+Given individualistic assignment the equation in `r lb(def23)` can by rewritten as follows
+$$
+e(x) = \frac{1}{N_x}\sum_{i:X_i=x}q(X_i,Y_i(0),Y_i(1)).
+$$
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+:::{.shad} 
+# References {-}
+:::
+
+
+
+
+

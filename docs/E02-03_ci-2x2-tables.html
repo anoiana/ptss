@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Limit of Supremum and Infimum</title>
+<title>✑ Construction of Confidence Interval For Effect Sizes With 2\times 2 Table</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -27,6 +27,8 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="img/fugu.png"/>
@@ -365,29 +367,42 @@ div.tocify {
     Home
   </a>
 </li>
-<li class="dropdown">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bookmark"></span>
      
-    Readings
+    Individual Topics
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">I. SURVIVAL ANALYSIS</li>
     <li>
-      <a href="T01S01-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
+      <a href="E01S01-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">II. OTHER TOPICS</li>
+    <li class="dropdown-header">II. OBSERVATIONAL STUDIES</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Mixed Topics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="T01S02-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum.</a>
+      <a href="E02-01_lim-inf-lim-sup.html">1. Limit of Supremum and Infimum.</a>
     </li>
     <li>
-      <a href="T01S02-02_proof-of-maic.html">2. MAIC Proof.</a>
+      <a href="E02-02_proof-of-maic.html">2. MAIC Proof.</a>
     </li>
     <li>
-      <a href="T01S02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
+      <a href="E02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
     </li>
   </ul>
 </li>
@@ -395,54 +410,60 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bookmark"></span>
      
-    Đọc sách
+    Theo Chủ Đề
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">I. PHÂN TÍCH SỐNG SÓT (1)</li>
     <li>
-      <a href="T02S01-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
+      <a href="V01S01-01_tong-quan-phan-tich-song-sot.html">1. Giới thiệu về phân tính sống sót</a>
     </li>
     <li>
-      <a href="T02S01-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
+      <a href="V01S01-02_phuong-phap-phi-tham-so.html">2. Phương pháp phi tham số</a>
     </li>
     <li>
-      <a href="T02S01-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
+      <a href="V01S01-03_so-sanh-2-mau-phi-tham-so.html">3. So sánh 2 mẫu với phương pháp phi tham số</a>
     </li>
     <li>
-      <a href="T02S01-04_ly-thuyet-toan-cho-phan-tich-song-sot.html">4. Lý thuyết toán trong phân tích sống sót</a>
+      <a href="V01S01-04_ly-thuyet-toan-cho-phan-tich-song-sot.html">4. Lý thuyết toán trong phân tích sống sót</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">II. SUY LUẬN BAYES</li>
     <li>
-      <a href="T02S02-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes.</a>
+      <a href="V01S02-01_gioi-thieu-bayes.html">1. Giới thiệu Bayes.</a>
     </li>
     <li>
-      <a href="T02S02-02_tinh-toan-bayes.html">2. Các phương pháp tính toán với Bayes</a>
-    </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">III. CÁC CHỦ ĐỀ RIÊNG</li>
-    <li>
-      <a href="T02S03-01_em-algorithm-1.html">1. Thuật toán Expectation-Maximization (EM) [1/3].</a>
-    </li>
-    <li>
-      <a href="T01S03-02_em-algorithm-2.html">2. Thuật toán Expectation-Maximization (EM) [2/3].</a>
-    </li>
-    <li>
-      <a href="T02S03-03_em-algorithm-3.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
-    </li>
-    <li>
-      <a href="T02S03-04_bootstrap.html">4. Bootstrap</a>
-    </li>
-    <li>
-      <a href="T02S03-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
+      <a href="V01S02-02_tinh-toan-bayes.html">2. Các phương pháp tính toán với Bayes</a>
     </li>
   </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bookmark"></span>
+     
+    Chủ Đề Riêng
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="V02-01_em-algorithm-1.html">1. Thuật toán Expectation-Maximization (EM) [1/3].</a>
+    </li>
+    <li>
+      <a href="V02-02_em-algorithm-2.html">2. Thuật toán Expectation-Maximization (EM) [2/3].</a>
+    </li>
+    <li>
+      <a href="V02-03_em-algorithm-3.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
+    </li>
+    <li>
+      <a href="V02-04_bootstrap.html">4. Bootstrap</a>
+    </li>
+    <li>
+      <a href="V02-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
+    </li>
+  </ul>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -460,120 +481,107 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">✑ Limit of Supremum and Infimum</h1>
+<h1 class="title toc-ignore">✑ Construction of Confidence Interval For Effect Sizes With <span class="math inline">\(2\times 2\)</span> Table</h1>
 <h4 class="date">📅 2021-06-13</h4>
 
 </div>
 
 
-<hr />
 <div class="watermark">
-<p><em>COMPLETED</em></p>
+<p><em>DRAFT</em></p>
 </div>
-<div id="limsup-and-liminf-of-a-sequence-of-real-numbers" class="section level1">
-<h1><span class="math inline">\(\lim\sup\)</span> and <span class="math inline">\(\lim\inf\)</span> of a sequence of real numbers</h1>
-<p>Suppose we have a bounded sequence of real numbers <span class="math inline">\((c_n)^{\infty}_{n=1}\)</span>. Also define
-<span class="math display">\[
-\begin{aligned}
-a_n &amp;:= \inf\{c_k: k \ge n\}, \\
-b_n &amp;:= \sup\{c_k:k \ge n\}.
-\end{aligned}
+<hr />
+<p>Let us deem the following table</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>
+<span id="tab:tab11">Table 0.1: </span><span class="math inline">\(2\times 2\)</span> table
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Success
+</th>
+<th style="text-align:left;">
+Failure
+</th>
+<th style="text-align:left;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Group 1
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n_{11}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n_{12}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n_{1+}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Group 2
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n_{21}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n_{22}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n_{2+}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n_{+1}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n_{+2}\)</span>
+</td>
+<td style="text-align:left;">
+N
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> <span class="math inline">\(\mathbf{n} = \{n_{11},n_{12},n_{21},n_{22}\}\)</span>: the observed table.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>The aim is to compare proportion of success between 2 groups. To do so, three effect sizes that are <em>risk difference, relative risk</em> and <em>odd ratio</em> will respectively be considered.</p>
+<div id="risk-difference" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Risk Difference</h1>
+<p>Let <span class="math inline">\(\pi_1\)</span> and <span class="math inline">\(\pi_2\)</span> are proportion of success event of group 1 and group 2 and their estimators are
+<span class="math display" id="eq:eq11">\[
+\widehat{\pi}_1 = \frac{n_{11}}{n_{1+}}, \text{ and} \quad \widehat{\pi}_2 = \frac{n_{21}}{n_{2+}}.
+\tag{1.1}
 \]</span>
-We deem two cases that likely occur with <span class="math inline">\((c_n)_{n=1}^{\infty}\)</span></p>
-<div id="liminf" class="section level2">
-<h2><span class="math inline">\(\lim\inf\)</span></h2>
-<p>If <span class="math inline">\((a_n)\)</span> is bounded and increasing, then it has a limit called <span class="math inline">\(a\)</span>. We can define the so-called <span class="math inline">\(\lim\inf\)</span> of such a sequence as follows
-<span class="math display">\[
-\lim_{n}\inf(c_n) = \lim_{n \to \infty}\inf\{c_k: k \ge n\} 
-\]</span></p>
-<p>The following figure illustrates for <span class="math inline">\(\lim\inf\)</span>:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
-<img src="T01S02-01_lim-inf-lim-sup_files/figure-html/unnamed-chunk-1-1.png" alt="example for $\lim\inf$" width="672" />
-<p class="caption">
-Figure 1: example for <span class="math inline">\(\lim\inf\)</span>
-</p>
+Also,
+<span class="math display" id="eq:eq12">\[
+\Delta = \pi_1-\pi_2
+\tag{1.2}
+\]</span>
+is difference between proprotion of group 1 and group 2 and its estimator is <span class="math inline">\(\widehat{\Delta} = \widehat{\pi}_1-\widehat{\pi}_2\)</span>.</p>
+<p>Suppose we have data with 1 explanatory variable <span class="math inline">\(\boldsymbol{x} \in \{0,1\}^n\)</span> that indicates whether an individual patient is treated, <span class="math inline">\(x_j=1\)</span> if patient <span class="math inline">\(j\)</span> is treated and <span class="math inline">\(x_j=0\)</span> otherwise. response variable <span class="math inline">\(\boldsymbol{y} \in \{0,1\}^n\)</span> indicating efficacy of each patients, so <span class="math inline">\(y_j=1\)</span> if patient <span class="math inline">\(j\)</span> is recovered and <span class="math inline">\(y_j=0\)</span> otherwise.</p>
+<!-- ----------------------------------------------------------------------------- -->
 </div>
-<p>as <span class="math inline">\(n\)</span> goes to <span class="math inline">\(\infty\)</span>, <span class="math inline">\((c_n)\)</span> approaches to <span class="math inline">\(-1\)</span> (never reach <span class="math inline">\(-1\)</span>). The term <em>inf</em> or <em>infimum</em> is also called <em>the greatest lower bound</em>, this is, the greatest point of lower bound set. We can see that all black filled circle are less than <span class="math inline">\(-1\)</span>, so all of them can be deemed lower bound of the collection of red filled circles, and a point corresponding <span class="math inline">\(n\)</span> as <span class="math inline">\(n \to \infty\)</span> is the greatest point. By definition, this is called <em>infimum</em> or <em>the greatest lower bound</em>.</p>
-</div>
-<div id="limsup" class="section level2">
-<h2><span class="math inline">\(\lim\sup\)</span></h2>
-<p>Similarly,</p>
-<p>If <span class="math inline">\((b_n)\)</span> is bounded and decreasing, it has a limit called <span class="math inline">\(b\)</span>. We can define the so-called <span class="math inline">\(\lim\sup\)</span> of such a sequence as follows
-<span class="math display">\[
-\lim_n\sup(c_n) = \lim_{n \to \infty}\sup\{c_k: k \ge n\}.
-\]</span></p>
-<p>The following figure illustrates for <em>sup</em> or <em>supremum</em></p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
-<img src="T01S02-01_lim-inf-lim-sup_files/figure-html/unnamed-chunk-2-1.png" alt="example for $\lim\sup$" width="672" />
-<p class="caption">
-Figure 2: example for <span class="math inline">\(\lim\sup\)</span>
-</p>
-</div>
-<p>In this case, all black filled circles are greater than <span class="math inline">\(1\)</span>, the sequence goes to <span class="math inline">\(1\)</span> as <span class="math inline">\(n\)</span> approaches to <span class="math inline">\(\infty\)</span> (never reach <span class="math inline">\(1\)</span>). Thus, they are upper bounds of the collection of red filled circles. Also, a point corresponding <span class="math inline">\(n\)</span> as <span class="math inline">\(n \to \infty\)</span> is the least point of the upper bound set. This is called <em>supremum</em> or <em>the least upper bound</em>.</p>
-<p>If we combine both figures, we obtain</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
-<img src="T01S02-01_lim-inf-lim-sup_files/figure-html/unnamed-chunk-3-1.png" alt="example for $\lim\sup$" width="672" />
-<p class="caption">
-Figure 3: example for <span class="math inline">\(\lim\sup\)</span>
-</p>
-</div>
-<p>Two horizontal red lines represent for <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span>, and when <span class="math inline">\(n\)</span> goes to <span class="math inline">\(\infty\)</span> they approach to <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span>, respectively. If we extend the interval <span class="math inline">\([-1,1]\)</span> to a general interval <span class="math inline">\([a,b]\)</span>, then <span class="math inline">\([a_{n+1},b_{n+1}]\)</span> will be contained in <span class="math inline">\([a_n,b_n]\)</span> for all <span class="math inline">\(n\)</span>. We can say <span class="math inline">\(\lim_{n \to \infty}[a_n,b_n] = [-1,1]\)</span>. This is, as <span class="math inline">\(n \to \infty\)</span> it approaches to the shortest length interval of <span class="math inline">\([a_n,b_n]_{n=1}^{\infty}\)</span>.</p>
-<p>We can also express the above idea by intersection, ie., the intersection of all intervals <span class="math inline">\([a_n,b_n]_{n = 1,2,\dots}\)</span> is <span class="math inline">\([a,b] \equiv [-1,1]\)</span>. In other words, intersection can be utilized to express the “smallest” magnitude of length, area, volume, etc. This idea can be extended to <em>limits of sets</em>.</p>
-</div>
-</div>
-<div id="limsup-and-liminf-of-a-sequence-of-sets" class="section level1">
-<h1><span class="math inline">\(\lim\sup\)</span> and <span class="math inline">\(\lim\inf\)</span> of a sequence of sets</h1>
-<p>Let <span class="math inline">\(A_n \subset \Omega\)</span>, we define
-<span class="math display" id="eq:eq1">\[
-\inf_{k \ge n}A_k := \bigcap_{k=n}^{\infty}A_k; \quad \sup_{k \ge n}A_k := \bigcup_{k=n}^{\infty}A_k
-\tag{1}
-\]</span>
-thus,
-<span class="math display" id="eq:eq2">\[
-\begin{aligned}
-&amp;\lim_{n \to \infty}\inf A_n = \bigcup_{n=1}^{\infty}\bigcap_{k=n}^{\infty}A_k, \\
-&amp;\lim_{n \to \infty}\sup A_n = \bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}A_k
-\end{aligned}
-\tag{2}
-\]</span></p>
-<p>To get the intuition about <span class="math inline">\(\lim\sup\)</span> and <span class="math inline">\(\lim\inf\)</span> in term of union and intersection, let us consider <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> in details. We will consider the case of intersection, second case can be explained in the same way.</p>
-<p>Suppose <span class="math inline">\(n= 10\)</span>,</p>
-<p><span class="math display">\[
-\begin{aligned}
-&amp;B_1 = \bigcap_{i=1}^{10}A_i \\
-&amp;B_2 = \bigcap_{i=2}^{10}A_i \\
-&amp;\quad \dots \\
-&amp;B_9 = A_9 \cap A_{10} \\
-&amp;B_{10} = A_{10}
-\end{aligned}
-\]</span>
-hence we can conclude
-<span class="math display">\[
-B_1 \le B_2 \le \dots \le B_{10}
-\]</span>
-and hence <span class="math inline">\(B_n\)</span> is an increasing sequence, so it has a limit. What we need is to find a set that corresponds to greatest lower bound. It is NOT akin to the sequence of real numbers, The sequence of sets i.e., the magnitude of sets is determined by the intersection and union of all available sets. Thus, to find the greatest set, we can’t only compare among <span class="math inline">\(\{B_i\}_{i=1}^{10}\)</span>, but we also compare all intersections and unions among <span class="math inline">\(\{B_i\}_{i=1}^{10}\)</span>. To this end, the greatest set is
-<span class="math display">\[
-\bigcup_{i=1}^{10}B_i = \bigcup_{n=1}^{10}\bigcap_{i=n}^{10}A_i,
-\]</span>
-which has a general form in <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a>. The case of supremum can be explained with an analogous manner. To this end, we have</p>
-<p><span class="math display">\[
-\begin{aligned}
-&amp;B_1 = \bigcup_{i=1}^{10}A_i \\
-&amp;B_2 = \bigcup_{i=2}^{10}A_i \\
-&amp;\quad \dots \\
-&amp;B_9 = A_9 \cup A_{10} \\
-&amp;B_{10} = A_{10}
-\end{aligned}
-\]</span>
-and then
-<span class="math display">\[
-B_1 \ge B_2 \ge \dots \ge B_{10}
-\]</span></p>
-<p>hence <span class="math inline">\(B_n\)</span> is an decreasing sequence and it has a limit. With an analogous manner, we can obtain the smallest set that is
-<span class="math display">\[
-\bigcap_{i=1}^{10}B_i = \bigcap_{n=1}^{10}\bigcup_{i=n}^{10}A_i.
-\]</span>
-which is second equation in <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a>.</p>
+<div id="references" class="section level1 unnumbered shad">
+<h1><em>References</em></h1>
 </div>
 
 
