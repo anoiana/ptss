@@ -141,6 +141,25 @@ Both *unconfoundedness* and *individualistic* assignment plays an important role
 
 # `r ttt('randomized experiments')`
 
+Classical randomized experiment holds two properties that are *(i) individualistic* and *(ii) unconfounded*. Let us consider a the leading case of classical randomized experiment that is called *completely randomized experiment* in which the number of subjects assigned to active treatment is fixed, i.e. $N_t$, so $N_c = N - N_t$. In this case the assigment mechanism is 
+$$
+\P(\bf{W}|\bf{X},\bf{Y}(0),\bf{Y}(1)) = \cases{
+\frac{1}{N \choose N_t}, \quad \text{ if } \sum_{i=1}^NW_i = N_t \\
+0, \quad \text{otherwise.}
+}
+$$
+We see that assignment mechanism is independent of $\bf{X}, \bf{Y}(0)$ and $\bf{Y}(1)$, which hold two mentioned properties.
+
+Another case is *Bernoulli trials* where assigning each subject to active or control treatment by flipping a coin (the fairness is not required). Thus 
+$$
+\P(\bf{W}|\bf{X},\bf{Y}(0),\bf{Y}(1)) = q^{N_t}(1-q)^{N_c}.
+$$
+Hence, the probabilities of $\bf{W}$ depend solely on $N_t$ and $N_c$. 
+
+In practice, costs to prepare randomized experiments are expensive, using observational studies in analysis is another choice. However, the lack of randomization in observational data results in important properties are not hold, so the use of observational data in analysis requires prudence.   
+
+
+
 
 
 

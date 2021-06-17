@@ -38,8 +38,8 @@ navbar:
       # SEC II (S02) ----------------------------------------------------------------
       - text: "---"
       - text: "II. OBSERVATIONAL STUDIES"
-      - text: "Causal inference and propensity score"
-        href: "E01S02-01_causal-inference-and-propensity-score"
+#      - text: "Causal inference and propensity score"
+#        href: "E01S02-01_causal-inference-and-propensity-score"
 #============================TAB E02: english  (E02)===================================
     - text: 'Mixed Topics'
       icon: fa-bookmark
@@ -50,6 +50,8 @@ navbar:
         href: "E02-02_proof-of-maic.html"
       - text: "3. Construction of confidence intervals with 2x2 tables"
         href: "E02-03_ci-2x2-tables.html"
+      - text: "4. Generalized linear models"
+        href: "E02-04_generalized-linear-models.html"
 #=======================TAB V01: Theo chủ đề (V01)=====================================
     - text: "Theo Chủ Đề"
       icon: fa-bookmark

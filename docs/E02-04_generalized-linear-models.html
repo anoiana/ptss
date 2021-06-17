@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Causal Inference and Propensity Score</title>
+<title>✑ Generalized Linear Models</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -382,9 +382,6 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">II. OBSERVATIONAL STUDIES</li>
-    <li>
-      <a href="E01S02-01_causal-inference-and-propensity-score">Causal inference and propensity score</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -404,6 +401,9 @@ div.tocify {
     </li>
     <li>
       <a href="E02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
+    </li>
+    <li>
+      <a href="E02-04_generalized-linear-models.html">4. Generalized linear models</a>
     </li>
   </ul>
 </li>
@@ -482,121 +482,151 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">✑ Causal Inference and Propensity Score</h1>
-<h4 class="date">📅 2021-06-13</h4>
+<h1 class="title toc-ignore">✑ Generalized Linear Models</h1>
+<h4 class="date">📅 2021-06-17</h4>
 
 </div>
 
 
-<div class="right shad">
-<p><span class="citation">(refer to <a href="#ref-imb2015" role="doc-biblioref">Imbens and Rubin 2015</a>)</span></p>
-</div>
 <div class="watermark">
 <p><em>DRAFT</em></p>
 </div>
+<div class="right shad">
+<p><span class="citation">(refer to <a href="#ref-dem2013" role="doc-biblioref">Demidenko 2013</a>)</span></p>
+</div>
 <hr />
-<div id="notation" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Notation</h1>
-<p>A population of <span class="math inline">\(N\)</span> subjects indexed by <span class="math inline">\(i = 1,2,\dots,N\)</span>. Subject <span class="math inline">\(i\)</span> is characterized by <span class="math inline">\(K\)</span>-vector of covariates denoted by <span class="math inline">\(X_i\)</span>, this is, <span class="math inline">\(X_i \in \mathbb{R}^{K\times 1}\)</span> and <span class="math inline">\(\boldsymbol{X} \in \mathbb{R}^{N\times K}\)</span>.</p>
-<p>Also subject <span class="math inline">\(i\)</span> has a pair of potential outcomes <span class="math inline">\(Y_i(0)\)</span> and <span class="math inline">\(Y_i(1)\)</span> denoting the outcome values under treatment and control arm, respectively. <span class="math inline">\(W_i \in \{0,1\}\)</span> denotes treatment assignment of subject <span class="math inline">\(i\)</span> where <span class="math inline">\(W_i = 0\)</span> if subject <span class="math inline">\(i\)</span> is not treated and <span class="math inline">\(W_i=1\)</span> otherwise. Thus, <span class="math inline">\(N_c = \sum_{i=1}^N(1-W_i)\)</span> and <span class="math inline">\(N_t = \sum_{i=1}^NW_i\)</span> are the number of subject assigned to the control and active treatment respectively. Potential outcomes <span class="math inline">\(Y_i(W_i)\)</span> has two possibilities
+<div id="regression-models-for-binary-data" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Regression Models For Binary Data</h1>
+<p>Let us denote response variable as <span class="math inline">\(\{y_i \in \{0,1\}\}_{i=1,2,\dots,n}\)</span> and <span class="math inline">\(\{\boldsymbol{x}_i \in \mathbb{R}^{m\times 1}\}_{i=1,2,\dots,n}\)</span> be covariates of subject <span class="math inline">\(i\)</span>. Thus,
 <span class="math display" id="eq:eq11">\[
-Y^{obs}_i = Y_i(W_i) = \cases{Y_i(0), \quad \text{if } W_i=0 \\
-Y_i(1), \quad \text{if }W_i =1}
+p = \Bbb{P}(y_i = 1) = \mu({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_i), \quad i = 1,2,\dots,n,
 \tag{1.1}
 \]</span>
+where <span class="math inline">\(\boldsymbol{\beta} \in \mathbb{R}^{m\times 1}\)</span> is coefficients and <span class="math inline">\(\mu = \eta^{-1}\)</span> is the inverse link function, and hence <span class="math inline">\(\eta(\Bbb{P}(y_i=1)) = {\boldsymbol{\beta}}^{\top}\boldsymbol{x}_i\)</span>. Thus, <span class="math inline">\((y_i,\boldsymbol{x}_i)\)</span> is a realization of subject <span class="math inline">\(i\)</span>. To illuminate this scenario to statistics framework, we have
+<span class="math display">\[
+y_i \sim \mathcal{Bin}(1,\Bbb{P}(y_i=1)), \\
+\Rightarrow \Bbb{E}(y_i) = \mu({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_i), \text{ and} \quad
+\Bbb{V}(y_i) = \mu({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_i)[1-\mu({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_i)]
+\]</span></p>
+<p>Some options of <span class="math inline">\(\eta\)</span> comprise</p>
+<ul>
+<li><span class="math inline">\(\eta = logit(p) = \frac{p}{1-p}\)</span>, logistic regression.</li>
+<li><span class="math inline">\(\eta = \Phi^{-1}(p)\)</span>, probit regression.</li>
+<li><span class="math inline">\(\eta = \log[-\log(p)]\)</span>, log-log regression.</li>
+</ul>
+<p>In logistic model, an effect size used widely is <em>odd ratio</em> that is defined as follows
+<span class="math display">\[
+OR_1 = \frac{\Bbb{P}(y=1|x_i =1)}{\Bbb{P}(y=0,x_i=1)} = \exp(\beta_0 + \beta_1)
+\]</span>
 and
-<span class="math display" id="eq:eq12">\[
-Y^{mis}_i = Y_i(1-W_i) = \cases{
-Y_i(1), \quad \text{if } W_i = 0 \\
-Y_i(0), \quad \text{if } W_i = 1
-}
-\tag{1.2}
-\]</span>
-Thus, we can see that causal inference problem is fundamentally a missing data problem.</p>
-</div>
-<div id="assignment-probabilities" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Assignment Probabilities</h1>
-<p>There are <span class="math inline">\(N\)</span> subjects, each subject can be assign to active treatment or control group, so <span class="math inline">\(\boldsymbol{W}\)</span> has <span class="math inline">\(2^N\)</span> possibilities.</p>
-<div class="definition">
-<p><span id="def:def21" class="definition"><strong>Definition 2.1  (Assignment Mechanism) </strong></span>is probability that <span class="math inline">\(N\)</span> subjects are assigned to <span class="math inline">\(\boldsymbol{W}\)</span> given potential outcome <span class="math inline">\(\boldsymbol{Y}(0)\)</span>, <span class="math inline">\(\boldsymbol{Y}(1)\)</span> and covariates <span class="math inline">\(\boldsymbol{X}\)</span>, denoted by <span class="math inline">\(\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1))\)</span> that is satisfying
 <span class="math display">\[
-\sum_{\boldsymbol{W} \in \{0,1\}^N}\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) =1, \quad \forall \boldsymbol{X}, \boldsymbol{Y}(0) \text{ and } \boldsymbol{Y}(1).
-\]</span></p>
-</div>
-<p>Note that <span class="math inline">\(\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1))\)</span> is probability of all <span class="math inline">\(N\)</span> subjects rather than probability of a specific subject.</p>
-<div class="definition">
-<p><span id="def:def22" class="definition"><strong>Definition 2.2  (Unit assignment probability) </strong></span>The unit-level assignment probability for unit <span class="math inline">\(i\)</span> is
-<span class="math display">\[
-\Bbb{P}_i(\boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1)) = \sum_{\boldsymbol{W}:W_i =1}\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1))
-\]</span></p>
-</div>
-<p>Another function of interest is average of unit-level assignment probability for sub-population with a common value of covariates i.e. <span class="math inline">\(X_i = x\)</span>. This function is called <em>propensity score</em> at <span class="math inline">\(x\)</span>. Thus</p>
-<div class="definition">
-<p><span id="def:def23" class="definition"><strong>Definition 2.3  (Propensity Score (PS)) </strong></span>The PS at <span class="math inline">\(x\)</span> is
-<span class="math display">\[
-e(x) = \frac{1}{N(x)}\sum_{i:X_i=x}\Bbb{P}_i(\boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1)),
-\]</span>
-where <span class="math inline">\(N(x) = \sum_{i=1}^N{\large\unicode{x1D7D9}}(X_i =x)\)</span></p>
-</div>
-</div>
-<div id="assignment-restrictions" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Assignment Restrictions</h1>
-<p>We shall deem 3 general properties that restrict dependence of the unit-level assignment probabilities on covariates and potential outcomes. The first property is called <em>individualistic assignment</em> that restrict dependence of treatment assignment for subject <span class="math inline">\(i\)</span> on the outcomes and assignments for other subjects.</p>
-<div class="definition">
-<p><span id="def:def31" class="definition"><strong>Definition 3.1  (Individualistic Assignment) </strong></span>The joint probability of covariates <span class="math inline">\(\boldsymbol{X}\)</span> and potential outcomes <span class="math inline">\(\boldsymbol{Y}(0)\)</span> &amp; <span class="math inline">\(\boldsymbol{Y}(1)\)</span> of subject <span class="math inline">\(i\)</span> is only dependent of covariates and potential outcome of that subject, so
-<span class="math display">\[
-\Bbb{P}_i(\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) = q(X_i,Y_i(0),Y_i(1)), \quad \forall i = 1,\dots,N.
+OR_0 = \frac{\Bbb{P}(y=1|x_i =0)}{\Bbb{P}(y=0,x_i=0)} = \exp(\beta_0)
 \]</span>
 and hence
 <span class="math display">\[
-\Bbb{P}(\boldsymbol{W}|\boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1)) = c\prod_{i=1}^Nq(X_i,Y_i(0),Y_i(1))^{W_i}[1 -q(X_i,Y_i(0),Y_i(1))]^{1-W_i}
+\ln(OR_1) - \ln(OR_0) = \beta_1
 \]</span>
-Then, <span class="math inline">\(\Bbb{P}(\boldsymbol{W}|\boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1))\)</span> is individualistic.</p>
+is relative effect between two groups categorized by binary variable <span class="math inline">\(x_i\)</span>, note that <span class="math inline">\(\boldsymbol{x}_i \in \mathbb{R}^{1\times 1}\)</span>. For more information of probit and log-log link, see <span class="citation"><a href="#ref-dem2013" role="doc-biblioref">Demidenko</a> (<a href="#ref-dem2013" role="doc-biblioref">2013</a>)</span>.</p>
+<div id="connection-of-logit-and-probit" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Connection of Logit and Probit</h2>
 </div>
-<p>Given individualistic assignment the equation in <span style="color: #C46ADD; font-size: 18px;"><em>Def.</em></span> <a href="#def:def23">2.3</a> can by rewritten as follows
-<span class="math display">\[
-e(x) = \frac{1}{N_x}\sum_{i:X_i=x}q(X_i,Y_i(0),Y_i(1)).
+<div id="logistic-normal-integral" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Logistic-Normal Integral</h2>
+<p><em>logistic-normal integral</em> plays an important role in logistic model with normally distributed covariate measurement error. The logistic-normal integral is improper
+<span class="math display" id="eq:eq12">\[
+I = I(s,\sigma^2) = \frac{1}{\sigma\sqrt{2\pi}}\int_{-\infty}^{\infty}\frac{e^x}{1+e^x}\exp\Big[-\frac{1}{2\sigma^2}(x-s)^2\Big]dx.
+\tag{1.2}
 \]</span></p>
-<div class="definition">
-<p><span id="def:def32" class="definition"><strong>Definition 3.2  (Probability Assignment) </strong></span>An assignment mechanism <span class="math inline">\(\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1))\)</span> is strictly between 0 and 1:
+<p>After standardize variable we obtain
+<span class="math display" id="eq:eq13">\[
+I = \frac{1}{\sigma\sqrt{2\pi}}\int_{-\infty}^{\infty}\frac{e^{s+\sigma x}}{1+ e^{s+\sigma x}}e^{-\frac{1}{2}x^2}dx.
+\tag{1.3}
+\]</span>
+<span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq13">(1.3)</a> can be considered as
 <span class="math display">\[
-0 &lt; \Bbb{P}_i(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) &lt; 1, \quad \forall i=1,\dots,N.
+I = \Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{e^{s+\sigma u}}{1+ e^{s+\sigma u}}
+\]</span>
+<span class="math inline">\(I\)</span> can be approximated by
+<span class="math display" id="eq:eq14">\[
+\Bbb{E}_{u \sim \mathcal{N}(0,\sigma^2)}\Phi(s+u) = \Phi\bigg(\frac{s}{\sqrt{1+\sigma^2}}\bigg),
+\tag{1.4}
+\]</span>
+the proof of <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(1.4)</a> can be found on page 339, <span class="citation"><a href="#ref-dem2013" role="doc-biblioref">Demidenko</a> (<a href="#ref-dem2013" role="doc-biblioref">2013</a>)</span>.</p>
+<p>Another approximation of logistic-normal integral is to approximate the link function first and then apply the back transformation, we call the approximation of the link function is <em>link-approximation</em>. We knew logistic link function is
+<span class="math display">\[
+\ln\bigg[\frac{\mu_L}{1-\mu_L}\bigg], \text{ where} \quad \mu_L(s) = \frac{e^s}{1+e^s},
+\]</span>
+We introduce a function of <span class="math inline">\(\sigma\)</span>,
+<span class="math display" id="eq:eq15">\[
+\begin{align}
+R(\sigma) &amp;= \ln\bigg[\frac{\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]}}{\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{1}{1+\exp[s+\sigma u]}} \bigg] \\
+&amp;= \ln\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]} - \ln\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{1}{1+\exp[s+\sigma u]},
+\end{align}
+\tag{1.5}
+\]</span>
+and <span class="math inline">\(R(0) = s\)</span>
+If taking derivative of <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq15">(1.5)</a>, we obtain
+<span class="math display" id="eq:eq16">\[
+\frac{dR(\sigma)}{d\sigma} = \bigg[\bigg(E_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]}\bigg)^{-1}+ \bigg(\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{1}{1+\exp[s+\sigma u]}\bigg)^{-1}\bigg]\Bbb{E}_{u \sim \mathcal{N}(0,1)}\bigg[\frac{\exp(s+\sigma u)}{(1+\exp[s+\sigma u])^2}u\bigg].
+\tag{1.6}
 \]</span></p>
-</div>
-<p>and the third property is</p>
-<div class="definition">
-<p><span id="def:def33" class="definition"><strong>Definition 3.3  (Unconfounded Assignment) </strong></span>An assignment mechanism is unconfounded if
-<span class="math display">\[
-\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) = \Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}^*(0),\boldsymbol{Y}^*(1))
+<p>Since <span class="math inline">\(u \sim \mathcal{N}(0,1)\)</span>, <span class="math inline">\(\Bbb{E}(u) = 0\)</span>. Hence, <span class="math inline">\(\frac{d^2R(\sigma)}{d\sigma^2}\bigg|_{\sigma=0} = 0\)</span>. We also find second derivative at <span class="math inline">\(\sigma=0\)</span>,
+<span class="math display" id="eq:eq17">\[
+\begin{align}
+\frac{d^2}{d\sigma^2}R(\sigma)\bigg|_{\sigma = 0} &amp;= \bigg[\frac{1+e^s}{e^s}+1+e^s\bigg]\Bbb{E}_u\bigg[\frac{e^s(1-e^2)}{(1+e^2)^3}u^2\bigg] \\
+&amp;= \bigg[\frac{1+e^s}{e^s}+1+e^s\bigg]\frac{e^s(1-e^s)}{(1+e^s)^3} \\
+&amp;= \frac{1-e^s}{1+e^s},
+\end{align}
+\tag{1.7}
 \]</span>
-<span class="math inline">\(\forall \boldsymbol{W}, \boldsymbol{X}, \boldsymbol{Y}(0), \boldsymbol{Y}(1), \boldsymbol{Y}^*(0) \text{ and } \boldsymbol{Y}^*(1)\)</span>. In other words, assignment mechanism is independent of potential outcomes.</p>
+since <span class="math inline">\(\Bbb{E}(u^2) = 1\)</span>.</p>
+<div class="blackbox brainstorm">
+<div class="center">
+<p>proof of <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq17">(1.7)</a>:</p>
 </div>
-<p>Both <em>unconfoundedness</em> and <em>individualistic</em> assignment plays an important role.</p>
+<p>Let <span class="math inline">\(dR(\sigma)/d\sigma = (k_1^{-1}+k_2^{-1})k_3\)</span> with <span class="math inline">\(k_1, k_2\)</span> and <span class="math inline">\(k_3\)</span> are relative to each term in <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq16">(1.6)</a>. Hence, <span class="math inline">\(d^2R(\sigma)/d\sigma^2 = (k_1^{-1}+k_2^{-1})&#39;k_3 + (k_1^{-1}+k_2^{-1})k&#39;_3\)</span>.</p>
+<p>We have <span class="math inline">\((1/v)&#39; = -\ln(v)&#39;/v\)</span>. Let <span class="math inline">\(v = \Bbb{E}_u\frac{e^{s+\sigma u}}{1+ e^{s+\sigma u}}\)</span>, and then
+<span class="math display">\[
+\bigg[\bigg(E_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]}\bigg)^{-1}\bigg]&#39; = \frac{\Bbb{E}_{u \sim \mathcal{N}(0,1)}\bigg[\frac{\exp(s+\sigma u)}{(1+\exp[s+\sigma u])^2}u\bigg]}{\bigg(\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]}\bigg)^2}\bigg|_{\sigma=0} = 0
+\]</span>
+Similarly, if <span class="math inline">\(v = \Bbb{E}_u\frac{1}{1+ e^{s+\sigma u}}\)</span>, we also have
+<span class="math display">\[
+\bigg[\bigg(E_{u \sim \mathcal{N}(0,1)}\frac{1}{1+\exp[s+\sigma u]}\bigg)^{-1}\bigg]&#39; = \frac{\Bbb{E}_{u \sim \mathcal{N}(0,1)}\bigg[\frac{\exp(s+\sigma u)}{(1+\exp[s+\sigma u])^2}u\bigg]}{\bigg(\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{1}{1+\exp[s+\sigma u]}\bigg)^2}\bigg|_{\sigma=0} = 0.
+\]</span></p>
+<p>Thus, <span class="math inline">\((k_1^{-1}+k_2^{-1})&#39;k_3 = 0\)</span>, and <span class="math inline">\(d^2R(\sigma)/d\sigma^2 = (k_1^{-1}+k_2^{-1})k&#39;_3\)</span>. We see that
+<span class="math display" id="eq:eq18">\[
+k_3&#39; = \Bbb{E}_{u \sim \mathcal{N}(0,1)}\bigg[\frac{e^s(1-e^s)}{(1+e^s)^3}u^2\bigg] = \frac{e^s(1-e^s)}{(1+e^s)^3}
+\tag{1.8}
+\]</span>
+since <span class="math inline">\(\Bbb{E}(u^2) = 0\)</span>. and
+<span class="math display" id="eq:eq19">\[
+k_1^{-1}+k_2^{-1}\bigg|_{\sigma=0} = \frac{1+e^s}{e^s}+1+e^s.
+\tag{1.9}
+\]</span>
+From <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq18">(1.8)</a> and <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq19">(1.9)</a> we obtain <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq17">(1.7)</a>. <span class="math inline">\(\quad \blacksquare\)</span></p>
 </div>
-<div id="randomized-experiments" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Randomized Experiments</h1>
-<p>Classical randomized experiment holds two properties that are <em>(i) individualistic</em> and <em>(ii) unconfounded</em>. Let us consider a the leading case of classical randomized experiment that is called <em>completely randomized experiment</em> in which the number of subjects assigned to active treatment is fixed, i.e. <span class="math inline">\(N_t\)</span>, so <span class="math inline">\(N_c = N - N_t\)</span>. In this case the assigment mechanism is
+<p>Also, we have
 <span class="math display">\[
-\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) = \cases{
-\frac{1}{N \choose N_t}, \quad \text{ if } \sum_{i=1}^NW_i = N_t \\
-0, \quad \text{otherwise.}
-}
+\frac{dR(\sigma)}{d\sigma} = \frac{dR(\sigma)}{d(\sigma^2)}\frac{d(\sigma^2)}{d\sigma} = \frac{dR(\sigma)}{d(\sigma^2)}(2\sigma),
 \]</span>
-We see that assignment mechanism is independent of <span class="math inline">\(\boldsymbol{X}, \boldsymbol{Y}(0)\)</span> and <span class="math inline">\(\boldsymbol{Y}(1)\)</span>, which hold two mentioned properties.</p>
-<p>Another case is <em>Bernoulli trials</em> where assigning each subject to active or control treatment by flipping a coin (the fairness is not required). Thus
+so
 <span class="math display">\[
-\Bbb{P}(\boldsymbol{W}|\boldsymbol{X},\boldsymbol{Y}(0),\boldsymbol{Y}(1)) = q^{N_t}(1-q)^{N_c}.
+\frac{d^2R(\sigma)}{d\sigma^2} = 2(\sigma^2)^{1/2}\frac{d}{d\sigma}\frac{dR(\sigma)}{d(\sigma^2)} + 2\frac{dR(\sigma)}{d(\sigma^2)}
 \]</span>
-Hence, the probabilities of <span class="math inline">\(\boldsymbol{W}\)</span> depend solely on <span class="math inline">\(N_t\)</span> and <span class="math inline">\(N_c\)</span>.</p>
-<p>In practice, costs to prepare randomized experiments are expensive, using observational studies in analysis is another choice. However, the lack of randomization in observational data results in important properties are not hold, so the use of observational data in analysis requires prudence.</p>
+as <span class="math inline">\(\sigma^2 =0 \Rightarrow \sigma = 0\)</span>, we see the first term on right-hand side equals zero no matter what <span class="math inline">\(\frac{d}{d\sigma}\frac{dR(\sigma)}{d(\sigma^2)}\)</span> is, and hence
+<span class="math display" id="eq:eq110">\[
+\frac{dR(\sigma)}{d(\sigma^2)}\bigg|_{\sigma^2=0} = \frac{\frac{d^2R(\sigma)}{d\sigma^2}\bigg|_{\sigma=0}}{2} = \frac{1}{2}\frac{1-e^s}{1+e^s}
+\tag{1.10}
+\]</span></p>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
+</div>
 <div id="references" class="section level1 unnumbered shad">
-<h1>References</h1>
+<h1><em>References</em></h1>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-imb2015" class="csl-entry">
-Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in Statistics, Social, and Biomedical Sciences</em>. Cambridge University Press.
+<div id="ref-dem2013" class="csl-entry">
+Demidenko, Eugene. 2013. <em>Mixed Models: Theory and Applications with r</em>. John Wiley &amp; Sons.
 </div>
 </div>
 
