@@ -24,7 +24,7 @@ lb = function(...){
                        def1[1] == "tab"~"Table"
   )%>% paste0("*",.,"*")
 
- paste0(colorize(a, color = "#C46ADD")," \\@ref(",def1[1],":",def1[2],")")%>%
+ paste0(colorize(a, color = "#A569BD")," \\@ref(",def1[1],":",def1[2],")")%>%
   str_remove_all('`')
 }
 

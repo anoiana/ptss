@@ -75,9 +75,57 @@ $$
 is  relative effect between two groups categorized by binary variable $x_i$, note that $\bf{x}_i \in \mathbb{R}^{1\times 1}$. For more information of probit and log-log link, see @dem2013.
 
 ## `r ttt('connection of logit and probit')`
+<!-- add-on section, different style of label -->
 
+In this section, we deem relationship between logistic and probit link function, which is essential in next section in which we shall learn how to approximate logistic by probit link.  Let 
+$$
+\mu_L(s) = \frac{e^s}{1+e^s},
+$$
+hence we have 
+$$
+\mu_L(s) \approx \Phi\Big(\frac{s}{c}\Big),
+(\#eq:eq11a)
+$$
+the next aim is to determine value of $c$ such that `r lb(eq11a)` is true. As $s=0$ `r lb(eq11a)` is always true. Also, derivative of $\mu_L(s)$ equal $1/4$ as $s=0$ and derivative of $\Phi(s/c) = (1/c)(1/\sqrt{2\pi})$. To equate both derivatives, $c = \sqrt{8/\pi}$. To understand the logic we consider `r lb(eq11a)` with $c$ is chosen arbitrarily. 
 
+```{r fig11, fig.cap="logistic and probit functions with different values of $c$.", fig.align='center'}
+s = seq(-5,5,length.out = 100)
+mu = function(s) exp(s)/(1+exp(s))
+phi = function(s,v) pnorm(s/v)
+v = c(0.5,2,3,4)
+par(mfrow = c(2,2))
+for(i in v){
+plot(s,mu(s), type = "l", xlab = "", ylab = "")
+points(s, phi(s,v = i), type = "l", col = "red")
+legend("topleft", legend = c(expression(mu(s)), expression(Phi(s/c))),
+       col = c("black","red"),
+       lty = 1
+       )
+text(2,0.1, paste("c = ",i))
+}
+```
 
+`r lb(fig11)` depicts function of $\mu(s)$ and $\Phi(s/c)$, both functions are equal as $s = 0$, if we can adjust $\Phi(s/c)$ such that its two critical points approximate to that of $\mu(s)$, then $\mu(s)$ can be approximated by $\Phi(s)$. To this end, we will adjust $c$ such that $\mu'(s) = \Phi'(s/c)$. 
+
+Another approximation can be sought by minimax method, i.e. we maximize the difference of both functions $\mu(s)$ and $\Phi(s/c)$ w.r.t $s$ and minimize it w.r.t $c$, this can be solved numerically. Then we obtain $c = 16\sqrt{3}/15\pi$. 
+
+Also, we can approximate $\mu(s)$ by 2 probit links as follows
+$$
+\mu_L(s) \approx p\Phi(s/c_1) + (1-p)\Phi(s/c_2)
+(\#eq:eq12a)
+$$
+and the objective function w.r.t `r lb(eq12a)` is
+$$
+\int^{\infty}_{-\infty}\bigg[\mu_L(s) - p\Phi(s/c_1) - (1-p)\Phi(s/c_2)\bigg]^2ds.
+$$
+Thus `r lb(eq12a)` is equivalent to 
+
+::: {.rectangle style="border: thin solid black; padding-left: 10px;"}
+$$
+\mu_L(s) \approx 0.4353\Phi(s/2.2967) + 0.5647\Phi(s/1.3017).
+(\#eq:eq13a)
+$$
+:::
 
 ## `r ttt('logistic-normal integral')`
 
@@ -102,6 +150,16 @@ $$
 (\#eq:eq14)
 $$
 the proof of `r lb(eq14)` can be found on page 339, @dem2013. 
+
+From `r lb(eq12a)` we can approximate $I$
+$$
+I \approx \E_{u \sim \mathcal{N}(0,1)}\Phi\bigg(\frac{s+\sigma u}{c}\bigg) = \E_{k \sim \mathcal{N}(0,\sigma^2/c^2)}\Phi(c^{-1}s + k),
+$$
+where $k = \sigma u/c$. Thus, 
+$$
+I \approx \Phi\Big(\frac{c^{-1}s}{\sqrt{1+ \sigma^2/c^2}}\Big) = \Phi\Big(\frac{s}{\sqrt{c^2+\sigma^2}}\Big) = \Phi\Big(\frac{s}{\sqrt{1.7^2+\sigma^2}}\Big)
+$$
+We chose $c = 1.7 \approx \sqrt{8/\pi}$ since if $\sigma^2 = 0$, $I = e^s/(1+e^s) \approx \Phi(s/c)|_{c=1.7}$.
 
 Another approximation of logistic-normal integral is to approximate the link function first and then apply the back transformation, we call the approximation of the link function is *link-approximation*. We knew logistic link function is 
 $$

@@ -529,29 +529,73 @@ and hence
 is relative effect between two groups categorized by binary variable <span class="math inline">\(x_i\)</span>, note that <span class="math inline">\(\boldsymbol{x}_i \in \mathbb{R}^{1\times 1}\)</span>. For more information of probit and log-log link, see <span class="citation"><a href="#ref-dem2013" role="doc-biblioref">Demidenko</a> (<a href="#ref-dem2013" role="doc-biblioref">2013</a>)</span>.</p>
 <div id="connection-of-logit-and-probit" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Connection of Logit and Probit</h2>
+<!-- add-on section, different style of label -->
+<p>In this section, we deem relationship between logistic and probit link function, which is essential in next section in which we shall learn how to approximate logistic by probit link. Let
+<span class="math display">\[
+\mu_L(s) = \frac{e^s}{1+e^s},
+\]</span>
+hence we have
+<span class="math display" id="eq:eq11a">\[
+\mu_L(s) \approx \Phi\Big(\frac{s}{c}\Big),
+\tag{1.2}
+\]</span>
+the next aim is to determine value of <span class="math inline">\(c\)</span> such that <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq11a">(1.2)</a> is true. As <span class="math inline">\(s=0\)</span> <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq11a">(1.2)</a> is always true. Also, derivative of <span class="math inline">\(\mu_L(s)\)</span> equal <span class="math inline">\(1/4\)</span> as <span class="math inline">\(s=0\)</span> and derivative of <span class="math inline">\(\Phi(s/c) = (1/c)(1/\sqrt{2\pi})\)</span>. To equate both derivatives, <span class="math inline">\(c = \sqrt{8/\pi}\)</span>. To understand the logic we consider <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq11a">(1.2)</a> with <span class="math inline">\(c\)</span> is chosen arbitrarily.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig11"></span>
+<img src="E02-04_generalized-linear-models_files/figure-html/fig11-1.png" alt="logistic and probit functions with different values of $c$." width="672" />
+<p class="caption">
+Figure 1.1: logistic and probit functions with different values of <span class="math inline">\(c\)</span>.
+</p>
+</div>
+<p><span style="color: #A569BD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig11">1.1</a> depicts function of <span class="math inline">\(\mu(s)\)</span> and <span class="math inline">\(\Phi(s/c)\)</span>, both functions are equal as <span class="math inline">\(s = 0\)</span>, if we can adjust <span class="math inline">\(\Phi(s/c)\)</span> such that its two critical points approximate to that of <span class="math inline">\(\mu(s)\)</span>, then <span class="math inline">\(\mu(s)\)</span> can be approximated by <span class="math inline">\(\Phi(s)\)</span>. To this end, we will adjust <span class="math inline">\(c\)</span> such that <span class="math inline">\(\mu&#39;(s) = \Phi&#39;(s/c)\)</span>.</p>
+<p>Another approximation can be sought by minimax method, i.e. we maximize the difference of both functions <span class="math inline">\(\mu(s)\)</span> and <span class="math inline">\(\Phi(s/c)\)</span> w.r.t <span class="math inline">\(s\)</span> and minimize it w.r.t <span class="math inline">\(c\)</span>, this can be solved numerically. Then we obtain <span class="math inline">\(c = 16\sqrt{3}/15\pi\)</span>.</p>
+<p>Also, we can approximate <span class="math inline">\(\mu(s)\)</span> by 2 probit links as follows
+<span class="math display" id="eq:eq12a">\[
+\mu_L(s) \approx p\Phi(s/c_1) + (1-p)\Phi(s/c_2)
+\tag{1.3}
+\]</span>
+and the objective function w.r.t <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq12a">(1.3)</a> is
+<span class="math display">\[
+\int^{\infty}_{-\infty}\bigg[\mu_L(s) - p\Phi(s/c_1) - (1-p)\Phi(s/c_2)\bigg]^2ds.
+\]</span>
+Thus <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq12a">(1.3)</a> is equivalent to</p>
+<div class="rectangle" style="border: thin solid black; padding-left: 10px;">
+<p><span class="math display" id="eq:eq13a">\[
+\mu_L(s) \approx 0.4353\Phi(s/2.2967) + 0.5647\Phi(s/1.3017).
+\tag{1.4}
+\]</span></p>
+</div>
 </div>
 <div id="logistic-normal-integral" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Logistic-Normal Integral</h2>
 <p><em>logistic-normal integral</em> plays an important role in logistic model with normally distributed covariate measurement error. The logistic-normal integral is improper
 <span class="math display" id="eq:eq12">\[
 I = I(s,\sigma^2) = \frac{1}{\sigma\sqrt{2\pi}}\int_{-\infty}^{\infty}\frac{e^x}{1+e^x}\exp\Big[-\frac{1}{2\sigma^2}(x-s)^2\Big]dx.
-\tag{1.2}
+\tag{1.5}
 \]</span></p>
 <p>After standardize variable we obtain
 <span class="math display" id="eq:eq13">\[
 I = \frac{1}{\sigma\sqrt{2\pi}}\int_{-\infty}^{\infty}\frac{e^{s+\sigma x}}{1+ e^{s+\sigma x}}e^{-\frac{1}{2}x^2}dx.
-\tag{1.3}
+\tag{1.6}
 \]</span>
-<span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq13">(1.3)</a> can be considered as
+<span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq13">(1.6)</a> can be considered as
 <span class="math display">\[
 I = \Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{e^{s+\sigma u}}{1+ e^{s+\sigma u}}
 \]</span>
 <span class="math inline">\(I\)</span> can be approximated by
 <span class="math display" id="eq:eq14">\[
 \Bbb{E}_{u \sim \mathcal{N}(0,\sigma^2)}\Phi(s+u) = \Phi\bigg(\frac{s}{\sqrt{1+\sigma^2}}\bigg),
-\tag{1.4}
+\tag{1.7}
 \]</span>
-the proof of <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(1.4)</a> can be found on page 339, <span class="citation"><a href="#ref-dem2013" role="doc-biblioref">Demidenko</a> (<a href="#ref-dem2013" role="doc-biblioref">2013</a>)</span>.</p>
+the proof of <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(1.7)</a> can be found on page 339, <span class="citation"><a href="#ref-dem2013" role="doc-biblioref">Demidenko</a> (<a href="#ref-dem2013" role="doc-biblioref">2013</a>)</span>.</p>
+<p>From <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq12a">(1.3)</a> we can approximate <span class="math inline">\(I\)</span>
+<span class="math display">\[
+I \approx \Bbb{E}_{u \sim \mathcal{N}(0,1)}\Phi\bigg(\frac{s+\sigma u}{c}\bigg) = \Bbb{E}_{k \sim \mathcal{N}(0,\sigma^2/c^2)}\Phi(c^{-1}s + k),
+\]</span>
+where <span class="math inline">\(k = \sigma u/c\)</span>. Thus,
+<span class="math display">\[
+I \approx \Phi\Big(\frac{c^{-1}s}{\sqrt{1+ \sigma^2/c^2}}\Big) = \Phi\Big(\frac{s}{\sqrt{c^2+\sigma^2}}\Big) = \Phi\Big(\frac{s}{\sqrt{1.7^2+\sigma^2}}\Big)
+\]</span>
+We chose <span class="math inline">\(c = 1.7 \approx \sqrt{8/\pi}\)</span> since if <span class="math inline">\(\sigma^2 = 0\)</span>, <span class="math inline">\(I = e^s/(1+e^s) \approx \Phi(s/c)|_{c=1.7}\)</span>.</p>
 <p>Another approximation of logistic-normal integral is to approximate the link function first and then apply the back transformation, we call the approximation of the link function is <em>link-approximation</em>. We knew logistic link function is
 <span class="math display">\[
 \ln\bigg[\frac{\mu_L}{1-\mu_L}\bigg], \text{ where} \quad \mu_L(s) = \frac{e^s}{1+e^s},
@@ -562,13 +606,13 @@ We introduce a function of <span class="math inline">\(\sigma\)</span>,
 R(\sigma) &amp;= \ln\bigg[\frac{\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]}}{\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{1}{1+\exp[s+\sigma u]}} \bigg] \\
 &amp;= \ln\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]} - \ln\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{1}{1+\exp[s+\sigma u]},
 \end{align}
-\tag{1.5}
+\tag{1.8}
 \]</span>
 and <span class="math inline">\(R(0) = s\)</span>
-If taking derivative of <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq15">(1.5)</a>, we obtain
+If taking derivative of <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq15">(1.8)</a>, we obtain
 <span class="math display" id="eq:eq16">\[
 \frac{dR(\sigma)}{d\sigma} = \bigg[\bigg(E_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]}\bigg)^{-1}+ \bigg(\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{1}{1+\exp[s+\sigma u]}\bigg)^{-1}\bigg]\Bbb{E}_{u \sim \mathcal{N}(0,1)}\bigg[\frac{\exp(s+\sigma u)}{(1+\exp[s+\sigma u])^2}u\bigg].
-\tag{1.6}
+\tag{1.9}
 \]</span></p>
 <p>Since <span class="math inline">\(u \sim \mathcal{N}(0,1)\)</span>, <span class="math inline">\(\Bbb{E}(u) = 0\)</span>. Hence, <span class="math inline">\(\frac{d^2R(\sigma)}{d\sigma^2}\bigg|_{\sigma=0} = 0\)</span>. We also find second derivative at <span class="math inline">\(\sigma=0\)</span>,
 <span class="math display" id="eq:eq17">\[
@@ -577,14 +621,14 @@ If taking derivative of <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</
 &amp;= \bigg[\frac{1+e^s}{e^s}+1+e^s\bigg]\frac{e^s(1-e^s)}{(1+e^s)^3} \\
 &amp;= \frac{1-e^s}{1+e^s},
 \end{align}
-\tag{1.7}
+\tag{1.10}
 \]</span>
 since <span class="math inline">\(\Bbb{E}(u^2) = 1\)</span>.</p>
 <div class="blackbox brainstorm">
 <div class="center">
-<p>proof of <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq17">(1.7)</a>:</p>
+<p>proof of <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq17">(1.10)</a>:</p>
 </div>
-<p>Let <span class="math inline">\(dR(\sigma)/d\sigma = (k_1^{-1}+k_2^{-1})k_3\)</span> with <span class="math inline">\(k_1, k_2\)</span> and <span class="math inline">\(k_3\)</span> are relative to each term in <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq16">(1.6)</a>. Hence, <span class="math inline">\(d^2R(\sigma)/d\sigma^2 = (k_1^{-1}+k_2^{-1})&#39;k_3 + (k_1^{-1}+k_2^{-1})k&#39;_3\)</span>.</p>
+<p>Let <span class="math inline">\(dR(\sigma)/d\sigma = (k_1^{-1}+k_2^{-1})k_3\)</span> with <span class="math inline">\(k_1, k_2\)</span> and <span class="math inline">\(k_3\)</span> are relative to each term in <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq16">(1.9)</a>. Hence, <span class="math inline">\(d^2R(\sigma)/d\sigma^2 = (k_1^{-1}+k_2^{-1})&#39;k_3 + (k_1^{-1}+k_2^{-1})k&#39;_3\)</span>.</p>
 <p>We have <span class="math inline">\((1/v)&#39; = -\ln(v)&#39;/v\)</span>. Let <span class="math inline">\(v = \Bbb{E}_u\frac{e^{s+\sigma u}}{1+ e^{s+\sigma u}}\)</span>, and then
 <span class="math display">\[
 \bigg[\bigg(E_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]}\bigg)^{-1}\bigg]&#39; = \frac{\Bbb{E}_{u \sim \mathcal{N}(0,1)}\bigg[\frac{\exp(s+\sigma u)}{(1+\exp[s+\sigma u])^2}u\bigg]}{\bigg(\Bbb{E}_{u \sim \mathcal{N}(0,1)}\frac{\exp[s+\sigma u]}{1+\exp[s+\sigma u]}\bigg)^2}\bigg|_{\sigma=0} = 0
@@ -596,14 +640,14 @@ Similarly, if <span class="math inline">\(v = \Bbb{E}_u\frac{1}{1+ e^{s+\sigma u
 <p>Thus, <span class="math inline">\((k_1^{-1}+k_2^{-1})&#39;k_3 = 0\)</span>, and <span class="math inline">\(d^2R(\sigma)/d\sigma^2 = (k_1^{-1}+k_2^{-1})k&#39;_3\)</span>. We see that
 <span class="math display" id="eq:eq18">\[
 k_3&#39; = \Bbb{E}_{u \sim \mathcal{N}(0,1)}\bigg[\frac{e^s(1-e^s)}{(1+e^s)^3}u^2\bigg] = \frac{e^s(1-e^s)}{(1+e^s)^3}
-\tag{1.8}
+\tag{1.11}
 \]</span>
 since <span class="math inline">\(\Bbb{E}(u^2) = 0\)</span>. and
 <span class="math display" id="eq:eq19">\[
 k_1^{-1}+k_2^{-1}\bigg|_{\sigma=0} = \frac{1+e^s}{e^s}+1+e^s.
-\tag{1.9}
+\tag{1.12}
 \]</span>
-From <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq18">(1.8)</a> and <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq19">(1.9)</a> we obtain <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq17">(1.7)</a>. <span class="math inline">\(\quad \blacksquare\)</span></p>
+From <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq18">(1.11)</a> and <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq19">(1.12)</a> we obtain <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq17">(1.10)</a>. <span class="math inline">\(\quad \blacksquare\)</span></p>
 </div>
 <p>Also, we have
 <span class="math display">\[
@@ -616,7 +660,7 @@ so
 as <span class="math inline">\(\sigma^2 =0 \Rightarrow \sigma = 0\)</span>, we see the first term on right-hand side equals zero no matter what <span class="math inline">\(\frac{d}{d\sigma}\frac{dR(\sigma)}{d(\sigma^2)}\)</span> is, and hence
 <span class="math display" id="eq:eq110">\[
 \frac{dR(\sigma)}{d(\sigma^2)}\bigg|_{\sigma^2=0} = \frac{\frac{d^2R(\sigma)}{d\sigma^2}\bigg|_{\sigma=0}}{2} = \frac{1}{2}\frac{1-e^s}{1+e^s}
-\tag{1.10}
+\tag{1.13}
 \]</span></p>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
