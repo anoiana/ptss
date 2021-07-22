@@ -627,8 +627,19 @@ y_n = \sum_{i\geq 1}(-1)^{i+1}  \left[p+{n-i r +1\over i}\, q\right] {n-i r \cho
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="cf">function</span>(i){</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">100</span>; r <span class="ot">=</span> <span class="dv">7</span>; p<span class="ot">&lt;-</span> q<span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="dv">1</span>)<span class="sc">^</span>(i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>(p<span class="sc">+</span> (n<span class="sc">-</span>i<span class="sc">*</span>r<span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span>i<span class="sc">*</span>q)<span class="sc">*</span>(<span class="fu">factorial</span>(n<span class="sc">-</span>i<span class="sc">*</span>r)<span class="sc">/</span><span class="fu">factorial</span>(i<span class="dv">-1</span>)<span class="sc">/</span><span class="fu">factorial</span>(n<span class="sc">-</span>i<span class="sc">*</span>r<span class="sc">-</span>i<span class="sc">+</span><span class="dv">1</span>))<span class="sc">*</span>p<span class="sc">^</span>(i<span class="sc">*</span>r)<span class="sc">*</span>q<span class="sc">^</span>(i<span class="dv">-1</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># sum(s)</span></span></code></pre></div>
 <p>Như vậy <span class="math inline">\(y_n =\)</span> 0.3175204.</p>
+<p>Ta sẽ sử dụng <code>R</code> để giả lập kết quả trên như sau</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">replicate</span>(<span class="dv">20000</span>, <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="dv">100</span>, <span class="at">replace =</span> T))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>b<span class="ot">&lt;-</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(a,<span class="dv">2</span>, <span class="cf">function</span>(i){</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a> k <span class="ot">=</span> <span class="fu">rle</span>(i)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">max</span>(k<span class="sc">$</span>lengths[k<span class="sc">$</span>values<span class="sc">==</span><span class="dv">1</span>]) <span class="sc">&gt;=</span><span class="dv">7</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># mean(b)</span></span></code></pre></div>
+<p>kết quả giả lập của <span class="math inline">\(y_n\)</span> là 0.31775.</p>
 <!-- ----------------------------------------------------------------------------- -->
 <div id="references" class="section level1 unnumbered shad">
 <h1><em>References</em></h1>

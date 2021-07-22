@@ -187,33 +187,24 @@ s =
   n = 100; r = 7; p<- q<- 0.5
   (-1)^(i+1)*(p+ (n-i*r+1)/i*q)*(factorial(n-i*r)/factorial(i-1)/factorial(n-i*r-i+1))*p^(i*r)*q^(i-1)
 })
+# sum(s)
 ```
 
 Như vậy $y_n =$ `r sum(s)`. 
 
+Ta sẽ sử dụng `R` để giả lập kết quả trên như sau
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```{r}
+set.seed(11)
+a = replicate(20000, sample(0:1,100, replace = T))
+b<-
+apply(a,2, function(i){
+ k = rle(i)
+ max(k$lengths[k$values==1]) >=7
+})
+# mean(b)
+```
+kết quả giả lập của $y_n$ là `r mean(b)`.
 
 <!-- ----------------------------------------------------------------------------- -->
 
