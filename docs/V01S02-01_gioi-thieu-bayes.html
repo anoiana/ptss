@@ -365,9 +365,7 @@ div.tocify {
     Home
   </a>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bookmark"></span>
      
@@ -380,8 +378,6 @@ div.tocify {
     <li>
       <a href="E01S01-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
     </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">II. OBSERVATIONAL STUDIES</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -401,9 +397,6 @@ div.tocify {
     </li>
     <li>
       <a href="E02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
-    </li>
-    <li>
-      <a href="E02-04_generalized-linear-models.html">4. Generalized linear models</a>
     </li>
   </ul>
 </li>
@@ -458,13 +451,13 @@ div.tocify {
       <a href="V02-03_em-algorithm-3.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
     </li>
     <li>
-      <a href="V02-04_bootstrap.html">4. Bootstrap</a>
-    </li>
-    <li>
-      <a href="V02-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
+      <a href="V02-04_xs-chuoi-dai-nhat-cua-n-trials.html">4. Xác suất chuỗi có ít nhất r mặt hình xuất hiện liên tục khi đồng xu được tung n lần.</a>
     </li>
   </ul>
 </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -553,7 +546,7 @@ Terminologies
 <div class="example">
 <p><span id="exm:exm1" class="example"><strong>Example 1.1  </strong></span>Ta chọn ngẫu nhiên một trong hai đồng xu I và II với xác suất mặt hình lần lượt là <span class="math inline">\(p_1=0.4\)</span> và <span class="math inline">\(p_2=0.7\)</span>, rồi tung đầu xu đó <span class="math inline">\(n\)</span> lần. Sẽ cò 2 hành động ta cần xem xét, hành động thứ nhất là “chọn một trong hai đồng xu,” gọi xác suất đồng xu I được chọn là <span class="math inline">\(\theta = 0.5\)</span>, như vậy xác suất đồng xu II được chọn là <span class="math inline">\(1-\theta = 0.5\)</span>. Hành động thứ hai là tung đồng xu <span class="math inline">\(n\)</span> lần.Ta muốn xác định <span class="math inline">\(\theta\)</span> sau khi quan sát kết quả số mặt hình thu được sau khi tung đồng xu, nghĩa là <span class="math inline">\(\Bbb{P}(\Theta|X)\)</span>.</p>
 </div>
-<p>Trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm1">1.1</a> ta có thể thấy được rằng 2 hành động đều thuộc phân bố binomial, trong đó hành động chọn 1 trong 2 đồng xu là phân bố binomial với 2 tham số là <span class="math inline">\(n =1\)</span> và <span class="math inline">\(p = \theta\)</span>, như vậy ta có <span class="math inline">\(\Theta \sim \mathcal{Bin}(1,\theta)\)</span>. Hành động tung đồng xu <span class="math inline">\(n\)</span> lần cũng là một phân bố binomial có điều kiện. Nghĩa là tùy thuộc vào đồng xu được chọn mà ta sẽ có phân bố binomial với tham số khác nhau. Như vậy 2 phân bố binomial sẽ có dạng
+<p>Trong <span style="color: #A569BD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm1">1.1</a> ta có thể thấy được rằng 2 hành động đều thuộc phân bố binomial, trong đó hành động chọn 1 trong 2 đồng xu là phân bố binomial với 2 tham số là <span class="math inline">\(n =1\)</span> và <span class="math inline">\(p = \theta\)</span>, như vậy ta có <span class="math inline">\(\Theta \sim \mathcal{Bin}(1,\theta)\)</span>. Hành động tung đồng xu <span class="math inline">\(n\)</span> lần cũng là một phân bố binomial có điều kiện. Nghĩa là tùy thuộc vào đồng xu được chọn mà ta sẽ có phân bố binomial với tham số khác nhau. Như vậy 2 phân bố binomial sẽ có dạng
 <span class="math display">\[
 X|\Theta = \theta \sim \mathcal{Bin}(n,p_1); \quad X|\Theta = 1-\theta \sim \mathcal{Bin}(n,p_2)
 \]</span></p>
@@ -562,7 +555,7 @@ X|\Theta = \theta \sim \mathcal{Bin}(n,p_1); \quad X|\Theta = 1-\theta \sim \mat
 \Bbb{P}(X|\Theta = \theta) = {10 \choose 7}0.4^{7}0.6^{3}, \quad 
 \Bbb{P}(X|\Theta = \theta) = {10 \choose 7}0.7^{7}0.3^{3}, 
 \]</span></p>
-kết quả bằng 0.0424673 và 0.2668279. Sử dụng <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> ta có
+kết quả bằng 0.0424673 và 0.2668279. Sử dụng <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> ta có
 <span class="math display">\[
 \Bbb{P}(\Theta|X) = \frac{\Bbb{P}(X|\Theta = \theta)\Bbb{P}(\Theta=\theta)}{\Bbb{P}(X|\Theta = \theta)\Bbb{P}(\Theta=\theta)+\Bbb{P}(X|\Theta = 1-\theta)\Bbb{P}(\Theta=1-\theta)}
 \]</span>
@@ -571,6 +564,7 @@ kết quả bằng 0.1373035, và đây là xác suất đồng xu I được ch
 <span class="math inline">\(\blacksquare\)</span>
 </p>
 </p>
+<p><span class="math inline">\(\quad\)</span></p>
 <div class="whitebox">
 <p>Kết quả này rất hợp lý vì đồng xu I có xác suất mặt hình nhỏ hơn mặt chữ trong khi đồng xu II thì có xác suất mặt hình lớn hơn mặt chữ. Từ data <span class="math inline">\(X\)</span> ta thấy rằng ta thu đượt 7 mặt hình và 3 mặt chữ, tức là mặt hình nhiều hơn mặt chữ, vì thế trong điều kiện của <span class="math inline">\(X = 7\)</span> thì khả năng đồng xu số I đã được chọn là nhỏ hơn đồng xu II.</p>
 </div>
@@ -584,13 +578,13 @@ Figure 1.1: <em>Xác suất đồng xu I được chọn sau khi quan sát tập
 </div>
 <div id="phân-bố-hậu-nghiệm-posterior" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Phân Bố Hậu Nghiệm (Posterior)</h1>
-<p>Nếu như trong công thức <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> xác suất điều kiện được viết bằng hàm xác suất khối (probability mass function-PMF) với 2 sự kiện <span class="math inline">\(\Theta\)</span> và <span class="math inline">\(X\)</span>, thì đối với tập dữ liệu liên tục ta sẽ viết thành
+<p>Nếu như trong công thức <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> xác suất điều kiện được viết bằng hàm xác suất khối (probability mass function-PMF) với 2 sự kiện <span class="math inline">\(\Theta\)</span> và <span class="math inline">\(X\)</span>, thì đối với tập dữ liệu liên tục ta sẽ viết thành
 <span class="math display" id="eq:eq2">\[
 f(\theta|x) = \frac{f(x|\theta)f(\theta)}{f(x)} = 
 \frac{f(x|\theta)f(\theta)}{\int_{\Theta} f(x|\theta)f(\theta)d\theta}.
 \tag{2.1}
 \]</span>
-Phương trình <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2.1)</a> là dạng tổng quát của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> có thể đại diện cho cả phân bố liên tục và rời rạc (trong trường hợp rời rạc thì dấu tích phân <span class="math inline">\(\int\)</span> dưới mẫu đổi thành phép tổng <span class="math inline">\(\sum\)</span>). Và đây gọi là <em>phân bố hậu nghiệm</em>. Ngoài ra, hàm <span class="math inline">\(f(x|\theta)\)</span> và <span class="math inline">\(f(\theta)\)</span> lần lượt là hàm <em>hợp lý (likelihood)</em> và <em>hàm tiên nghiệm (prior)</em>. Một lưu ý nữa là phần tích phân dưới mẫu số của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2.1)</a> được tính trên tập xác định của <span class="math inline">\(\theta\)</span> nên kết quả độc lập với <span class="math inline">\(\theta\)</span>, và vì thế ta có thể viết thành
+Phương trình <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2.1)</a> là dạng tổng quát của <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> có thể đại diện cho cả phân bố liên tục và rời rạc (trong trường hợp rời rạc thì dấu tích phân <span class="math inline">\(\int\)</span> dưới mẫu đổi thành phép tổng <span class="math inline">\(\sum\)</span>). Và đây gọi là <em>phân bố hậu nghiệm</em>. Ngoài ra, hàm <span class="math inline">\(f(x|\theta)\)</span> và <span class="math inline">\(f(\theta)\)</span> lần lượt là hàm <em>hợp lý (likelihood)</em> và <em>hàm tiên nghiệm (prior)</em>. Một lưu ý nữa là phần tích phân dưới mẫu số của <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2.1)</a> được tính trên tập xác định của <span class="math inline">\(\theta\)</span> nên kết quả độc lập với <span class="math inline">\(\theta\)</span>, và vì thế ta có thể viết thành
 <span class="math display">\[
 f(\theta|x) \propto f(x|\theta)f(\theta)
 \]</span></p>
@@ -651,7 +645,7 @@ Như vậy ta sẽ có
 \tag{2.6}
 \]</span></p>
 </div>
-<p>Từ kết quả của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(2.6)</a> ta có thể tính được kỳ vọng của <span class="math inline">\(\theta|x\)</span></p>
+<p>Từ kết quả của <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(2.6)</a> ta có thể tính được kỳ vọng của <span class="math inline">\(\theta|x\)</span></p>
 <p><span class="math display" id="eq:eq8">\[
 \begin{aligned}
 \Bbb{E}(\theta|x) &amp;= \frac{\alpha+x}{\alpha+\beta+n} \\
@@ -659,7 +653,7 @@ Như vậy ta sẽ có
 \end{aligned}
 \tag{2.7}
 \]</span>
-Dựa vào <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq8">(2.7)</a> ta thấy rằng kỳ vọng của hàm hậu nghiệm chính là trung bình cộng của kỳ vọng hàm tiên nghiệm và kỳ vọng hàm hợp lý. Ta thấy rằng nếu <span class="math inline">\(n \to 0\)</span> thì <span class="math inline">\(\pi \to 1\)</span> và kỳ vọng của hàm hậu nghiệm tiến gần đến kỳ vọng của hàm tiên nghiệm, còn nếu <span class="math inline">\(n \to \infty\)</span> thì kỳ vọng hàm hậu nghiệm tương đương kỳ vọng hàm hợp lý. Điều này thể hiện rõ trong <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">2.1</a>.</p>
+Dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq8">(2.7)</a> ta thấy rằng kỳ vọng của hàm hậu nghiệm chính là trung bình cộng của kỳ vọng hàm tiên nghiệm và kỳ vọng hàm hợp lý. Ta thấy rằng nếu <span class="math inline">\(n \to 0\)</span> thì <span class="math inline">\(\pi \to 1\)</span> và kỳ vọng của hàm hậu nghiệm tiến gần đến kỳ vọng của hàm tiên nghiệm, còn nếu <span class="math inline">\(n \to \infty\)</span> thì kỳ vọng hàm hậu nghiệm tương đương kỳ vọng hàm hợp lý. Điều này thể hiện rõ trong <span style="color: #A569BD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig2">2.1</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:fig2"></span>
 <img src="img/img2.gif" alt="*phân bố hậu nghiệm và phân bố tiên nghiệm biến thiên theo giá trị của n.*"  />
 <p class="caption">
@@ -672,6 +666,7 @@ Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mat
 <span class="math inline">\(\blacksquare\)</span>
 </p>
 </p>
+<p><span class="math inline">\(\quad\)</span></p>
 </div>
 </div>
 <div id="chọn-hàm-tiên-nghiệm-chọn-nguồn-thông-tin-trước-khi-tập-dữ-liệu-được-quan-sát" class="section level1" number="3">
@@ -684,18 +679,19 @@ Ta cũng biết rằng <span class="math inline">\(\mathcal{Beta}(1,1) \sim \mat
 <p><span id="def:def1" class="definition"><strong>Definition 3.1  (Hàm tiên nghiệm liên hợp) </strong></span>Cho <span class="math inline">\(L(\theta) = f(x|\theta)\)</span> là hàm hợp lý, <span class="math inline">\(\mathscr{G}\)</span> được gọi là một họ phân bố liên hợp tương ứng với <span class="math inline">\(L(\theta)\)</span> nếu <span class="math inline">\(f(\theta|x) \in \mathscr{G} \Leftrightarrow f(\theta) \in \mathscr{G}, \forall x\)</span>.</p>
 </div>
 <div class="example">
-<span id="exm:exm3" class="example"><strong>Example 3.1  </strong></span>Ta xem lại trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2.1</a>, ta có <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span> và <span class="math inline">\(\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)\)</span>. Cả 2 phân bố đều thuộc họ phân bố <span class="math inline">\(\mathcal{Beta}\)</span> nên <span class="math inline">\(\mathcal{Beta}(\alpha,\beta)\)</span> trong trường hợp này là một hàm tiên nghiệm liên hợp.
+<span id="exm:exm3" class="example"><strong>Example 3.1  </strong></span>Ta xem lại trong <span style="color: #A569BD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2.1</a>, ta có <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span> và <span class="math inline">\(\theta|x \sim \mathcal{Beta}(\alpha+x, \beta+n-x)\)</span>. Cả 2 phân bố đều thuộc họ phân bố <span class="math inline">\(\mathcal{Beta}\)</span> nên <span class="math inline">\(\mathcal{Beta}(\alpha,\beta)\)</span> trong trường hợp này là một hàm tiên nghiệm liên hợp.
 <p style="float:right; font-size:18px">
 <span class="math inline">\(\blacksquare\)</span>
 </p>
 </p>
+<p><span class="math inline">\(\quad\)</span></p>
 </div>
 <p>Thay vì xem xét tình trường hợp riêng lẽ, ta sẽ xem xét hàm tiên nghiệm liên hợp thuộc họ phân bố <em>exponential</em> là một họ phân bố của hầu hết các phân bố được sử dụng phổ biến trong phân tích hiện nay. Một phân bố được cho là thuộc họ exponential khi hàm mật độ xác suất (probability density function) của nó có thể viết dưới dạng
 <span class="math display" id="eq:eq9">\[
 f(x_i|\theta) = f(x_i)g(\theta)\exp\big\{{\phi(\theta)}^{\top} u(x_i)\big\} ,
 \tag{3.1}
 \]</span>
-trong <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq9">(3.1)</a> ta cần chú ý 4 thành phần, thứ nhất là <span class="math inline">\(f(x_i)\)</span> là một hàm số của tập dữ liệu, độc lập với <span class="math inline">\(\theta\)</span>, <span class="math inline">\(g(\theta)\)</span> một hàm số của tham số <span class="math inline">\(\theta\)</span> độc lập với dữ liệu <span class="math inline">\(x_i\)</span>. Hai thành phần quan trọng nhất chính là <span class="math inline">\(\phi(\theta)\)</span> và <span class="math inline">\(u(x_i)\)</span> trong khi cái đầu là một hàm số của riêng <span class="math inline">\(\theta\)</span> thì cái thứ hai là hàm số của riêng <span class="math inline">\(x_i\)</span>. Nếu ta lấy loragit tự nhiên ta sẽ được
+trong <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq9">(3.1)</a> ta cần chú ý 4 thành phần, thứ nhất là <span class="math inline">\(f(x_i)\)</span> là một hàm số của tập dữ liệu, độc lập với <span class="math inline">\(\theta\)</span>, <span class="math inline">\(g(\theta)\)</span> một hàm số của tham số <span class="math inline">\(\theta\)</span> độc lập với dữ liệu <span class="math inline">\(x_i\)</span>. Hai thành phần quan trọng nhất chính là <span class="math inline">\(\phi(\theta)\)</span> và <span class="math inline">\(u(x_i)\)</span> trong khi cái đầu là một hàm số của riêng <span class="math inline">\(\theta\)</span> thì cái thứ hai là hàm số của riêng <span class="math inline">\(x_i\)</span>. Nếu ta lấy loragit tự nhiên ta sẽ được
 <span class="math display">\[
 f^*(x_i) + g^*(\theta) + {\phi(\theta)}^{\top}u(x_i),
 \]</span>
@@ -710,7 +706,7 @@ f(\theta|x_i) = g(\theta)^{1+\eta}e^{{\phi(\theta)}^{\top}(\xi+t(x_i))},
 \]</span>
 chỉ ra rằng hàm tiên nghiệm được chọn là một hàm tiên nghiệm liên hợp. Ta có thể chứng minh rằng họ exponential là một họ của những phân bố có các hàm phân bố liên hợp, bởi vì những phân bố có số thống kê đủ cố định với mọi <span class="math inline">\(n\)</span> (<span class="math inline">\(n\)</span> là số observations trong tập dữ liệu) đều thuộc họ exponential <span class="citation">(<a href="#ref-gelman2013" role="doc-biblioref">Gelman et al. 2013</a>)</span>.</p>
 <div class="example">
-<p><span id="exm:exm4" class="example"><strong>Example 3.2  </strong></span>Trong <span style="color: #C46ADD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2.1</a> ta có <span class="math inline">\(X|\theta \sim \mathcal{Bin}(n,\theta)\)</span> và <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span>. Ta có thể chỉ ra rằng cả 2 phân bố này đều thuộc họ exponential.</p>
+<p><span id="exm:exm4" class="example"><strong>Example 3.2  </strong></span>Trong <span style="color: #A569BD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm2">2.1</a> ta có <span class="math inline">\(X|\theta \sim \mathcal{Bin}(n,\theta)\)</span> và <span class="math inline">\(\theta \sim \mathcal{Beta}(\alpha,\beta)\)</span>. Ta có thể chỉ ra rằng cả 2 phân bố này đều thuộc họ exponential.</p>
 <p>Ta sẽ chứng minh Binomial là một phân bố thuộc họ exponential như sau,
 <span class="math display">\[
 \begin{align}
@@ -736,11 +732,12 @@ cũng là một phân bố thuộc họ exponential. Nếu ta bỏ đi phần <s
 (1-\theta)^{n+\alpha+\beta-2}\frac{\theta^{x+\alpha-1}}{(1-\theta)^{x+\alpha-1}} = 
 \theta^{x+\alpha-1}(1-\theta)^{\beta+n-x-1},
 \]</span>
-ứng với phân bố <span class="math inline">\(\mathcal{Beta}(x+\alpha,\beta+n-x)\)</span> giống với kết quả của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(2.6)</a>.
+ứng với phân bố <span class="math inline">\(\mathcal{Beta}(x+\alpha,\beta+n-x)\)</span> giống với kết quả của <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq7">(2.6)</a>.
 <p style="float:right; font-size:18px">
 <span class="math inline">\(\blacksquare\)</span>
 </p>
 </p>
+<p><span class="math inline">\(\quad\)</span></p>
 </div>
 <p>Một dạng so sánh khá phổ biến trong thống kê đó là so sánh tỉ lệ giữa 2 quần thể khác nhau, ví dụ như ta muốn so sánh tỉ lệ tử vong của 2 nhóm bệnh nhân đã sử dụng 2 phương pháp điều trị khác nhau. Ta sẽ xem xét trường hợp này trong ví dụ tiếp theo</p>
 <div class="example exm5">
@@ -854,6 +851,7 @@ f_{\eta}(\eta) &amp;= f_{\theta}(\theta)\bigg|\frac{dh^{-1}(\eta)}{d\eta}\bigg| 
 <span class="math inline">\(\blacksquare\)</span>
 </p>
 </p>
+<p><span class="math inline">\(\quad\)</span></p>
 <div class="blackbox brainstorm">
 <div class="center">
 <p>Chứng minh <em>Fisher information</em> khi đổi biến:</p>

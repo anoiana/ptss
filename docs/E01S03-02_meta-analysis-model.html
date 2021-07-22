@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Phương Pháp Bootstrap</title>
+<title>✑ Meta-Analysis Model</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -27,8 +27,6 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="img/fugu.png"/>
@@ -367,9 +365,7 @@ div.tocify {
     Home
   </a>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bookmark"></span>
      
@@ -382,8 +378,6 @@ div.tocify {
     <li>
       <a href="E01S01-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
     </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">II. OBSERVATIONAL STUDIES</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -403,9 +397,6 @@ div.tocify {
     </li>
     <li>
       <a href="E02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
-    </li>
-    <li>
-      <a href="E02-04_generalized-linear-models.html">4. Generalized linear models</a>
     </li>
   </ul>
 </li>
@@ -460,13 +451,13 @@ div.tocify {
       <a href="V02-03_em-algorithm-3.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
     </li>
     <li>
-      <a href="V02-04_bootstrap.html">4. Bootstrap</a>
-    </li>
-    <li>
-      <a href="V02-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
+      <a href="V02-04_xs-chuoi-dai-nhat-cua-n-trials.html">4. Xác suất chuỗi có ít nhất r mặt hình xuất hiện liên tục khi đồng xu được tung n lần.</a>
     </li>
   </ul>
 </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -484,144 +475,158 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">✑ Phương Pháp Bootstrap</h1>
-<h4 class="date">📅 2021-06-13</h4>
+<h1 class="title toc-ignore">✑ Meta-Analysis Model</h1>
+<h4 class="date">📅 2021-07-02</h4>
 
 </div>
 
 
+<!-- \newcommand{\tp}[1]{{#1}^{\top}} -->
 <div class="watermark">
 <p><em>DRAFT</em></p>
 </div>
 <hr />
-<div id="giới-thiệu" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Giới Thiệu</h1>
-<p>Ta xem xét một ví dụ được sử dụng trong <span class="citation"><a href="#ref-efr1994" role="doc-biblioref">Efron and Tibshirani</a> (<a href="#ref-efr1994" role="doc-biblioref">1994</a>)</span> như sau</p>
-<div class="example">
-<p><span id="exm:exm11" class="example"><strong>Example 1.1  </strong></span>Trong <span style="color: #C46ADD; font-size: 18px;"><em>Table</em></span> <a href="#tab:tab11">1.1</a> là thời gian tử vong của hai nhóm chuột được sử dụng bằng 2 phương pháp điều trị. Để so sánh hiệu quả của 2 phương pháp điều trị, thông thường ta sẽ tính kỳ vọng thời gian tử vong của 2 nhóm rồi tính khoảng tin cậy của hiệu 2 giá trị kỳ vọng tương ứng với 2 nhóm điều trị. Như vậy ta có <span class="math inline">\(D = \widehat{y}_1 - \widehat{y}_2=\)</span> 30.6349206 và khoảng tin cậy là [-34.1527851, 95.4226264]. Với khoảng tin cậy này ta sẽ kết luận rằng không có bằng chứng để kết luận có sự khác biệt trong 2 phương pháp điều trị trên. Tuy nhiên, kết quả này có thật sự đáng tin cậy hay không khi 2 mẫu được sử dụng đều có kích cở nhỏ hơn 10? Và làm sao để có thể kiểm chứng độ tin cậy này? Phương pháp bootstrap thường được sử dụng cho những mẫu nhỏ.</p>
-</div>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<caption>
-<span id="tab:tab11">Table 1.1: </span>Thời gian tử vong của 2 nhóm chuột sử dụng treatment và control.
-</caption>
-<thead>
-<tr>
-<th style="text-align:center;">
-treatment
-</th>
-<th style="text-align:center;">
-control
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-94
-</td>
-<td style="text-align:center;">
-52
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-38
-</td>
-<td style="text-align:center;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-23
-</td>
-<td style="text-align:center;">
-40
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-197
-</td>
-<td style="text-align:center;">
-104
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-99
-</td>
-<td style="text-align:center;">
-51
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-16
-</td>
-<td style="text-align:center;">
-27
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-141
-</td>
-<td style="text-align:center;">
-146
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-NA
-</td>
-<td style="text-align:center;">
-30
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-NA
-</td>
-<td style="text-align:center;">
-46
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="lý-thuyết-về-bootstrap" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Lý Thuyết Về Bootstrap</h1>
-<p>Ví dụ ta có tập dữ liệu <span class="math inline">\(X_1,X_2,\dots,X_n \stackrel{iid}{\sim} F\)</span> và <span class="math inline">\(\widehat{F}_n\)</span> là ước lượng của <span class="math inline">\(F\)</span>. Chúng ta sẽ ước lượng <span class="math inline">\(\theta = T(F)\)</span> bằng <span class="math inline">\(T(\widehat{F})\)</span>, như vậy bootstrap có thể được sử dụng để đưa ra suy luận về <span class="math inline">\(\widehat{\theta} - \theta\)</span>. Để làm điều này ta sử dụng <span class="math inline">\(\widehat{F}\)</span> để tính ước lượng của <span class="math inline">\(\widehat{\theta}\)</span> ký hiệu là <span class="math inline">\(\widehat{\theta}^*\)</span>. Và ý nghĩa của bootstrap được hình thành bằng mối quan hệ xấp xỉ như sau
-<span class="math display" id="eq:eq21">\[
-\widehat{\theta} - \theta \approx \widehat{\theta}^* - \widehat{\theta},
-\tag{2.1}
+<div id="simple-meta-analysis-model" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Simple Meta-Analysis Model</h1>
+<p>Suppose we have <span class="math inline">\(n\)</span> studies with effect size <span class="math inline">\(\{y_i\}_{i=1}^n\)</span> and its known variance <span class="math inline">\(\{\sigma^2_i\}_{i=1}^n\)</span>. Let <span class="math inline">\(\sigma^2\)</span> be unknown variation among studies. We can combine <span class="math inline">\(n\)</span> effect size under following model
+<span class="math display" id="eq:eq11">\[
+y_i = \beta +b_i + \varepsilon_i,
+\tag{1.1}
 \]</span>
-nghĩa là hai biến ngẫu nhiên <span class="math inline">\((\widehat{\theta} - \theta)\)</span> và <span class="math inline">\((\widehat{\theta}^* - \widehat{\theta})\)</span> xấp xỉ nhau. Từ <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq21">(2.1)</a> ta suy ra rằng
-<span class="math display" id="eq:eq22">\[
-Bias_{F}(\widehat{\theta}) = \Bbb{E}_F(\widehat{\theta} -\theta) \approx \Bbb{E}_{\widehat{F}}(\widehat{\theta}^* - \widehat{\theta})
-\tag{2.2}
+where <span class="math inline">\(b_i\)</span> is random effect with unknown variance <span class="math inline">\(\sigma^2\)</span> and error term <span class="math inline">\(\varepsilon_i\)</span> with known variance <span class="math inline">\(\sigma^2_i\)</span>. We also assume that <span class="math inline">\(b_i \perp\!\!\!\!\perp\varepsilon_i\)</span>, both follows normal distribution with zero mean. Thus,
+<span class="math display" id="eq:eq12">\[
+y_i \sim \mathcal{N}(\beta, \sigma^2+\sigma^2_i), \quad i \in \{1,2,\dots,n\}.
+\tag{1.2}
+\]</span></p>
+<p>Customarily, <span class="math inline">\(\sigma^2_i\)</span> can be obtained through confidence interval. <span class="math inline">\(\beta\)</span> is called the common treatment effect, <span class="math inline">\(\sigma^2\)</span> is called the heterogeneity variance parameter. From <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq12">(1.2)</a> we obtain log-likelihood <span class="math inline">\(l(\beta,\sigma^2)\)</span> as follows
+<span class="math display" id="eq:eq13">\[
+l(\beta,\sigma^2) = -\frac{1}{2}\sum_{i=1}^n\bigg[\ln(\sigma^2+\sigma^2_i)+\frac{(y_i-\beta)^2}{\sigma^2+\sigma^2_i}\bigg].
+\tag{1.3}
+\]</span></p>
+<p>Taking derivative w.r.t <span class="math inline">\(\beta\)</span>, then equating to zero and solve for <span class="math inline">\(\beta\)</span>, we obtain <em>the weighted average</em> as follows
+<span class="math display" id="eq:eq14">\[
+\widehat{\beta} = \sum_{i=1}^ny_i\frac{(\sigma^2+\sigma_i^2)^{-1}}{\sum_{j=1}^n(\sigma^2+\sigma_j^2)^{-1}},
+\tag{1.4}
 \]</span>
-và
-<span class="math display" id="eq:eq23">\[
-\Bbb{V}_F(\widehat{\theta} -\theta) \approx \Bbb{V}_{\widehat{F}}(\widehat{\theta}^* - \widehat{\theta})
-\tag{2.3}
+hence
+<span class="math display" id="eq:eq15">\[
+\Bbb{V}(\widehat{\beta}) = \frac{1}{\sum_{i=1}^n(\sigma^2+\sigma_i^2)^{-1}}.
+\tag{1.5}
+\]</span></p>
+<p>In practice, <span class="math inline">\(\sigma^2\)</span> is unknown parameter whose estimator is <span class="math inline">\(\widehat{\sigma}_2\)</span>. Once <span class="math inline">\(\widehat{\sigma}\)</span> is calculated, <span class="math inline">\(\widehat{\beta}\)</span> can be obtained by <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(1.4)</a>. There are two extreme cases of <span class="math inline">\(\sigma^2\)</span>, when <span class="math inline">\(\sigma^2 = 0\)</span>,
+<span class="math display" id="eq:eq16">\[
+\widehat{\beta}_0 = \widehat{\beta}|_{\sigma^2=0} = \frac{\sum y_i/\sigma^2}{\sum1/\sigma^2}
+\tag{1.6}
 \]</span>
-và bởi vì <span class="math inline">\(\widehat{F}\)</span> là giá trị đã biết, nên ta có thể tìm thấy những đặc tính của <span class="math inline">\(\widehat{\theta} -\theta\)</span>. Mối quan hệ giữa các biến ngẫu nhiên này được minh họa trong <span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig21">2.1</a></p>
-<div class="figure" style="text-align: center"><span id="fig:fig21"></span>
-<img src="img/bootworld.png" alt="*Mối quan hệ giữa gữa không gian thực và không gian bootstrap*" width="639" />
-<p class="caption">
-Figure 2.1: <em>Mối quan hệ giữa gữa không gian thực và không gian bootstrap</em>
-</p>
+and when <span class="math inline">\(\sigma^2 \to \infty\)</span>,
+<span class="math display" id="eq:eq17">\[
+\widehat{\beta}_{OLS} = \lim_{\sigma^2 \to \infty}\widehat{\beta} = \frac{\sum_{i=1}^n y_i}{n} = \overline{y} 
+\tag{1.7}
+\]</span></p>
+<div id="random-effects" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Random Effects</h2>
+<p>Before discussing how to estimate random effect <span class="math inline">\(b_i\)</span> in meta-analysis model, we shall review estimation of random effect in the framework of mixed model, and we relate such general concept to meta-analysis perspective.</p>
+<div id="bivariate-normal" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Bivariate Normal</h3>
+<p>We now assume that <span class="math inline">\(\boldsymbol{\beta}\)</span>, variance parameters <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\boldsymbol{D}\)</span> are known. <span class="math inline">\(\boldsymbol{b}_i\)</span> is estimated as the conditional expectation <span class="math inline">\(\Bbb{E}(\boldsymbol{b}_i|\boldsymbol{y}_i)\)</span>. Since <span class="math inline">\(\boldsymbol{b}_i\)</span> and <span class="math inline">\(\boldsymbol{y}_i\)</span> are assumed to be joint normal distribution with <span class="math inline">\(Cov(\boldsymbol{b}_i,\boldsymbol{y}_i) = \sigma^2\boldsymbol{DZ}_i^{\top}\)</span>, we obtain
+<span class="math display" id="eq:eq18">\[
+\begin{align}
+\Bbb{E}(\boldsymbol{b}_i|\boldsymbol{y}_i) &amp;= cov(\boldsymbol{b}_i,\boldsymbol{y}_i)cov^{-1}(\boldsymbol{y}_i)[\boldsymbol{y}_i-\Bbb{E}(\boldsymbol{y}_i)] \\
+&amp;= \boldsymbol{DZ}^{\top}(\boldsymbol{I}+\boldsymbol{Z}_i\boldsymbol{D}\boldsymbol{Z}_i^{\top})^{-1}(\boldsymbol{y}_i-\boldsymbol{X}_i\boldsymbol{\beta})
+\end{align}
+\tag{1.8}
+\]</span>
+from the proved result of condition distribution of bivariate normal distribution. Thus,
+<span class="math display" id="eq:eq19">\[
+\widehat{\boldsymbol{b}}_i = \boldsymbol{DZ}^{\top}(\boldsymbol{I}+\boldsymbol{Z}_i\boldsymbol{D}\boldsymbol{Z}_i^{\top})^{-1}(\boldsymbol{y}_i-\boldsymbol{X}_i\boldsymbol{\widehat{\beta}}),
+\tag{1.9}
+\]</span>
+once <span class="math inline">\(\widehat{\boldsymbol{\beta}}_i\)</span> is calculated, <span class="math inline">\(\widehat{\boldsymbol{b}}_i\)</span> can be obtained. <span class="citation"><a href="#ref-dem2013" role="doc-biblioref">Demidenko</a> (<a href="#ref-dem2013" role="doc-biblioref">2013</a>)</span> showed <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq19">(1.9)</a> can be simplified as follows
+<span class="math display" id="eq:eq110">\[
+\widehat{\boldsymbol{b}}_i = \boldsymbol{D}(\boldsymbol{I}+\boldsymbol{Z}^\top_i\boldsymbol{Z}_i\boldsymbol{D})^{-1}\boldsymbol{Z}^\top (\boldsymbol{y}_i - \boldsymbol{X}_i\boldsymbol{\widehat{\beta}}).
+\tag{1.10}
+\]</span></p>
 </div>
+<div id="minimizing-a-quadratic-function-under-linear-constraints" class="section level3" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Minimizing A Quadratic Function Under Linear Constraints</h3>
+<p><span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq19">(1.9)</a> also can be obtained by minimizing a quadratic function under linear constraints. To ease presentation, we shall work with the following model
+<span class="math display">\[
+\boldsymbol{y} = \boldsymbol{X\beta} + \boldsymbol{Zb}+ \boldsymbol{\varepsilon},
+\]</span>
+where <span class="math inline">\(\boldsymbol{b}\)</span> and <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> are random effect with zero mean and known covariance matrices <span class="math inline">\(\sigma^2\boldsymbol{D}_l\)</span> and <span class="math inline">\(\sigma^2\boldsymbol{I}\)</span>, respectively. Let us define <span class="math inline">\(\boldsymbol{\widehat{b}} = \boldsymbol{Cy}\)</span> and we seek <span class="math inline">\(\boldsymbol{C}\)</span> such that <span class="math inline">\(\Bbb{E}(\boldsymbol{\widehat{b}}) = \boldsymbol{C(X\beta+Zb + \varepsilon)} = 0\)</span>, which implies <span class="math inline">\(\boldsymbol{CX} = \boldsymbol{0}\)</span>. Then, we also want
+<span class="math display">\[
+\boldsymbol{C}^* = \arg\min Cov(\boldsymbol{\widehat{b}} - \boldsymbol{b}) = \sigma^2 \big[\boldsymbol{CC}^\top + (\boldsymbol{I-CZ})\boldsymbol{D}(\boldsymbol{I-CZ})^\top \big].
+\]</span>
+Let <span class="math inline">\(\boldsymbol{p}\)</span> be any vector and
+<span class="math display">\[
+\boldsymbol{C}^* =  \arg\min \boldsymbol{p}^\top[\boldsymbol{CC}^\top + (\boldsymbol{CZ-I})\boldsymbol{D}(\boldsymbol{CZ-I})^\top]\boldsymbol{p}.
+\]</span></p>
+<p>Taking derivative of
+<span class="math display">\[
+\mathcal{L}(\boldsymbol{C}) = \boldsymbol{p}^\top[\boldsymbol{CC}^\top + (\boldsymbol{CZ-I})\boldsymbol{D}(\boldsymbol{CZ-I})^\top]\boldsymbol{p}
+\]</span>
+leads to
+<span class="math display">\[
+\frac{\partial\mathcal{L}}{\partial\boldsymbol{C}} = 2\boldsymbol{pp}^\top\boldsymbol{C}(\boldsymbol{I}+\boldsymbol{ZDZ}^\top) - 2\boldsymbol{pp}^\top\boldsymbol{DZ}^\top-\boldsymbol{L}^\top\boldsymbol{X}^\top = 0,
+\]</span>
+which implies
+<span class="math display">\[
+2\boldsymbol{pp}^\top\boldsymbol{C} = (2\boldsymbol{pp}^\top\boldsymbol{DZ}^\top+\boldsymbol{L}^\top\boldsymbol{X}^\top)(I+\boldsymbol{ZDZ}^\top)^{-1}.
+\]</span>
+Multiplying both sides by <span class="math inline">\(\boldsymbol{X}\)</span>, we obtain
+<span class="math display">\[
+(2\boldsymbol{pp}^\top\boldsymbol{DZ}^\top+\boldsymbol{L}^\top\boldsymbol{X}^\top)(\boldsymbol{I}+\boldsymbol{ZDZ}^\top)^{-1}\boldsymbol{X} = \boldsymbol{0},
+\]</span>
+consequently
+<span class="math display">\[
+\boldsymbol{L}^\top = -2\boldsymbol{pp}^\top\boldsymbol{DZ}^\top\boldsymbol{V}^{-1}\boldsymbol{X}(\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}.
+\]</span>
+Thus,
+<span class="math display">\[
+2\boldsymbol{pp}^\top\boldsymbol{C} = 2\boldsymbol{pp}^\top\boldsymbol{DZ}^\top[\boldsymbol{V}^{-1}-\boldsymbol{V}^{-1}\boldsymbol{X}(\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}]\underbrace{\boldsymbol{V}(\boldsymbol{I}-\boldsymbol{ZDZ}^\top)^{-1}}_{ = \boldsymbol{I}\textit{ (since covariance matrices of}\\ \boldsymbol{\varepsilon}\textit{ and }\boldsymbol{b}\textit{ are } \sigma^2\boldsymbol{D}_l \textit{ and } \sigma^2\boldsymbol{I}\textit{, respectively.)}}
+\]</span>
+hence,
+<span class="math display">\[
+\boldsymbol{C}^* = \boldsymbol{DZ}^\top\boldsymbol{V}^{-1}[\boldsymbol{I}-\boldsymbol{X}(\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}].
+\]</span>
+Finally,
+<span class="math display">\[
+\begin{align}
+\boldsymbol{\widehat{b}}=\boldsymbol{C}^*\boldsymbol{y}_i &amp;= \boldsymbol{DZ}_i^\top\boldsymbol{V}_i^{-1}[\boldsymbol{I}-\boldsymbol{X}_i(\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}]\boldsymbol{y}_i\\
+&amp;= \boldsymbol{DZ}_i^\top\boldsymbol{V}_i^{-1}(\boldsymbol{y}_i - \boldsymbol{X}_i\boldsymbol{\widehat{\beta}}),
+\end{align}
+\]</span>
+which is equal to <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq19">(1.9)</a>.</p>
+</div>
+<div id="minimizing-norm-of-covariance-matrix" class="section level3" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Minimizing Norm of Covariance Matrix</h3>
+<p>We can also obtain <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq19">(1.9)</a> by optimizing the following equation
+<span class="math display" id="eq:eq111">\[
+\sum_{i=1}^n\Big[||\boldsymbol{y}_i-\boldsymbol{X}_i\boldsymbol{\beta}-\boldsymbol{Z}_i\boldsymbol{b}_i||^2 + \boldsymbol{b}_i^\top\boldsymbol{D}^{-1}\boldsymbol{b}_i\Big]
+\tag{1.11}
+\]</span>
+w.r.t <span class="math inline">\(\boldsymbol{b}_i\)</span>. To this end, we can obtain
+<span class="math display">\[
+\boldsymbol{b}_i = (\boldsymbol{Z}_i\boldsymbol{Z}_i^\top+\boldsymbol{D}^{-1})^{-1}\boldsymbol{Z}_i^\top(\boldsymbol{y}_i-\boldsymbol{X}_i\boldsymbol{\beta}),
+\]</span>
+which is equal to <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq110">(1.10)</a> <span class="citation">(for more information refer to p146-148, <a href="#ref-dem2013" role="doc-biblioref">Demidenko 2013</a>)</span>.</p>
+<p>We now return to model used in meta-analysis. We shall obtain equation <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq111">(1.11)</a> that is relative to model <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq11">(1.1)</a>
+<span class="math display">\[
+S = \sum_{i=1}^n
+\]</span></p>
+<p><span class="math display">\[
+\Bbb{E}_{K\sim\mathcal{N}(0,1)}\Phi(s+\sigma K) = \Phi\Big(\frac{s}{\sqrt{1+\sigma^2}}\Big)
+\]</span></p>
 <!-- ----------------------------------------------------------------------------- -->
+</div>
+</div>
 </div>
 <div id="references" class="section level1 unnumbered shad">
 <h1><em>References</em></h1>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-efr1994" class="csl-entry">
-Efron, Bradley, and Robert J Tibshirani. 1994. <em>An Introduction to the Bootstrap</em>. CRC press.
+<div id="ref-dem2013" class="csl-entry">
+Demidenko, Eugene. 2013. <em>Mixed Models: Theory and Applications with r</em>. John Wiley &amp; Sons.
 </div>
 </div>
 

@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Phương Pháp Phi Tham Số</title>
+<title>✑ Phương Pháp Bootstrap</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -477,138 +477,144 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">✑ Phương Pháp Phi Tham Số</h1>
-<h4 class="date">📅 2021-06-13</h4>
+<h1 class="title toc-ignore">✑ Phương Pháp Bootstrap</h1>
+<h4 class="date">📅 2021-07-22</h4>
 
 </div>
 
 
+<div class="watermark">
+<p><em>DRAFT</em></p>
+</div>
 <hr />
-<p><em>tham khảo tại <span class="citation"><a href="#ref-col2015" role="doc-biblioref">Collett</a> (<a href="#ref-col2015" role="doc-biblioref">2015</a>)</span> và <span class="citation"><a href="#ref-kal2002" role="doc-biblioref">Kalbfleisch and Prentice</a> (<a href="#ref-kal2002" role="doc-biblioref">2011</a>)</span></em></p>
-<p>Trong các ứng dụng về clinial trial ta thường hay so sánh hiệu quả của hai đến nhiều phương pháp điều trị với nhau. Dưới góc nhìn của thống kê thì đây là bài toán so sánh CDF của hai quần thể khác nhau. Trong phần này ta sẽ bàn về các phương pháp kiểm định thường được sử dụng trong phân tích sống sốt. Ta vẫn tiếp tục xem xét các quần thể đồng nhất, nghĩa là ta bỏ qua các biến phân nhóm, ví dụ như tuổi, giới tính, cân nặng… tất cả những đặc tính khác nhau này của từng bệnh nhân đều không được xem xét.</p>
-<div id="so-sánh-hiệu-quả-của-hai-phương-pháp-điều-trị" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> So Sánh Hiệu Quả Của Hai Phương Pháp Điều Trị</h1>
-<p>Có nhiều kiểm định được sử dụng để so sánh thời gian sống sót của hai hay nhiều quần thể. Tuy nhiên dưới <em>giả định proportional</em> thì <em>kiểm định log-rank</em> được chứng minh là hiệu quả hơn các kiểm định còn lại.</p>
-<p>Trước khi tìm hiểu về kiểm định log-rank, ta sẽ ôn lại phân bố hypergeometric vì phân bố này chính là nền tảng để hình thành kiểm định log-rank.</p>
-<div class="blackbox brainstorm">
-<div class="center">
-<p>Ví dụ về phân bố Hypergeometric:</p>
-</div>
-<p>Xem xét trong một hộp banh, có <span class="math inline">\(N\)</span> banh, trong đó <span class="math inline">\(K\)</span> banh đỏ, số còn lại là banh xanh. Ta ngẫu nhiên chọn <span class="math inline">\(n\)</span> banh từ trong hộp, xác suất chọn ra được <span class="math inline">\(x\)</span> banh màu đỏ là
-<span class="math display" id="eq:eq1">\[
-\Bbb{P}(X=x) = \frac{{K \choose x}{N-K 
-\choose n-x}}{N \choose n}
-\tag{1.1}
-\]</span>
-trong đó <span class="math inline">\(\max(0, n+K-N) \le x \le \min(n,K)\)</span>. Với phân bố này ta tính được kỳ vọng và phương sai lần lượt là
-<span class="math display" id="eq:eq2">\[
-\Bbb{E}(X) = \frac{nK}{N}; \quad \Bbb{V}(X) = \frac{nK}{N}\frac{N-K}{N}\frac{N-n}{N-1}
-\tag{1.2}
-\]</span></p>
+<div id="giới-thiệu" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Giới Thiệu</h1>
+<p>Ta xem xét một ví dụ được sử dụng trong <span class="citation"><a href="#ref-efr1994" role="doc-biblioref">Efron and Tibshirani</a> (<a href="#ref-efr1994" role="doc-biblioref">1994</a>)</span> như sau</p>
 <div class="example">
-<p><span id="exm:exm1" class="example"><strong>Example 1.1  </strong></span>Ta xem xét 2 nhóm bệnh nhân được điều trị bằng 2 phương pháp A và B, nhóm thứ nhất có 10 bệnh nhân, nhóm thứ hai có 12 bệnh nhân. Sau một tháng điều trị thì trong nhóm một có 4 bệnh nhân đã hết bệnh, và nhóm hai có 8 bệnh nhân đã hết bệnh.</p>
+<p><span id="exm:exm11" class="example"><strong>Example 1.1  </strong></span>Trong <span style="color: #A569BD; font-size: 18px;"><em>Table</em></span> <a href="#tab:tab11">1.1</a> là thời gian tử vong của hai nhóm chuột được sử dụng bằng 2 phương pháp điều trị. Để so sánh hiệu quả của 2 phương pháp điều trị, thông thường ta sẽ tính kỳ vọng thời gian tử vong của 2 nhóm rồi tính khoảng tin cậy của hiệu 2 giá trị kỳ vọng tương ứng với 2 nhóm điều trị. Như vậy ta có <span class="math inline">\(D = \widehat{y}_1 - \widehat{y}_2=\)</span> 30.6349206 và khoảng tin cậy là [-34.1527851, 95.4226264]. Với khoảng tin cậy này ta sẽ kết luận rằng không có bằng chứng để kết luận có sự khác biệt trong 2 phương pháp điều trị trên. Tuy nhiên, kết quả này có thật sự đáng tin cậy hay không khi 2 mẫu được sử dụng đều có kích cở nhỏ hơn 10? Và làm sao để có thể kiểm chứng độ tin cậy này? Phương pháp bootstrap thường được sử dụng cho những mẫu nhỏ.</p>
 </div>
-<p>Như vậy dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> ta có
-<span class="math display">\[
-\Bbb{P}(X = 4|N = 22,K=10,n=12) = \frac{{10 \choose 4} {12 \choose 8}}{22 \choose 12},
-\]</span>
-xác suất tính ra là 0.1607526.</p>
-</div>
-<p><span style="color: #A569BD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm1">1.1</a> chính là một trường hợp trong kiểm định log rank. Ví dụ ta có <span class="math inline">\(t_1 &lt; t_2, \dots, t_k\)</span> chính là mốc thời gian tử vong từ <span class="math inline">\(p\)</span> nhóm bệnh nhân. Trong đó, <span class="math inline">\(n_{ij}\)</span> chính là số bệnh nhân chưa được ghi nhận tử vong ngay trước thời điểm <span class="math inline">\(t_j\)</span> và ta có <span class="math inline">\(\sum_{i=1}^p n_{ij} = n_j\)</span> chính la tổng số bệnh nhân chưa tử vong ngay trước thời điểm <span class="math inline">\(t_j\)</span> của <span class="math inline">\(p\)</span> nhóm. Tương tự <span class="math inline">\(d_{ij}\)</span> chính là số bệnh nhân tử vong tại thời điểm <span class="math inline">\(t_j\)</span> của nhóm bệnh nhân <span class="math inline">\(i\)</span>, và <span class="math inline">\(\sum_{i=1}^pd_{ij} = d_j\)</span> là tổng số bệnh nhân tử vong tại <span class="math inline">\(t_j\)</span> của cả <span class="math inline">\(p\)</span> nhóm. Nếu <span class="math inline">\(p=2\)</span>, ta có thể tóm tắc kết quả như sau</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:tab1">Table 1.1: </span><em>Bảng tóm tắt số bệnh nhân tử vong và còn sống tại <span class="math inline">\(t_j\)</span>.</em>
+<span id="tab:tab11">Table 1.1: </span>Thời gian tử vong của 2 nhóm chuột sử dụng treatment và control.
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
+<th style="text-align:center;">
+treatment
 </th>
-<th style="text-align:left;">
-Nhóm I
-</th>
-<th style="text-align:left;">
-Nhóm II
-</th>
-<th style="text-align:left;">
-Tổng cộng
+<th style="text-align:center;">
+control
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-Số bệnh nhân tử vong tại <span class="math inline">\(t_j\)</span>
+<td style="text-align:center;">
+94
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(d_{1j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(d_{2j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(d_j\)</span>
+<td style="text-align:center;">
+52
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Số bệnh nhân còn sống tại <span class="math inline">\(t_j\)</span>
+<td style="text-align:center;">
+38
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(n_{1j} - d_{1j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(n_{2j} - d_{2j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(n_j-d_j\)</span>
+<td style="text-align:center;">
+10
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Số bệnh nhân ngay trước thời điểm <span class="math inline">\(t_j\)</span>
+<td style="text-align:center;">
+23
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(n_{1j}\)</span>
+<td style="text-align:center;">
+40
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(n_{2j}\)</span>
+</tr>
+<tr>
+<td style="text-align:center;">
+197
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(n_j\)</span>
+<td style="text-align:center;">
+104
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+99
+</td>
+<td style="text-align:center;">
+51
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+141
+</td>
+<td style="text-align:center;">
+146
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+46
 </td>
 </tr>
 </tbody>
 </table>
-<p>Như vậy tại thời điểm <span class="math inline">\(t_j\)</span> ta có một phân bố hypergeometric, và dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(1.2)</a> ta tính được kỳ vọng, phương sai và hiệp phương sai của hai nhóm bệnh nhân <span class="math inline">\(i\)</span> và <span class="math inline">\(l\)</span>:<br />
-<span class="math display" id="eq:eq3">\[
-e_{ij} = \frac{n_{ij}d_j}{n_j},
-\tag{1.3}
+</div>
+<div id="lý-thuyết-về-bootstrap" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Lý Thuyết Về Bootstrap</h1>
+<p>Ví dụ ta có tập dữ liệu <span class="math inline">\(X_1,X_2,\dots,X_n \stackrel{iid}{\sim} F\)</span> và <span class="math inline">\(\widehat{F}_n\)</span> là ước lượng của <span class="math inline">\(F\)</span>. Chúng ta sẽ ước lượng <span class="math inline">\(\theta = T(F)\)</span> bằng <span class="math inline">\(T(\widehat{F})\)</span>, như vậy bootstrap có thể được sử dụng để đưa ra suy luận về <span class="math inline">\(\widehat{\theta} - \theta\)</span>. Để làm điều này ta sử dụng <span class="math inline">\(\widehat{F}\)</span> để tính ước lượng của <span class="math inline">\(\widehat{\theta}\)</span> ký hiệu là <span class="math inline">\(\widehat{\theta}^*\)</span>. Và ý nghĩa của bootstrap được hình thành bằng mối quan hệ xấp xỉ như sau
+<span class="math display" id="eq:eq21">\[
+\widehat{\theta} - \theta \approx \widehat{\theta}^* - \widehat{\theta},
+\tag{2.1}
 \]</span>
-<span class="math display" id="eq:eq4">\[
-(\boldsymbol{W}_j)_{ii} = n_{ij}(n_j-n_{ij})d_j(n_j-d_j)n_j^{-2}(n_j-1)^{-1},
-\tag{1.4}
+nghĩa là hai biến ngẫu nhiên <span class="math inline">\((\widehat{\theta} - \theta)\)</span> và <span class="math inline">\((\widehat{\theta}^* - \widehat{\theta})\)</span> xấp xỉ nhau. Từ <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq21">(2.1)</a> ta suy ra rằng
+<span class="math display" id="eq:eq22">\[
+Bias_{F}(\widehat{\theta}) = \Bbb{E}_F(\widehat{\theta} -\theta) \approx \Bbb{E}_{\widehat{F}}(\widehat{\theta}^* - \widehat{\theta})
+\tag{2.2}
 \]</span>
-<span class="math display" id="eq:eq5">\[
-(\boldsymbol{W}_j)_{il} = -n_{ij}n_{lj}d_j(n_j-d_j)n_j^{-2}(n_j-1)^{-1}.
-\tag{1.5}
-\]</span></p>
-<p>Như vậy ta xem xét statistic <span class="math inline">\(\boldsymbol{w}_j = {[d_{1j}-e_{1j}, d_{2j}-e_{2j}, \dots,d_{pj}-e_{pj}]}^{\top}\)</span> sẽ có ước lượng là <span class="math inline">\(0\)</span> và covariance matrix là <span class="math inline">\(\boldsymbol{W}_j\)</span>, như vậy log-rank statistic là
-<span class="math display" id="eq:eq6">\[
-\boldsymbol{w} = \sum_{j=1}^k\boldsymbol{w}_j = \boldsymbol{\mathcal{O}} - \boldsymbol{\mathcal{E}},
-\tag{1.6}
+và
+<span class="math display" id="eq:eq23">\[
+\Bbb{V}_F(\widehat{\theta} -\theta) \approx \Bbb{V}_{\widehat{F}}(\widehat{\theta}^* - \widehat{\theta})
+\tag{2.3}
 \]</span>
-trong đó <span class="math inline">\(\boldsymbol{\mathcal{O}} = {[\mathcal{O}_1, \mathcal{O}_2, \dots, \mathcal{O}_p]}^{\top}\)</span>, <span class="math inline">\(\boldsymbol{\mathcal{E}} = [\mathcal{E}_1, \mathcal{E}_2, \dots, \mathcal{E}_p]\)</span>, với <span class="math inline">\(\mathcal{O}_i = \sum_{j=1}^k d_{ij}\)</span> và <span class="math inline">\(\mathcal{E}_i = \sum_{j=1}^ke_{ij}\)</span>.</p>
+và bởi vì <span class="math inline">\(\widehat{F}\)</span> là giá trị đã biết, nên ta có thể tìm thấy những đặc tính của <span class="math inline">\(\widehat{\theta} -\theta\)</span>. Mối quan hệ giữa các biến ngẫu nhiên này được minh họa trong <span style="color: #A569BD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig21">2.1</a></p>
+<div class="figure" style="text-align: center"><span id="fig:fig21"></span>
+<img src="img/bootworld.png" alt="*Mối quan hệ giữa gữa không gian thực và không gian bootstrap*" width="639" />
+<p class="caption">
+Figure 2.1: <em>Mối quan hệ giữa gữa không gian thực và không gian bootstrap</em>
+</p>
+</div>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
-<div id="references" class="section level1 unnumbered">
+<div id="references" class="section level1 unnumbered shad">
 <h1><em>References</em></h1>
+</div>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-col2015" class="csl-entry">
-Collett, David. 2015. <em>Modelling Survival Data in Medical Research</em>. CRC press.
-</div>
-<div id="ref-kal2002" class="csl-entry">
-Kalbfleisch, John D, and Ross L Prentice. 2011. <em>The Statistical Analysis of Failure Time Data</em>. Vol. 360. John Wiley &amp; Sons.
-</div>
+<div id="ref-efr1994" class="csl-entry">
+Efron, Bradley, and Robert J Tibshirani. 1994. <em>An Introduction to the Bootstrap</em>. CRC press.
 </div>
 </div>
 

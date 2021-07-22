@@ -1,0 +1,154 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('one-way classification')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\v}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{\boldsymbol{#1}^{\top}}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+
+
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\cov{\Bbb{c}\text{ov}}
+\def\cor{\Bbb{c}\text{orr}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\def\epsilon{\varepsilon}
+\def\tr{\text{tr}}
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+ttt = purrr::partial(totitle, icon = "")
+```
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+Let $m$ is the number of subjects and $n_i$ the number of observations of $i^{th}$ subject. Then, $y_{ij}$ is $j^{th}$ observation of $i^{th}$ subject, we have $i = 1,2,\dots,m$ and $j = 1,2,\dots,n_i$.
+
+# `r ttt('normality, random effects and ML')`
+
+## `r ttt('model')`
+
+The model has the following form:
+$$
+\begin{align}
+\E(y_{ij}|\mu_i) &= \mu_i \\
+y_{ij}|\mu_i &\stackrel{\text{i.i.d}}{\sim} \mathcal{N}(\mu_i,\sigma^2) \\
+\mu_i &\stackrel{i.i.d}{\sim} \mathcal{N}(\mu,\sigma^2_{\mu}).
+\end{align}
+(\#eq:eq11)
+$$
+
+The model in `r lb(eq11)` can be defined alternatively as follows
+$$
+\begin{align}
+\E(y_{ij}|a_i) &= \mu +a_i \\
+y_{ij}|a_i &\stackrel{\text{i.i.d}}{\sim} \mathcal{N}(\mu+a_i,\sigma^2) \\
+a_i &\stackrel{i.i.d}{\sim} \mathcal{N}(\mu,\sigma^2_a).
+\end{align}
+(\#eq:eq12)
+$$
+
+Corresponding to the model `r lb(eq12)` covariance of $j^{th}$ and $l^{th}$ observations of $i^{th}$ subject is 
+$$
+\begin{align}
+\cov(y_{ij},y_{il}) &= \cov(\E[y_{ij}|a_i],\E[y_{il}|a_i])+ \E[\cov(y_{ij},y_{il}|a_i)] \\
+&= \cov(\mu+a_i,\mu+a_i) + 0 \\
+&= \cov(a_i,a_i) \\
+&= \sigma^2_a,
+\end{align}
+(\#eq:eq13)
+$$
+so observations of each subject are correlated. Also
+$$
+\begin{align}
+\V(y_{ij}) &= \V(\E[y_{ij}|a_i])+ \E[\V(y_{ij}|a_i)] \\
+&= \V(\mu+a_i)+\E[\sigma^2] \\
+&= \sigma^2_a+\sigma^2,
+\end{align}
+(\#eq:eq14)
+$$
+and hence correlation can be obtained as follows
+$$
+\cor(y_{ij},y_{il}) = \frac{\sigma^2_a}{\sqrt{(\sigma^2_a+\sigma^2)(\sigma^2_a+\sigma^2)}} = \frac{\sigma^2_a}{\sigma^2_a+\sigma^2}
+(\#eq:eq15)
+$$
+
+Realization of each subject can be expressed in vector form, namely $\v y_i = [y_{i1},y_{i2},\dots,y_{in_i}]^{\top}$ and its distribution is
+$$
+\v y_i \sim \mathcal{N}(\mu\v 1_{n_i},\v V_i),
+$$
+where $\v V_i = \sigma^2\v I_{n_i} + \sigma^2_a\v J_{n_i}$ with $\v I_n$ being the identity matrix of order $n$, $\v J_n$ is an $n\times n$ matrix of all ones, and $\v 1_n$ is a column vector of all ones of order $n$. We can show that 
+$$
+\begin{align}
+\v V^{-1}_i &= \frac{1}{\sigma^2}\v I_{n_i} - \frac{\sigma^2_a}{\sigma^2(\sigma^2+n_i\sigma^2_a)}\v J_{n_i} \\
+|\v V_i| &= (\sigma^2+n_i\sigma^2_a)(\sigma^2)^{n_i-1}.
+\end{align}
+$$
+Then, the likelihood is 
+$$
+L = \prod_{i=1}^m(2\pi)^{-n_i/2}|\v V_i|\exp\{-\frac{1}{2}(\v y_i -\mu\v 1_{n_i})^{\top}\v V_i^{-1}(\v y_i-\mu\v 1_{n_i})\},
+$$
+and log-likelihood is
+$$
+\begin{align}
+l &= \ln L \\
+&= -\frac{1}{2}N\ln2\pi - \frac{1}{2}\sum_i\ln(\sigma^2+n_i\sigma^2_a) - \frac{1}{2}(N-m)\ln\sigma^2 - \\ 
+&\quad\quad \frac{1}{2\sigma^2}\sum_{i,j}(y_{ij}-\mu)^2+\frac{\sigma^2_a}{2\sigma^2}\sum_i\frac{(y_{i\bullet}-n_i\mu)^2}{\sigma^2+n_i\sigma^2_a}
+\end{align}
+(\#eq:eq16)
+$$
+
+## `r ttt('balanced data')`
+
+### `r ttt('likelihood')`
+
+Suppose $n_i =n, \quad \forall i$. Then, log-likelihood is simplified as follows
+$$
+l = \ln L = -\frac{1}{2}N\ln2\pi -\frac{1}{2}m(n-1)\ln\sigma^2 - \frac{1}{2}m[\ln(\sigma^2+n\sigma^2_a)] \\
+- \frac{\sum_{i,j}(y_{ij}-\mu)^2}{2\sigma^2}+ \frac{n^2\sigma^2_a\sum_i(\bar{y}_{i\bullet}-\mu)^2}{2\sigma^2(\sigma^2+n\sigma^2_a)}
+(\#eq:eq17)
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::

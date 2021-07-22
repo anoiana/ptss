@@ -1,0 +1,222 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('xác suất của chuỗi liên tục dài nhất trong n thí nghiệm')`"
+output: 
+  bookdown::html_document2:
+  #  code_folding: hide
+    number_sections: true
+    toc: false
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+Ta tiến hành tung một đồng xu, không đồng chất với xác suất mặt hình $p$, $n$ lần. Gọi sự kiện để có một chuỗi bao gồm  ít nhất $r$ số mặt hình xuất hiện liên tục là E, tính $\P(E)$. 
+
+Gọi $y_n$ là xác suất để $E$ xảy ra trong $n$ lần. Tương tự $y_{n+1}$ là xác suất để sự kiện $E$ xảy ra trong $n+1$ lần. Ta thấy rằng để có $(\ge r)$ mặt hình xảy ra liên tục, sẽ có 2 trường hợp: thứ nhất là $(\ge r)$ mặt hình xảy ra liên tục trong $n$ lần đầu tiên, sẽ có xqc1 suất là $y_n$, thứ hai là chỉ xảy ra trong $n+1$ lần với xác suất là $y_{n+1}$. Trường hợp thứ hai xảy ra khi 3 điều kiện sau dây xảy ra cùng lúc
+
+1. E không xảy ra trong $n-r$ lần đầu tiên, xác xuất này là $1-y_{n-r}$.
+2. Tại lần thứ $(n-r+1)^{th}$ không xuất hiện mặt hình, xác suất này là $q= 1-p$
+3. E xuất hiện trong $r$ lần với xác suất là $p^r$. 
+
+Nhận thấy rằng cả 3 sự kiện trên xảy ra độc lập, vì thế xác suất là 
+$$
+(1-y_{n-r})qp^r, \quad \text{(quy tắc nhân)}
+$$
+như vậy xác suất của $y_{n+1}$ là
+$$
+y_{n+1} = y_n + (1-y_{n-r})p^rq, \quad \text{(quy tắc cộng)}.
+(\#eq:eq1)
+$$
+Ta cũng dễ dàng xác định rằng 
+$$
+y_0 = y_1 = \dots =y_{r-1} = 0, \quad y_r = p^r
+(\#eq:eq2)
+$$
+dựa vào `r lb(eq1)` ta có thể xác định 
+$$
+\begin{align}
+&n= r, &&y_{r+1} = p^r + p^rq \\
+&n = r+1, &&y_{r+2} = p^r + 2p^rq
+\end{align}
+$$
+
+Gọi $z_n = 1-y_n$, ta có 
+$$
+\begin{align}
+z_{n+1} -z_n + qp^rz_{n-r} &= (1-y_{n+1}) -(1-y_n) +qp^rz_{n-r} \\
+&= y_n - y_n -(1-y_{n-r})p^rq + qp^rz_{n-r} \\
+&= 0.
+\end{align}
+(\#eq:eq3)
+$$
+Dựa vào `r lb(eq2)` ta có 
+$$
+z_0 =z_1 =\dots =z_{r-1} =1, \quad z_r = 1 - p^r.
+$$
+
+Ta định nghĩa chuỗi lũy thừa sau 
+$$
+\phi(\rho) = z_0 +z_1\rho+z_2\rho^2+ \dots
+(\#eq:eq4)
+$$
+ta nhân 2 vế với $1-\rho+qp^r\rho^{r+1}$, ta có
+$$
+\begin{align}
+(1-\rho+qp^r\rho^{r+1})\phi(\rho) &= z_0 +z_1\rho+z_2\rho^2+ \dots + z_{r-1}\rho^{r-1}+ z_r\rho^r + \dots & (a)  \\
+&- z_0\rho - z_1\rho^2 - z_2\rho^3 - \dots - z_{r-2}\rho^{r-1} -  z_{r-1}\rho^r- \dots & (b)\\
+&+ qp^r\rho^{r+1}(z_0 +z_1\rho+z_2\rho^2+ \dots + z_r\rho^r + z_{r+1}\rho^{r+1}+ \dots) & (c)
+\end{align}
+$$
+từ $(a)$ và $(b)$ ta có
+$$
+\begin{align}
+z_0 &+ (z_1-z_0)\rho + (z_2-z_1)\rho^2+(z_3-z_2)\rho^3 + \dots+ (z_{r-1} -z_{r-2})\rho^{r-1} + (z_r -z_{r-1})\rho^r + (z_{r+1} -z_{r})\rho^{r+1} +\dots \\
+&+ (z_{2r-1} -z_{2r-2})\rho^{2r-1} + (z_2r -z_{2r-1})\rho^2r + (z_{2r+1} -z_{2r})\rho^{2r+1} +\dots
+\end{align}
+$$
+ta thấy rằng:
+
+- $z_0 = 1$, 
+- $(z_1-z_0) = (z_2-z_1) = (z_3-z_2) = \dots =(z_{r-1} -z_{r-2}) =0$, và
+- $(z_r -z_{r-1}) = -p^r$.
+
+như vậy ta có
+$$
+\begin{align}
+&1 - p^r\rho^r + \\
++&(z_{r+1} -z_{r})\rho^{r+1}+ (z_{r+2} -z_{r+1})\rho^{r+2} + (z_{r+3} -z_{r+2})\rho^{r+3} + \dots + \\
++& (z_{2r+1} -z_{2r})\rho^{2r+1}+(z_{2r+2} -z_{2r+1})\rho^{2r+2} +\dots
+\end{align}
+$$
+
+kết hợp với $(c)$ ta có
+$$
+\begin{align}
+&1 - p^r\rho^r+ \\
++& (z_{r+1} -z_{r}+qp^rz_0)\rho^{r+1}+ (z_{r+2} -z_{r+1}qp^{r}z_1)\rho^{r+2} + (z_{r+3} -z_{r+2}+qp^{r}z_2)\rho^{r+3} +\\
++& (z_{2r+1}-z_{2r}+qp^rz_r)\rho^{2r+1} + (z_{2r+2}-z_{2r+1}+qp^rz_{r+1})\rho^{2r+2}+ \dots 
+\end{align}
+$$
+ta nhận thấy rằng vì `r lb(eq3)` nên
+$$
+\begin{align}
+&(z_{r+1} -z_{r}+qp^rz_0)\rho^{r+1}+ (z_{r+2} -z_{r+1}qp^{r}z_1)\rho^{r+2} + (z_{r+3} -z_{r+2}+qp^{r}z_2)\rho^{r+3} +\\
+&+ (z_{2r+1}-z_{2r}+qp^rz_r)\rho^{2r+1} + (z_{2r+2}-z_{2r+1}+qp^rz_{r+1})\rho^{2r+2}+ \dots  = 0
+\end{align}
+$$
+do đó 
+
+:::{style="border: thin solid grey; padding-left: 10px;"}
+$$
+\phi(\rho) = \frac{1 - p^r\rho^r}{(1-\rho+qp^r\rho^{r+1})},
+(\#eq:eq5)
+$$
+:::
+
+được gọi là hàm sinh xác suất (probability generating function), dựa vào `r lb(eq4)` ta có thể thấy được đặc tính của hàm này là nếu ta lấy đạo hàm $n$ lần ta sẽ được 
+$$
+\phi^{(n)}(\rho) = z_n + z_{n+1}c_1\rho + z_{n+2}c_2\rho^2 + \dots
+$$
+và thay $\rho=0$, ta sẽ có giá trị $z_n = 1 - y_n$, mà theo định nghĩa ban đầu thì $y_n$ chính là chuỗi $r$ mặt hình xuất hiện liên tục trong $n$ lần tung đồng xu đầu tiên. Nói cách khác, hệ số phía trước $\rho^n$ chính là xác suất mà chuỗi $r$ mặt hình không thể xuất hiện liên tục trong $n$ lần tung đồng xu đầu tiên. 
+
+Dựa vào `r lb(eq5)` ta thấy rằng 
+$$
+\frac{1}{1-\rho(1-qp^r\rho^r)} \stackrel{\text{taylor expansion}}{=}  \sum_{k=0}^{\infty}\rho^k(1-qp^r\rho^r)^k \stackrel{\text{binomial formula}}{=} \sum_{k=1}^{\infty}\sum_{i=0}^{\infty}{k\choose i}(-p^rq)^i\rho^{k+ir},
+$$
+Như vậy để có $\rho^n$ thì $k = n-ir$, và hệ số của $\rho^n$ trong phương trình trên là 
+$$
+c(n) = \sum_{i=0}^{\infty}{n-ir \choose i}(-p^rq)^i
+$$
+tương tự ta cũng có thể suy ra hệ số của $\rho^{n-m}$ là $c(n-r)$. Như vậy, sau khi phương trình `r lb(eq5)` được quy đồng, ta có thể suy ra hệ số của $\rho^n$ trong phương trình này là
+$$
+z_n = c(n) -p^rc(n-r),
+$$
+$y_n = 1-z_n = p^rc(n-r) +1 -c(n)$ có thể được tối giản như sau
+
+$$
+\begin{align}
+y_n &= p^r  \sum_{i\geq 0}(-1)^i{n-(i+1)r \choose i}(p^r q)^i+\sum_{i\geq 1}(-1)^{i+1}{n-ir \choose i}(p^rq)^i \\
+&= p^r  \sum_{i\geq 1}(-1)^{i-1}{n-i r \choose i-1}(p^r q)^{i-1}+\sum_{i\geq 1}(-1)^{i+1}{n-i r \choose i}(p^rq )^i \\
+&= \sum_{i\geq 1}(-1)^{i+1}  \left[{n-i r \choose i-1}+{n-i r \choose i}q\right]p^{ir}q^{i-1}\\
+&= \sum_{i\geq 1}(-1)^{i+1}  \left[{n-i r \choose i-1}p+{n-i r \choose i-1}q+{n-i r \choose i}q\right]p^{ ir } q^{i-1}\\
+&= \sum_{i\geq 1}(-1)^{i+1}  \left[{n-i r \choose i-1}p+{n-i r +1\choose i}q \right]p^{ir} q^{i-1}\\
+&= \sum_{i\geq 1}(-1)^{i+1}  \left[p+{n-i r +1\over i}\, q\right] {n-i r \choose i-1}\,p^{ir} q^{i-1}. 
+\end{align}
+$$
+
+Như vậy, xác suất để số mặt hình xuất hiện liên tục là $r$ hoặc lớn hơn trong $n$ lần tung đồng xu là
+
+:::{style="border: thin solid grey; padding-left: 10px;"}
+$$
+y_n = \sum_{i\geq 1}(-1)^{i+1}  \left[p+{n-i r +1\over i}\, q\right] {n-i r \choose i-1}\,p^{ir} q^{i-1}
+(\#eq:eq6)
+$$
+:::
+
+**Ví dụ:** Nếu một người chơi một trò chơi vớ xác suất thắng thua bằng nhau $(p=q=0.5)$, tính xác suất người đó chơi thắng ít nhất là 7 lần liên tiếp nếu người đó chơi 100 ván. 
+
+Để áp dụng công thức `r lb(eq6)` ta cần kiểm tra với những giá trị nào của $i$ thì ${n-ir \choose i-1}$ hợp lý, nghĩa là $n-ir \ge i-1 \Leftrightarrow i \le (n+1)/(r+1)$. Như vậy với $n=100, r = 7$ thì $i\le$ `r 101/8` hay $i=12$.
+
+```{r}
+s = 
+  sapply(1:12, function(i){
+  n = 100; r = 7; p<- q<- 0.5
+  (-1)^(i+1)*(p+ (n-i*r+1)/i*q)*(factorial(n-i*r)/factorial(i-1)/factorial(n-i*r-i+1))*p^(i*r)*q^(i-1)
+})
+```
+
+Như vậy $y_n =$ `r sum(s)`. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::

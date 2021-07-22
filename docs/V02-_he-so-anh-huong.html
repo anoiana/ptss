@@ -468,9 +468,7 @@ div.tocify {
     Home
   </a>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bookmark"></span>
      
@@ -483,8 +481,6 @@ div.tocify {
     <li>
       <a href="E01S01-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
     </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">II. OBSERVATIONAL STUDIES</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -504,9 +500,6 @@ div.tocify {
     </li>
     <li>
       <a href="E02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
-    </li>
-    <li>
-      <a href="E02-04_generalized-linear-models.html">4. Generalized linear models</a>
     </li>
   </ul>
 </li>
@@ -561,13 +554,13 @@ div.tocify {
       <a href="V02-03_em-algorithm-3.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
     </li>
     <li>
-      <a href="V02-04_bootstrap.html">4. Bootstrap</a>
-    </li>
-    <li>
-      <a href="V02-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
+      <a href="V02-04_xs-chuoi-dai-nhat-cua-n-trials.html">4. Xác suất chuỗi có ít nhất r mặt hình xuất hiện liên tục khi đồng xu được tung n lần.</a>
     </li>
   </ul>
 </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -586,7 +579,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">✑ Hệ Số Ảnh Hưởng Và Ý Nghĩa Của Hệ Số Trong Mô Hình Logistic</h1>
-<h4 class="date">📅 2021-06-13</h4>
+<h4 class="date">📅 2021-07-22</h4>
 
 </div>
 
@@ -650,12 +643,12 @@ control
 </tr>
 </tbody>
 </table>
-<p>Các hệ số <span class="math inline">\(a,b,c\)</span> and <span class="math inline">\(d\)</span> trong <span style="color: #C46ADD; font-size: 18px;"><em>Table</em></span> <a href="#tab:tab11">1.1</a> lần lượt là số bệnh nhân phơi nhiễm là không phơi nhiểm của 2 nhóm điều trị. với các giá trị này ta dễ dàng ước lượng xác suất phơi nhiễm của 2 nhóm điều trị lần lượt là
+<p>Các hệ số <span class="math inline">\(a,b,c\)</span> and <span class="math inline">\(d\)</span> trong <span style="color: #A569BD; font-size: 18px;"><em>Table</em></span> <a href="#tab:tab11">1.1</a> lần lượt là số bệnh nhân phơi nhiễm là không phơi nhiểm của 2 nhóm điều trị. với các giá trị này ta dễ dàng ước lượng xác suất phơi nhiễm của 2 nhóm điều trị lần lượt là
 <span class="math display" id="eq:eq11">\[
 \widehat{p}_1 = \frac{a}{a+b}, \quad \widehat{p}_0 = \frac{c}{c+d}
 \tag{1.1}
 \]</span></p>
-<p>Từ 2 hệ số <span class="math inline">\(\widehat{p}_0\)</span> và <span class="math inline">\(\widehat{p}_1\)</span> của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq11">(1.1)</a> ta có 3 đại lượng cần xem xét là <em>relative risk, risk ratio</em> và <em>odd ratio</em>, được định nghĩa như sau</p>
+<p>Từ 2 hệ số <span class="math inline">\(\widehat{p}_0\)</span> và <span class="math inline">\(\widehat{p}_1\)</span> của <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq11">(1.1)</a> ta có 3 đại lượng cần xem xét là <em>relative risk, risk ratio</em> và <em>odd ratio</em>, được định nghĩa như sau</p>
 <p><strong>Risk difference:</strong>
 <span class="math display" id="eq:eq12">\[
 \widehat{RD} = \widehat{p}_1-\widehat{p}_0 
@@ -800,7 +793,7 @@ như vậy</p>
 logit(p) = \ln\Big(\frac{p}{1-p}\Big) = {\boldsymbol{\beta}}^{\top}\boldsymbol{X}.
 \tag{3.1}
 \]</span></p>
-<p>Nếu ta lấy <span class="math inline">\(\boldsymbol{\beta} = {(\beta_0,\beta_1)}^{\top}\)</span> thì <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq31">(3.1)</a> sẽ trở thành
+<p>Nếu ta lấy <span class="math inline">\(\boldsymbol{\beta} = {(\beta_0,\beta_1)}^{\top}\)</span> thì <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq31">(3.1)</a> sẽ trở thành
 <span class="math display">\[
 logit(p) = \beta_0+\beta_1x
 \]</span>
@@ -821,7 +814,7 @@ như vậy
 OR = e^{\beta_1}.
 \tag{3.2}
 \]</span></p>
-<p><span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq32">(3.2)</a> thể hiện mối quan hệ giữa OR và hệ số <span class="math inline">\(\beta_1\)</span>. Như vậy nếu ta fit logistic model và ước lượng được khoảng tin cậy của <span class="math inline">\(\beta_1\)</span> thì ta cũng sẽ suy ra được khoảng tin cậy của <span class="math inline">\(OR\)</span>.</p>
+<p><span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq32">(3.2)</a> thể hiện mối quan hệ giữa OR và hệ số <span class="math inline">\(\beta_1\)</span>. Như vậy nếu ta fit logistic model và ước lượng được khoảng tin cậy của <span class="math inline">\(\beta_1\)</span> thì ta cũng sẽ suy ra được khoảng tin cậy của <span class="math inline">\(OR\)</span>.</p>
 </div>
 <div id="minh-họa" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Minh Họa</h1>
@@ -3356,7 +3349,7 @@ x
 </tbody>
 </table>
 </div>
-<p>dựa vào tập dữ liệu <span style="color: #C46ADD; font-size: 18px;"><em>Table</em></span> <a href="#tab:tab41">4.1</a> ta tính được bảng contingency là</p>
+<p>dựa vào tập dữ liệu <span style="color: #A569BD; font-size: 18px;"><em>Table</em></span> <a href="#tab:tab41">4.1</a> ta tính được bảng contingency là</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ftable</span>(dat[,<span class="sc">-</span><span class="dv">1</span>])</span></code></pre></div>
 <pre><code>##   x   0   1
 ## y          
@@ -3365,11 +3358,11 @@ x
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">=</span> <span class="dv">112</span><span class="sc">/</span>(<span class="dv">112</span><span class="sc">+</span><span class="dv">26</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">=</span> <span class="dv">53</span><span class="sc">/</span>(<span class="dv">53</span><span class="sc">+</span><span class="dv">37</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>or <span class="ot">=</span> <span class="fu">round</span>(p1<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p0)<span class="sc">/</span>p0<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p1),<span class="dv">2</span>)</span></code></pre></div>
-<p>như vậy ta sẽ có <span class="math inline">\(p_0 =\)</span> 0.8115942 và <span class="math inline">\(p_1=\)</span> 0.5888889. Dựa vào <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(1.4)</a> ta ước lượng được <span class="math inline">\(\widehat{OR}=\)</span> 0.33.</p>
+<p>như vậy ta sẽ có <span class="math inline">\(p_0 =\)</span> 0.8115942 và <span class="math inline">\(p_1=\)</span> 0.5888889. Dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(1.4)</a> ta ước lượng được <span class="math inline">\(\widehat{OR}=\)</span> 0.33.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">=</span> <span class="fu">exp</span>(<span class="fu">log</span>(or)<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">table</span>(dat[,<span class="sc">-</span><span class="dv">1</span>]))))<span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">&quot;(%s, %s)&quot;</span>,ci[<span class="dv">1</span>],ci[<span class="dv">2</span>])</span></code></pre></div>
-<p>Và sử dụng <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq24">(2.4)</a> để tính khoảng tin cậy là <span class="math inline">\(95\%CI(OR)=\)</span> (0.18, 0.6).</p>
+<p>Và sử dụng <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq24">(2.4)</a> để tính khoảng tin cậy là <span class="math inline">\(95\%CI(OR)=\)</span> (0.18, 0.6).</p>
 <p>Ngoài ra ta cũng có thể sử dụng hàm <code>glm</code> trong <code>R</code> để ước lượng khoảng tin cậy của <span class="math inline">\(OR\)</span> như sau</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">glm</span>(y<span class="sc">~</span>x, <span class="at">data =</span> dat, <span class="at">family =</span> <span class="fu">binomial</span>())<span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
@@ -3442,7 +3435,7 @@ x
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ci2 <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">&quot;(%s, %s)&quot;</span>,ci2[<span class="dv">1</span>],ci2[<span class="dv">2</span>])</span></code></pre></div>
 <p>như vậy <span class="math inline">\(95\%CI(OR) =\)</span> (0.18, 0.61), trùng với kết quả đã tính trước đó.</p>
 <p>Thông thường sử dụng mô hình logistic để tính các ước lượng điểm và ước lượng khoảng được sử dụng nhiều bởi vì hàm <code>glm</code> hổ trợ nhiều cách ước lượng khác nhau. Ví dụ trong casual inference, thường đòi hỏi tính propensity score (PS) để cân bằng các confounders, trước bước model fitting. Khi đã có được PS ta sẽ sử dụng nó như argument <code>weight</code> trong hàm <code>glm</code>. Hay trong phương pháp MAIC, sau bước adjustment, ta sẽ có một vector <em>weight</em> bảo đảm đại lượng weighted mean của các baseline characteristics trong individual patient data (IPD) bằng với cái trị số trung bình của các baseline characteristics trong summary level data (SLD). Khi fitting model sử dụng <code>glm</code> ta sẽ nhập các giá trị <em>weight</em> này vào argument <code>weight</code>.</p>
-<p>Bên cạnh đó ta có thể sử dụng hàm <code>vcovHC</code> trong package <code>sandwich</code> để tính <em>robust sandwich variance</em>. Ta hãy xem xét tập dữ liệu <span style="color: #C46ADD; font-size: 18px;"><em>Table</em></span> <a href="#tab:tab41">4.1</a> nhưng lần này có thêm biến tuổi như hình bên dưới</p>
+<p>Bên cạnh đó ta có thể sử dụng hàm <code>vcovHC</code> trong package <code>sandwich</code> để tính <em>robust sandwich variance</em>. Ta hãy xem xét tập dữ liệu <span style="color: #A569BD; font-size: 18px;"><em>Table</em></span> <a href="#tab:tab41">4.1</a> nhưng lần này có thêm biến tuổi như hình bên dưới</p>
 <div style="border: 1px solid #ddd; padding: 0px; border: none;overflow-y: scroll; height:400px; ">
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>

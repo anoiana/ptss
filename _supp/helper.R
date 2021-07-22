@@ -68,7 +68,7 @@ my_text = function(x, font = "Arial", size = 19){
 
 ################## square sign for complete of proof ####################
 proved = function(x = "$\\blacksquare$", size = 18){
-  sprintf("<p style='float:right; font-size:%spx'>%s</p></p>", size,x)
+  sprintf("<p style='float:right; font-size:%spx'>%s</p></p>$\\quad$", size,x)
 }
 
 

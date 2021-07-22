@@ -371,9 +371,7 @@ div.tocify {
     Home
   </a>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bookmark"></span>
      
@@ -386,8 +384,6 @@ div.tocify {
     <li>
       <a href="E01S01-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
     </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">II. OBSERVATIONAL STUDIES</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -407,9 +403,6 @@ div.tocify {
     </li>
     <li>
       <a href="E02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
-    </li>
-    <li>
-      <a href="E02-04_generalized-linear-models.html">4. Generalized linear models</a>
     </li>
   </ul>
 </li>
@@ -464,13 +457,13 @@ div.tocify {
       <a href="V02-03_em-algorithm-3.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
     </li>
     <li>
-      <a href="V02-04_bootstrap.html">4. Bootstrap</a>
-    </li>
-    <li>
-      <a href="V02-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
+      <a href="V02-04_xs-chuoi-dai-nhat-cua-n-trials.html">4. Xác suất chuỗi có ít nhất r mặt hình xuất hiện liên tục khi đồng xu được tung n lần.</a>
     </li>
   </ul>
 </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -543,7 +536,7 @@ Terminologies
 Figure 1.1: <em>Dữ liệu thời gian tử vong của các bệnh nhân trong một nghiên cứu.</em>
 </p>
 </div>
-<p><span style="color: #C46ADD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig1">1.1</a> thể hiện thời gian tử vong của 20 bệnh nhân, trong đó đó 14 bệnh nhân được ghi nhận mốc thời gian mà họ tử vong, còn 6 bệnh nhân còn lại là thời gian bị thiếu (censored time), nghĩa là thời gian tử vong của những bệnh nhân này đều không được báo cáo, mà đó chỉ là thời gian cuối cùng ta biết được bệnh nhân đó vẫn còn sống. Ta có thể minh họa bằng biểu đồ sau</p>
+<p><span style="color: #A569BD; font-size: 18px;"><em>Fig.</em></span> <a href="#fig:fig1">1.1</a> thể hiện thời gian tử vong của 20 bệnh nhân, trong đó đó 14 bệnh nhân được ghi nhận mốc thời gian mà họ tử vong, còn 6 bệnh nhân còn lại là thời gian bị thiếu (censored time), nghĩa là thời gian tử vong của những bệnh nhân này đều không được báo cáo, mà đó chỉ là thời gian cuối cùng ta biết được bệnh nhân đó vẫn còn sống. Ta có thể minh họa bằng biểu đồ sau</p>
 <div class="figure" style="text-align: center"><span id="fig:fig2"></span>
 <img src="V01S01-01_tong-quan-phan-tich-song-sot_files/figure-html/fig2-1.png" alt="*Biểu đồ thể hiện số liệu tử vong của các bệnh nhân.*" width="672" />
 <p class="caption">
@@ -575,7 +568,7 @@ A(t) = \int_0^t\alpha(s)ds,
 \frac{dA(t)}{dt} = \alpha(t) = \lim_{\Delta t}\frac{S(t)-S(t+\Delta t)}{\Delta t S(t)} = -\frac{dS(t)/dt}{S(t)} = d\ln[S(t)]/dt,
 \tag{1.4}
 \]</span>
-tiếp tục lấy tích phân của <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(1.4)</a> với cận <span class="math inline">\(0\)</span> tới <span class="math inline">\(t\)</span>. Ta có
+tiếp tục lấy tích phân của <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq14">(1.4)</a> với cận <span class="math inline">\(0\)</span> tới <span class="math inline">\(t\)</span>. Ta có
 <span class="math display">\[
 \ln[S(t)]  = -\int_0^t\alpha(s)ds,
 \]</span>

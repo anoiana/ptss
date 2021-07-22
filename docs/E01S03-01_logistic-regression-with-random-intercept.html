@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Phương Pháp Phi Tham Số</title>
+<title>✑ Logistic Regression With Random Intercept</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -20,15 +20,10 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="img/fugu.png"/>
@@ -264,69 +259,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -334,16 +266,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -477,145 +399,65 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">✑ Phương Pháp Phi Tham Số</h1>
-<h4 class="date">📅 2021-06-13</h4>
+<h1 class="title toc-ignore">✑ Logistic Regression With Random Intercept</h1>
+<h4 class="date">📅 2021-07-10</h4>
 
 </div>
 
 
+<div class="watermark">
+<p><em>DRAFT</em></p>
+</div>
 <hr />
-<p><em>tham khảo tại <span class="citation"><a href="#ref-col2015" role="doc-biblioref">Collett</a> (<a href="#ref-col2015" role="doc-biblioref">2015</a>)</span> và <span class="citation"><a href="#ref-kal2002" role="doc-biblioref">Kalbfleisch and Prentice</a> (<a href="#ref-kal2002" role="doc-biblioref">2011</a>)</span></em></p>
-<p>Trong các ứng dụng về clinial trial ta thường hay so sánh hiệu quả của hai đến nhiều phương pháp điều trị với nhau. Dưới góc nhìn của thống kê thì đây là bài toán so sánh CDF của hai quần thể khác nhau. Trong phần này ta sẽ bàn về các phương pháp kiểm định thường được sử dụng trong phân tích sống sốt. Ta vẫn tiếp tục xem xét các quần thể đồng nhất, nghĩa là ta bỏ qua các biến phân nhóm, ví dụ như tuổi, giới tính, cân nặng… tất cả những đặc tính khác nhau này của từng bệnh nhân đều không được xem xét.</p>
-<div id="so-sánh-hiệu-quả-của-hai-phương-pháp-điều-trị" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> So Sánh Hiệu Quả Của Hai Phương Pháp Điều Trị</h1>
-<p>Có nhiều kiểm định được sử dụng để so sánh thời gian sống sót của hai hay nhiều quần thể. Tuy nhiên dưới <em>giả định proportional</em> thì <em>kiểm định log-rank</em> được chứng minh là hiệu quả hơn các kiểm định còn lại.</p>
-<p>Trước khi tìm hiểu về kiểm định log-rank, ta sẽ ôn lại phân bố hypergeometric vì phân bố này chính là nền tảng để hình thành kiểm định log-rank.</p>
-<div class="blackbox brainstorm">
-<div class="center">
-<p>Ví dụ về phân bố Hypergeometric:</p>
-</div>
-<p>Xem xét trong một hộp banh, có <span class="math inline">\(N\)</span> banh, trong đó <span class="math inline">\(K\)</span> banh đỏ, số còn lại là banh xanh. Ta ngẫu nhiên chọn <span class="math inline">\(n\)</span> banh từ trong hộp, xác suất chọn ra được <span class="math inline">\(x\)</span> banh màu đỏ là
-<span class="math display" id="eq:eq1">\[
-\Bbb{P}(X=x) = \frac{{K \choose x}{N-K 
-\choose n-x}}{N \choose n}
-\tag{1.1}
-\]</span>
-trong đó <span class="math inline">\(\max(0, n+K-N) \le x \le \min(n,K)\)</span>. Với phân bố này ta tính được kỳ vọng và phương sai lần lượt là
-<span class="math display" id="eq:eq2">\[
-\Bbb{E}(X) = \frac{nK}{N}; \quad \Bbb{V}(X) = \frac{nK}{N}\frac{N-K}{N}\frac{N-n}{N-1}
-\tag{1.2}
-\]</span></p>
-<div class="example">
-<p><span id="exm:exm1" class="example"><strong>Example 1.1  </strong></span>Ta xem xét 2 nhóm bệnh nhân được điều trị bằng 2 phương pháp A và B, nhóm thứ nhất có 10 bệnh nhân, nhóm thứ hai có 12 bệnh nhân. Sau một tháng điều trị thì trong nhóm một có 4 bệnh nhân đã hết bệnh, và nhóm hai có 8 bệnh nhân đã hết bệnh.</p>
-</div>
-<p>Như vậy dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1.1)</a> ta có
+<p>Let us deem logistic model as follows
 <span class="math display">\[
-\Bbb{P}(X = 4|N = 22,K=10,n=12) = \frac{{10 \choose 4} {12 \choose 8}}{22 \choose 12},
+\Bbb{P}(y_{ij}=1|b_i) = \mu(\lambda) = \mu(u+{\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}) = \frac{\exp\{u+{\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}\}}{1+\exp\{u+{\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}\}},
 \]</span>
-xác suất tính ra là 0.1607526.</p>
-</div>
-<p><span style="color: #A569BD; font-size: 18px;"><em>Ex.</em></span> <a href="#exm:exm1">1.1</a> chính là một trường hợp trong kiểm định log rank. Ví dụ ta có <span class="math inline">\(t_1 &lt; t_2, \dots, t_k\)</span> chính là mốc thời gian tử vong từ <span class="math inline">\(p\)</span> nhóm bệnh nhân. Trong đó, <span class="math inline">\(n_{ij}\)</span> chính là số bệnh nhân chưa được ghi nhận tử vong ngay trước thời điểm <span class="math inline">\(t_j\)</span> và ta có <span class="math inline">\(\sum_{i=1}^p n_{ij} = n_j\)</span> chính la tổng số bệnh nhân chưa tử vong ngay trước thời điểm <span class="math inline">\(t_j\)</span> của <span class="math inline">\(p\)</span> nhóm. Tương tự <span class="math inline">\(d_{ij}\)</span> chính là số bệnh nhân tử vong tại thời điểm <span class="math inline">\(t_j\)</span> của nhóm bệnh nhân <span class="math inline">\(i\)</span>, và <span class="math inline">\(\sum_{i=1}^pd_{ij} = d_j\)</span> là tổng số bệnh nhân tử vong tại <span class="math inline">\(t_j\)</span> của cả <span class="math inline">\(p\)</span> nhóm. Nếu <span class="math inline">\(p=2\)</span>, ta có thể tóm tắc kết quả như sau</p>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<caption>
-<span id="tab:tab1">Table 1.1: </span><em>Bảng tóm tắt số bệnh nhân tử vong và còn sống tại <span class="math inline">\(t_j\)</span>.</em>
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-Nhóm I
-</th>
-<th style="text-align:left;">
-Nhóm II
-</th>
-<th style="text-align:left;">
-Tổng cộng
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Số bệnh nhân tử vong tại <span class="math inline">\(t_j\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(d_{1j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(d_{2j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(d_j\)</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Số bệnh nhân còn sống tại <span class="math inline">\(t_j\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(n_{1j} - d_{1j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(n_{2j} - d_{2j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(n_j-d_j\)</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Số bệnh nhân ngay trước thời điểm <span class="math inline">\(t_j\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(n_{1j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(n_{2j}\)</span>
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(n_j\)</span>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Như vậy tại thời điểm <span class="math inline">\(t_j\)</span> ta có một phân bố hypergeometric, và dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(1.2)</a> ta tính được kỳ vọng, phương sai và hiệp phương sai của hai nhóm bệnh nhân <span class="math inline">\(i\)</span> và <span class="math inline">\(l\)</span>:<br />
-<span class="math display" id="eq:eq3">\[
-e_{ij} = \frac{n_{ij}d_j}{n_j},
-\tag{1.3}
-\]</span>
-<span class="math display" id="eq:eq4">\[
-(\boldsymbol{W}_j)_{ii} = n_{ij}(n_j-n_{ij})d_j(n_j-d_j)n_j^{-2}(n_j-1)^{-1},
-\tag{1.4}
-\]</span>
-<span class="math display" id="eq:eq5">\[
-(\boldsymbol{W}_j)_{il} = -n_{ij}n_{lj}d_j(n_j-d_j)n_j^{-2}(n_j-1)^{-1}.
-\tag{1.5}
+we can simplify <span class="math inline">\(\mu^y(\lambda)[1-\mu(\lambda)]^{1-y}\)</span> to
+<span class="math display">\[
+\exp\{y\lambda\}(1-\exp\{\lambda\})^{-1}.
 \]</span></p>
-<p>Như vậy ta xem xét statistic <span class="math inline">\(\boldsymbol{w}_j = {[d_{1j}-e_{1j}, d_{2j}-e_{2j}, \dots,d_{pj}-e_{pj}]}^{\top}\)</span> sẽ có ước lượng là <span class="math inline">\(0\)</span> và covariance matrix là <span class="math inline">\(\boldsymbol{W}_j\)</span>, như vậy log-rank statistic là
-<span class="math display" id="eq:eq6">\[
-\boldsymbol{w} = \sum_{j=1}^k\boldsymbol{w}_j = \boldsymbol{\mathcal{O}} - \boldsymbol{\mathcal{E}},
-\tag{1.6}
+<p>We now consider the following likelihood function
+<span class="math display">\[
+\begin{align}
+L(\boldsymbol{\beta}, \sigma^2) &amp;= \prod_{i=1}^N\int_{-\infty}^{\infty}\Big[\prod_{j=1}^{n_i}
+\exp\{\lambda y_{ij}\}(1-\exp\{\lambda\})^{-1}\Big]\frac{1}{\sqrt{2\pi\sigma^2}}\exp\{-u^2/2\sigma^2\}du \\
+&amp;= (2\pi\sigma^2)^{-N/2}\prod_{i=1}^N\int_{-\infty}^{\infty}\exp\Big\{\sum_{j}^{n_i}[({\boldsymbol{\beta }}^{\top}\boldsymbol{x}_{ij}+u) y_{ij}-\ln(1-e^{({\boldsymbol{\beta }}^{\top}\boldsymbol{x}_{ij}+u)})] -u^2/2\sigma^2 \Big\}du
+\end{align}
 \]</span>
-trong đó <span class="math inline">\(\boldsymbol{\mathcal{O}} = {[\mathcal{O}_1, \mathcal{O}_2, \dots, \mathcal{O}_p]}^{\top}\)</span>, <span class="math inline">\(\boldsymbol{\mathcal{E}} = [\mathcal{E}_1, \mathcal{E}_2, \dots, \mathcal{E}_p]\)</span>, với <span class="math inline">\(\mathcal{O}_i = \sum_{j=1}^k d_{ij}\)</span> và <span class="math inline">\(\mathcal{E}_i = \sum_{j=1}^ke_{ij}\)</span>.</p>
+where <span class="math inline">\(\lambda = {\boldsymbol{\beta }}^{\top}\boldsymbol{x}_{ij}+u\)</span>. Taking natural log gives
+<span class="math display">\[
+l(\boldsymbol{\beta}, \sigma^2) = -\frac{N}{2}2\pi\sigma^2 + {\boldsymbol{\beta}}^{\top}\boldsymbol{r} + \sum_{i=1}^N\ln\int_{-\infty}^{\infty}e^{h_i(\boldsymbol{\beta},u)}du
+\]</span>
+where
+<span class="math display">\[
+h_i(\boldsymbol{\beta},u) = k_iu - \frac{u^2}{2\sigma^2}-\sum_{j=1}^{n_i}\ln(1+e^{{\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u}).
+\]</span>
+where <span class="math inline">\(k_i = \sum_{j=1}^{n_i}y_{ij}\)</span> and <span class="math inline">\(\boldsymbol{r} = \sum_{i,j}y_{ij}\boldsymbol{x}_{ij}\)</span>, note that first scalar of <span class="math inline">\(\boldsymbol{x}_{ij}\)</span> is 1. Also, we realize that <span class="math inline">\(\{k_i\}\)</span> and <span class="math inline">\(\boldsymbol{r}\)</span> are jointly sufficient statistic of <span class="math inline">\((\boldsymbol{\beta},u)\)</span> (where <span class="math inline">\(u\)</span> is <span class="math inline">\(\beta_0\)</span>). To maximize <span class="math inline">\(l(\boldsymbol{\beta},\sigma^2)\)</span>, we need to take derivative of the function w.r.t <span class="math inline">\(\boldsymbol{\beta}\)</span> and <span class="math inline">\(\sigma^2\)</span>,
+<span class="math display">\[
+\frac{\partial l}{\partial \boldsymbol{\beta}} = \boldsymbol{r} - \sum_{i=1}^N \frac{\boldsymbol{I}_{i3}}{I_{i1}},\quad 
+\frac{\partial l}{\partial l^2} = -\frac{N}{2\sigma^2}+\frac{1}{2\sigma^2}\sum_{i=1}^N\frac{I_{i2}}{I_{i1}}
+\]</span>
+where
+<span class="math display">\[
+I_{i1} = \int_{-\infty}^{\infty}\exp\{h_i(\boldsymbol{\beta};u)\}du, \quad I_{i2} = \int_{-\infty}^{\infty}u^2\exp\{h_i(\boldsymbol{\beta};u)\}du, \\
+\boldsymbol{I}_{i3} = \int_{-\infty}^{\infty}\bigg[\sum_{j=1}^{n_i}\boldsymbol{x}_{ij}\frac{\exp({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u)}{1+\exp({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u)}e^{h_i({\boldsymbol{\beta}}^{\top};u)}\bigg]du.
+\]</span></p>
+<p>The Fisher information for <span class="math inline">\(\boldsymbol{\beta}\)</span> is approximated as
+<span class="math display">\[
+-\Bbb{E}\Big(\frac{\partial^2 l}{\partial\boldsymbol{\beta}^2}\Big) \approx \boldsymbol{H} = \sum_{i=1}^N \Big[\frac{1}{I_{i1}}\boldsymbol{I}_{i4}-\frac{1}{I^2_{i1}}\boldsymbol{I}_{i3}{\boldsymbol{I}}^{\top}_{i3} \Big]
+\]</span>
+where
+<span class="math display">\[
+\boldsymbol{I}_{i4} = \int_{-\infty}^{\infty}\Big[\sum_{j=1}^{n_i}\boldsymbol{x}_{ij}{\boldsymbol{x}}^{\top}_{ij}\frac{\exp({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u)}{(1+\exp({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u))^2}e^{h_i(\boldsymbol{\beta},u)}\Big]du
+\]</span></p>
 <!-- ----------------------------------------------------------------------------- -->
-</div>
-<div id="references" class="section level1 unnumbered">
+<div id="references" class="section level1 unnumbered shad">
 <h1><em>References</em></h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-col2015" class="csl-entry">
-Collett, David. 2015. <em>Modelling Survival Data in Medical Research</em>. CRC press.
-</div>
-<div id="ref-kal2002" class="csl-entry">
-Kalbfleisch, John D, and Ross L Prentice. 2011. <em>The Statistical Analysis of Failure Time Data</em>. Vol. 360. John Wiley &amp; Sons.
-</div>
-</div>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -653,32 +495,6 @@ $(document).ready(function () {
 });
 </script>
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

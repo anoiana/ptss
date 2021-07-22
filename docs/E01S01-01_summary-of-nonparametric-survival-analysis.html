@@ -365,9 +365,7 @@ div.tocify {
     Home
   </a>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bookmark"></span>
      
@@ -380,8 +378,6 @@ div.tocify {
     <li>
       <a href="E01S01-01_summary-of-nonparametric-survival-analysis.html">1. Summary of nonparametric survival analysis</a>
     </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">II. OBSERVATIONAL STUDIES</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -401,9 +397,6 @@ div.tocify {
     </li>
     <li>
       <a href="E02-03_ci-2x2-tables.html">3. Construction of confidence intervals with 2x2 tables</a>
-    </li>
-    <li>
-      <a href="E02-04_generalized-linear-models.html">4. Generalized linear models</a>
     </li>
   </ul>
 </li>
@@ -458,13 +451,13 @@ div.tocify {
       <a href="V02-03_em-algorithm-3.html">3. Thuật toán Expectation-Maximization (EM) [3/3].</a>
     </li>
     <li>
-      <a href="V02-04_bootstrap.html">4. Bootstrap</a>
-    </li>
-    <li>
-      <a href="V02-05_he-so-anh-huong.html">5. Hệ số ảnh hưởng và ý nghĩa của các hệ số trong mô hình logistics.</a>
+      <a href="V02-04_xs-chuoi-dai-nhat-cua-n-trials.html">4. Xác suất chuỗi có ít nhất r mặt hình xuất hiện liên tục khi đồng xu được tung n lần.</a>
     </li>
   </ul>
 </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -561,11 +554,12 @@ where <span class="math inline">\(\alpha(t)\)</span> is relative mortality commo
 \alpha_i(t) = \alpha(t)\mu_{s_i}(a_i+t),
 \tag{2.5}
 \]</span>
-where <span class="math inline">\(\mu_{s_i}(a_i+t)\)</span> is <span class="math inline">\(\mu_i(t)\)</span> in <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq22">(2.2)</a>, so <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq24">(2.4)</a> will be utilized to estimate the cumulative hazard.
+where <span class="math inline">\(\mu_{s_i}(a_i+t)\)</span> is <span class="math inline">\(\mu_i(t)\)</span> in <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq22">(2.2)</a>, so <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq24">(2.4)</a> will be utilized to estimate the cumulative hazard.
 <p style="float:right; font-size:18px">
 <span class="math inline">\(\blacksquare\)</span>
 </p>
 </p>
+<p><span class="math inline">\(\quad\)</span></p>
 </div>
 </div>
 <div id="handling-of-ties" class="section level1" number="3">
@@ -575,7 +569,7 @@ where <span class="math inline">\(\mu_{s_i}(a_i+t)\)</span> is <span class="math
 <li>ties occurs due to grouping or rounding.</li>
 <li>time is discrete and ties are real.</li>
 </ol>
-<p><strong>For the first scenario.</strong> we modify <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq13">(1.3)</a> to
+<p><strong>For the first scenario.</strong> we modify <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq13">(1.3)</a> to
 <span class="math display" id="eq:eq31">\[
 \widehat{A}(t) = \sum_{T_j \le t}\triangle\widehat{A}(T_j),
 \tag{3.1}
@@ -585,7 +579,7 @@ where <span class="math inline">\(\triangle\widehat{A}(t) = 1/Y(T_j)\)</span> in
 \triangle\widehat{A}(T_j) = \sum_{l=0}^{d_j-1}\frac{1}{Y(T_j)-l}.
 \tag{3.2}
 \]</span></p>
-<p><strong>For the second scenario.</strong> we obtain <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq31">(3.1)</a> with
+<p><strong>For the second scenario.</strong> we obtain <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq31">(3.1)</a> with
 <span class="math display" id="eq:eq33">\[
 \triangle\widehat{A}(T_j) = \frac{d_j}{Y(T_j)}.
 \tag{3.3}
@@ -615,7 +609,7 @@ S(t) = \prod_{k=1}^KS(t_k|t_{k-1}),
 \tag{4.1}
 \]</span>
 where <span class="math inline">\(S(v|u) =S(v)/S(u), \quad \forall v&gt;u\)</span>.</p>
-<p>To this point, once again we assume there is no tied event times, so the value of <span class="math inline">\(K\)</span> is chosen such that there is at most 1 event occurring in each small interval. Thus, if no event is observed (i.e. no death is observed) in <span class="math inline">\((t_{k-1},t_k]\)</span>, <span class="math inline">\(S(t_k|t_{k-1})\)</span> is 1. If an event is observed, then <span class="math inline">\(S(t_k|t_{k-1})\)</span> is <span class="math inline">\(1-1/Y(t_{k-1}) = 1- 1/Y(T_j)\)</span>. Thus, referring to <span style="color: #C46ADD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq41">(4.1)</a> we have
+<p>To this point, once again we assume there is no tied event times, so the value of <span class="math inline">\(K\)</span> is chosen such that there is at most 1 event occurring in each small interval. Thus, if no event is observed (i.e. no death is observed) in <span class="math inline">\((t_{k-1},t_k]\)</span>, <span class="math inline">\(S(t_k|t_{k-1})\)</span> is 1. If an event is observed, then <span class="math inline">\(S(t_k|t_{k-1})\)</span> is <span class="math inline">\(1-1/Y(t_{k-1}) = 1- 1/Y(T_j)\)</span>. Thus, referring to <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq41">(4.1)</a> we have
 <span class="math display" id="eq:eq42">\[
 \widehat{S}(t) = \prod_{T_j \le t}\Big[1-\frac{1}{Y(T_j)} \Big],
 \tag{4.2}

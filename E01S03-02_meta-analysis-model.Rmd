@@ -1,0 +1,190 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('meta-analysis model')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+<!-- \newcommand{\tp}[1]{{#1}^{\top}} -->
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+\def\tp{^{\top}}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+ttt = purrr::partial(totitle, icon = "")
+```
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+# `r ttt('simple meta-analysis model')`
+
+Suppose we have $n$ studies with effect size $\{y_i\}_{i=1}^n$ and its known variance $\{\sigma^2_i\}_{i=1}^n$. Let $\sigma^2$ be unknown variation among studies. We can combine $n$ effect size under following model
+$$
+y_i = \beta +b_i + \epsilon_i,
+(\#eq:eq11)
+$$
+where $b_i$ is random effect with unknown variance $\sigma^2$ and error term $\epsilon_i$ with known variance $\sigma^2_i$. We also assume that $b_i \indep \epsilon_i$, both follows normal distribution with zero mean. Thus,
+$$
+y_i \sim \mathcal{N}(\beta, \sigma^2+\sigma^2_i), \quad i \in \{1,2,\dots,n\}.
+(\#eq:eq12)
+$$
+
+Customarily, $\sigma^2_i$ can be obtained through confidence interval. $\beta$ is called the common treatment effect, $\sigma^2$ is called the heterogeneity variance parameter. From `r lb(eq12)` we obtain log-likelihood $l(\beta,\sigma^2)$ as follows
+$$
+l(\beta,\sigma^2) = -\frac{1}{2}\sum_{i=1}^n\bigg[\ln(\sigma^2+\sigma^2_i)+\frac{(y_i-\beta)^2}{\sigma^2+\sigma^2_i}\bigg].
+(\#eq:eq13)
+$$
+
+Taking derivative w.r.t $\beta$, then equating to zero and solve for $\beta$, we obtain *the weighted average* as follows
+$$
+\hat{\beta} = \sum_{i=1}^ny_i\frac{(\sigma^2+\sigma_i^2)^{-1}}{\sum_{j=1}^n(\sigma^2+\sigma_j^2)^{-1}},
+(\#eq:eq14)
+$$
+hence 
+$$
+\V(\hat{\beta}) = \frac{1}{\sum_{i=1}^n(\sigma^2+\sigma_i^2)^{-1}}.
+(\#eq:eq15)
+$$
+
+In practice, $\sigma^2$ is unknown parameter whose estimator is $\hat{\sigma}_2$. Once $\hat{\sigma}$ is calculated, $\hat{\beta}$ can be obtained by `r lb(eq14)`. There are two extreme cases of $\sigma^2$, when $\sigma^2 = 0$, 
+$$
+\hat{\beta}_0 = \hat{\beta}|_{\sigma^2=0} = \frac{\sum y_i/\sigma^2}{\sum1/\sigma^2}
+(\#eq:eq16)
+$$
+and when $\sigma^2 \to \infty$,
+$$
+\hat{\beta}_{OLS} = \lim_{\sigma^2 \to \infty}\hat{\beta} = \frac{\sum_{i=1}^n y_i}{n} = \bar{y} 
+(\#eq:eq17)
+$$
+
+## `r ttt('random effects')`
+
+Before discussing how to estimate random effect $b_i$ in meta-analysis model, we shall review estimation of random effect in the framework of mixed model, and we relate such general concept to meta-analysis perspective.
+
+### Bivariate Normal
+
+We now assume that $\bf{\beta}$, variance parameters $\sigma^2$ and $\bf{D}$ are known. $\bf{b}_i$ is estimated as the conditional expectation $\E(\bf{b}_i|\bf{y}_i)$. Since $\bf{b}_i$ and $\bf{y}_i$ are assumed to be joint normal distribution with $Cov(\bf{b}_i,\bf{y}_i) = \sigma^2\bf{DZ}_i\tp$, we obtain
+$$
+\begin{align}
+\E(\bf{b}_i|\bf{y}_i) &= cov(\bf{b}_i,\bf{y}_i)cov^{-1}(\bf{y}_i)[\bf{y}_i-\E(\bf{y}_i)] \\
+&= \bf{DZ}\tp(\bf{I}+\bf{Z}_i\bf{D}\bf{Z}_i\tp)^{-1}(\bf{y}_i-\bf{X}_i\bf{\beta})
+\end{align}
+(\#eq:eq18)
+$$
+from the proved result of condition distribution of bivariate normal distribution. Thus, 
+$$
+\hat{\bf{b}}_i = \bf{DZ}\tp(\bf{I}+\bf{Z}_i\bf{D}\bf{Z}_i\tp)^{-1}(\bf{y}_i-\bf{X}_i\bf{\hat{\beta}}),
+(\#eq:eq19)
+$$
+once $\hat{\bf{\beta}}_i$ is calculated, $\hat{\bf{b}}_i$ can be obtained. @dem2013 showed `r lb(eq19)` can be simplified as follows
+$$
+\hat{\bf{b}}_i = \bf{D}(\bf{I}+\bf{Z}^\top_i\bf{Z}_i\bf{D})^{-1}\bf{Z}^\top (\bf{y}_i - \bf{X}_i\bf{\hat{\beta}}).
+(\#eq:eq110)
+$$
+
+### `r ttt('Minimizing a quadratic function under linear constraints')`
+
+`r lb(eq19)` also can be obtained by minimizing a quadratic function under linear constraints. To ease presentation, we shall work with the following model
+$$
+\bf{y} = \bf{X\beta} + \bf{Zb}+ \bf{\epsilon},
+$$
+where $\bf{b}$ and $\bf{\epsilon}$ are random effect with zero mean and known covariance matrices $\sigma^2\bf{D}_l$ and $\sigma^2\bf{I}$, respectively. Let us define $\bf{\hat{b}} = \bf{Cy}$ and we seek $\bf{C}$ such that $\E(\bf{\hat{b}}) = \bf{C(X\beta+Zb + \epsilon)} = 0$, which implies $\bf{CX} = \bf{0}$. Then, we also want 
+$$
+\bf{C}^* = \arg\min Cov(\bf{\hat{b}} - \bf{b}) = \sigma^2 \big[\bf{CC}^\top + (\bf{I-CZ})\bf{D}(\bf{I-CZ})^\top \big].
+$$
+Let $\bf{p}$ be any vector and 
+$$
+\bf{C}^* =  \arg\min \bf{p}^\top[\bf{CC}^\top + (\bf{CZ-I})\bf{D}(\bf{CZ-I})^\top]\bf{p}.
+$$
+
+Taking derivative of 
+$$
+\mathcal{L}(\bf{C}) = \bf{p}^\top[\bf{CC}^\top + (\bf{CZ-I})\bf{D}(\bf{CZ-I})^\top]\bf{p}
+$$
+leads to
+$$
+\frac{\partial\mathcal{L}}{\partial\bf{C}} = 2\bf{pp}^\top\bf{C}(\bf{I}+\bf{ZDZ}^\top) - 2\bf{pp}^\top\bf{DZ}^\top-\bf{L}^\top\bf{X}^\top = 0,
+$$
+which implies
+$$
+2\bf{pp}^\top\bf{C} = (2\bf{pp}^\top\bf{DZ}^\top+\bf{L}^\top\bf{X}^\top)(I+\bf{ZDZ}^\top)^{-1}.
+$$
+Multiplying both sides by $\bf{X}$, we obtain
+$$
+(2\bf{pp}^\top\bf{DZ}^\top+\bf{L}^\top\bf{X}^\top)(\bf{I}+\bf{ZDZ}^\top)^{-1}\bf{X} = \bf{0},
+$$
+consequently 
+$$
+\bf{L}^\top = -2\bf{pp}^\top\bf{DZ}^\top\bf{V}^{-1}\bf{X}(\bf{X}^\top\bf{V}^{-1}\bf{X})^{-1}.
+$$
+Thus,
+$$
+2\bf{pp}^\top\bf{C} = 2\bf{pp}^\top\bf{DZ}^\top[\bf{V}^{-1}-\bf{V}^{-1}\bf{X}(\bf{X}^\top\bf{V}^{-1}\bf{X})^{-1}\bf{X}^\top\bf{V}^{-1}]\underbrace{\bf{V}(\bf{I}-\bf{ZDZ}^\top)^{-1}}_{ = \bf{I}\textit{ (since covariance matrices of}\\ \bf{\epsilon}\textit{ and }\bf{b}\textit{ are } \sigma^2\bf{D}_l \textit{ and } \sigma^2\bf{I}\textit{, respectively.)}}
+$$
+hence,
+$$
+\bf{C}^* = \bf{DZ}^\top\bf{V}^{-1}[\bf{I}-\bf{X}(\bf{X}^\top\bf{V}^{-1}\bf{X})^{-1}\bf{X}^\top\bf{V}^{-1}].
+$$
+Finally,
+$$
+\begin{align}
+\bf{\hat{b}}=\bf{C}^*\bf{y}_i &= \bf{DZ}_i^\top\bf{V}_i^{-1}[\bf{I}-\bf{X}_i(\bf{X}^\top\bf{V}^{-1}\bf{X})^{-1}\bf{X}^\top\bf{V}^{-1}]\bf{y}_i\\
+&= \bf{DZ}_i^\top\bf{V}_i^{-1}(\bf{y}_i - \bf{X}_i\bf{\hat{\beta}}),
+\end{align}
+$$
+which is equal to `r lb(eq19)`.
+
+### `r ttt('minimizing norm of covariance matrix')`
+
+We can also obtain `r lb(eq19)` by optimizing the following equation
+$$
+\sum_{i=1}^n\Big[||\bf{y}_i-\bf{X}_i\bf{\beta}-\bf{Z}_i\bf{b}_i||^2 + \bf{b}_i^\top\bf{D}^{-1}\bf{b}_i\Big]
+(\#eq:eq111)
+$$
+w.r.t $\bf{b}_i$. To this end, we can obtain 
+$$
+\bf{b}_i = (\bf{Z}_i\bf{Z}_i^\top+\bf{D}^{-1})^{-1}\bf{Z}_i^\top(\bf{y}_i-\bf{X}_i\bf{\beta}),
+$$
+which is equal to `r lb(eq110)` [for more information refer to p146-148, @dem2013].
+
+We now return to model used in meta-analysis. We shall obtain equation `r lb(eq111)` that is relative to model `r lb(eq11)`
+$$
+S = \sum_{i=1}^n
+$$
+
+
+
+$$
+\E_{K\sim\mathcal{N}(0,1)}\Phi(s+\sigma K) = \Phi\Big(\frac{s}{\sqrt{1+\sigma^2}}\Big)
+$$
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::

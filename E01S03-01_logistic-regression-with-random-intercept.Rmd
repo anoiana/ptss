@@ -1,0 +1,97 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('logistic regression with random intercept')`"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+    toc: false
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\v}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcommand{\tr}[1]{{\boldsymbol{#1}}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+ttt = purrr::partial(totitle, icon = "")
+```
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+Let us deem logistic model as follows
+$$
+\P(y_{ij}=1|b_i) = \mu(\lambda) = \mu(u+\tr{\beta}\v x_{ij}) = \frac{\exp\{u+\tr{\beta}\v x_{ij}\}}{1+\exp\{u+\tr{\beta}\v x_{ij}\}},
+$$
+we can simplify $\mu^y(\lambda)[1-\mu(\lambda)]^{1-y}$ to
+$$
+\exp\{y\lambda\}(1-\exp\{\lambda\})^{-1}.
+$$
+
+We now consider the following likelihood function 
+$$
+\begin{align}
+L(\v\beta, \sigma^2) &= \prod_{i=1}^N\int_{-\infty}^{\infty}\Big[\prod_{j=1}^{n_i}
+\exp\{\lambda y_{ij}\}(1-\exp\{\lambda\})^{-1}\Big]\frac{1}{\sqrt{2\pi\sigma^2}}\exp\{-u^2/2\sigma^2\}du \\
+&= (2\pi\sigma^2)^{-N/2}\prod_{i=1}^N\int_{-\infty}^{\infty}\exp\Big\{\sum_{j}^{n_i}[(\tr\beta \v x_{ij}+u) y_{ij}-\ln(1-e^{(\tr\beta \v x_{ij}+u)})] -u^2/2\sigma^2 \Big\}du
+\end{align}
+$$
+where $\lambda = \tr\beta \v x_{ij}+u$. Taking natural log gives
+$$
+l(\v\beta, \sigma^2) = -\frac{N}{2}2\pi\sigma^2 + \tr\beta\v r + \sum_{i=1}^N\ln\int_{-\infty}^{\infty}e^{h_i(\v\beta,u)}du
+$$
+where
+$$
+h_i(\v\beta,u) = k_iu - \frac{u^2}{2\sigma^2}-\sum_{j=1}^{n_i}\ln(1+e^{\tr\beta\v x_{ij}+u}).
+$$
+where $k_i = \sum_{j=1}^{n_i}y_{ij}$ and $\v r = \sum_{i,j}y_{ij}\v x_{ij}$, note that first scalar of $\v x_{ij}$ is 1. Also, we realize that $\{k_i\}$ and $\v r$ are jointly sufficient statistic of $(\v\beta,u)$ (where $u$ is $\beta_0$). To maximize $l(\v\beta,\sigma^2)$, we need to take derivative of the function w.r.t $\v\beta$ and $\sigma^2$, 
+$$
+\frac{\partial l}{\partial \v\beta} = \v r - \sum_{i=1}^N \frac{\v I_{i3}}{I_{i1}},\quad 
+\frac{\partial l}{\partial l^2} = -\frac{N}{2\sigma^2}+\frac{1}{2\sigma^2}\sum_{i=1}^N\frac{I_{i2}}{I_{i1}}
+$$
+where
+$$
+I_{i1} = \int_{-\infty}^{\infty}\exp\{h_i(\v\beta;u)\}du, \quad I_{i2} = \int_{-\infty}^{\infty}u^2\exp\{h_i(\v\beta;u)\}du, \\
+\v I_{i3} = \int_{-\infty}^{\infty}\bigg[\sum_{j=1}^{n_i}\v x_{ij}\frac{\exp(\tr\beta\v x_{ij}+u)}{1+\exp(\tr\beta\v x_{ij}+u)}e^{h_i(\tr\beta;u)}\bigg]du.
+$$
+
+The Fisher information for $\v\beta$ is approximated as 
+$$
+-\E\Big(\frac{\partial^2 l}{\partial\v\beta^2}\Big) \approx \v H = \sum_{i=1}^N \Big[\frac{1}{I_{i1}}\v I_{i4}-\frac{1}{I^2_{i1}}\v I_{i3}\tr I_{i3} \Big]
+$$
+where
+$$
+\v I_{i4} = \int_{-\infty}^{\infty}\Big[\sum_{j=1}^{n_i}\v x_{ij}\tr x_{ij}\frac{\exp(\tr\beta\v x_{ij}+u)}{(1+\exp(\tr\beta\v x_{ij}+u))^2}e^{h_i(\v\beta,u)}\Big]du
+$$
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::
