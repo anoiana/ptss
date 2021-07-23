@@ -32,6 +32,8 @@ link-citations: true
 *DRAFT*
 :::
 
+*nguồn: @usp1937*
+
 ---
 
 Ta tiến hành tung một đồng xu, không đồng chất với xác suất mặt hình $p$, $n$ lần. Gọi sự kiện để có một chuỗi bao gồm  ít nhất $r$ số mặt hình xuất hiện liên tục là E, tính $\P(E)$. 
@@ -95,7 +97,7 @@ từ $(a)$ và $(b)$ ta có
 $$
 \begin{align}
 z_0 &+ (z_1-z_0)\rho + (z_2-z_1)\rho^2+(z_3-z_2)\rho^3 + \dots+ (z_{r-1} -z_{r-2})\rho^{r-1} + (z_r -z_{r-1})\rho^r + (z_{r+1} -z_{r})\rho^{r+1} +\dots \\
-&+ (z_{2r-1} -z_{2r-2})\rho^{2r-1} + (z_2r -z_{2r-1})\rho^2r + (z_{2r+1} -z_{2r})\rho^{2r+1} +\dots
+&+ (z_{2r-1} -z_{2r-2})\rho^{2r-1} + (z_{2r} -z_{2r-1})\rho^{2r} + (z_{2r+1} -z_{2r})\rho^{2r+1} +\dots
 \end{align}
 $$
 ta thấy rằng:
@@ -117,15 +119,15 @@ kết hợp với $(c)$ ta có
 $$
 \begin{align}
 &1 - p^r\rho^r+ \\
-+& (z_{r+1} -z_{r}+qp^rz_0)\rho^{r+1}+ (z_{r+2} -z_{r+1}qp^{r}z_1)\rho^{r+2} + (z_{r+3} -z_{r+2}+qp^{r}z_2)\rho^{r+3} +\\
++& (z_{r+1} -z_{r}+qp^rz_0)\rho^{r+1}+ (z_{r+2} -z_{r+1}qp^{r}z_1)\rho^{r+2} + (z_{r+3} -z_{r+2}+qp^{r}z_2)\rho^{r+3} + \dots +\\
 +& (z_{2r+1}-z_{2r}+qp^rz_r)\rho^{2r+1} + (z_{2r+2}-z_{2r+1}+qp^rz_{r+1})\rho^{2r+2}+ \dots 
 \end{align}
 $$
-ta nhận thấy rằng vì `r lb(eq3)` nên
+ta nhận thấy rằng vì `r lb(eq3)` *($z_{n+1} -z_n + qp^rz_{n-r} = 0$)* nên
 $$
 \begin{align}
-&(z_{r+1} -z_{r}+qp^rz_0)\rho^{r+1}+ (z_{r+2} -z_{r+1}qp^{r}z_1)\rho^{r+2} + (z_{r+3} -z_{r+2}+qp^{r}z_2)\rho^{r+3} +\\
-&+ (z_{2r+1}-z_{2r}+qp^rz_r)\rho^{2r+1} + (z_{2r+2}-z_{2r+1}+qp^rz_{r+1})\rho^{2r+2}+ \dots  = 0
+&(z_{r+1} -z_{r}+qp^rz_0)\rho^{r+1}+ (z_{r+2} -z_{r+1}+qp^{r}z_1)\rho^{r+2} + (z_{r+3} -z_{r+2}+qp^{r}z_2)\rho^{r+3} + \dots + \\
++& (z_{2r+1}-z_{2r}+qp^rz_r)\rho^{2r+1} + (z_{2r+2}-z_{2r+1}+qp^rz_{r+1})\rho^{2r+2}+ \dots  = 0
 \end{align}
 $$
 do đó 
@@ -141,7 +143,7 @@ $$
 $$
 \phi^{(n)}(\rho) = z_n + z_{n+1}c_1\rho + z_{n+2}c_2\rho^2 + \dots
 $$
-và thay $\rho=0$, ta sẽ có giá trị $z_n = 1 - y_n$, mà theo định nghĩa ban đầu thì $y_n$ chính là chuỗi $r$ mặt hình xuất hiện liên tục trong $n$ lần tung đồng xu đầu tiên. Nói cách khác, hệ số phía trước $\rho^n$ chính là xác suất mà chuỗi $r$ mặt hình không thể xuất hiện liên tục trong $n$ lần tung đồng xu đầu tiên. 
+và thay $\rho=0$, ta sẽ có giá trị $z_n = 1 - y_n$, mà theo định nghĩa ban đầu thì $y_n$ chính là một chuỗi gồm ít nhất $r$ mặt hình xuất hiện liên tục trong $n$ lần tung đồng xu đầu tiên. Nói cách khác, hệ số phía trước $\rho^n$ chính là xác suất mà chuỗi gồm ít nhất $r$ mặt hình KHÔNG THỂ xuất hiện liên tục trong $n$ lần tung đồng xu đầu tiên. 
 
 Dựa vào `r lb(eq5)` ta thấy rằng 
 $$
