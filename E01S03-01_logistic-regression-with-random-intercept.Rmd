@@ -8,7 +8,7 @@ output:
   bookdown::html_document2:
     code_folding: hide
     number_sections: true
-    toc: false
+    toc: true
 bibliography: ["_supp/citation.bib"]
 link-citations: true
 ---
@@ -18,6 +18,15 @@ link-citations: true
 \newcommand{\mm}[1]{\mathbb{#1}}
 \newcommand{\bar}[1]{\overline{#1}}
 \newcommand{\tr}[1]{{\boldsymbol{#1}}^{\top}}
+
+\newcommand{\exp}[2][]{%
+\def\FirstArg{#1}
+  \ifx\FirstArg\empty
+    \ensuremath{\exp\big\{#2\big\}}% if #1 is empty
+    \else
+    \ensuremath{\exp\Big\{#2\Big\}}% if #2 is not empty
+  \fi
+}
 
 \def\E{\Bbb{E}}
 \def\V{\Bbb{V}}
@@ -38,50 +47,160 @@ ttt = purrr::partial(totitle, icon = "")
 
 ---
 
-Let us deem logistic model as follows
+$\exp{\alpha}$
+
+# `r ttt('Approximations and useful results ')`
+
+In this section, we shall review methods that is used to approximate complicated calculations, specifically, expected value of inverse link function and numerical integration. 
+
+## `r ttt('approximate logit by probit')`
+
+We are sometimes asked to calculate logit $\mu_L(s) = e^s/(1+e^s)$ that can be approximated by probit $\Phi$. If we can seek $c>0$ such that 
 $$
-\P(y_{ij}=1|b_i) = \mu(\lambda) = \mu(u+\tr{\beta}\v x_{ij}) = \frac{\exp\{u+\tr{\beta}\v x_{ij}\}}{1+\exp\{u+\tr{\beta}\v x_{ij}\}},
+\mu_L(s) \approx \Phi\Big(\frac{s}{c}\Big),
 $$
-we can simplify $\mu^y(\lambda)[1-\mu(\lambda)]^{1-y}$ to
+which is called *one-probit approximation*. Some values $c$ suggested are 
 $$
-\exp\{y\lambda\}(1-\exp\{\lambda\})^{-1}.
+c = \sqrt{\frac{8}{\pi}} \approx 1.6, \text{ or} \quad c = \frac{16\sqrt{3}}{15\pi} \approx 1.7.
 $$
 
-We now consider the following likelihood function 
+Also, we can approximate the logit in another form 
+$$
+\mu_L(s) \approx p\Phi\Big(\frac{s}{c_1}\Big) + (1-p)\Phi\Big(\frac{s}{c_2}\Big),
+$$
+where $p = 0.4353, c_1 = 2.2967$ and $c_2=1.3017$.
+
+## `r ttt('computation of the logistic-normal integral')`
+
+We now consider computation of the logistic-normal integral that is 
+$$
+I = I(s,\sigma^2) = \E\Big(\frac{e^x}{1+e^x}\Big),\text{ where} \quad X \sim \mathcal{N}(s,\sigma^2)
+$$
+After standardizing we have
+$$
+I = \E\Big(\frac{e^{s+\sigma U}}{1+e^{s+\sigma U}}\Big), \text{ where} \quad U \sim \mathcal{N}(0,1)
+(\#eq:eq11)
+$$
+
+In order to approximate above expectation, we can use the following result
+$$
+\E_{U\sim\mathcal{N}(0,\sigma^2)}\Phi(s+u) = \Phi\Big(\frac{s}{\sqrt{1+\sigma^2}}\Big)
+(\#eq:eq12)
+$$
+
+::::{.proof}
+We consider
 $$
 \begin{align}
-L(\v\beta, \sigma^2) &= \prod_{i=1}^N\int_{-\infty}^{\infty}\Big[\prod_{j=1}^{n_i}
-\exp\{\lambda y_{ij}\}(1-\exp\{\lambda\})^{-1}\Big]\frac{1}{\sqrt{2\pi\sigma^2}}\exp\{-u^2/2\sigma^2\}du \\
-&= (2\pi\sigma^2)^{-N/2}\prod_{i=1}^N\int_{-\infty}^{\infty}\exp\Big\{\sum_{j}^{n_i}[(\tr\beta \v x_{ij}+u) y_{ij}-\ln(1-e^{(\tr\beta \v x_{ij}+u)})] -u^2/2\sigma^2 \Big\}du
+\E_{U \sim \mathcal{N}(0,\sigma^2)}\Phi(s+u) &= \frac{1}{\sqrt{2\pi}\sigma^2}\int_{-\infty}^{\infty}\Phi(s+u)e^{-\frac{1}{2\sigma^2}u^2}du \\
+&=\frac{1}{2\pi\sigma}\int^{\infty}_{-\infty}\int_{-\infty}^{s+u}e^{\frac{1}{2}z^2 -\frac{1}{2\sigma^2}u^2}dzdu.
+\end{align}
+(\#eq:eq13)
+$$
+Let us consider $Z \sim \mathcal{N}(0,1)$ and $U \sim \mathcal{N}(0,\sigma^2)$, so $U-Z \sim \mathcal{N}(0,1+\sigma^2)$ . We are interested in $\P(Z-U < s)$ that is equal
+$$
+\begin{align}
+\P(Z-U < s) &= \P(Z < U +s) \\
+&= \E[\P(Z < U+s |U =u)] \\
+&=\int_{-\infty}^{\infty}\int_{-\infty}^{u+s}\phi(u+s)\phi(u)dzdu,
 \end{align}
 $$
-where $\lambda = \tr\beta \v x_{ij}+u$. Taking natural log gives
+ which is equivalent to `r lb(eq13)`. Thus, 
 $$
-l(\v\beta, \sigma^2) = -\frac{N}{2}2\pi\sigma^2 + \tr\beta\v r + \sum_{i=1}^N\ln\int_{-\infty}^{\infty}e^{h_i(\v\beta,u)}du
-$$
-where
-$$
-h_i(\v\beta,u) = k_iu - \frac{u^2}{2\sigma^2}-\sum_{j=1}^{n_i}\ln(1+e^{\tr\beta\v x_{ij}+u}).
-$$
-where $k_i = \sum_{j=1}^{n_i}y_{ij}$ and $\v r = \sum_{i,j}y_{ij}\v x_{ij}$, note that first scalar of $\v x_{ij}$ is 1. Also, we realize that $\{k_i\}$ and $\v r$ are jointly sufficient statistic of $(\v\beta,u)$ (where $u$ is $\beta_0$). To maximize $l(\v\beta,\sigma^2)$, we need to take derivative of the function w.r.t $\v\beta$ and $\sigma^2$, 
-$$
-\frac{\partial l}{\partial \v\beta} = \v r - \sum_{i=1}^N \frac{\v I_{i3}}{I_{i1}},\quad 
-\frac{\partial l}{\partial l^2} = -\frac{N}{2\sigma^2}+\frac{1}{2\sigma^2}\sum_{i=1}^N\frac{I_{i2}}{I_{i1}}
-$$
-where
-$$
-I_{i1} = \int_{-\infty}^{\infty}\exp\{h_i(\v\beta;u)\}du, \quad I_{i2} = \int_{-\infty}^{\infty}u^2\exp\{h_i(\v\beta;u)\}du, \\
-\v I_{i3} = \int_{-\infty}^{\infty}\bigg[\sum_{j=1}^{n_i}\v x_{ij}\frac{\exp(\tr\beta\v x_{ij}+u)}{1+\exp(\tr\beta\v x_{ij}+u)}e^{h_i(\tr\beta;u)}\bigg]du.
+\E_{U \sim \mathcal{N}(0,\sigma^2)}\Phi(s+u) = \P(Z-U < s) = \Phi\Big(\frac{s}{\sqrt{1+\sigma^2}}\Big)
 $$
 
-The Fisher information for $\v\beta$ is approximated as 
+:::{.right}
+$\blacksquare$
+:::
+::::
+
+Note that `r lb(eq12)` can be standardized to 
 $$
--\E\Big(\frac{\partial^2 l}{\partial\v\beta^2}\Big) \approx \v H = \sum_{i=1}^N \Big[\frac{1}{I_{i1}}\v I_{i4}-\frac{1}{I^2_{i1}}\v I_{i3}\tr I_{i3} \Big]
+\E_{U\sim\mathcal{N}(0,1)}\Phi(s+\sigma u) = \Phi\Big(\frac{s}{\sqrt{1+\sigma^2}}\Big).
+(\#eq:eq14)
 $$
-where
+
+:::{.example}
+We shall compute $I = \E\big[\exp(s+\sigma U)/\big(1+\exp(s+\sigma U)\big)\big]$ by using probit approximation. We have 
 $$
-\v I_{i4} = \int_{-\infty}^{\infty}\Big[\sum_{j=1}^{n_i}\v x_{ij}\tr x_{ij}\frac{\exp(\tr\beta\v x_{ij}+u)}{(1+\exp(\tr\beta\v x_{ij}+u))^2}e^{h_i(\v\beta,u)}\Big]du
+\begin{align}
+\E\Big[\frac{\exp(s+\sigma U)}{1+\exp(s+\sigma U)}\Big] &\approx \E_{U\sim\mathcal{N}(0,1)}\Phi\Big(\frac{s + \sigma U}{c}\Big) \\
+&=\Phi\Big(\frac{s}{\sqrt{c^2+\sigma^2}}\Big) \\
+&=\Phi\Big(\frac{s}{\sqrt{1.7^2+\sigma^2}}\Big)
+\end{align}
 $$
+
+:::{.right}
+$\blacksquare$
+:::
+:::
+
+Another approximation is
+$$
+\begin{align}
+I(s,\sigma^2) = \frac{e^{\gamma} }{1+ e^{\gamma}},
+\end{align}
+$$
+where 
+$$
+\gamma  = \frac{s}{\sqrt{1+ \frac{e^s-1}{s(1+e^s)}\sigma^2}}; \text{ or } \quad \gamma = s-\frac{1}{2}\tanh\Big(\frac{s(1+2e^{-\sigma^2/2})}{6}\Big),
+$$
+where $\tanh(x) = (e^x-e^{-x})/(e^x+e^{-x})$.
+
+We now consider another approximation that is called *first-order approximation*. We shall approximate integral directly by transforming the logit function to a single exponential term $e^{l(x)}$. Thus
+$$
+\frac{e^{s+\sigma x}}{1+e^{s+\sigma x}} = \exp{[l(x)]} = \exp{[s+\sigma x - \ln(1+e^{s+\sigma x})]}
+(\#eq:eq15)
+$$
+
+
+
+
+<!-- Let us deem logistic model as follows -->
+<!-- $$ -->
+<!-- \P(y_{ij}=1|b_i) = \mu(\lambda) = \mu(u+\tr{\beta}\v x_{ij}) = \frac{\exp\{u+\tr{\beta}\v x_{ij}\}}{1+\exp\{u+\tr{\beta}\v x_{ij}\}}, -->
+<!-- $$ -->
+<!-- we can simplify $\mu^y(\lambda)[1-\mu(\lambda)]^{1-y}$ to -->
+<!-- $$ -->
+<!-- \exp\{y\lambda\}(1-\exp\{\lambda\})^{-1}. -->
+<!-- $$ -->
+
+<!-- We now consider the following likelihood function  -->
+<!-- $$ -->
+<!-- \begin{align} -->
+<!-- L(\v\beta, \sigma^2) &= \prod_{i=1}^N\int_{-\infty}^{\infty}\Big[\prod_{j=1}^{n_i} -->
+<!-- \exp\{\lambda y_{ij}\}(1-\exp\{\lambda\})^{-1}\Big]\frac{1}{\sqrt{2\pi\sigma^2}}\exp\{-u^2/2\sigma^2\}du \\ -->
+<!-- &= (2\pi\sigma^2)^{-N/2}\prod_{i=1}^N\int_{-\infty}^{\infty}\exp\Big\{\sum_{j}^{n_i}[(\tr\beta \v x_{ij}+u) y_{ij}-\ln(1-e^{(\tr\beta \v x_{ij}+u)})] -u^2/2\sigma^2 \Big\}du -->
+<!-- \end{align} -->
+<!-- $$ -->
+<!-- where $\lambda = \tr\beta \v x_{ij}+u$. Taking natural log gives -->
+<!-- $$ -->
+<!-- l(\v\beta, \sigma^2) = -\frac{N}{2}2\pi\sigma^2 + \tr\beta\v r + \sum_{i=1}^N\ln\int_{-\infty}^{\infty}e^{h_i(\v\beta,u)}du -->
+<!-- $$ -->
+<!-- where -->
+<!-- $$ -->
+<!-- h_i(\v\beta,u) = k_iu - \frac{u^2}{2\sigma^2}-\sum_{j=1}^{n_i}\ln(1+e^{\tr\beta\v x_{ij}+u}). -->
+<!-- $$ -->
+<!-- where $k_i = \sum_{j=1}^{n_i}y_{ij}$ and $\v r = \sum_{i,j}y_{ij}\v x_{ij}$, note that first scalar of $\v x_{ij}$ is 1. Also, we realize that $\{k_i\}$ and $\v r$ are jointly sufficient statistic of $(\v\beta,u)$ (where $u$ is $\beta_0$). To maximize $l(\v\beta,\sigma^2)$, we need to take derivative of the function w.r.t $\v\beta$ and $\sigma^2$,  -->
+<!-- $$ -->
+<!-- \frac{\partial l}{\partial \v\beta} = \v r - \sum_{i=1}^N \frac{\v I_{i3}}{I_{i1}},\quad  -->
+<!-- \frac{\partial l}{\partial l^2} = -\frac{N}{2\sigma^2}+\frac{1}{2\sigma^2}\sum_{i=1}^N\frac{I_{i2}}{I_{i1}} -->
+<!-- $$ -->
+<!-- where -->
+<!-- $$ -->
+<!-- I_{i1} = \int_{-\infty}^{\infty}\exp\{h_i(\v\beta;u)\}du, \quad I_{i2} = \int_{-\infty}^{\infty}u^2\exp\{h_i(\v\beta;u)\}du, \\ -->
+<!-- \v I_{i3} = \int_{-\infty}^{\infty}\bigg[\sum_{j=1}^{n_i}\v x_{ij}\frac{\exp(\tr\beta\v x_{ij}+u)}{1+\exp(\tr\beta\v x_{ij}+u)}e^{h_i(\tr\beta;u)}\bigg]du. -->
+<!-- $$ -->
+
+<!-- The Fisher information for $\v\beta$ is approximated as  -->
+<!-- $$ -->
+<!-- -\E\Big(\frac{\partial^2 l}{\partial\v\beta^2}\Big) \approx \v H = \sum_{i=1}^N \Big[\frac{1}{I_{i1}}\v I_{i4}-\frac{1}{I^2_{i1}}\v I_{i3}\tr I_{i3} \Big] -->
+<!-- $$ -->
+<!-- where -->
+<!-- $$ -->
+<!-- \v I_{i4} = \int_{-\infty}^{\infty}\Big[\sum_{j=1}^{n_i}\v x_{ij}\tr x_{ij}\frac{\exp(\tr\beta\v x_{ij}+u)}{(1+\exp(\tr\beta\v x_{ij}+u))^2}e^{h_i(\v\beta,u)}\Big]du -->
+<!-- $$ -->
 
 
 

@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
@@ -259,6 +262,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -266,6 +332,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -409,55 +485,153 @@ $(document).ready(function () {
 <p><em>DRAFT</em></p>
 </div>
 <hr />
-<p>Let us deem logistic model as follows
+<div id="approximations-and-useful-results" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Approximations and Useful Results</h1>
+<p>In this section, we shall review methods that is used to approximate complicated calculations, specifically, expected value of inverse link function and numerical integration.</p>
+<div id="approximate-logit-by-probit" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Approximate Logit By Probit</h2>
+<p>We are sometimes asked to calculate logit <span class="math inline">\(\mu_L(s) = e^s/(1+e^s)\)</span> that can be approximated by probit <span class="math inline">\(\Phi\)</span>. If we can seek <span class="math inline">\(c&gt;0\)</span> such that
 <span class="math display">\[
-\Bbb{P}(y_{ij}=1|b_i) = \mu(\lambda) = \mu(u+{\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}) = \frac{\exp\{u+{\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}\}}{1+\exp\{u+{\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}\}},
+\mu_L(s) \approx \Phi\Big(\frac{s}{c}\Big),
 \]</span>
-we can simplify <span class="math inline">\(\mu^y(\lambda)[1-\mu(\lambda)]^{1-y}\)</span> to
+which is called <em>one-probit approximation</em>. Some values <span class="math inline">\(c\)</span> suggested are
 <span class="math display">\[
-\exp\{y\lambda\}(1-\exp\{\lambda\})^{-1}.
+c = \sqrt{\frac{8}{\pi}} \approx 1.6, \text{ or} \quad c = \frac{16\sqrt{3}}{15\pi} \approx 1.7.
 \]</span></p>
-<p>We now consider the following likelihood function
+<p>Also, we can approximate the logit in another form
+<span class="math display">\[
+\mu_L(s) \approx p\Phi\Big(\frac{s}{c_1}\Big) + (1-p)\Phi\Big(\frac{s}{c_2}\Big),
+\]</span>
+where <span class="math inline">\(p = 0.4353, c_1 = 2.2967\)</span> and <span class="math inline">\(c_2=1.3017\)</span>.</p>
+</div>
+<div id="computation-of-the-logistic-normal-integral" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Computation of The Logistic-Normal Integral</h2>
+<p>We now consider computation of the logistic-normal integral that is
+<span class="math display">\[
+I = I(s,\sigma^2) = \Bbb{E}\Big(\frac{e^x}{1+e^x}\Big),\text{ where} \quad X \sim \mathcal{N}(s,\sigma^2)
+\]</span>
+After standardizing we have
+<span class="math display" id="eq:eq11">\[
+I = \Bbb{E}\Big(\frac{e^{s+\sigma U}}{1+e^{s+\sigma U}}\Big), \text{ where} \quad U \sim \mathcal{N}(0,1)
+\tag{1.1}
+\]</span></p>
+<p>In order to approximate above expectation, we can use the following result
+<span class="math display" id="eq:eq12">\[
+\Bbb{E}_{U\sim\mathcal{N}(0,\sigma^2)}\Phi(s+u) = \Phi\Big(\frac{s}{\sqrt{1+\sigma^2}}\Big)
+\tag{1.2}
+\]</span></p>
+<div class="proof">
+<p><span id="unlabeled-div-1" class="proof"><em>Proof</em>. </span>We consider
+<span class="math display" id="eq:eq13">\[
+\begin{align}
+\Bbb{E}_{U \sim \mathcal{N}(0,\sigma^2)}\Phi(s+u) &amp;= \frac{1}{\sqrt{2\pi}\sigma^2}\int_{-\infty}^{\infty}\Phi(s+u)e^{-\frac{1}{2\sigma^2}u^2}du \\
+&amp;=\frac{1}{2\pi\sigma}\int^{\infty}_{-\infty}\int_{-\infty}^{s+u}e^{\frac{1}{2}z^2 -\frac{1}{2\sigma^2}u^2}dzdu.
+\end{align}
+\tag{1.3}
+\]</span>
+Let us consider <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span> and <span class="math inline">\(U \sim \mathcal{N}(0,\sigma^2)\)</span>, so <span class="math inline">\(U-Z \sim \mathcal{N}(0,1+\sigma^2)\)</span> . We are interested in <span class="math inline">\(\Bbb{P}(Z-U &lt; s)\)</span> that is equal
 <span class="math display">\[
 \begin{align}
-L(\boldsymbol{\beta}, \sigma^2) &amp;= \prod_{i=1}^N\int_{-\infty}^{\infty}\Big[\prod_{j=1}^{n_i}
-\exp\{\lambda y_{ij}\}(1-\exp\{\lambda\})^{-1}\Big]\frac{1}{\sqrt{2\pi\sigma^2}}\exp\{-u^2/2\sigma^2\}du \\
-&amp;= (2\pi\sigma^2)^{-N/2}\prod_{i=1}^N\int_{-\infty}^{\infty}\exp\Big\{\sum_{j}^{n_i}[({\boldsymbol{\beta }}^{\top}\boldsymbol{x}_{ij}+u) y_{ij}-\ln(1-e^{({\boldsymbol{\beta }}^{\top}\boldsymbol{x}_{ij}+u)})] -u^2/2\sigma^2 \Big\}du
+\Bbb{P}(Z-U &lt; s) &amp;= \Bbb{P}(Z &lt; U +s) \\
+&amp;= \Bbb{E}[\Bbb{P}(Z &lt; U+s |U =u)] \\
+&amp;=\int_{-\infty}^{\infty}\int_{-\infty}^{u+s}\phi(u+s)\phi(u)dzdu,
 \end{align}
 \]</span>
-where <span class="math inline">\(\lambda = {\boldsymbol{\beta }}^{\top}\boldsymbol{x}_{ij}+u\)</span>. Taking natural log gives
+which is equivalent to <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq13">(1.3)</a>. Thus,
 <span class="math display">\[
-l(\boldsymbol{\beta}, \sigma^2) = -\frac{N}{2}2\pi\sigma^2 + {\boldsymbol{\beta}}^{\top}\boldsymbol{r} + \sum_{i=1}^N\ln\int_{-\infty}^{\infty}e^{h_i(\boldsymbol{\beta},u)}du
-\]</span>
-where
-<span class="math display">\[
-h_i(\boldsymbol{\beta},u) = k_iu - \frac{u^2}{2\sigma^2}-\sum_{j=1}^{n_i}\ln(1+e^{{\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u}).
-\]</span>
-where <span class="math inline">\(k_i = \sum_{j=1}^{n_i}y_{ij}\)</span> and <span class="math inline">\(\boldsymbol{r} = \sum_{i,j}y_{ij}\boldsymbol{x}_{ij}\)</span>, note that first scalar of <span class="math inline">\(\boldsymbol{x}_{ij}\)</span> is 1. Also, we realize that <span class="math inline">\(\{k_i\}\)</span> and <span class="math inline">\(\boldsymbol{r}\)</span> are jointly sufficient statistic of <span class="math inline">\((\boldsymbol{\beta},u)\)</span> (where <span class="math inline">\(u\)</span> is <span class="math inline">\(\beta_0\)</span>). To maximize <span class="math inline">\(l(\boldsymbol{\beta},\sigma^2)\)</span>, we need to take derivative of the function w.r.t <span class="math inline">\(\boldsymbol{\beta}\)</span> and <span class="math inline">\(\sigma^2\)</span>,
-<span class="math display">\[
-\frac{\partial l}{\partial \boldsymbol{\beta}} = \boldsymbol{r} - \sum_{i=1}^N \frac{\boldsymbol{I}_{i3}}{I_{i1}},\quad 
-\frac{\partial l}{\partial l^2} = -\frac{N}{2\sigma^2}+\frac{1}{2\sigma^2}\sum_{i=1}^N\frac{I_{i2}}{I_{i1}}
-\]</span>
-where
-<span class="math display">\[
-I_{i1} = \int_{-\infty}^{\infty}\exp\{h_i(\boldsymbol{\beta};u)\}du, \quad I_{i2} = \int_{-\infty}^{\infty}u^2\exp\{h_i(\boldsymbol{\beta};u)\}du, \\
-\boldsymbol{I}_{i3} = \int_{-\infty}^{\infty}\bigg[\sum_{j=1}^{n_i}\boldsymbol{x}_{ij}\frac{\exp({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u)}{1+\exp({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u)}e^{h_i({\boldsymbol{\beta}}^{\top};u)}\bigg]du.
+\Bbb{E}_{U \sim \mathcal{N}(0,\sigma^2)}\Phi(s+u) = \Bbb{P}(Z-U &lt; s) = \Phi\Big(\frac{s}{\sqrt{1+\sigma^2}}\Big)
 \]</span></p>
-<p>The Fisher information for <span class="math inline">\(\boldsymbol{\beta}\)</span> is approximated as
+<div class="right">
+<p><span class="math inline">\(\blacksquare\)</span></p>
+</div>
+</div>
+<p>Note that <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq12">(1.2)</a> can be standardized to
+<span class="math display" id="eq:eq14">\[
+\Bbb{E}_{U\sim\mathcal{N}(0,1)}\Phi(s+\sigma u) = \Phi\Big(\frac{s}{\sqrt{1+\sigma^2}}\Big).
+\tag{1.4}
+\]</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-2" class="example"><strong>Example 1.1  </strong></span>We shall compute <span class="math inline">\(I = \Bbb{E}\big[\exp(s+\sigma U)/\big(1+\exp(s+\sigma U)\big)\big]\)</span> by using probit approximation. We have
 <span class="math display">\[
--\Bbb{E}\Big(\frac{\partial^2 l}{\partial\boldsymbol{\beta}^2}\Big) \approx \boldsymbol{H} = \sum_{i=1}^N \Big[\frac{1}{I_{i1}}\boldsymbol{I}_{i4}-\frac{1}{I^2_{i1}}\boldsymbol{I}_{i3}{\boldsymbol{I}}^{\top}_{i3} \Big]
+\begin{align}
+\Bbb{E}\Big[\frac{\exp(s+\sigma U)}{1+\exp(s+\sigma U)}\Big] &amp;\approx \Bbb{E}_{U\sim\mathcal{N}(0,1)}\Phi\Big(\frac{s + \sigma U}{c}\Big) \\
+&amp;=\Phi\Big(\frac{s}{\sqrt{c^2+\sigma^2}}\Big) \\
+&amp;=\Phi\Big(\frac{s}{\sqrt{1.7^2+\sigma^2}}\Big)
+\end{align}
+\]</span></p>
+<div class="right">
+<p><span class="math inline">\(\blacksquare\)</span></p>
+</div>
+</div>
+<p>Another approximation is
+<span class="math display">\[
+\begin{align}
+I(s,\sigma^2) = \frac{e^{\gamma} }{1+ e^{\gamma}},
+\end{align}
 \]</span>
 where
 <span class="math display">\[
-\boldsymbol{I}_{i4} = \int_{-\infty}^{\infty}\Big[\sum_{j=1}^{n_i}\boldsymbol{x}_{ij}{\boldsymbol{x}}^{\top}_{ij}\frac{\exp({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u)}{(1+\exp({\boldsymbol{\beta}}^{\top}\boldsymbol{x}_{ij}+u))^2}e^{h_i(\boldsymbol{\beta},u)}\Big]du
+\gamma  = \frac{s}{\sqrt{1+ \frac{e^s-1}{s(1+e^s)}\sigma^2}}; \text{ or } \quad \gamma = s-\frac{1}{2}\tanh\Big(\frac{s(1+2e^{-\sigma^2/2})}{6}\Big),
+\]</span>
+where <span class="math inline">\(\tanh(x) = (e^x-e^{-x})/(e^x+e^{-x})\)</span>.</p>
+<p>We now consider another approximation that is called <em>first-order approximation</em>. We shall approximate integral directly by transforming the logit function to a single exponential term <span class="math inline">\(e^{l(x)}\)</span>. Thus
+<span class="math display" id="eq:eq15">\[
+\frac{e^{s+\sigma x}}{1+e^{s+\sigma x}} = \exp{[l(x)]} = \exp{[s+\sigma x - \ln(1+e^{s+\sigma x})]}
+\tag{1.5}
 \]</span></p>
+<!-- Let us deem logistic model as follows -->
+<!-- $$ -->
+<!-- \P(y_{ij}=1|b_i) = \mu(\lambda) = \mu(u+\tr{\beta}\v x_{ij}) = \frac{\exp\{u+\tr{\beta}\v x_{ij}\}}{1+\exp\{u+\tr{\beta}\v x_{ij}\}}, -->
+<!-- $$ -->
+<!-- we can simplify $\mu^y(\lambda)[1-\mu(\lambda)]^{1-y}$ to -->
+<!-- $$ -->
+<!-- \exp\{y\lambda\}(1-\exp\{\lambda\})^{-1}. -->
+<!-- $$ -->
+<!-- We now consider the following likelihood function  -->
+<!-- $$ -->
+<!-- \begin{align} -->
+<!-- L(\v\beta, \sigma^2) &= \prod_{i=1}^N\int_{-\infty}^{\infty}\Big[\prod_{j=1}^{n_i} -->
+<!-- \exp\{\lambda y_{ij}\}(1-\exp\{\lambda\})^{-1}\Big]\frac{1}{\sqrt{2\pi\sigma^2}}\exp\{-u^2/2\sigma^2\}du \\ -->
+<!-- &= (2\pi\sigma^2)^{-N/2}\prod_{i=1}^N\int_{-\infty}^{\infty}\exp\Big\{\sum_{j}^{n_i}[(\tr\beta \v x_{ij}+u) y_{ij}-\ln(1-e^{(\tr\beta \v x_{ij}+u)})] -u^2/2\sigma^2 \Big\}du -->
+<!-- \end{align} -->
+<!-- $$ -->
+<!-- where $\lambda = \tr\beta \v x_{ij}+u$. Taking natural log gives -->
+<!-- $$ -->
+<!-- l(\v\beta, \sigma^2) = -\frac{N}{2}2\pi\sigma^2 + \tr\beta\v r + \sum_{i=1}^N\ln\int_{-\infty}^{\infty}e^{h_i(\v\beta,u)}du -->
+<!-- $$ -->
+<!-- where -->
+<!-- $$ -->
+<!-- h_i(\v\beta,u) = k_iu - \frac{u^2}{2\sigma^2}-\sum_{j=1}^{n_i}\ln(1+e^{\tr\beta\v x_{ij}+u}). -->
+<!-- $$ -->
+<!-- where $k_i = \sum_{j=1}^{n_i}y_{ij}$ and $\v r = \sum_{i,j}y_{ij}\v x_{ij}$, note that first scalar of $\v x_{ij}$ is 1. Also, we realize that $\{k_i\}$ and $\v r$ are jointly sufficient statistic of $(\v\beta,u)$ (where $u$ is $\beta_0$). To maximize $l(\v\beta,\sigma^2)$, we need to take derivative of the function w.r.t $\v\beta$ and $\sigma^2$,  -->
+<!-- $$ -->
+<!-- \frac{\partial l}{\partial \v\beta} = \v r - \sum_{i=1}^N \frac{\v I_{i3}}{I_{i1}},\quad  -->
+<!-- \frac{\partial l}{\partial l^2} = -\frac{N}{2\sigma^2}+\frac{1}{2\sigma^2}\sum_{i=1}^N\frac{I_{i2}}{I_{i1}} -->
+<!-- $$ -->
+<!-- where -->
+<!-- $$ -->
+<!-- I_{i1} = \int_{-\infty}^{\infty}\exp\{h_i(\v\beta;u)\}du, \quad I_{i2} = \int_{-\infty}^{\infty}u^2\exp\{h_i(\v\beta;u)\}du, \\ -->
+<!-- \v I_{i3} = \int_{-\infty}^{\infty}\bigg[\sum_{j=1}^{n_i}\v x_{ij}\frac{\exp(\tr\beta\v x_{ij}+u)}{1+\exp(\tr\beta\v x_{ij}+u)}e^{h_i(\tr\beta;u)}\bigg]du. -->
+<!-- $$ -->
+<!-- The Fisher information for $\v\beta$ is approximated as  -->
+<!-- $$ -->
+<!-- -\E\Big(\frac{\partial^2 l}{\partial\v\beta^2}\Big) \approx \v H = \sum_{i=1}^N \Big[\frac{1}{I_{i1}}\v I_{i4}-\frac{1}{I^2_{i1}}\v I_{i3}\tr I_{i3} \Big] -->
+<!-- $$ -->
+<!-- where -->
+<!-- $$ -->
+<!-- \v I_{i4} = \int_{-\infty}^{\infty}\Big[\sum_{j=1}^{n_i}\v x_{ij}\tr x_{ij}\frac{\exp(\tr\beta\v x_{ij}+u)}{(1+\exp(\tr\beta\v x_{ij}+u))^2}e^{h_i(\v\beta,u)}\Big]du -->
+<!-- $$ -->
 <!-- ----------------------------------------------------------------------------- -->
+</div>
+</div>
 <div id="references" class="section level1 unnumbered shad">
 <h1><em>References</em></h1>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -495,6 +669,32 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
