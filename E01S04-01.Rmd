@@ -1,0 +1,74 @@
+---
+params:
+  update_date: FALSE
+  run_chunk: FALSE
+date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
+title: "`r totitle('analysis of univariate study-level summary data that uses normal models')`"
+subtitle: '(E01S04-01)'
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: true
+bibliography: ["_supp/citation.bib"]
+link-citations: true
+---
+
+\newcommand{\v}[1]{\boldsymbol{#1}}
+\newcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\mm}[1]{\mathbb{#1}}
+\newcommand{\bar}[1]{\overline{#1}}
+\newcomand{\tp}[1]{\v{#1}^{\top}}
+
+\def\E{\Bbb{E}}
+\def\V{\Bbb{V}}
+\def\P{\Bbb{P}}
+\def\I{{\large\unicode{x1D7D9}}}
+\def\indep{\perp\!\!\!\!\perp}
+\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
+\def\epsilon{\varepsilon} 
+\def\tp{^{\top}}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+ttt = purrr::partial(totitle, icon = "")
+```
+
+::: {.watermark}
+*DRAFT*
+:::
+
+---
+
+There are 2 types of models used in univariate meta-analysis, namely *common-effect* (or fixed-effect) and *random-effect models*. The general distribution underlying each model is defined as follows
+$$
+y_i \sim \mathcal N(\theta_i,s_i^2).
+$$
+
+For common-effect model, the assumption that $\theta_i = \theta, \quad \forall i$ is hold. Thus,
+$$
+y_i \sim \mathcal N(\theta,s^2_i),
+$$
+The maximum likelihood estimate of $\theta$ is 
+$$
+\hat{\theta}^{(MLE)}_{CE} = \frac{\sum_{i=1}w_{i_{CE}}y_i}{\sum_{i=1}w_{i_{CE}}},
+$$
+with
+$$
+w_{i_{CE}} = \frac{1}{s^2}
+$$
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+::: {.shad}
+# _References_ {-}
+:::

@@ -490,121 +490,113 @@ $(document).ready(function () {
 </div>
 <p><em>nguồn: <span class="citation"><a href="#ref-usp1937" role="doc-biblioref">Uspensky</a> (<a href="#ref-usp1937" role="doc-biblioref">1937</a>)</span></em></p>
 <hr />
-<p>Ta tiến hành tung một đồng xu, không đồng chất với xác suất mặt hình <span class="math inline">\(p\)</span>, <span class="math inline">\(n\)</span> lần. Gọi sự kiện để có một chuỗi bao gồm ít nhất <span class="math inline">\(r\)</span> số mặt hình xuất hiện liên tục là E, tính <span class="math inline">\(\Bbb{P}(E)\)</span>.</p>
-<p>Gọi <span class="math inline">\(y_n\)</span> là xác suất để <span class="math inline">\(E\)</span> xảy ra trong <span class="math inline">\(n\)</span> lần. Tương tự <span class="math inline">\(y_{n+1}\)</span> là xác suất để sự kiện <span class="math inline">\(E\)</span> xảy ra trong <span class="math inline">\(n+1\)</span> lần. Ta thấy rằng để có <span class="math inline">\((\ge r)\)</span> mặt hình xảy ra liên tục, sẽ có 2 trường hợp: thứ nhất là <span class="math inline">\((\ge r)\)</span> mặt hình xảy ra liên tục trong <span class="math inline">\(n\)</span> lần đầu tiên, sẽ có xqc1 suất là <span class="math inline">\(y_n\)</span>, thứ hai là chỉ xảy ra trong <span class="math inline">\(n+1\)</span> lần với xác suất là <span class="math inline">\(y_{n+1}\)</span>. Trường hợp thứ hai xảy ra khi 3 điều kiện sau dây xảy ra cùng lúc</p>
+<p>Ta tiến hành tung một đồng xu không đồng chất với xác suất mặt hình <span class="math inline">\(p\)</span>,
+<span class="math inline">\(n\)</span> lần. Gọi sự kiện để có một chuỗi bao gồm ít nhất <span class="math inline">\(r\)</span> số mặt hình
+xuất hiện liên tục là E, tính <span class="math inline">\(\Bbb{P}(E)\)</span>.</p>
+<p>Gọi <span class="math inline">\(y_n\)</span> là xác suất để <span class="math inline">\(E\)</span> xảy ra trong <span class="math inline">\(n\)</span> lần. Tương tự <span class="math inline">\(y_{n+1}\)</span> là
+xác suất để sự kiện <span class="math inline">\(E\)</span> xảy ra trong <span class="math inline">\(n+1\)</span> lần. Ta thấy rằng để có ít
+nhất <span class="math inline">\(r\)</span> mặt hình xảy ra liên tục, sẽ có 2 trường hợp: thứ nhất là ít
+nhất <span class="math inline">\(r\)</span> mặt hình xảy ra liên tục trong <span class="math inline">\(n\)</span> lần đầu tiên, sẽ có xác suất
+là <span class="math inline">\(y_n\)</span>, thứ hai là chỉ xảy ra trong <span class="math inline">\(n+1\)</span> lần với xác suất là
+<span class="math inline">\(y_{n+1}\)</span>. Trường hợp thứ hai xảy ra khi 3 điều kiện sau đây xảy ra cùng
+lúc</p>
 <ol style="list-style-type: decimal">
-<li>E không xảy ra trong <span class="math inline">\(n-r\)</span> lần đầu tiên, xác xuất này là <span class="math inline">\(1-y_{n-r}\)</span>.</li>
-<li>Tại lần thứ <span class="math inline">\((n-r+1)^{th}\)</span> không xuất hiện mặt hình, xác suất này là <span class="math inline">\(q= 1-p\)</span></li>
+<li>E không xảy ra trong <span class="math inline">\(n-r\)</span> lần đầu tiên, xác xuất này là
+<span class="math inline">\(1-y_{n-r}\)</span>.</li>
+<li>Tại lần thứ <span class="math inline">\((n-r+1)^{th}\)</span> không xuất hiện mặt hình, xác suất này là
+<span class="math inline">\(q= 1-p\)</span></li>
 <li>E xuất hiện trong <span class="math inline">\(r\)</span> lần với xác suất là <span class="math inline">\(p^r\)</span>.</li>
 </ol>
-<p>Nhận thấy rằng cả 3 sự kiện trên xảy ra độc lập, vì thế xác suất là
-<span class="math display">\[
+<p>Nhận thấy rằng cả 3 sự kiện trên xảy ra độc lập, vì thế xác suất là <span class="math display">\[
 (1-y_{n-r})qp^r, \quad \text{(quy tắc nhân)}
-\]</span>
-như vậy xác suất của <span class="math inline">\(y_{n+1}\)</span> là
-<span class="math display" id="eq:eq1">\[
+\]</span> như vậy xác suất của <span class="math inline">\(y_{n+1}\)</span> là <span class="math display">\[
 y_{n+1} = y_n + (1-y_{n-r})p^rq, \quad \text{(quy tắc cộng)}.
-\tag{1}
-\]</span>
-Ta cũng dễ dàng xác định rằng
-<span class="math display" id="eq:eq2">\[
+(\#eq:eq1)
+\]</span> Ta cũng dễ dàng xác định rằng <span class="math display">\[
 y_0 = y_1 = \dots =y_{r-1} = 0, \quad y_r = p^r
-\tag{2}
-\]</span>
-dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(1)</a> ta có thể xác định
-<span class="math display">\[
+(\#eq:eq2)
+\]</span> dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq1">(<strong>??</strong>)</a> ta có thể xác định <span class="math display">\[
 \begin{align}
 &amp;n= r, &amp;&amp;y_{r+1} = p^r + p^rq \\
 &amp;n = r+1, &amp;&amp;y_{r+2} = p^r + 2p^rq
 \end{align}
 \]</span></p>
-<p>Gọi <span class="math inline">\(z_n = 1-y_n\)</span>, ta có
-<span class="math display" id="eq:eq3">\[
+<p>Gọi <span class="math inline">\(z_n = 1-y_n\)</span>, ta có <span class="math display">\[
 \begin{align}
 z_{n+1} -z_n + qp^rz_{n-r} &amp;= (1-y_{n+1}) -(1-y_n) +qp^rz_{n-r} \\
 &amp;= y_n - y_n -(1-y_{n-r})p^rq + qp^rz_{n-r} \\
 &amp;= 0.
 \end{align}
-\tag{3}
-\]</span>
-Dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(2)</a> ta có
-<span class="math display">\[
+(\#eq:eq3)
+\]</span> Dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq2">(<strong>??</strong>)</a> ta có <span class="math display">\[
 z_0 =z_1 =\dots =z_{r-1} =1, \quad z_r = 1 - p^r.
 \]</span></p>
-<p>Ta định nghĩa chuỗi lũy thừa sau
-<span class="math display" id="eq:eq4">\[
+<p>Ta định nghĩa chuỗi lũy thừa sau <span class="math display">\[
 \phi(\rho) = z_0 +z_1\rho+z_2\rho^2+ \dots
-\tag{4}
-\]</span>
-ta nhân 2 vế với <span class="math inline">\(1-\rho+qp^r\rho^{r+1}\)</span>, ta có
-<span class="math display">\[
+(\#eq:eq4)
+\]</span> ta nhân 2 vế với <span class="math inline">\(1-\rho+qp^r\rho^{r+1}\)</span>, ta có <span class="math display">\[
 \begin{align}
 (1-\rho+qp^r\rho^{r+1})\phi(\rho) &amp;= z_0 +z_1\rho+z_2\rho^2+ \dots + z_{r-1}\rho^{r-1}+ z_r\rho^r + \dots &amp; (a)  \\
 &amp;- z_0\rho - z_1\rho^2 - z_2\rho^3 - \dots - z_{r-2}\rho^{r-1} -  z_{r-1}\rho^r- \dots &amp; (b)\\
 &amp;+ qp^r\rho^{r+1}(z_0 +z_1\rho+z_2\rho^2+ \dots + z_r\rho^r + z_{r+1}\rho^{r+1}+ \dots) &amp; (c)
 \end{align}
-\]</span>
-từ <span class="math inline">\((a)\)</span> và <span class="math inline">\((b)\)</span> ta có
-<span class="math display">\[
+\]</span> từ <span class="math inline">\((a)\)</span> và <span class="math inline">\((b)\)</span> ta có <span class="math display">\[
 \begin{align}
 z_0 &amp;+ (z_1-z_0)\rho + (z_2-z_1)\rho^2+(z_3-z_2)\rho^3 + \dots+ (z_{r-1} -z_{r-2})\rho^{r-1} + (z_r -z_{r-1})\rho^r + (z_{r+1} -z_{r})\rho^{r+1} +\dots \\
 &amp;+ (z_{2r-1} -z_{2r-2})\rho^{2r-1} + (z_{2r} -z_{2r-1})\rho^{2r} + (z_{2r+1} -z_{2r})\rho^{2r+1} +\dots
 \end{align}
-\]</span>
-ta thấy rằng:</p>
+\]</span> ta thấy rằng:</p>
 <ul>
 <li><span class="math inline">\(z_0 = 1\)</span>,</li>
-<li><span class="math inline">\((z_1-z_0) = (z_2-z_1) = (z_3-z_2) = \dots =(z_{r-1} -z_{r-2}) =0\)</span>, và</li>
+<li><span class="math inline">\((z_1-z_0) = (z_2-z_1) = (z_3-z_2) = \dots =(z_{r-1} -z_{r-2}) =0\)</span>,
+và</li>
 <li><span class="math inline">\((z_r -z_{r-1}) = -p^r\)</span>.</li>
 </ul>
-<p>như vậy ta có
-<span class="math display">\[
+<p>như vậy ta có <span class="math display">\[
 \begin{align}
 &amp;1 - p^r\rho^r + \\
 +&amp;(z_{r+1} -z_{r})\rho^{r+1}+ (z_{r+2} -z_{r+1})\rho^{r+2} + (z_{r+3} -z_{r+2})\rho^{r+3} + \dots + \\
 +&amp; (z_{2r+1} -z_{2r})\rho^{2r+1}+(z_{2r+2} -z_{2r+1})\rho^{2r+2} +\dots
 \end{align}
 \]</span></p>
-<p>kết hợp với <span class="math inline">\((c)\)</span> ta có
-<span class="math display">\[
+<p>kết hợp với <span class="math inline">\((c)\)</span> ta có <span class="math display">\[
 \begin{align}
 &amp;1 - p^r\rho^r+ \\
 +&amp; (z_{r+1} -z_{r}+qp^rz_0)\rho^{r+1}+ (z_{r+2} -z_{r+1}qp^{r}z_1)\rho^{r+2} + (z_{r+3} -z_{r+2}+qp^{r}z_2)\rho^{r+3} + \dots +\\
 +&amp; (z_{2r+1}-z_{2r}+qp^rz_r)\rho^{2r+1} + (z_{2r+2}-z_{2r+1}+qp^rz_{r+1})\rho^{2r+2}+ \dots 
 \end{align}
-\]</span>
-ta nhận thấy rằng vì <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(3)</a> <em>(<span class="math inline">\(z_{n+1} -z_n + qp^rz_{n-r} = 0\)</span>)</em> nên
-<span class="math display">\[
+\]</span> ta nhận thấy rằng vì <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq3">(<strong>??</strong>)</a> <em>(</em><span class="math inline">\(z_{n+1} -z_n + qp^rz_{n-r} = 0\)</span>)
+nên <span class="math display">\[
 \begin{align}
 &amp;(z_{r+1} -z_{r}+qp^rz_0)\rho^{r+1}+ (z_{r+2} -z_{r+1}+qp^{r}z_1)\rho^{r+2} + (z_{r+3} -z_{r+2}+qp^{r}z_2)\rho^{r+3} + \dots + \\
 +&amp; (z_{2r+1}-z_{2r}+qp^rz_r)\rho^{2r+1} + (z_{2r+2}-z_{2r+1}+qp^rz_{r+1})\rho^{2r+2}+ \dots  = 0
 \end{align}
-\]</span>
-do đó</p>
+\]</span> do đó</p>
 <div style="border: thin solid grey; padding-left: 10px;">
 <p><span class="math display" id="eq:eq5">\[
 \phi(\rho) = \frac{1 - p^r\rho^r}{(1-\rho+qp^r\rho^{r+1})},
-\tag{5}
+\tag{1}
 \]</span></p>
 </div>
-<p>được gọi là hàm sinh xác suất (probability generating function), dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(4)</a> ta có thể thấy được đặc tính của hàm này là nếu ta lấy đạo hàm <span class="math inline">\(n\)</span> lần ta sẽ được
-<span class="math display">\[
+<p>được gọi là hàm sinh xác suất (probability generating function), dựa vào
+<span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq4">(<strong>??</strong>)</a> ta có thể thấy được đặc tính của hàm này là nếu ta lấy đạo
+hàm <span class="math inline">\(n\)</span> lần ta sẽ được <span class="math display">\[
 \phi^{(n)}(\rho) = z_n + z_{n+1}c_1\rho + z_{n+2}c_2\rho^2 + \dots
-\]</span>
-và thay <span class="math inline">\(\rho=0\)</span>, ta sẽ có giá trị <span class="math inline">\(z_n = 1 - y_n\)</span>, mà theo định nghĩa ban đầu thì <span class="math inline">\(y_n\)</span> chính là một chuỗi gồm ít nhất <span class="math inline">\(r\)</span> mặt hình xuất hiện liên tục trong <span class="math inline">\(n\)</span> lần tung đồng xu đầu tiên. Nói cách khác, hệ số phía trước <span class="math inline">\(\rho^n\)</span> chính là xác suất mà chuỗi gồm ít nhất <span class="math inline">\(r\)</span> mặt hình KHÔNG THỂ xuất hiện liên tục trong <span class="math inline">\(n\)</span> lần tung đồng xu đầu tiên.</p>
-<p>Dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq5">(5)</a> ta thấy rằng
-<span class="math display">\[
+\]</span> và thay <span class="math inline">\(\rho=0\)</span>, ta sẽ có giá trị <span class="math inline">\(z_n = 1 - y_n\)</span>, mà theo định
+nghĩa ban đầu thì <span class="math inline">\(y_n\)</span> chính là một chuỗi gồm ít nhất <span class="math inline">\(r\)</span> mặt hình xuất
+hiện liên tục trong <span class="math inline">\(n\)</span> lần tung đồng xu đầu tiên. Nói cách khác, hệ số
+phía trước <span class="math inline">\(\rho^n\)</span> chính là xác suất mà chuỗi gồm ít nhất <span class="math inline">\(r\)</span> mặt hình
+KHÔNG THỂ xuất hiện liên tục trong <span class="math inline">\(n\)</span> lần tung đồng xu đầu tiên.</p>
+<p>Dựa vào <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq5">(1)</a> ta thấy rằng <span class="math display">\[
 \frac{1}{1-\rho(1-qp^r\rho^r)} \stackrel{\text{taylor expansion}}{=}  \sum_{k=0}^{\infty}\rho^k(1-qp^r\rho^r)^k \stackrel{\text{binomial formula}}{=} \sum_{k=1}^{\infty}\sum_{i=0}^{\infty}{k\choose i}(-p^rq)^i\rho^{k+ir},
-\]</span>
-Như vậy để có <span class="math inline">\(\rho^n\)</span> thì <span class="math inline">\(k = n-ir\)</span>, và hệ số của <span class="math inline">\(\rho^n\)</span> trong phương trình trên là
-<span class="math display">\[
+\]</span> Như vậy để có <span class="math inline">\(\rho^n\)</span> thì <span class="math inline">\(k = n-ir\)</span>, và hệ số của <span class="math inline">\(\rho^n\)</span> trong
+phương trình trên là <span class="math display">\[
 c(n) = \sum_{i=0}^{\infty}{n-ir \choose i}(-p^rq)^i
-\]</span>
-tương tự ta cũng có thể suy ra hệ số của <span class="math inline">\(\rho^{n-m}\)</span> là <span class="math inline">\(c(n-r)\)</span>. Như vậy, sau khi phương trình <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq5">(5)</a> được quy đồng, ta có thể suy ra hệ số của <span class="math inline">\(\rho^n\)</span> trong phương trình này là
-<span class="math display">\[
+\]</span> tương tự ta cũng có thể suy ra hệ số của <span class="math inline">\(\rho^{n-m}\)</span> là <span class="math inline">\(c(n-r)\)</span>.
+Như vậy, sau khi phương trình <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq5">(1)</a> được quy đồng, ta có thể suy
+ra hệ số của <span class="math inline">\(\rho^n\)</span> trong phương trình này là <span class="math display">\[
 z_n = c(n) -p^rc(n-r),
-\]</span>
-<span class="math inline">\(y_n = 1-z_n = p^rc(n-r) +1 -c(n)\)</span> có thể được tối giản như sau</p>
+\]</span> <span class="math inline">\(y_n = 1-z_n = p^rc(n-r) +1 -c(n)\)</span> có thể được tối giản như sau</p>
 <p><span class="math display">\[
 \begin{align}
 y_n &amp;= p^r  \sum_{i\geq 0}(-1)^i{n-(i+1)r \choose i}(p^r q)^i+\sum_{i\geq 1}(-1)^{i+1}{n-ir \choose i}(p^rq)^i \\
@@ -615,15 +607,21 @@ y_n &amp;= p^r  \sum_{i\geq 0}(-1)^i{n-(i+1)r \choose i}(p^r q)^i+\sum_{i\geq 1}
 &amp;= \sum_{i\geq 1}(-1)^{i+1}  \left[p+{n-i r +1\over i}\, q\right] {n-i r \choose i-1}\,p^{ir} q^{i-1}. 
 \end{align}
 \]</span></p>
-<p>Như vậy, xác suất để số mặt hình xuất hiện liên tục là <span class="math inline">\(r\)</span> hoặc lớn hơn trong <span class="math inline">\(n\)</span> lần tung đồng xu là</p>
+<p>Như vậy, xác suất để số mặt hình xuất hiện liên tục là <span class="math inline">\(r\)</span> hoặc lớn hơn
+trong <span class="math inline">\(n\)</span> lần tung đồng xu là</p>
 <div style="border: thin solid grey; padding-left: 10px;">
 <p><span class="math display" id="eq:eq6">\[
 y_n = \sum_{i\geq 1}(-1)^{i+1}  \left[p+{n-i r +1\over i}\, q\right] {n-i r \choose i-1}\,p^{ir} q^{i-1}
-\tag{6}
+\tag{2}
 \]</span></p>
 </div>
-<p><strong>Ví dụ:</strong> Nếu một người chơi một trò chơi vớ xác suất thắng thua bằng nhau <span class="math inline">\((p=q=0.5)\)</span>, tính xác suất người đó chơi thắng ít nhất là 7 lần liên tiếp nếu người đó chơi 100 ván.</p>
-<p>Để áp dụng công thức <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(6)</a> ta cần kiểm tra với những giá trị nào của <span class="math inline">\(i\)</span> thì <span class="math inline">\({n-ir \choose i-1}\)</span> hợp lý, nghĩa là <span class="math inline">\(n-ir \ge i-1 \Leftrightarrow i \le (n+1)/(r+1)\)</span>. Như vậy với <span class="math inline">\(n=100, r = 7\)</span> thì <span class="math inline">\(i\le\)</span> 12.625 hay <span class="math inline">\(i=12\)</span>.</p>
+<p><strong>Ví dụ:</strong> Nếu một người chơi một trò chơi vớ xác suất thắng thua bằng
+nhau <span class="math inline">\((p=q=0.5)\)</span>, tính xác suất người đó chơi thắng ít nhất là 7 lần
+liên tiếp nếu người đó chơi 100 ván.</p>
+<p>Để áp dụng công thức <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq6">(2)</a> ta cần kiểm tra với những giá trị nào
+của <span class="math inline">\(i\)</span> thì <span class="math inline">\({n-ir \choose i-1}\)</span> hợp lý, nghĩa là
+<span class="math inline">\(n-ir \ge i-1 \Leftrightarrow i \le (n+1)/(r+1)\)</span>. Như vậy với
+<span class="math inline">\(n=100, r = 7\)</span> thì <span class="math inline">\(i\le\)</span> 12.625 hay <span class="math inline">\(i=12\)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">=</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="cf">function</span>(i){</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">100</span>; r <span class="ot">=</span> <span class="dv">7</span>; p<span class="ot">&lt;-</span> q<span class="ot">&lt;-</span> <span class="fl">0.5</span></span>

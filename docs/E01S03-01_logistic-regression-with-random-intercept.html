@@ -579,6 +579,35 @@ where <span class="math inline">\(\tanh(x) = (e^x-e^{-x})/(e^x+e^{-x})\)</span>.
 \frac{e^{s+\sigma x}}{1+e^{s+\sigma x}} = \exp{[l(x)]} = \exp{[s+\sigma x - \ln(1+e^{s+\sigma x})]}
 \tag{1.5}
 \]</span></p>
+<p>After adding and removing extra terms to align the form of normal distribution (its integral will be 1), we obtain
+<span class="math display" id="eq:eq16">\[
+I(s,\sigma^2) \approx \frac{e^s}{1+e^s}\exp\Big\{\frac{\sigma^2}{2(1+e^s)^2}\Big\},
+\tag{1.6}
+\]</span>
+this approximation should be accurate for small value of <span class="math inline">\(\sigma\)</span>.</p>
+<p>Also, we use the same idea but we include second order of Taylor series. To this end, the approximation of interest is
+<span class="math display" id="eq:eq17">\[
+I(s,\sigma^2) \approx \frac{e^s}{1+e^s}\frac{\exp\Big\{\frac{\sigma^2}{2(1+e^s)^2+\sigma^2e^s}\Big\}}{\Big\{1+\frac{\sigma^2e^s}{(1+e^2)^2}\Big\}^{1/2}}
+\tag{1.7}
+\]</span></p>
+<p>Another approximation that can be used in such a computation is <em>Laplace approximation</em>. The idea is to use a quadratic approximation at the maximum point of integrand, such an idea works well since the integral can be interpreted as the area under the curve and the best coverage will be in the neighborhood of the maximum. Recall we defined <span class="math inline">\(l(x)\)</span> in <span style="color: #A569BD; font-size: 18px;"><em>Eq.</em></span> <a href="#eq:eq15">(1.5)</a>, so the quadratic approximation has the following expression
+<span class="math display">\[
+h(x) = l(x)-\frac{x^2}{2} = s+\sigma x-\ln(1+e^{s+\sigma x})-\frac{x^2}{2}
+\]</span>
+we will approximate it around <span class="math inline">\(x_{max} = \arg\max h(x)\)</span>. The second order approximation is
+<span class="math display">\[
+h(x) \approx h_{max}+\frac{(x-x_{max})^2}{2}\Big[-\frac{d^2h}{dx^2}\Big|_{x=x_{max}}\Big]
+\]</span>
+Then
+<span class="math display">\[
+\int_{-\infty}^{\infty}\exp\{h(x)\}dx \approx \sqrt{2\pi}\exp\{h_{max}\}\Big[-\frac{d^2h}{dx^2}\Big|_{x=x_{max}}\Big]^{-1/2}
+\]</span>
+This approximation requires maximizing <span class="math inline">\(h(x)\)</span>, so iterative process may be involved. To this end, we obtain
+<span class="math display">\[
+I(s,\sigma^2) \approx \frac{\exp\{s+\sigma x_{max}-(1/2)x^2_{max}\}}
+{\big[\sigma^2\exp\{s+\sigma x_{max}\}+(1+\exp\{s+\sigma x_{max}\})^2\big]^{1/2}}
+\]</span></p>
+<p>Laplace approximation can be improved if we know <span class="math inline">\(h(x)\)</span> is bimodal function. For more information refer <span class="citation"><a href="#ref-dem2013" role="doc-biblioref">Demidenko</a> (<a href="#ref-dem2013" role="doc-biblioref">2013</a>)</span>.</p>
 <!-- Let us deem logistic model as follows -->
 <!-- $$ -->
 <!-- \P(y_{ij}=1|b_i) = \mu(\lambda) = \mu(u+\tr{\beta}\v x_{ij}) = \frac{\exp\{u+\tr{\beta}\v x_{ij}\}}{1+\exp\{u+\tr{\beta}\v x_{ij}\}}, -->
@@ -626,6 +655,11 @@ where <span class="math inline">\(\tanh(x) = (e^x-e^{-x})/(e^x+e^{-x})\)</span>.
 </div>
 <div id="references" class="section level1 unnumbered shad">
 <h1><em>References</em></h1>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-dem2013" class="csl-entry">
+Demidenko, Eugene. 2013. <em>Mixed Models: Theory and Applications with r</em>. John Wiley &amp; Sons.
+</div>
 </div>
 
 

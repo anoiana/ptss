@@ -19,14 +19,7 @@ link-citations: true
 \newcommand{\bar}[1]{\overline{#1}}
 \newcommand{\tr}[1]{{\boldsymbol{#1}}^{\top}}
 
-\newcommand{\exp}[2][]{%
-\def\FirstArg{#1}
-  \ifx\FirstArg\empty
-    \ensuremath{\exp\big\{#2\big\}}% if #1 is empty
-    \else
-    \ensuremath{\exp\Big\{#2\Big\}}% if #2 is not empty
-  \fi
-}
+
 
 \def\E{\Bbb{E}}
 \def\V{\Bbb{V}}
@@ -35,6 +28,7 @@ link-citations: true
 \def\indep{\perp\!\!\!\!\perp}
 \newcommand{\overeq}[2]{\stackrel{#1}{#2}}
 \def\epsilon{\varepsilon} 
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
@@ -47,7 +41,6 @@ ttt = purrr::partial(totitle, icon = "")
 
 ---
 
-$\exp{\alpha}$
 
 # `r ttt('Approximations and useful results ')`
 
@@ -153,6 +146,42 @@ $$
 \frac{e^{s+\sigma x}}{1+e^{s+\sigma x}} = \exp{[l(x)]} = \exp{[s+\sigma x - \ln(1+e^{s+\sigma x})]}
 (\#eq:eq15)
 $$
+
+After adding and removing extra terms to align the form of normal distribution (its integral will be 1), we obtain
+$$
+I(s,\sigma^2) \approx \frac{e^s}{1+e^s}\exp\Big\{\frac{\sigma^2}{2(1+e^s)^2}\Big\},
+(\#eq:eq16)
+$$
+this approximation should be accurate for small value of $\sigma$.
+
+Also, we use the same idea but we include second order of Taylor series. To this end, the approximation of interest is 
+$$
+I(s,\sigma^2) \approx \frac{e^s}{1+e^s}\frac{\exp\Big\{\frac{\sigma^2}{2(1+e^s)^2+\sigma^2e^s}\Big\}}{\Big\{1+\frac{\sigma^2e^s}{(1+e^2)^2}\Big\}^{1/2}}
+(\#eq:eq17)
+$$
+
+Another approximation that can be used in such a computation is *Laplace approximation*. The idea is to use a quadratic approximation at the maximum point of integrand, such an idea works well since the integral can be interpreted as the area under the curve and the best coverage will be in the neighborhood of the maximum. Recall we defined $l(x)$ in `r lb(eq15)`, so the quadratic approximation has the following expression
+$$
+h(x) = l(x)-\frac{x^2}{2} = s+\sigma x-\ln(1+e^{s+\sigma x})-\frac{x^2}{2}
+$$
+we will approximate it around $x_{max} = \arg\max h(x)$. The second order approximation is
+$$
+h(x) \approx h_{max}+\frac{(x-x_{max})^2}{2}\Big[-\frac{d^2h}{dx^2}\Big|_{x=x_{max}}\Big]
+$$
+Then
+$$
+\int_{-\infty}^{\infty}\exp\{h(x)\}dx \approx \sqrt{2\pi}\exp\{h_{max}\}\Big[-\frac{d^2h}{dx^2}\Big|_{x=x_{max}}\Big]^{-1/2}
+$$
+This approximation requires maximizing $h(x)$, so iterative process may be involved. To this end, we obtain
+$$
+I(s,\sigma^2) \approx \frac{\exp\{s+\sigma x_{max}-(1/2)x^2_{max}\}}
+{\big[\sigma^2\exp\{s+\sigma x_{max}\}+(1+\exp\{s+\sigma x_{max}\})^2\big]^{1/2}}
+$$
+
+Laplace approximation can be improved if we know $h(x)$ is bimodal function. For more information refer @dem2013.
+
+
+
 
 
 

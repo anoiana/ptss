@@ -13,23 +13,20 @@ bibliography: ["_supp/citation.bib"]
 link-citations: true
 ---
 
-\newcommand{\bf}[1]{\boldsymbol{#1}}
+\newcommand{\v}[1]{\boldsymbol{#1}}
 \newcommand{\hat}[1]{\widehat{#1}}
 \newcommand{\mm}[1]{\mathbb{#1}}
 \newcommand{\bar}[1]{\overline{#1}}
-\newcommand{\tp}[1]{{#1}^{\top}}
+\newcommand{\tp}[1]{{\v{#1}}^{\top}}
 \newcommand{\scr}[1]{\mathscr{#1}}
-
 
 \def\E{\Bbb{E}}
 \def\V{\Bbb{V}}
 \def\P{\Bbb{P}}
 \def\I{{\large\unicode{x1D7D9}}}
 \def\indep{\perp\!\!\!\!\perp}
-\newcommand{\overeq}[2]{\stackrel{#1}{#2}}
 \def\epsilon{\varepsilon} 
-\def\logit{\text{logit}} 
-
+\def\logit{\text{logit}}
 
 ::: {.right .shad}
 [tham khảo tại @rei2019]
@@ -45,31 +42,70 @@ options("scipen"=100)
 source("_supp/helper.R")
 library(tidyverse)
 ttt = purrr::partial(totitle, icon ="")
+# stackrel
 ```
 
-***
+# Gibbs sampling
 
-# `r ttt('các phương pháp tất định (deterministic methods)')`
-
-## `r ttt('cực đại hàm hậu nghiệm')`
-
-Ký hiệu là $\hat{\theta}_{MAP}$ được tính bằng cách maximize hàm hậu nghiệm $f(\theta|x)$, nghĩa là
+Let us consider the following random samples
 $$
-\hat{\theta}_{MAP} = \arg\max_{\theta\in \Theta}\ln[f(\theta|x)] = \arg\max_{\theta\in\Theta}\ln[f(x|\theta)f(\theta)]
-(\#eq:eq11)
+\begin{align}
+& Y_1, \dots, Y_n \stackrel{\text{iid}}{\sim} \mathcal{N}(\mu,\sigma^2), \quad \text{where} \\
+& \mu \sim \mathcal{N}(\gamma,\tau^2), \text{ and }\quad \sigma^2 \sim \mathcal{InvGam}(a,b)
+\end{align}
+(\#eq:eq1)
+$$
+thus, we obtain conditional posterio distribution as follows
+$$
+\mu|\sigma^2,\v Y \sim \mathcal{N}\bigg(\frac{\tp Y\v 1_n(1/\sigma^2)+\gamma/\tau^2}{n/\sigma^2+1/\tau^2},\frac{1}{n/\sigma^2+1/\tau^2}\bigg)
+(\#eq:eq2)
+$$
+$$
+\sigma^2|\mu,\v Y \sim \mathcal{InvGam}\bigg(n/2+a, (1/2)(\v Y -\mu\v 1_n)^\top(\v Y -\mu\v 1_n)+b \bigg)
 $$
 
+```{r}
+y <- c(2.68,1.18,-0.97,-0.98,-1.03)
+iter = 25000
+samples = matrix(rep(NA,iter*2), ncol = 2)%>% `colnames<-`(c("mean","sigma2"))
+
+#initial values
+mu = mean(y); sigma2 = var(y)
+n = length(y)
+
+# prior
+gam = 0; tau = 100^2; a <- b<- .1
+
+for(i in 1:iter){
+  
+P = n/sigma2 + 1/tau
+M = sum(y)/sigma2 + gam/tau
+mu = rnorm(1,M/P,1/sqrt(P))
+
+A = n/2+a; B = sum((y-mu)^2)/2+b
+sigma2 = 1/rgamma(1,A,B)
+  
+  samples[i,]<- c("mu" = mu, "sigma2" = sqrt(sigma2))
+}
+s = samples %>% as.data.frame()
+
+plot(s$mean,s$sigma2)
+```
 
 
 
+
+
+# Metropolis-Hastings (MH) sampling
+
+Ta xem xét phân bố sau $$
+Y_i|\boldsymbol{\beta }\sim \mathcal{Poi}[N\exp(\beta_1+\beta_2i)]
+$$ với $i = 1,\dots,4$, như vậy ta có hàm likelihood $$
+f(\boldsymbol{Y}|\boldsymbol{\beta}) \propto \prod_{i=1}^4\exp\{-N\exp(\beta_1+\beta_2i)\}\exp\{Y_i(\beta_1+\beta_2i)\}
+$$
 
 <!-- ----------------------------------------------------------------------------- -->
 
-:::{.shad} 
-# References {-}
+::: {.shad}
+# References {.unnumbered}
 :::
-
-
-
-
-

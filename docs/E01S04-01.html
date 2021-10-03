@@ -11,7 +11,7 @@
 
 
 
-<title>✑ Giới Thiệu Bayes</title>
+<title>✑ Analysis of Univariate Study-Level Summary Data That Uses Normal Models</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -475,53 +475,24 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">✑ Giới Thiệu Bayes</h1>
-<h4 class="date">📅 2021-06-13</h4>
+<h1 class="title toc-ignore">✑ Analysis of Univariate Study-Level Summary Data That Uses Normal Models</h1>
+<h3 class="subtitle">(E01S04-01)</h3>
+<h4 class="date">📅 2021-08-02</h4>
 
 </div>
 
 
-<div class="right shad">
-<p><span class="citation">(tham khảo tại <a href="#ref-rei2019" role="doc-biblioref">Reich and Ghosh 2019</a>)</span></p>
-</div>
+<!-- \newcommand{\tp}[1]{{#1}^{\top}} -->
 <div class="watermark">
 <p><em>DRAFT</em></p>
 </div>
-<div id="gibbs-sampling" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Gibbs sampling</h1>
-<p>Let us consider the following random samples
-<span class="math display" id="eq:eq1">\[
-\begin{align}
-&amp; Y_1, \dots, Y_n \stackrel{\text{iid}}{\sim} \mathcal{N}(\mu,\sigma^2), \quad \text{where} \\
-&amp; \mu \sim \mathcal{N}(\gamma,\tau^2), \text{ and }\quad \sigma^2 \sim \mathcal{InvGam}(a,b)
-\end{align}
-\tag{1.1}
-\]</span>
-thus, we obtain conditional posterio distribution as follows
-<span class="math display" id="eq:eq2">\[
-\mu|\sigma^2,\boldsymbol{Y} \sim \mathcal{N}\bigg(\frac{{\boldsymbol{Y}}^{\top}\boldsymbol{1}_n(1/\sigma^2)+\gamma/\tau^2}{n/\sigma^2+\tau^2},\frac{1}{n/\sigma^2+1/\tau^2}\bigg)
-\tag{1.2}
-\]</span>
-<span class="math display">\[
-\sigma^2|\mu,\boldsymbol{Y} \sim \mathcal{InvGam}\bigg(n/2+a, (1/2)(\boldsymbol{Y} -\mu\boldsymbol{1}_n)^\top(\boldsymbol{Y} -\mu\boldsymbol{1}_n)+b \bigg)
-\]</span></p>
-</div>
-<div id="metropolis-hastings-mh-sampling" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Metropolis-Hastings (MH) sampling</h1>
-<p>Ta xem xét phân bố sau <span class="math display">\[
-Y_i|\boldsymbol{\beta }\sim \mathcal{Poi}[N\exp(\beta_1+\beta_2i)]
-\]</span> với <span class="math inline">\(i = 1,\dots,4\)</span>, như vậy ta có hàm likelihood <span class="math display">\[
-f(\boldsymbol{Y}|\boldsymbol{\beta}) \propto \prod_{i=1}^4\exp\{-N\exp(\beta_1+\beta_2i)\}\exp\{Y_i(\beta_1+\beta_2i)\}
-\]</span></p>
+<hr />
+<div id="section" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> </h1>
 <!-- ----------------------------------------------------------------------------- -->
 </div>
 <div id="references" class="section level1 unnumbered shad">
-<h1>References</h1>
-</div>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-rei2019" class="csl-entry">
-Reich, Brian J, and Sujit K Ghosh. 2019. <em>Bayesian Statistical Methods</em>. CRC Press.
-</div>
+<h1><em>References</em></h1>
 </div>
 
 
