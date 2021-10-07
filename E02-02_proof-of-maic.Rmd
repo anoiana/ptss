@@ -3,6 +3,7 @@ params:
   update_date: FALSE
 date: "`r source('_supp/helper.R');newdate_func(params$update_date)`"
 title: "`r totitle('why does optimization of MAIC method turn out to be fitting logistic model?')`"
+author: "Anh"
 output: 
   bookdown::html_document2:
     toc: false

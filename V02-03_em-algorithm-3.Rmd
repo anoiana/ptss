@@ -4,6 +4,7 @@ params:
 date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
 title: "Thuật Toán Expectation-Maximization (EM) (3/3)"
 subtitle: "Phần III - `r totitle('bài toán phân cụm',icon ='')`"
+author: "Anh"
 output: 
   bookdown::html_document2:
     code_folding: hide

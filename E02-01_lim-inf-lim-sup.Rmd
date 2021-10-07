@@ -3,6 +3,7 @@ params:
   update_date: FALSE
 date: "`r source('_supp/helper.R');newdate_func(params$update_date)`"
 title: "`r totitle('Limit of Supremum and Infimum')`"
+author: "Anh"
 output: 
   bookdown::html_document2:
     code_folding: hide

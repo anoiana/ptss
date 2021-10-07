@@ -4,6 +4,7 @@ params:
   run_chunk: FALSE
 date: "`r source('_supp/helper.R'); newdate_func(params$update_date)`"
 title: "`r totitle('meta-analysis model')`"
+author: "Anh"
 output: 
   bookdown::html_document2:
     code_folding: hide
